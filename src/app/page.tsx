@@ -1,377 +1,544 @@
-import CoveragePanel from "@/components/coverage-panel";
+import type { Metadata } from "next";
+import "./hvac.css";
+import { SiteHeader } from "@/components/hvac/site-header";
+import { MobileCta } from "@/components/hvac/mobile-cta";
+import { Reveal } from "@/components/hvac/reveal";
+import { HeroCaptureForm, FinalCaptureForm } from "@/components/hvac/capture-form";
+import {
+  IconBanknote,
+  IconCalendarCheck,
+  IconChevronDown,
+  IconClock,
+  IconFileCheck,
+  IconFileText,
+  IconHandCoins,
+  IconPhone,
+  IconPhoneIncoming,
+  IconPhoneMissed,
+  IconRefreshCw,
+  IconRoute,
+  IconShieldCheck,
+  IconStar,
+  IconUser,
+  IconUserCheck,
+  IconCheck,
+} from "@/components/hvac/icons";
 
-/* ------------------------------------------------------------------ */
-/*  Data                                                               */
-/* ------------------------------------------------------------------ */
+export const metadata: Metadata = {
+  title:
+    "RemoHires for HVAC Owners | Stop Losing Jobs You’ve Already Earned",
+  description:
+    "Missed calls, cold quotes, and unpaid invoices are booked revenue slipping away. RemoHires places a dedicated full-time teammate who answers, follows up, and chases every job to paid.",
+};
 
-const steps = [
+const painPoints = [
   {
-    n: "01",
-    title: "Tell us the role",
-    body: "Share the skills, seniority, and time-zone overlap you need. Takes about ten minutes — no job-spec templates required.",
+    icon: IconPhoneMissed,
+    title: "Missed Calls",
+    body: "The after-hours call comes in while you are on a job or at dinner. It rings out, and the booking goes to whoever picks up first.",
   },
   {
-    n: "02",
-    title: "Meet your shortlist",
-    body: "Within 5 business days you get 3–5 pre-vetted candidates, each with work samples, a recorded intro, and reference checks done.",
+    icon: IconBanknote,
+    title: "Unpaid Invoices",
+    body: "The work is done, the money is not. Invoices sit while you are too busy to chase, and cash you already earned stays in someone else’s account.",
   },
   {
-    n: "03",
-    title: "Hire, we handle the rest",
-    body: "Pick who fits. We run compliant contracts, local payroll, and equipment in 90+ countries. You just onboard.",
+    icon: IconFileText,
+    title: "Cold Quotes",
+    body: "You send the estimate, then get buried. Nobody follows up, so the homeowner books whoever calls them back first.",
   },
 ];
 
 const features = [
   {
-    label: "Vetting",
-    title: "Top 4% make the cut",
-    body: "Every candidate clears a skills assessment, a live technical or craft interview, and English-communication screening before you ever see them.",
+    icon: IconPhone,
+    title: "Answer Every Call",
+    body: "Every call picked up live in your company name, so the job lands on your board, not a competitor’s.",
   },
   {
-    label: "Compliance",
-    title: "Contracts in 90+ countries",
-    body: "We are the employer of record where you need one. Misclassification risk, local benefits, and tax filings stay off your plate.",
+    icon: IconCalendarCheck,
+    title: "Book And Schedule Jobs",
+    body: "New work booked into your calendar and slotted to the right day and tech.",
   },
   {
-    label: "Overlap",
-    title: "Built around your hours",
-    body: "Filter by the working window you actually need. We match for real time-zone overlap, not a city on a résumé.",
+    icon: IconRoute,
+    title: "Keep Dispatch Moving",
+    body: "Techs routed to the right address as the day shifts and jobs run long.",
   },
   {
-    label: "Speed",
-    title: "Days, not quarters",
-    body: "The median RemoHires role fills in 11 days. Keep the momentum of a growing team instead of a hiring freeze.",
+    icon: IconFileCheck,
+    title: "Follow Up On Quotes",
+    body: "Every open estimate chased on a set schedule, so the quotes you already priced turn into booked work.",
+  },
+  {
+    icon: IconStar,
+    title: "Request Reviews",
+    body: "Happy customers asked for a review while the good service is still fresh.",
+  },
+  {
+    icon: IconHandCoins,
+    title: "Chase What You Are Owed",
+    body: "Every due invoice followed up in a friendly, steady way until it is paid.",
   },
 ];
 
-const stats = [
-  { value: "11", unit: "days", label: "Median time to hire" },
-  { value: "4%", unit: "", label: "Acceptance rate of applicants" },
-  { value: "92%", unit: "", label: "Still on the team after a year" },
-  { value: "90+", unit: "", label: "Countries we contract in" },
+const vetting = [
+  {
+    icon: IconShieldCheck,
+    direction: "l" as const,
+    title: "Clear Spoken English",
+    body: "Every candidate is screened for phone-ready English and a warm, friendly manner.",
+  },
+  {
+    icon: IconClock,
+    title: "Your Business Hours",
+    body: "Your teammate works your local hours, so customers reach a person when they call.",
+  },
+  {
+    icon: IconUserCheck,
+    title: "One Dedicated Person",
+    body: "You get the same teammate each day, trained on your services and your tone.",
+  },
+  {
+    icon: IconRefreshCw,
+    direction: "r" as const,
+    title: "Payroll And A Fast Swap",
+    body: "We employ your teammate and carry payroll, taxes, and compliance. If the fit is off, we swap them quickly.",
+  },
 ];
 
-const roles = [
-  "Software Engineers",
-  "Product Designers",
-  "Data Analysts",
-  "Customer Support",
-  "Finance & Ops",
-  "Growth Marketers",
-  "QA Engineers",
-  "Project Managers",
+const pilotCards = [
+  {
+    title: "Founding Rate",
+    body: "A flat monthly rate, less than a full-time local front desk, locked in while you stay.",
+  },
+  {
+    title: "Cancel Anytime",
+    body: "No long lock-in. You stay because it works, not because of a contract.",
+  },
+  {
+    title: "Money Back Month One",
+    body: "If your teammate does not earn their keep in the first month, you get your money back.",
+  },
 ];
 
-/* ------------------------------------------------------------------ */
-/*  Small presentational helpers                                       */
-/* ------------------------------------------------------------------ */
+const comparisonRows = [
+  {
+    label: "Dedicated to your business",
+    us: "Yes",
+    shared: "Shared across clients",
+    bot: "A script, not a person",
+    local: "Yes",
+  },
+  {
+    label: "Books, dispatches, follows up",
+    us: "Yes",
+    shared: "Mostly takes messages",
+    bot: "Simple calls only",
+    local: "Yes",
+  },
+  {
+    label: "Handles the odd request with judgment",
+    us: "Yes",
+    shared: "Sometimes",
+    bot: "No",
+    local: "Yes",
+  },
+  {
+    label: "Covers your business hours",
+    us: "Yes",
+    shared: "Often 24/7",
+    bot: "24/7",
+    local: "One shift",
+  },
+  {
+    label: "Chases cold quotes and unpaid invoices",
+    us: "Yes",
+    shared: "No",
+    bot: "No",
+    local: "Maybe",
+  },
+  {
+    label: "Hiring, payroll, and compliance",
+    us: "We employ them",
+    shared: "Not your staff",
+    bot: "Not applicable",
+    local: "You handle it",
+  },
+];
 
-function Eyebrow({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-blue">
-      <span className="h-1.5 w-1.5 rounded-full bg-sky" />
-      {children}
-    </span>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Page                                                               */
-/* ------------------------------------------------------------------ */
+const faqs = [
+  {
+    q: "How much does it cost?",
+    a: "Flat monthly rate, set to the role. Founding clients get our lowest rate, can cancel anytime, and get their money back if the first month does not earn its keep. We share the exact figure on your call and how it compares to a local front desk.",
+  },
+  {
+    q: "Will my customers understand them?",
+    a: "Yes. Every candidate is screened for clear, phone-ready English and trained on your services before they take a single call.",
+  },
+  {
+    q: "What if I already use an answering service or an AI?",
+    a: "Many owners do. A shared service or a bot can catch a call, but a dedicated teammate learns your shop, books the job, follows up on quotes, and handles the odd request a script drops. You keep more of the calls that turn into work.",
+  },
+  {
+    q: "What hours are covered?",
+    a: "Your teammate works your local business hours, and we can arrange evening or weekend cover for your busy season.",
+  },
+  {
+    q: "Is this a full-time hire?",
+    a: "Yes. RemoHires places full-time remote employees, employed through our Employer of Record, so you get a committed teammate and we carry the payroll and compliance.",
+  },
+  {
+    q: "Who touches my phones, customers, and payments?",
+    a: "Your teammate starts on calls and quote follow-up. Access to your CRM or any billing is added only as you decide, with the permissions you set. You keep control of the tools and the customer relationship.",
+  },
+  {
+    q: "What if they are sick or it does not work out?",
+    a: "Your teammate works your hours, and we can arrange cover for busy periods. If the fit is off, we swap them quickly, so your phone does not go dark.",
+  },
+  {
+    q: "How do we get started?",
+    a: "Book a discovery call. We screen and match candidates to your needs, then you meet a shortlist and choose before anyone starts.",
+  },
+];
 
 export default function Home() {
   return (
     <>
-      {/* ---------- Nav ---------- */}
-      <header className="sticky top-0 z-50 border-b border-line/70 bg-canvas/85 backdrop-blur">
-        <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
-          <a href="#top" className="flex items-center gap-2">
-            <span className="grid h-7 w-7 place-items-center rounded-md bg-navy font-display text-sm font-extrabold text-white">
-              R
-            </span>
-            <span className="font-display text-lg font-bold tracking-tight text-ink">
-              RemoHires
-            </span>
-          </a>
-          <div className="hidden items-center gap-8 text-sm text-ink-soft md:flex">
-            <a href="#how" className="transition-colors hover:text-ink">
-              How it works
-            </a>
-            <a href="#why" className="transition-colors hover:text-ink">
-              Why RemoHires
-            </a>
-            <a href="#roles" className="transition-colors hover:text-ink">
-              Roles
-            </a>
-          </div>
-          <div className="flex items-center gap-3">
-            <a
-              href="#"
-              className="hidden text-sm font-medium text-ink transition-colors hover:text-blue sm:block"
-            >
-              Sign in
-            </a>
-            <a
-              href="#cta"
-              className="rounded-full bg-ink px-4 py-2 text-sm font-medium text-canvas transition-transform hover:-translate-y-0.5"
-            >
-              Book a call
-            </a>
-          </div>
-        </nav>
-      </header>
-
-      <main id="top" className="flex-1">
+      <link
+        href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap"
+        rel="stylesheet"
+      />
+      <SiteHeader />
+      <main id="top">
         {/* ---------- Hero ---------- */}
-        <section className="relative overflow-hidden">
-          <div className="mx-auto grid max-w-6xl items-center gap-14 px-5 py-16 md:py-24 lg:grid-cols-[1.05fr_1fr]">
-            <div className="rise">
-              <Eyebrow>Remote platform, run like operations</Eyebrow>
-              <h1 className="mt-6 font-display text-5xl font-extrabold leading-[0.98] tracking-tight text-ink sm:text-6xl lg:text-[4.4rem]">
-                Hire remote talent,
-                <br />
-                <span className="text-blue">across every</span> time zone.
-              </h1>
-              <p className="mt-6 max-w-md text-lg leading-relaxed text-ink-soft">
-                RemoHires connects you with vetted professionals worldwide and
-                handles the contracts, payroll, and compliance. A shortlist in
-                days — the whole world in your working hours.
-              </p>
-              <div className="mt-8 flex flex-wrap items-center gap-3">
-                <a
-                  href="#cta"
-                  className="rounded-full bg-blue px-6 py-3 text-base font-semibold text-white shadow-sm transition-transform hover:-translate-y-0.5"
-                >
-                  Start hiring
-                </a>
-                <a
-                  href="#how"
-                  className="rounded-full border border-line-strong px-6 py-3 text-base font-medium text-ink transition-colors hover:border-ink"
-                >
-                  See how it works
-                </a>
-              </div>
-              <p className="mt-6 font-mono text-xs uppercase tracking-[0.14em] text-ink-soft">
-                No retainer · Pay when you hire · Replacements free for 90 days
-              </p>
-            </div>
-
-            <div className="rise" style={{ animationDelay: "120ms" }}>
-              <CoveragePanel />
-            </div>
-          </div>
-        </section>
-
-        {/* ---------- Logo strip ---------- */}
-        <section className="border-y border-line bg-canvas-2/60">
-          <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-5 py-8 sm:flex-row sm:justify-between">
-            <p className="font-mono text-xs uppercase tracking-[0.14em] text-ink-soft">
-              Trusted by teams scaling past borders
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 font-display text-lg font-bold text-ink/45">
-              <span>Northwind</span>
-              <span>Lumen</span>
-              <span>Cadence</span>
-              <span>Fathom</span>
-              <span>Beacon</span>
-            </div>
-          </div>
-        </section>
-
-        {/* ---------- How it works ---------- */}
-        <section id="how" className="mx-auto max-w-6xl px-5 py-20 md:py-28">
-          <div className="max-w-2xl">
-            <Eyebrow>How it works</Eyebrow>
-            <h2 className="mt-5 font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
-              Three steps. Most of the work is ours.
-            </h2>
-          </div>
-          <ol className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-3">
-            {steps.map((s) => (
-              <li key={s.n} className="bg-canvas p-8">
-                <span className="font-mono text-sm text-blue">{s.n}</span>
-                <h3 className="mt-4 font-display text-2xl font-bold text-ink">
-                  {s.title}
-                </h3>
-                <p className="mt-3 leading-relaxed text-ink-soft">{s.body}</p>
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        {/* ---------- Features ---------- */}
-        <section id="why" className="border-y border-line bg-canvas-2/50">
-          <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
-            <div className="max-w-2xl">
-              <Eyebrow>Why RemoHires</Eyebrow>
-              <h2 className="mt-5 font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
-                A hiring desk that runs while you sleep.
-              </h2>
-            </div>
-            <div className="mt-14 grid gap-6 sm:grid-cols-2">
-              {features.map((f) => (
-                <div
-                  key={f.title}
-                  className="group rounded-2xl border border-line bg-canvas p-8 transition-colors hover:border-blue"
-                >
-                  <span className="font-mono text-xs uppercase tracking-[0.16em] text-blue">
-                    {f.label}
-                  </span>
-                  <h3 className="mt-3 font-display text-2xl font-bold text-ink">
-                    {f.title}
-                  </h3>
-                  <p className="mt-3 leading-relaxed text-ink-soft">{f.body}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ---------- Stats band ---------- */}
-        <section className="bg-navy text-white">
-          <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-5 py-16 md:grid-cols-4 md:py-20">
-            {stats.map((s) => (
-              <div key={s.label}>
-                <p className="font-display text-5xl font-extrabold tracking-tight text-turquoise sm:text-6xl">
-                  {s.value}
-                  {s.unit && (
-                    <span className="ml-1 text-2xl font-semibold text-sky">
-                      {s.unit}
-                    </span>
-                  )}
+        <section className="hero">
+          <div className="wrap">
+            <div className="grid">
+              <Reveal direction="l">
+                <span className="eyebrow">For HVAC Owners</span>
+                <h1>Stop Losing Jobs You&rsquo;ve Already Earned</h1>
+                <p className="sub">
+                  The missed call, the quote you never chased, the invoice
+                  left unpaid. That is booked revenue walking out the door. A
+                  dedicated, full-time teammate catches all three, so you can
+                  stay on the tools.
                 </p>
-                <p className="mt-2 text-sm text-white/70">{s.label}</p>
-              </div>
-            ))}
+                <HeroCaptureForm />
+                <a className="seelink" href="#role">
+                  See how it works{" "}
+                  <span className="ic">
+                    <IconChevronDown />
+                  </span>
+                </a>
+                <div className="cticks">
+                  <span>
+                    <span className="ic">
+                      <IconCheck />
+                    </span>
+                    Screened, full-time, dedicated
+                  </span>
+                  <span>
+                    <span className="ic">
+                      <IconCheck />
+                    </span>
+                    We employ them, payroll on us
+                  </span>
+                  <span>
+                    <span className="ic">
+                      <IconCheck />
+                    </span>
+                    Money back your first month
+                  </span>
+                </div>
+              </Reveal>
+              <Reveal direction="r">
+                <div className="callcard">
+                  <div className="bar">
+                    <div className="dot">
+                      <span className="ic">
+                        <IconPhone />
+                      </span>
+                    </div>
+                    <div>
+                      <b>Front Desk, Live</b>
+                      <small>Tuesday, 6:42 PM</small>
+                    </div>
+                  </div>
+                  <div className="callrow">
+                    <span className="ic">
+                      <IconPhoneIncoming />
+                    </span>
+                    <div className="t">
+                      Incoming call, Maple Street
+                      <small>No cooling, upstairs unit</small>
+                    </div>
+                    <span className="tag">Answered</span>
+                  </div>
+                  <div className="callrow">
+                    <span className="ic">
+                      <IconCalendarCheck />
+                    </span>
+                    <div className="t">
+                      Job booked for tomorrow 9 AM
+                      <small>Added to the schedule</small>
+                    </div>
+                    <span className="tag blue">Booked</span>
+                  </div>
+                  <div className="callrow">
+                    <span className="ic">
+                      <IconRoute />
+                    </span>
+                    <div className="t">
+                      Tech routed, Diego
+                      <small>Closest van, notified</small>
+                    </div>
+                    <span className="tag blue">Dispatched</span>
+                  </div>
+                  <div className="callrow">
+                    <span className="ic">
+                      <IconStar />
+                    </span>
+                    <div className="t">
+                      Quote followed up, job won
+                      <small>$4,200 install from Monday</small>
+                    </div>
+                    <span className="tag">Won</span>
+                  </div>
+                </div>
+              </Reveal>
+            </div>
           </div>
         </section>
 
-        {/* ---------- Testimonial ---------- */}
-        <section className="mx-auto max-w-4xl px-5 py-20 md:py-28">
-          <blockquote className="text-center">
-            <p className="font-display text-3xl font-semibold leading-snug tracking-tight text-ink sm:text-4xl">
-              &ldquo;We filled three engineering roles across two continents in
-              under a month. RemoHires handled contracts I&rsquo;d have spent a
-              quarter figuring out.&rdquo;
-            </p>
-            <footer className="mt-8 flex items-center justify-center gap-3">
-              <span className="grid h-11 w-11 place-items-center rounded-full bg-navy-soft font-display text-sm font-bold text-navy">
-                MA
-              </span>
-              <span className="text-left">
-                <span className="block font-medium text-ink">Mara Aoki</span>
-                <span className="block text-sm text-ink-soft">
-                  VP Engineering, Cadence
-                </span>
-              </span>
-            </footer>
-          </blockquote>
+        {/* ---------- Where money leaks ---------- */}
+        <section id="pain">
+          <div className="wrap">
+            <Reveal className="sec-head">
+              <span className="eyebrow">Where Your Money Goes</span>
+              <h2>Three Ways The Money Leaks Out</h2>
+              <p>
+                Most of what you lose is not new business. It is work you
+                already won, slipping through the cracks while you are up on
+                a roof.
+              </p>
+            </Reveal>
+            <div className="grid3">
+              {painPoints.map((p) => (
+                <Reveal key={p.title} className="card">
+                  <span className="ic">
+                    <p.icon />
+                  </span>
+                  <h3>{p.title}</h3>
+                  <p>{p.body}</p>
+                </Reveal>
+              ))}
+            </div>
+          </div>
         </section>
 
-        {/* ---------- Roles ---------- */}
-        <section id="roles" className="border-y border-line bg-canvas-2/50">
-          <div className="mx-auto max-w-6xl px-5 py-20 md:py-24">
-            <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-              <div className="max-w-xl">
-                <Eyebrow>Roles we place</Eyebrow>
-                <h2 className="mt-5 font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
-                  From your first hire to your fiftieth.
-                </h2>
-              </div>
-              <p className="max-w-xs text-ink-soft">
-                Don&rsquo;t see the role you need? We source specialists on
-                request — tell us what the team is missing.
+        {/* ---------- What you get ---------- */}
+        <section id="role" className="tint">
+          <div className="wrap">
+            <Reveal className="sec-head">
+              <span className="eyebrow">What You Get</span>
+              <h2>One Teammate Who Chases Every Job To Done</h2>
+              <p>
+                A dedicated, full-time teammate who learns your business and
+                owns the work from the first ring to the paid invoice.
               </p>
-            </div>
-            <ul className="mt-12 flex flex-wrap gap-3">
-              {roles.map((r) => (
-                <li
-                  key={r}
-                  className="rounded-full border border-line-strong bg-canvas px-5 py-2.5 text-sm font-medium text-ink"
-                >
-                  {r}
-                </li>
+            </Reveal>
+            <div className="feat">
+              {features.map((f) => (
+                <Reveal key={f.title} className="card">
+                  <span className="ic">
+                    <f.icon />
+                  </span>
+                  <h3>{f.title}</h3>
+                  <p>{f.body}</p>
+                </Reveal>
               ))}
-            </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* ---------- Why RemoHires ---------- */}
+        <section id="why">
+          <div className="wrap">
+            <Reveal className="sec-head">
+              <span className="eyebrow">Why RemoHires</span>
+              <h2>More Than A Bot Can Do</h2>
+              <p>
+                You have probably been told to just automate it. A bot can
+                catch a call. It will not chase a cold quote or a customer on
+                the fence, and it will not get an unpaid invoice paid.
+              </p>
+            </Reveal>
+            <Reveal className="cmpwrap">
+              <table className="cmp">
+                <thead>
+                  <tr>
+                    <th>What You Get</th>
+                    <th className="us">RemoHires</th>
+                    <th>Shared Answering Service</th>
+                    <th>AI Answering Bot</th>
+                    <th>Local Front-Desk Hire</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {comparisonRows.map((row) => (
+                    <tr key={row.label}>
+                      <td>{row.label}</td>
+                      <td className="us">
+                        <span className="y">
+                          <span className="ic">
+                            <IconCheck />
+                          </span>
+                          {row.us}
+                        </span>
+                      </td>
+                      <td>{row.shared}</td>
+                      <td>{row.bot}</td>
+                      <td>{row.local}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </Reveal>
+            <p className="cmpnote">
+              Use both. Let a bot grab the call. Let a real person make sure
+              the job gets booked, done, and paid. That is the half
+              automation keeps dropping.
+            </p>
+          </div>
+        </section>
+
+        {/* ---------- How we vet ---------- */}
+        <section className="tint">
+          <div className="wrap">
+            <Reveal className="sec-head">
+              <span className="eyebrow">How We Vet</span>
+              <h2>Screened And Employed Right</h2>
+              <p>
+                A remote hire works when you trust the person on the phone.
+                Here is how we make that safe for your customers, and easy to
+                walk back if the fit is off.
+              </p>
+            </Reveal>
+            <div className="grid-auto">
+              {vetting.map((v) => (
+                <Reveal key={v.title} direction={v.direction} className="card">
+                  <span className="ic">
+                    <v.icon />
+                  </span>
+                  <h3>{v.title}</h3>
+                  <p>{v.body}</p>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ---------- Proof ---------- */}
+        <section>
+          <div className="wrap">
+            <Reveal className="sec-head">
+              <span className="eyebrow">Proof</span>
+              <h2>Built With A Real HVAC Owner</h2>
+            </Reveal>
+            <Reveal className="proof">
+              <div className="av">
+                <span className="ic">
+                  <IconUser />
+                </span>
+              </div>
+              <div>
+                <p>
+                  Michael was the front desk, the dispatcher, and the man on
+                  the roof. We built RemoHires around his real day, so his
+                  teammate now catches the calls he used to miss and follows
+                  up on the quotes that used to sit.{" "}
+                  <b>Louisiana Home Performance</b> is our first partner,
+                  which is exactly why founding clients get this much
+                  attention.
+                </p>
+                <small>Michael, Founder, Louisiana Home Performance</small>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* ---------- Founding pilot ---------- */}
+        <section className="tint">
+          <div className="wrap">
+            <Reveal className="sec-head">
+              <span className="eyebrow">Founding Pilot</span>
+              <h2>Try It With The Risk On Us</h2>
+              <p>
+                We are taking a small number of founding HVAC clients while
+                we build. You get our lowest rate and the most hands-on
+                onboarding we will ever offer.
+              </p>
+            </Reveal>
+            <div className="grid3">
+              {pilotCards.map((c) => (
+                <Reveal key={c.title} className="card">
+                  <h3>{c.title}</h3>
+                  <p>{c.body}</p>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </section>
 
         {/* ---------- Final CTA ---------- */}
-        <section id="cta" className="mx-auto max-w-6xl px-5 py-20 md:py-28">
-          <div className="relative overflow-hidden rounded-3xl bg-navy px-8 py-16 text-center md:px-16 md:py-20">
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-turquoise/25 blur-2xl"
-            />
-            <h2 className="relative font-display text-4xl font-extrabold tracking-tight text-canvas sm:text-5xl">
-              Your next hire is already awake somewhere.
-            </h2>
-            <p className="relative mx-auto mt-5 max-w-lg text-lg text-white/80">
-              Book a 20-minute call. Walk away with a hiring plan and, if it
-              fits, a shortlist within the week.
-            </p>
-            <div className="relative mt-9 flex flex-wrap items-center justify-center gap-3">
-              <a
-                href="#"
-                className="rounded-full bg-turquoise px-7 py-3.5 text-base font-semibold text-navy transition-transform hover:-translate-y-0.5"
-              >
-                Book a call
-              </a>
-              <a
-                href="#"
-                className="rounded-full border border-white/30 px-7 py-3.5 text-base font-medium text-white transition-colors hover:bg-white/10"
-              >
-                Browse talent
-              </a>
-            </div>
+        <section id="book">
+          <div className="wrap">
+            <Reveal className="final">
+              <span className="eyebrow">Get Started</span>
+              <h2 style={{ marginTop: 12 }}>
+                Ready To Stop Leaving Money On The Table?
+              </h2>
+              <p className="fsub">
+                Tell us about your shop and your busiest hours. We will show
+                you where the jobs are slipping and how a dedicated teammate
+                plugs the leaks.
+              </p>
+              <FinalCaptureForm />
+            </Reveal>
+          </div>
+        </section>
+
+        {/* ---------- FAQ ---------- */}
+        <section id="faq">
+          <div className="wrap">
+            <Reveal className="sec-head">
+              <span className="eyebrow">Questions</span>
+              <h2>Questions, Answered</h2>
+            </Reveal>
+            <Reveal className="faq">
+              {faqs.map((item) => (
+                <details key={item.q}>
+                  <summary>{item.q}</summary>
+                  <p>{item.a}</p>
+                </details>
+              ))}
+            </Reveal>
           </div>
         </section>
       </main>
 
-      {/* ---------- Footer ---------- */}
-      <footer className="border-t border-line">
-        <div className="mx-auto flex max-w-6xl flex-col gap-8 px-5 py-12 sm:flex-row sm:justify-between">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="grid h-7 w-7 place-items-center rounded-md bg-navy font-display text-sm font-extrabold text-white">
-                R
-              </span>
-              <span className="font-display text-lg font-bold tracking-tight text-ink">
-                RemoHires
-              </span>
-            </div>
-            <p className="mt-3 max-w-xs text-sm text-ink-soft">
-              Vetted remote talent and compliant hiring in 90+ countries.
+      <MobileCta />
+
+      <footer>
+        <div className="wrap">
+          <span className="logo" role="img" aria-label="RemoHires" />
+          <div className="frow">
+            <p>
+              Full-time remote teammates for growing businesses.{" "}
+              <a href="https://remohires.com">remohires.com</a>
             </p>
-          </div>
-          <div className="grid grid-cols-2 gap-x-12 gap-y-2 text-sm text-ink-soft sm:grid-cols-3">
-            <a href="#how" className="hover:text-ink">
-              How it works
-            </a>
-            <a href="#why" className="hover:text-ink">
-              Why us
-            </a>
-            <a href="#roles" className="hover:text-ink">
-              Roles
-            </a>
-            <a href="#" className="hover:text-ink">
-              Pricing
-            </a>
-            <a href="#" className="hover:text-ink">
-              For talent
-            </a>
-            <a href="#" className="hover:text-ink">
-              Contact
-            </a>
-          </div>
-        </div>
-        <div className="border-t border-line">
-          <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-5 text-xs text-ink-soft sm:flex-row sm:justify-between">
-            <span>© 2026 RemoHires. All rights reserved.</span>
-            <span className="font-mono uppercase tracking-[0.14em]">
-              Built for teams without borders
-            </span>
+            <p>&copy; 2026 RemoHires</p>
           </div>
         </div>
       </footer>
