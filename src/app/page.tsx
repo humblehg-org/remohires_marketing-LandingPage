@@ -127,7 +127,7 @@ export default function Home() {
         <section className="relative overflow-hidden">
           <div className="mx-auto grid max-w-6xl items-center gap-14 px-5 py-16 md:py-24 lg:grid-cols-[1.05fr_1fr]">
             <div className="rise">
-              <Eyebrow>Remote hiring, run like operations</Eyebrow>
+              <Eyebrow>Remote platform, run like operations</Eyebrow>
               <h1 className="mt-6 font-display text-5xl font-extrabold leading-[0.98] tracking-tight text-ink sm:text-6xl lg:text-[4.4rem]">
                 Hire remote talent,
                 <br />
