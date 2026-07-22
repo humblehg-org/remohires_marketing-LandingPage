@@ -183,9 +183,9 @@ footer a{color:var(--turq);font-weight:600}
 @keyframes rotIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 
 /* hero ticks grid (own-your-leads variant) */
-.cticks{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
-.cticks span{align-items:flex-start}
-@media(max-width:620px){.cticks{grid-template-columns:1fr}}
+.cticks{display:flex;gap:8px 16px;flex-wrap:wrap;margin-top:20px;font-size:13px;color:var(--muted)}
+.cticks span{display:inline-flex;align-items:center;gap:7px}
+.cticks .ic{width:16px;height:16px;color:#0f9b6c}
 @media(max-width:860px){.visualcol{display:none}}
 .illus{font-size:11px;color:var(--muted);text-align:center;margin-top:10px}
 
