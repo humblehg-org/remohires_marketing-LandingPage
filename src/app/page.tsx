@@ -1,204 +1,111 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import "./hvac.css";
 import { SiteHeader } from "@/components/hvac/site-header";
 import { MobileCta } from "@/components/hvac/mobile-cta";
 import { Reveal } from "@/components/hvac/reveal";
-import { HeroCaptureForm, FinalCaptureForm } from "@/components/hvac/capture-form";
+import { TopStrip } from "@/components/hvac/top-strip";
+import { SelfCheck } from "@/components/hvac/self-check";
+import { LeadForm } from "@/components/hvac/lead-form";
 import {
-  IconBanknote,
-  IconCalendarCheck,
-  IconChevronDown,
-  IconClock,
-  IconFileCheck,
-  IconFileText,
-  IconHandCoins,
-  IconPhone,
-  IconPhoneIncoming,
-  IconPhoneMissed,
-  IconRefreshCw,
-  IconRoute,
-  IconShieldCheck,
-  IconStar,
-  IconUser,
-  IconUserCheck,
-  IconCheck,
+  IconCheckFilled,
+  IconSparkFilled,
+  IconPhoneCallFilled,
+  IconCycleFilled,
+  IconClockFilled,
+  IconShieldFilled,
+  IconXFilled,
 } from "@/components/hvac/icons";
 
 export const metadata: Metadata = {
-  title:
-    "RemoHires for HVAC Owners | Stop Losing Jobs You’ve Already Earned",
+  title: "RemoHires | Own Your Leads, Not Shared Ones",
   description:
-    "Missed calls, cold quotes, and unpaid invoices are booked revenue slipping away. RemoHires places a dedicated full-time teammate who answers, follows up, and chases every job to paid.",
+    "The lead you bought from Angi went to five other contractors. We build the channels you own, so the homeowner calls you, and only you.",
 };
 
 const painPoints = [
   {
-    icon: IconPhoneMissed,
-    title: "Missed Calls",
-    body: "The after-hours call comes in while you are on a job or at dinner. It rings out, and the booking goes to whoever picks up first.",
+    icon: IconPhoneCallFilled,
+    title: "Sold To Five At Once",
+    body: "One lead, five contractors, a homeowner already tired of the phone.",
   },
   {
-    icon: IconBanknote,
-    title: "Unpaid Invoices",
-    body: "The work is done, the money is not. Invoices sit while you are too busy to chase, and cash you already earned stays in someone else’s account.",
+    icon: IconCycleFilled,
+    title: "Paying To Fight For Scraps",
+    body: "You bid against four others for a customer none of you own.",
   },
   {
-    icon: IconFileText,
-    title: "Cold Quotes",
-    body: "You send the estimate, then get buried. Nobody follows up, so the homeowner books whoever calls them back first.",
+    icon: IconClockFilled,
+    title: "Chasing Dead Numbers",
+    body: "Half the numbers ring dead or wrong, and you paid for every one.",
   },
 ];
 
-const features = [
+const howItems = [
   {
-    icon: IconPhone,
-    title: "Answer Every Call",
-    body: "Every call picked up live in your company name, so the job lands on your board, not a competitor’s.",
+    icon: IconSparkFilled,
+    title: "Lift Your Google Profile",
+    body: "We optimize and post so you compete for the top of the local map.",
   },
   {
-    icon: IconCalendarCheck,
-    title: "Book And Schedule Jobs",
-    body: "New work booked into your calendar and slotted to the right day and tech.",
+    icon: IconShieldFilled,
+    title: "Run Your Local Ads",
+    body: "Local Services Ads set up and managed, so you pay for real calls and dispute the junk.",
   },
   {
-    icon: IconRoute,
-    title: "Keep Dispatch Moving",
-    body: "Techs routed to the right address as the day shifts and jobs run long.",
-  },
-  {
-    icon: IconFileCheck,
-    title: "Follow Up On Quotes",
-    body: "Every open estimate chased on a set schedule, so the quotes you already priced turn into booked work.",
-  },
-  {
-    icon: IconStar,
-    title: "Request Reviews",
-    body: "Happy customers asked for a review while the good service is still fresh.",
-  },
-  {
-    icon: IconHandCoins,
-    title: "Chase What You Are Owed",
-    body: "Every due invoice followed up in a friendly, steady way until it is paid.",
+    icon: IconCheckFilled,
+    title: "Grow Your Reviews",
+    body: "A steady stream of real reviews that makes the next homeowner call you.",
   },
 ];
 
-const vetting = [
-  {
-    icon: IconShieldCheck,
-    direction: "l" as const,
-    title: "Clear Spoken English",
-    body: "Every candidate is screened for phone-ready English and a warm, friendly manner.",
-  },
-  {
-    icon: IconClock,
-    title: "Your Business Hours",
-    body: "Your teammate works your local hours, so customers reach a person when they call.",
-  },
-  {
-    icon: IconUserCheck,
-    title: "One Dedicated Person",
-    body: "You get the same teammate each day, trained on your services and your tone.",
-  },
-  {
-    icon: IconRefreshCw,
-    direction: "r" as const,
-    title: "Payroll And A Fast Swap",
-    body: "We employ your teammate and carry payroll, taxes, and compliance. If the fit is off, we swap them quickly.",
-  },
+const themRows = [
+  "One lead is sold to five of you.",
+  "It is gone the day you stop paying.",
+  "You build no asset of your own.",
+];
+
+const usRows = [
+  "The call comes to you, and only you.",
+  "The profile and accounts are yours to keep.",
+  "Every dollar builds a channel you own.",
 ];
 
 const pilotCards = [
   {
-    title: "Founding Rate",
-    body: "A flat monthly rate, less than a full-time local front desk, locked in while you stay.",
+    title: "Money Back Your First Month",
+    body: "If your teammate does not earn their keep in the first month, you get your money back.",
   },
   {
     title: "Cancel Anytime",
     body: "No long lock-in. You stay because it works, not because of a contract.",
   },
   {
-    title: "Money Back Month One",
-    body: "If your teammate does not earn their keep in the first month, you get your money back.",
-  },
-];
-
-const comparisonRows = [
-  {
-    label: "Dedicated to your business",
-    us: "Yes",
-    shared: "Shared across clients",
-    bot: "A script, not a person",
-    local: "Yes",
-  },
-  {
-    label: "Books, dispatches, follows up",
-    us: "Yes",
-    shared: "Mostly takes messages",
-    bot: "Simple calls only",
-    local: "Yes",
-  },
-  {
-    label: "Handles the odd request with judgment",
-    us: "Yes",
-    shared: "Sometimes",
-    bot: "No",
-    local: "Yes",
-  },
-  {
-    label: "Covers your business hours",
-    us: "Yes",
-    shared: "Often 24/7",
-    bot: "24/7",
-    local: "One shift",
-  },
-  {
-    label: "Chases cold quotes and unpaid invoices",
-    us: "Yes",
-    shared: "No",
-    bot: "No",
-    local: "Maybe",
-  },
-  {
-    label: "Hiring, payroll, and compliance",
-    us: "We employ them",
-    shared: "Not your staff",
-    bot: "Not applicable",
-    local: "You handle it",
+    title: "Founding Rate",
+    body: "A flat monthly rate, less than a local front-desk hire, locked in while you stay.",
   },
 ];
 
 const faqs = [
   {
-    q: "How much does it cost?",
-    a: "Flat monthly rate, set to the role. Founding clients get our lowest rate, can cancel anytime, and get their money back if the first month does not earn its keep. We share the exact figure on your call and how it compares to a local front desk.",
+    q: "Do I own the accounts if I leave?",
+    a: "Yes. The Google Business Profile, the ads account, and the website work are yours. You keep the channels even if you stop working with us.",
   },
   {
-    q: "Will my customers understand them?",
-    a: "Yes. Every candidate is screened for clear, phone-ready English and trained on your services before they take a single call.",
+    q: "What happens after I leave my email?",
+    a: "One email back from a real person here. No spam, no card, and no call unless you ask for one.",
   },
   {
-    q: "What if I already use an answering service or an AI?",
-    a: "Many owners do. A shared service or a bot can catch a call, but a dedicated teammate learns your shop, books the job, follows up on quotes, and handles the odd request a script drops. You keep more of the calls that turn into work.",
+    q: "Do I have to quit Angi right away?",
+    a: "No. We build your owned channels alongside what you have now, so you move off the resellers once your own calls come in.",
   },
   {
-    q: "What hours are covered?",
-    a: "Your teammate works your local business hours, and we can arrange evening or weekend cover for your busy season.",
-  },
-  {
-    q: "Is this a full-time hire?",
-    a: "Yes. RemoHires places full-time remote employees, employed through our Employer of Record, so you get a committed teammate and we carry the payroll and compliance.",
-  },
-  {
-    q: "Who touches my phones, customers, and payments?",
-    a: "Your teammate starts on calls and quote follow-up. Access to your CRM or any billing is added only as you decide, with the permissions you set. You keep control of the tools and the customer relationship.",
-  },
-  {
-    q: "What if they are sick or it does not work out?",
-    a: "Your teammate works your hours, and we can arrange cover for busy periods. If the fit is off, we swap them quickly, so your phone does not go dark.",
+    q: "What if it is not a fit?",
+    a: "We swap the team member quickly, and your first month is money back if it does not earn its keep.",
   },
   {
     q: "How do we get started?",
-    a: "Book a discovery call. We screen and match candidates to your needs, then you meet a shortlist and choose before anyone starts.",
+    a: "Leave your name and email. A real person will reach out once, and we take it from there.",
   },
 ];
 
@@ -209,102 +116,99 @@ export default function Home() {
         href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap"
         rel="stylesheet"
       />
+      <TopStrip />
       <SiteHeader />
       <main id="top">
         {/* ---------- Hero ---------- */}
-        <section className="hero">
+        <section className="hero" style={{ padding: 0 }}>
           <div className="wrap">
             <div className="grid">
               <Reveal direction="l">
-                <span className="eyebrow">For HVAC Owners</span>
-                <h1>Stop Losing Jobs You&rsquo;ve Already Earned</h1>
+                <span className="eyebrow">Home-service owners</span>
+                <h1>Own Your Leads, Not Shared Ones</h1>
                 <p className="sub">
-                  The missed call, the quote you never chased, the invoice
-                  left unpaid. That is booked revenue walking out the door. A
-                  dedicated, full-time teammate catches all three, so you can
-                  stay on the tools.
+                  The lead you bought went to five other contractors too. We
+                  build the channels you own, so the homeowner calls you, and
+                  only you.
                 </p>
-                <HeroCaptureForm />
-                <a className="seelink" href="#role">
-                  See how it works{" "}
-                  <span className="ic">
-                    <IconChevronDown />
-                  </span>
-                </a>
+                <SelfCheck />
                 <div className="cticks">
                   <span>
                     <span className="ic">
-                      <IconCheck />
-                    </span>
-                    Screened, full-time, dedicated
-                  </span>
-                  <span>
-                    <span className="ic">
-                      <IconCheck />
-                    </span>
-                    We employ them, payroll on us
-                  </span>
-                  <span>
-                    <span className="ic">
-                      <IconCheck />
+                      <IconCheckFilled />
                     </span>
                     Money back your first month
                   </span>
+                  <span>
+                    <span className="ic">
+                      <IconCheckFilled />
+                    </span>
+                    Channels you keep, forever
+                  </span>
+                  <span>
+                    <span className="ic">
+                      <IconCheckFilled />
+                    </span>
+                    We employ and pay the team
+                  </span>
                 </div>
               </Reveal>
-              <Reveal direction="r">
+              <Reveal direction="r" className="visualcol">
                 <div className="callcard">
                   <div className="bar">
                     <div className="dot">
                       <span className="ic">
-                        <IconPhone />
+                        <IconSparkFilled />
                       </span>
                     </div>
                     <div>
-                      <b>Front Desk, Live</b>
-                      <small>Tuesday, 6:42 PM</small>
+                      <b>A Channel You Own</b>
+                      <small>Calls come to you, and only you</small>
                     </div>
                   </div>
                   <div className="callrow">
                     <span className="ic">
-                      <IconPhoneIncoming />
+                      <IconSparkFilled />
                     </span>
                     <div className="t">
-                      Incoming call, Maple Street
-                      <small>No cooling, upstairs unit</small>
+                      Search: AC repair near me
+                      <small>Google</small>
                     </div>
-                    <span className="tag">Answered</span>
+                    <span className="tag">Seen</span>
                   </div>
                   <div className="callrow">
                     <span className="ic">
-                      <IconCalendarCheck />
+                      <IconSparkFilled />
                     </span>
                     <div className="t">
-                      Job booked for tomorrow 9 AM
-                      <small>Added to the schedule</small>
+                      Your profile shows first
+                      <small>Map pack</small>
                     </div>
-                    <span className="tag blue">Booked</span>
+                    <span className="tag blue">Owned</span>
                   </div>
                   <div className="callrow">
                     <span className="ic">
-                      <IconRoute />
+                      <IconPhoneCallFilled />
                     </span>
                     <div className="t">
-                      Tech routed, Diego
-                      <small>Closest van, notified</small>
+                      Call comes to you
+                      <small>No reseller</small>
                     </div>
-                    <span className="tag blue">Dispatched</span>
+                    <span className="tag blue">Direct</span>
                   </div>
                   <div className="callrow">
                     <span className="ic">
-                      <IconStar />
+                      <IconCheckFilled />
                     </span>
                     <div className="t">
-                      Quote followed up, job won
-                      <small>$4,200 install from Monday</small>
+                      New review posted
+                      <small>Rating up</small>
                     </div>
-                    <span className="tag">Won</span>
+                    <span className="tag won">Growing</span>
                   </div>
+                  <p className="illus">
+                    Illustrative: how one job moves through your follow-up.
+                  </p>
                 </div>
               </Reveal>
             </div>
@@ -315,12 +219,11 @@ export default function Home() {
         <section id="pain">
           <div className="wrap">
             <Reveal className="sec-head">
-              <span className="eyebrow">Where Your Money Goes</span>
-              <h2>Three Ways The Money Leaks Out</h2>
+              <span className="eyebrow">You Are Renting</span>
+              <h2>Leads That Were Never Yours</h2>
               <p>
-                Most of what you lose is not new business. It is work you
-                already won, slipping through the cracks while you are up on
-                a roof.
+                You pay for a lead five other contractors also bought. The
+                day you stop paying, the pipeline goes dark.
               </p>
             </Reveal>
             <div className="grid3">
@@ -338,18 +241,18 @@ export default function Home() {
         </section>
 
         {/* ---------- What you get ---------- */}
-        <section id="role" className="tint">
+        <section id="how" className="tint">
           <div className="wrap">
             <Reveal className="sec-head">
               <span className="eyebrow">What You Get</span>
-              <h2>One Teammate Who Chases Every Job To Done</h2>
+              <h2>Channels That Stay Yours</h2>
               <p>
-                A dedicated, full-time teammate who learns your business and
-                owns the work from the first ring to the paid invoice.
+                A dedicated team builds and runs the lead channels you keep,
+                so the calls come to you directly.
               </p>
             </Reveal>
-            <div className="feat">
-              {features.map((f) => (
+            <div className="grid3">
+              {howItems.map((f) => (
                 <Reveal key={f.title} className="card">
                   <span className="ic">
                     <f.icon />
@@ -362,105 +265,66 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ---------- Why RemoHires ---------- */}
-        <section id="why">
+        {/* ---------- Renting vs owning ---------- */}
+        <section>
           <div className="wrap">
-            <Reveal className="sec-head">
-              <span className="eyebrow">Why RemoHires</span>
-              <h2>More Than A Bot Can Do</h2>
-              <p>
-                You have probably been told to just automate it. A bot can
-                catch a call. It will not chase a cold quote or a customer on
-                the fence, and it will not get an unpaid invoice paid.
-              </p>
+            <Reveal className="sec-head" style={{ maxWidth: 720 }}>
+              <span className="eyebrow">The Difference</span>
+              <h2>Renting Leads vs Owning Your Pipeline</h2>
             </Reveal>
-            <Reveal className="cmpwrap">
-              <table className="cmp">
-                <thead>
-                  <tr>
-                    <th>What You Get</th>
-                    <th className="us">RemoHires</th>
-                    <th>Shared Answering Service</th>
-                    <th>AI Answering Bot</th>
-                    <th>Local Front-Desk Hire</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {comparisonRows.map((row) => (
-                    <tr key={row.label}>
-                      <td>{row.label}</td>
-                      <td className="us">
-                        <span className="y">
-                          <span className="ic">
-                            <IconCheck />
-                          </span>
-                          {row.us}
-                        </span>
-                      </td>
-                      <td>{row.shared}</td>
-                      <td>{row.bot}</td>
-                      <td>{row.local}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <Reveal className="vs">
+              <div className="col them">
+                <h4>
+                  <span className="dotm" />
+                  Renting From Angi
+                </h4>
+                {themRows.map((r) => (
+                  <div className="row" key={r}>
+                    <span className="ic">
+                      <IconXFilled />
+                    </span>
+                    <div>{r}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="col us">
+                <h4>
+                  <span className="dotm" />
+                  Owning With RemoHires
+                </h4>
+                {usRows.map((r) => (
+                  <div className="row" key={r}>
+                    <span className="ic">
+                      <IconCheckFilled />
+                    </span>
+                    <div>{r}</div>
+                  </div>
+                ))}
+              </div>
             </Reveal>
-            <p className="cmpnote">
-              Use both. Let a bot grab the call. Let a real person make sure
-              the job gets booked, done, and paid. That is the half
-              automation keeps dropping.
-            </p>
-          </div>
-        </section>
-
-        {/* ---------- How we vet ---------- */}
-        <section className="tint">
-          <div className="wrap">
-            <Reveal className="sec-head">
-              <span className="eyebrow">How We Vet</span>
-              <h2>Screened And Employed Right</h2>
-              <p>
-                A remote hire works when you trust the person on the phone.
-                Here is how we make that safe for your customers, and easy to
-                walk back if the fit is off.
-              </p>
-            </Reveal>
-            <div className="grid-auto">
-              {vetting.map((v) => (
-                <Reveal key={v.title} direction={v.direction} className="card">
-                  <span className="ic">
-                    <v.icon />
-                  </span>
-                  <h3>{v.title}</h3>
-                  <p>{v.body}</p>
-                </Reveal>
-              ))}
-            </div>
           </div>
         </section>
 
         {/* ---------- Proof ---------- */}
         <section>
           <div className="wrap">
-            <Reveal className="sec-head">
+            <Reveal className="sec-head" style={{ marginBottom: 22 }}>
               <span className="eyebrow">Proof</span>
               <h2>Built With A Real HVAC Owner</h2>
             </Reveal>
             <Reveal className="proof">
-              <div className="av">
-                <span className="ic">
-                  <IconUser />
-                </span>
-              </div>
+              <Image
+                className="prooflogo"
+                src="/lhp-logo.png"
+                alt="Louisiana Home Performance"
+                width={198}
+                height={150}
+              />
               <div>
-                <p>
+                <p style={{ fontSize: 16 }}>
                   Michael was the front desk, the dispatcher, and the man on
-                  the roof. We built RemoHires around his real day, so his
-                  teammate now catches the calls he used to miss and follows
-                  up on the quotes that used to sit.{" "}
-                  <b>Louisiana Home Performance</b> is our first partner,
-                  which is exactly why founding clients get this much
-                  attention.
+                  the roof. We built RemoHires around his real day, so the
+                  work comes from channels he owns, not leads he rents.
                 </p>
                 <small>Michael, Founder, Louisiana Home Performance</small>
               </div>
@@ -469,20 +333,23 @@ export default function Home() {
         </section>
 
         {/* ---------- Founding pilot ---------- */}
-        <section className="tint">
+        <section id="offer" className="tint">
           <div className="wrap">
             <Reveal className="sec-head">
               <span className="eyebrow">Founding Pilot</span>
               <h2>Try It With The Risk On Us</h2>
               <p>
-                We are taking a small number of founding HVAC clients while
-                we build. You get our lowest rate and the most hands-on
+                We are taking a small number of founding clients while we
+                build. You get our lowest rate and the most hands-on
                 onboarding we will ever offer.
               </p>
             </Reveal>
             <div className="grid3">
               {pilotCards.map((c) => (
                 <Reveal key={c.title} className="card">
+                  <span className="ic">
+                    <IconCheckFilled />
+                  </span>
                   <h3>{c.title}</h3>
                   <p>{c.body}</p>
                 </Reveal>
@@ -496,15 +363,12 @@ export default function Home() {
           <div className="wrap">
             <Reveal className="final">
               <span className="eyebrow">Get Started</span>
-              <h2 style={{ marginTop: 12 }}>
-                Ready To Stop Leaving Money On The Table?
-              </h2>
-              <p className="fsub">
-                Tell us about your shop and your busiest hours. We will show
-                you where the jobs are slipping and how a dedicated teammate
-                plugs the leaks.
+              <h2 style={{ marginTop: 12 }}>Stop Renting. Start Owning.</h2>
+              <p>
+                Leave your name and email. A real person here will reach out
+                once to see if we are a fit.
               </p>
-              <FinalCaptureForm />
+              <LeadForm source="bottom_form" center />
             </Reveal>
           </div>
         </section>

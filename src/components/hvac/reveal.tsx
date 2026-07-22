@@ -5,10 +5,12 @@ import { useEffect, useRef, type ReactNode } from "react";
 export function Reveal({
   direction,
   className,
+  style,
   children,
 }: {
   direction?: "l" | "r";
   className?: string;
+  style?: React.CSSProperties;
   children: ReactNode;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -38,7 +40,7 @@ export function Reveal({
   const classes = ["reveal", direction, className].filter(Boolean).join(" ");
 
   return (
-    <div ref={ref} className={classes}>
+    <div ref={ref} className={classes} style={style}>
       {children}
     </div>
   );

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { IconCalendarCheck } from "./icons";
 
 export function MobileCta() {
   const [show, setShow] = useState(false);
@@ -18,11 +17,8 @@ export function MobileCta() {
 
   return (
     <div className={`mcta${show ? " show" : ""}`} id="mcta">
-      <a href="#book" className="btn primary">
-        <span className="ic">
-          <IconCalendarCheck />
-        </span>
-        Book a free call
+      <a href="#start" className="btn primary">
+        Get Started
       </a>
     </div>
   );

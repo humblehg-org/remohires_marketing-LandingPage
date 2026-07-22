@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { IconCalendarCheck } from "./icons";
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
@@ -21,15 +20,12 @@ export function SiteHeader() {
       <div className="wrap row">
         <a className="logo" href="#top" aria-label="RemoHires home" />
         <nav className="links" aria-label="Primary">
-          <a href="#pain">Where Money Leaks</a>
-          <a href="#role">What You Get</a>
-          <a href="#why">Why RemoHires</a>
+          <a href="#pain">The Problem</a>
+          <a href="#how">How It Works</a>
+          <a href="#offer">The Offer</a>
           <a href="#faq">FAQ</a>
-          <a href="#book" className="btn primary navcta">
-            <span className="ic">
-              <IconCalendarCheck />
-            </span>
-            Book a free call
+          <a href="#start" className="btn primary cta">
+            Get Started
           </a>
         </nav>
       </div>
