@@ -2,9 +2,7 @@
 
 import { useId, useState, type FormEvent } from "react";
 
-// TODO: replace with the real key from https://web3forms.com (create it with
-// info@remohires.com, then add resti@remohires.com as an extra recipient).
-const ACCESS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY";
+const ACCESS_KEY = "3ed3305a-37b5-4075-8151-f2fb6b838b18";
 
 const INDUSTRIES = [
   "Marketing / Creative Agency",
@@ -47,7 +45,7 @@ export function MatchForm({ subject }: { subject: string }) {
       }
     } catch {
       setError(
-        "Something went wrong. Please email info@remohires.com and we’ll get right back to you.",
+        "Something went wrong. Please email resti@remohires.com and we’ll get right back to you.",
       );
     } finally {
       setSending(false);

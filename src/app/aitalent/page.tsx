@@ -394,7 +394,7 @@ export default function AiTalentPage() {
           </a>
           <span>
             © 2026 RemoHires · AI-fluent full-time remote talent ·{" "}
-            <a href="mailto:info@remohires.com">info@remohires.com</a>
+            <a href="mailto:resti@remohires.com">resti@remohires.com</a>
           </span>
         </div>
       </footer>
