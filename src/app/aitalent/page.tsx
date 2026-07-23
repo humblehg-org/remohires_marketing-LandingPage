@@ -162,12 +162,7 @@ export default function AiTalentPage() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img className="logo" src="https://remohires.com/assets/logo-ClPCTLmH.svg" alt="RemoHires" />
           </a>
-          <a
-            href="https://remohires.com/auth/register/employer"
-            target="_blank"
-            rel="noopener"
-            className="btn sm"
-          >
+          <a href="#get-matched" className="btn sm">
             Get matched{" "}
             <svg fill="none" viewBox="0 0 24 24" strokeWidth={2.2}>
               <path d="M5 12h14M13 6l6 6-6 6" />
@@ -371,7 +366,7 @@ export default function AiTalentPage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="final">
+      <section className="final" id="get-matched">
         <div className="wrap">
           <div className="box">
             <h2>Start with one hire.</h2>
