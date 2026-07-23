@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { LeadForm } from "./lead-form";
+import type { LeadPath } from "@/lib/submit-lead";
 
 export type SelfCheckOption = {
   v: string;
@@ -37,11 +38,13 @@ export function SelfCheck({
   question = DEFAULT_QUESTION,
   options = DEFAULT_OPTIONS,
   source = "hero_selfcheck",
+  path = "home",
 }: {
   id?: string;
   question?: string;
   options?: SelfCheckOption[];
   source?: string;
+  path?: LeadPath;
 }) {
   const [selected, setSelected] = useState<string | null>(null);
   const [revealed, setRevealed] = useState(false);
@@ -80,6 +83,7 @@ export function SelfCheck({
           source={source}
           qualifier={selected ?? undefined}
           focusToken={focusToken}
+          path={path}
         />
       </div>
       <button

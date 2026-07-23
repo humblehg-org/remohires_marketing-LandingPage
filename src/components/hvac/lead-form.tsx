@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type SubmitEvent } from "react";
 import { IconCheck } from "./icons";
+import { submitLead, type LeadPath } from "@/lib/submit-lead";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -10,16 +11,19 @@ export function LeadForm({
   qualifier,
   center,
   focusToken,
+  path = "home",
   submitLabel = "Get One Reply From A Real Person",
 }: {
   source: string;
   qualifier?: string;
   center?: boolean;
   focusToken?: number;
+  path?: LeadPath;
   submitLabel?: string;
 }) {
   const [invalid, setInvalid] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const doneRef = useRef<HTMLDivElement>(null);
@@ -28,7 +32,7 @@ export function LeadForm({
     if (focusToken) nameRef.current?.focus();
   }, [focusToken]);
 
-  function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
+  async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     const name = nameRef.current?.value.trim() ?? "";
     const email = emailRef.current?.value.trim() ?? "";
@@ -38,8 +42,16 @@ export function LeadForm({
       return;
     }
     setInvalid(false);
-    setSubmitted(true);
-    requestAnimationFrame(() => doneRef.current?.focus());
+    setSending(true);
+    try {
+      await submitLead({ path, name, email, source, qualifier });
+      setSubmitted(true);
+      requestAnimationFrame(() => doneRef.current?.focus());
+    } catch {
+      setInvalid(true);
+    } finally {
+      setSending(false);
+    }
   }
 
   function handleInput() {
@@ -71,8 +83,8 @@ export function LeadForm({
         />
         <input type="hidden" name="qualifier" value={qualifier ?? ""} readOnly />
         <input type="hidden" name="source" value={source} readOnly />
-        <button className="btn primary glow" type="submit">
-          {submitLabel}
+        <button className="btn primary glow" type="submit" disabled={sending}>
+          {sending ? "Sending…" : submitLabel}
         </button>
         {invalid && (
           <p className="lead-error" role="alert">
