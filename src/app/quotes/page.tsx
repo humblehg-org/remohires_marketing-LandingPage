@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import "../hvac.css";
 import { SiteHeader } from "@/components/hvac/site-header";
-import { MobileCta } from "@/components/hvac/mobile-cta";
+import { ScrollProgress } from "@/components/hvac/scroll-progress";
+import { StatCounter } from "@/components/hvac/stat-counter";
 import { Reveal } from "@/components/hvac/reveal";
 import { TopStrip } from "@/components/hvac/top-strip";
 import { SelfCheck } from "@/components/hvac/self-check";
@@ -14,6 +15,8 @@ import {
   IconPhoneCallFilled,
   IconCalendarFilled,
   IconXFilled,
+  IconClockRingFilled,
+  IconBoltFilled,
 } from "@/components/hvac/icons";
 
 export const metadata: Metadata = {
@@ -135,8 +138,9 @@ export default function QuotesPage() {
         href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap"
         rel="stylesheet"
       />
+      <ScrollProgress />
       <TopStrip />
-      <SiteHeader />
+      <SiteHeader ctaLabel="Close More Quotes" />
       <main id="top">
         {/* ---------- Hero ---------- */}
         <section className="hero" style={{ padding: 0 }}>
@@ -144,11 +148,15 @@ export default function QuotesPage() {
             <div className="grid">
               <Reveal direction="l">
                 <span className="eyebrow">Home-service owners</span>
-                <h1>Close The Quotes You Already Sent</h1>
+                <h1>
+                  <span className="num">3 of 4</span> Estimates You Send Never
+                  Close
+                </h1>
                 <p className="sub">
-                  You quoted the job. Then it went quiet. A dedicated
-                  teammate follows up on every estimate until it books, so it
-                  stops going to whoever calls back first.
+                  Most never come back, and rarely on price. They go quiet
+                  while you are on the next job. A dedicated teammate follows
+                  up on every estimate you send, by call and text, until it
+                  books.
                 </p>
                 <SelfCheck
                   question="How many quotes went unfollowed last month?"
@@ -237,6 +245,57 @@ export default function QuotesPage() {
           </div>
         </section>
 
+        {/* ---------- By the numbers ---------- */}
+        <section className="stats">
+          <div className="wrap" style={{ padding: "56px 0" }}>
+            <Reveal className="stat-head">
+              <span className="eyebrow light">By The Numbers</span>
+              <h2>Where Your Booked Jobs Quietly Go</h2>
+            </Reveal>
+            <div className="statgrid">
+              <Reveal className="stat">
+                <span className="ic">
+                  <IconClockRingFilled />
+                </span>
+                <div className="big">
+                  <StatCounter to={75} suffix="%" />
+                </div>
+                <div className="lab">
+                  of estimates you send never close on their own, and it is
+                  rarely about price.
+                </div>
+              </Reveal>
+              <Reveal className="stat">
+                <span className="ic">
+                  <IconBoltFilled />
+                </span>
+                <div className="big">
+                  <StatCounter to={78} suffix="%" />
+                </div>
+                <div className="lab">
+                  of jobs go to whoever follows up first, not whoever is
+                  cheapest.
+                </div>
+              </Reveal>
+              <Reveal className="stat">
+                <span className="ic">
+                  <IconCalendarFilled />
+                </span>
+                <div className="big">Day 2&middot;5&middot;12</div>
+                <div className="lab">
+                  a real follow-up rhythm on every quote, not a one-time
+                  auto-text.
+                </div>
+              </Reveal>
+            </div>
+            <p className="src">
+              Directional figures from current contractor discussions (2025
+              to 2026), not audited stats. Your own numbers are what count.
+              Ask us to run them.
+            </p>
+          </div>
+        </section>
+
         {/* ---------- Pain ---------- */}
         <section id="pain">
           <div className="wrap">
@@ -244,8 +303,9 @@ export default function QuotesPage() {
               <span className="eyebrow">Your Most Expensive Silence</span>
               <h2>The Quotes You Already Priced</h2>
               <p>
-                Most of what you lose is work you already quoted, slipping
-                away while you are on a roof.
+                Owners say about 3 of 4 sent estimates never close, and it is
+                rarely price. It is the follow-up that slips while you are on
+                a roof.
               </p>
             </Reveal>
             <div className="grid3">
@@ -273,7 +333,7 @@ export default function QuotesPage() {
                 from the estimate to the booked job.
               </p>
             </Reveal>
-            <div className="grid3">
+            <div className="flow">
               {howItems.map((f) => (
                 <Reveal key={f.title} className="card">
                   <span className="ic">
@@ -366,7 +426,7 @@ export default function QuotesPage() {
                 onboarding we will ever offer.
               </p>
             </Reveal>
-            <div className="grid3">
+            <div className="strip">
               {pilotCards.map((c) => (
                 <Reveal key={c.title} className="card">
                   <span className="ic">
@@ -415,8 +475,6 @@ export default function QuotesPage() {
           </div>
         </section>
       </main>
-
-      <MobileCta />
 
       <footer>
         <div className="wrap">

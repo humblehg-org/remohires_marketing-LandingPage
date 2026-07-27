@@ -299,3 +299,67 @@ export function IconCalendarFilled(props: SVGProps<SVGSVGElement>) {
     </IconFilledBase>
   );
 }
+
+export function IconDollarFilled(props: SVGProps<SVGSVGElement>) {
+  return (
+    <IconFilledBase {...props}>
+      <path
+        d="M12 3.25a.75.75 0 01.75.75v1.3h.75a3.25 3.25 0 010 6.5H12v3.7h1.75a1.75 1.75 0 001.63-1.12.75.75 0 011.4.54 3.25 3.25 0 01-3.03 2.08h-.75V18a.75.75 0 01-1.5 0v-1.3h-.75a3.25 3.25 0 01-3.03-2.08.75.75 0 011.4-.54A1.75 1.75 0 0010.25 15.5H11v-3.7h-.75a3.25 3.25 0 010-6.5H11V4a.75.75 0 01.75-.75h.25zM11 6.8h-.75a1.75 1.75 0 000 3.5H11V6.8zm1.5 3.5h.75a1.75 1.75 0 000-3.5h-.75v3.5z"
+        fill="currentColor"
+      />
+    </IconFilledBase>
+  );
+}
+
+export function IconGroupFilled(props: SVGProps<SVGSVGElement>) {
+  return (
+    <IconFilledBase {...props}>
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M9 4.25a3.75 3.75 0 100 7.5 3.75 3.75 0 000-7.5zM6.75 8a2.25 2.25 0 114.5 0 2.25 2.25 0 01-4.5 0z"
+        fill="currentColor"
+      />
+      <path
+        d="M15.5 5.25a.75.75 0 000 1.5 2.25 2.25 0 010 4.5.75.75 0 000 1.5 3.75 3.75 0 000-7.5z"
+        fill="currentColor"
+      />
+      <path
+        d="M3 18.5a4 4 0 014-4h4a4 4 0 014 4V19a.75.75 0 01-1.5 0v-.5a2.5 2.5 0 00-2.5-2.5H7a2.5 2.5 0 00-2.5 2.5V19A.75.75 0 013 19v-.5z"
+        fill="currentColor"
+      />
+      <path
+        d="M16.5 15a.75.75 0 000 1.5h.5a2.5 2.5 0 012.5 2.5v.5a.75.75 0 001.5 0V19a4 4 0 00-4-4h-.5z"
+        fill="currentColor"
+      />
+    </IconFilledBase>
+  );
+}
+
+export function IconBoltFilled(props: SVGProps<SVGSVGElement>) {
+  return (
+    <IconFilledBase {...props}>
+      <path
+        d="M13.2 2.3a.75.75 0 011.28.64L13.6 9h4.4a.75.75 0 01.58 1.23l-8.4 10.2a.75.75 0 01-1.33-.57L9.7 13H5.3a.75.75 0 01-.58-1.23l8.48-9.47z"
+        fill="currentColor"
+      />
+    </IconFilledBase>
+  );
+}
+
+export function IconClockRingFilled(props: SVGProps<SVGSVGElement>) {
+  return (
+    <IconFilledBase {...props}>
+      <path
+        d="M12.75 7a.75.75 0 00-1.5 0v5c0 .26.13.5.35.64l3 1.87a.75.75 0 10.8-1.27l-2.65-1.66V7z"
+        fill="currentColor"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M12 3.25A8.75 8.75 0 1020.75 12 8.75 8.75 0 0012 3.25zM4.75 12A7.25 7.25 0 1112 19.25 7.25 7.25 0 014.75 12z"
+        fill="currentColor"
+      />
+    </IconFilledBase>
+  );
+}

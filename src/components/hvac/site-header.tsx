@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-export function SiteHeader() {
+export function SiteHeader({ ctaLabel = "Get Started" }: { ctaLabel?: string }) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export function SiteHeader() {
           <a href="#offer">The Offer</a>
           <a href="#faq">FAQ</a>
           <a href="#start" className="btn primary cta">
-            Get Started
+            {ctaLabel}
           </a>
         </nav>
       </div>

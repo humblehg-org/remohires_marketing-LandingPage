@@ -27,7 +27,11 @@ export function TopStrip() {
 
   return (
     <div className="topstrip">
-      Built for <span className="rot">{word}</span> owners across the US
+      Built for{" "}
+      <span className="rot">
+        <span key={word}>{word}</span>
+      </span>{" "}
+      owners across the US
     </div>
   );
 }

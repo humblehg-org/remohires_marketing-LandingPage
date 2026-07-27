@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import "./hvac.css";
 import { SiteHeader } from "@/components/hvac/site-header";
-import { MobileCta } from "@/components/hvac/mobile-cta";
+import { ScrollProgress } from "@/components/hvac/scroll-progress";
+import { StatCounter } from "@/components/hvac/stat-counter";
 import { Reveal } from "@/components/hvac/reveal";
 import { TopStrip } from "@/components/hvac/top-strip";
 import { SelfCheck } from "@/components/hvac/self-check";
@@ -15,6 +16,8 @@ import {
   IconClockFilled,
   IconShieldFilled,
   IconXFilled,
+  IconDollarFilled,
+  IconGroupFilled,
 } from "@/components/hvac/icons";
 
 export const metadata: Metadata = {
@@ -116,8 +119,9 @@ export default function Home() {
         href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap"
         rel="stylesheet"
       />
+      <ScrollProgress />
       <TopStrip />
-      <SiteHeader />
+      <SiteHeader ctaLabel="Own Your Leads" />
       <main id="top">
         {/* ---------- Hero ---------- */}
         <section className="hero" style={{ padding: 0 }}>
@@ -125,11 +129,14 @@ export default function Home() {
             <div className="grid">
               <Reveal direction="l">
                 <span className="eyebrow">Home-service owners</span>
-                <h1>Own Your Leads, Not Shared Ones</h1>
+                <h1>
+                  Stop Sharing Leads With <span className="num">4</span> Other
+                  Shops
+                </h1>
                 <p className="sub">
-                  The lead you bought went to five other contractors too. We
-                  build the channels you own, so the homeowner calls you, and
-                  only you.
+                  That $80 lead from Angi or HomeAdvisor went to four or five
+                  shops at once. We build the channels you own, so the
+                  homeowner calls you, and only you.
                 </p>
                 <SelfCheck />
                 <div className="cticks">
@@ -143,13 +150,13 @@ export default function Home() {
                     <span className="ic">
                       <IconCheckFilled />
                     </span>
-                    Channels you keep, forever
+                    Channels you keep
                   </span>
                   <span>
                     <span className="ic">
                       <IconCheckFilled />
                     </span>
-                    We employ and pay the team
+                    We employ and pay them
                   </span>
                 </div>
               </Reveal>
@@ -215,6 +222,56 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ---------- By the numbers ---------- */}
+        <section className="stats">
+          <div className="wrap" style={{ padding: "56px 0" }}>
+            <Reveal className="stat-head">
+              <span className="eyebrow light">By The Numbers</span>
+              <h2>What A Rented Lead Really Costs</h2>
+            </Reveal>
+            <div className="statgrid">
+              <Reveal className="stat">
+                <span className="ic">
+                  <IconDollarFilled />
+                </span>
+                <div className="big">
+                  <StatCounter to={80} prefix="$" />
+                </div>
+                <div className="lab">
+                  is what one shared Angi or HomeAdvisor lead can cost, win it
+                  or not.
+                </div>
+              </Reveal>
+              <Reveal className="stat">
+                <span className="ic">
+                  <IconGroupFilled />
+                </span>
+                <div className="big">4 to 5</div>
+                <div className="lab">
+                  other shops get that exact same lead, so it becomes a race
+                  to call first and cheapest.
+                </div>
+              </Reveal>
+              <Reveal className="stat">
+                <span className="ic">
+                  <IconPhoneCallFilled />
+                </span>
+                <div className="big">
+                  <StatCounter to={74} suffix="%" />
+                </div>
+                <div className="lab">
+                  of paid calls go unanswered during the day, then the
+                  homeowner dials the next result.
+                </div>
+              </Reveal>
+            </div>
+            <p className="src">
+              Directional figures from current contractor discussions (2025
+              to 2026), not audited stats. Ask us to benchmark your own.
+            </p>
+          </div>
+        </section>
+
         {/* ---------- Where money leaks ---------- */}
         <section id="pain">
           <div className="wrap">
@@ -222,8 +279,8 @@ export default function Home() {
               <span className="eyebrow">You Are Renting</span>
               <h2>Leads That Were Never Yours</h2>
               <p>
-                You pay for a lead five other contractors also bought. The
-                day you stop paying, the pipeline goes dark.
+                You pay around $80 for a lead sold to four or five shops at
+                once. The day you stop paying, the pipeline goes dark.
               </p>
             </Reveal>
             <div className="grid3">
@@ -251,7 +308,7 @@ export default function Home() {
                 so the calls come to you directly.
               </p>
             </Reveal>
-            <div className="grid3">
+            <div className="flow">
               {howItems.map((f) => (
                 <Reveal key={f.title} className="card">
                   <span className="ic">
@@ -344,7 +401,7 @@ export default function Home() {
                 onboarding we will ever offer.
               </p>
             </Reveal>
-            <div className="grid3">
+            <div className="strip">
               {pilotCards.map((c) => (
                 <Reveal key={c.title} className="card">
                   <span className="ic">
@@ -391,8 +448,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-
-      <MobileCta />
 
       <footer>
         <div className="wrap">
