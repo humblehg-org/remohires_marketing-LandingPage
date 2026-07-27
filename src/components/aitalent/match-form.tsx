@@ -1,6 +1,7 @@
 "use client";
 
-import { useId, useState, type FormEvent } from "react";
+import { useId, useRef, useState, type FormEvent } from "react";
+import { trackSignupComplete } from "@/lib/gtm";
 
 const ACCESS_KEY = "3ed3305a-37b5-4075-8151-f2fb6b838b18";
 
@@ -21,6 +22,7 @@ export function MatchForm({ subject }: { subject: string }) {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const trackedRef = useRef(false);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -32,13 +34,18 @@ export function MatchForm({ subject }: { subject: string }) {
     setSending(true);
     setError(null);
     try {
+      const formData = new FormData(form);
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { Accept: "application/json" },
-        body: new FormData(form),
+        body: formData,
       });
       const data = await res.json();
       if (data && data.success) {
+        if (!trackedRef.current) {
+          trackedRef.current = true;
+          trackSignupComplete("B", String(formData.get("email") ?? ""));
+        }
         setSent(true);
       } else {
         throw new Error((data && data.message) || "Submission failed");

@@ -12,9 +12,18 @@ export type SignupVariant = "A" | "B";
  * Fires exactly once per successful signup. Callers must only invoke this
  * from a confirmed-success code path (never on validation errors, duplicate
  * emails, or failed submissions).
+ *
+ * Emits `signup_complete_A` / `signup_complete_B` — the exact Custom Event
+ * names the GTM Google Ads conversion triggers listen for (see the
+ * "Google Ads Conversion B" tag in GTM-K736CCFP). Do not rename without
+ * updating the GTM triggers. Team B covers /teamb and /aitalent.
  */
 export function trackSignupComplete(variant: SignupVariant, email: string) {
-  sendGTMEvent({ event: `signup_complete_${variant}`, email });
+  sendGTMEvent({
+    event: `signup_complete_${variant}`,
+    email,
+    page_path: location.pathname,
+  });
 }
 
 /**
