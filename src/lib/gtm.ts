@@ -1,5 +1,11 @@
 import { sendGTMEvent } from "@next/third-parties/google";
 
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void;
+  }
+}
+
 export type SignupVariant = "A" | "B";
 
 /**
@@ -9,4 +15,21 @@ export type SignupVariant = "A" | "B";
  */
 export function trackSignupComplete(variant: SignupVariant, email: string) {
   sendGTMEvent({ event: `signup_complete_${variant}`, email });
+}
+
+/**
+ * Fires the lead_submit dataLayer event and Meta Pixel Lead event for Team A
+ * forms. Callers must only invoke this from a confirmed-success code path
+ * (never on click or a failed submission). fbq is expected to already be
+ * available globally via the GTM container, not loaded here.
+ */
+export function trackLeadSubmit(formSource: string) {
+  window.dataLayer?.push({
+    event: "lead_submit",
+    page_path: location.pathname,
+    form_source: formSource || "lp",
+  });
+  if (typeof window.fbq === "function") {
+    window.fbq("track", "Lead");
+  }
 }
