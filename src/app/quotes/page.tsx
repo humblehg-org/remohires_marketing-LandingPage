@@ -161,6 +161,7 @@ export default function QuotesPage() {
                 <SelfCheck
                   question="How many quotes went unfollowed last month?"
                   options={selfCheckOptions}
+                  path="quotes"
                 />
                 <div className="cticks">
                   <span>
@@ -452,7 +453,7 @@ export default function QuotesPage() {
                 Leave your name and email. A real person here will reach out
                 once to see if we are a fit.
               </p>
-              <LeadForm source="bottom_form" center />
+              <LeadForm source="bottom_form" center path="quotes" />
             </Reveal>
           </div>
         </section>

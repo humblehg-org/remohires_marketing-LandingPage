@@ -21,17 +21,10 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Environment variables
 
-The `/api/lead` route handler proxies lead-form submissions (from `/` and
-`/quotes`) to the RemoHires Leads backend, server-side, so the API key is
-never exposed to the browser.
-
-| Variable      | Required | Description                                                                                    |
-| ------------- | -------- | ------------------------------------------------------------------------------------------------ |
-| `FRM_API_KEY` | Yes      | `x-api-key` for `https://frm-v1.remohires.com/api/submit`. Without it, lead submissions fail closed (visitors see a retry error, no lead is sent, no GTM event fires). |
-| `FRM_API_URL` | No       | Overrides the backend URL. Defaults to `https://frm-v1.remohires.com/api/submit`.                 |
-
-The backend also enforces an origin allowlist — confirm with whoever manages
-`frm-v1.remohires.com` that this app's production domain is allowed.
+Lead-form submissions go straight from the browser to the RemoHires Leads
+backend via `submitLead()`. See [`docs/FORMS.md`](docs/FORMS.md) for the full
+field reference, required env vars (`NEXT_PUBLIC_FORMS_API_URL`,
+`NEXT_PUBLIC_FORMS_API_KEY`), and how to wire up a new form.
 
 ## Scripts
 

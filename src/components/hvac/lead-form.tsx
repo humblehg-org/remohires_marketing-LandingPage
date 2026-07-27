@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type SubmitEvent } from "react";
 import { IconCheck } from "./icons";
+import { submitLead, type LeadPath } from "@/lib/submit-lead";
 import { trackSignupComplete } from "@/lib/gtm";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -11,12 +12,14 @@ export function LeadForm({
   qualifier,
   center,
   focusToken,
+  path = "home",
   submitLabel = "Get One Reply From A Real Person",
 }: {
   source: string;
   qualifier?: string;
   center?: boolean;
   focusToken?: number;
+  path?: LeadPath;
   submitLabel?: string;
 }) {
   const [invalid, setInvalid] = useState(false);
@@ -47,31 +50,20 @@ export function LeadForm({
     setServerError(null);
     setPending(true);
     try {
-      const res = await fetch("/api/lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, qualifier, source }),
-      });
-      const data: { success?: boolean; message?: string } | null = await res
-        .json()
-        .catch(() => null);
-
-      if (!res.ok || !data?.success) {
-        setServerError(
-          data?.message || "Something went wrong. Please try again.",
-        );
-        setPending(false);
-        return;
-      }
-
+      await submitLead({ path, name, email, source, qualifier });
       if (!sentRef.current) {
         sentRef.current = true;
         trackSignupComplete("A", email);
       }
       setSubmitted(true);
       requestAnimationFrame(() => doneRef.current?.focus());
-    } catch {
-      setServerError("Something went wrong. Please try again.");
+    } catch (err) {
+      setServerError(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again.",
+      );
+    } finally {
       setPending(false);
     }
   }

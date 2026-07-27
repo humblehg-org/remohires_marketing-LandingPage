@@ -13,7 +13,6 @@ export const metadata: Metadata = {
   title: "RemoHires — Dedicated AI-Ready Remote Professionals from Indonesia",
   description:
     "RemoHires matches you with a vetted Indonesian remote professional who builds and runs the AI and technical work on your list — automations, tools, agents — dedicated to you, not juggling gigs.",
-  icons: { icon: "/teamb-logo.png" },
 };
 
 const useCards = [
