@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type SubmitEvent } from "react";
 import { IconCheck } from "./icons";
+import { trackSignupComplete } from "@/lib/gtm";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -19,37 +20,71 @@ export function LeadForm({
   submitLabel?: string;
 }) {
   const [invalid, setInvalid] = useState(false);
+  const [pending, setPending] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const doneRef = useRef<HTMLDivElement>(null);
+  const sentRef = useRef(false);
 
   useEffect(() => {
     if (focusToken) nameRef.current?.focus();
   }, [focusToken]);
 
-  function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
+  async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (pending) return;
     const name = nameRef.current?.value.trim() ?? "";
     const email = emailRef.current?.value.trim() ?? "";
     if (!name || !EMAIL_RE.test(email)) {
       setInvalid(true);
+      setServerError(null);
       (name ? emailRef : nameRef).current?.focus();
       return;
     }
     setInvalid(false);
-    setSubmitted(true);
-    requestAnimationFrame(() => doneRef.current?.focus());
+    setServerError(null);
+    setPending(true);
+    try {
+      const res = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, qualifier, source }),
+      });
+      const data: { success?: boolean; message?: string } | null = await res
+        .json()
+        .catch(() => null);
+
+      if (!res.ok || !data?.success) {
+        setServerError(
+          data?.message || "Something went wrong. Please try again.",
+        );
+        setPending(false);
+        return;
+      }
+
+      if (!sentRef.current) {
+        sentRef.current = true;
+        trackSignupComplete("A", email);
+      }
+      setSubmitted(true);
+      requestAnimationFrame(() => doneRef.current?.focus());
+    } catch {
+      setServerError("Something went wrong. Please try again.");
+      setPending(false);
+    }
   }
 
   function handleInput() {
     if (invalid) setInvalid(false);
+    if (serverError) setServerError(null);
   }
 
   return (
     <>
       <form
-        className={`lead-form${center ? " centerform" : ""}${invalid ? " invalid" : ""}`}
+        className={`lead-form${center ? " centerform" : ""}${invalid || serverError ? " invalid" : ""}`}
         noValidate
         hidden={submitted}
         onSubmit={handleSubmit}
@@ -61,6 +96,7 @@ export function LeadForm({
           placeholder="First name"
           required
           ref={nameRef}
+          disabled={pending}
         />
         <input
           type="email"
@@ -68,15 +104,21 @@ export function LeadForm({
           placeholder="Work email"
           required
           ref={emailRef}
+          disabled={pending}
         />
         <input type="hidden" name="qualifier" value={qualifier ?? ""} readOnly />
         <input type="hidden" name="source" value={source} readOnly />
-        <button className="btn primary glow" type="submit">
-          {submitLabel}
+        <button className="btn primary glow" type="submit" disabled={pending}>
+          {pending ? "Sending…" : submitLabel}
         </button>
         {invalid && (
           <p className="lead-error" role="alert">
             Enter your name and a valid work email so we can reach you.
+          </p>
+        )}
+        {!invalid && serverError && (
+          <p className="lead-error" role="alert">
+            {serverError}
           </p>
         )}
       </form>

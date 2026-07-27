@@ -1,10 +1,12 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
+import { trackSignupComplete } from "@/lib/gtm";
 
 export function LeadForm({ variant }: { variant: "hero" | "footer" }) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const sentRef = useRef(false);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -12,6 +14,10 @@ export function LeadForm({ variant }: { variant: "hero" | "footer" }) {
     // TODO: point this at a real endpoint (Google Form action URL, Formspree,
     // or a webhook into ClickUp/email) before this goes live.
     console.log("Lead captured (wire this to real backend):", email);
+    if (!sentRef.current) {
+      sentRef.current = true;
+      trackSignupComplete("B", email);
+    }
     setSubmitted(true);
   }
 
