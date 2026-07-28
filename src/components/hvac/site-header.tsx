@@ -24,7 +24,7 @@ export function SiteHeader({ ctaLabel = "Get Started" }: { ctaLabel?: string }) 
           <a href="#how">How It Works</a>
           <a href="#offer">The Offer</a>
           <a href="#faq">FAQ</a>
-          <a href="#start" className="btn primary cta">
+          <a href="#book" className="btn primary cta">
             {ctaLabel}
           </a>
         </nav>
