@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type SubmitEvent } from "react";
 import { IconCheck } from "./icons";
 import { submitLead, type LeadPath } from "@/lib/submit-lead";
 import { trackSignupComplete, trackLeadSubmit } from "@/lib/gtm";
+import { identifySignup } from "@/lib/posthog";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -55,6 +56,7 @@ export function LeadForm({
         sentRef.current = true;
         trackSignupComplete("A", email);
         trackLeadSubmit(source);
+        identifySignup("A", email, { name }, { form_source: source, qualifier });
       }
       setSubmitted(true);
       requestAnimationFrame(() => doneRef.current?.focus());

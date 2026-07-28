@@ -3,6 +3,7 @@
 import { useRef, useState, type FormEvent } from "react";
 import { submitLead } from "@/lib/submit-lead";
 import { trackSignupComplete } from "@/lib/gtm";
+import { identifySignup } from "@/lib/posthog";
 
 export function LeadForm({ variant }: { variant: "hero" | "footer" }) {
   const [email, setEmail] = useState("");
@@ -20,6 +21,7 @@ export function LeadForm({ variant }: { variant: "hero" | "footer" }) {
       if (!sentRef.current) {
         sentRef.current = true;
         trackSignupComplete("B", email);
+        identifySignup("B", email, {}, { form_source: variant });
       }
       setSubmitted(true);
     } catch {
