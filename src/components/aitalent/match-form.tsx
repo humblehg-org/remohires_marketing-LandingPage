@@ -2,6 +2,7 @@
 
 import { useId, useRef, useState, type FormEvent } from "react";
 import { trackSignupComplete } from "@/lib/gtm";
+import { identifySignup } from "@/lib/posthog";
 
 const ACCESS_KEY = "3ed3305a-37b5-4075-8151-f2fb6b838b18";
 
@@ -44,7 +45,17 @@ export function MatchForm({ subject }: { subject: string }) {
       if (data && data.success) {
         if (!trackedRef.current) {
           trackedRef.current = true;
-          trackSignupComplete("B", String(formData.get("email") ?? ""));
+          const email = String(formData.get("email") ?? "");
+          trackSignupComplete("B", email);
+          identifySignup(
+            "B",
+            email,
+            {
+              name: String(formData.get("name") ?? "") || undefined,
+              industry: String(formData.get("industry") ?? "") || undefined,
+            },
+            { form_source: subject },
+          );
         }
         setSent(true);
       } else {
