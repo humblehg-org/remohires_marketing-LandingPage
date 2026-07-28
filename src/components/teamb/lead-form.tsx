@@ -44,6 +44,7 @@ export function LeadForm({ variant }: { variant: "hero" | "footer" }) {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            suppressHydrationWarning
           />
           <button type="submit" className="btn-primary" disabled={sending}>
             {sending ? "Sending…" : "Get matched free"}

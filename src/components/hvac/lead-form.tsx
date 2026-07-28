@@ -92,6 +92,7 @@ export function LeadForm({
           required
           ref={nameRef}
           disabled={pending}
+          suppressHydrationWarning
         />
         <input
           type="email"
@@ -100,6 +101,7 @@ export function LeadForm({
           required
           ref={emailRef}
           disabled={pending}
+          suppressHydrationWarning
         />
         <input type="hidden" name="qualifier" value={qualifier ?? ""} readOnly />
         <input type="hidden" name="source" value={source} readOnly />

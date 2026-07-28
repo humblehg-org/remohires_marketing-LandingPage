@@ -63,7 +63,7 @@ export function MatchForm({ subject }: { subject: string }) {
       }
     } catch {
       setError(
-        "Something went wrong. Please email resti@remohires.com and we’ll get right back to you.",
+        "Something went wrong. Please email info@remohires.com and we’ll get right back to you.",
       );
     } finally {
       setSending(false);
@@ -75,7 +75,7 @@ export function MatchForm({ subject }: { subject: string }) {
       <form className="matchform form-body" noValidate onSubmit={handleSubmit}>
         <input type="hidden" name="access_key" value={ACCESS_KEY} />
         <input type="hidden" name="subject" value={subject} />
-        <input type="hidden" name="from_name" value="RemoHires Landing Page" />
+        <input type="hidden" name="from_name" value="RemoHires Landing v2" />
         <input
           type="checkbox"
           name="botcheck"
@@ -89,10 +89,9 @@ export function MatchForm({ subject }: { subject: string }) {
           </svg>{" "}
           Get matched free
         </div>
-        <h3>Start with one hire</h3>
+        <h3>Find your AI professional</h3>
         <p className="hint">
-          Tell us who you are and we&rsquo;ll follow up to scope your needs and find your
-          match.
+          Tell us who you are and we&rsquo;ll follow up to scope your needs and find your match.
         </p>
         <div className="field">
           <label htmlFor={`${idPrefix}-name`}>Name</label>
@@ -113,6 +112,18 @@ export function MatchForm({ subject }: { subject: string }) {
             type="email"
             placeholder="you@company.com"
             required
+            suppressHydrationWarning
+          />
+        </div>
+        <div className="field">
+          <label htmlFor={`${idPrefix}-phone`}>
+            Phone <span style={{ color: "var(--muted)", fontWeight: 400 }}>(optional)</span>
+          </label>
+          <input
+            id={`${idPrefix}-phone`}
+            name="phone"
+            type="tel"
+            placeholder="+1 555 000 0000"
             suppressHydrationWarning
           />
         </div>
