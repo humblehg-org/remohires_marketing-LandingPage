@@ -10,26 +10,19 @@ export type SelfCheckOption = {
   reflect: string;
 };
 
-const DEFAULT_QUESTION = "Where do most of your leads come from today?";
+const DEFAULT_QUESTION =
+  "Have your leads been contacted by other companies before?";
 
 const DEFAULT_OPTIONS: SelfCheckOption[] = [
   {
-    v: "angi",
-    label: "Angi / HomeAdvisor",
-    reflect:
-      "So you are paying per lead and racing everyone else to the phone.",
+    v: "yes",
+    label: "Yes",
+    reflect: "So you are racing other companies to the phone.",
   },
   {
-    v: "google",
-    label: "Google",
-    reflect:
-      "So people are already searching for you. The trick is catching them fast.",
-  },
-  {
-    v: "referrals",
-    label: "Referrals",
-    reflect:
-      "Word of mouth is the best kind, and the hardest to scale on purpose.",
+    v: "no",
+    label: "No",
+    reflect: "So being first to respond gives you the edge.",
   },
 ];
 

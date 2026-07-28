@@ -159,7 +159,7 @@ export default function QuotesPage() {
                   books.
                 </p>
                 <SelfCheck
-                  question="How many quotes went unfollowed last month?"
+                  question="How many quotes ghosted you last month?"
                   options={selfCheckOptions}
                   path="quotes"
                 />
