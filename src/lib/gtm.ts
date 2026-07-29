@@ -16,7 +16,13 @@ export type SignupVariant = "A" | "B";
  * Emits `signup_complete_A` / `signup_complete_B` — the exact Custom Event
  * names the GTM Google Ads conversion triggers listen for (see the
  * "Google Ads Conversion B" tag in GTM-K736CCFP). Do not rename without
- * updating the GTM triggers. Team B covers /teamb and /aitalent.
+ * updating the GTM triggers. Team B covers /teamb, /aitalent, and /ai-talent.
+ *
+ * Also fires the Meta Pixel Lead event directly for Team B, instead of
+ * relying on a GTM Custom Event trigger on signup_complete_B (that trigger
+ * was unreliable — swap this for a GTM-side call only if that gets fixed).
+ * fbq is expected to already be loaded globally by the GTM Meta Pixel base
+ * tag, not loaded here.
  */
 export function trackSignupComplete(variant: SignupVariant, email: string) {
   sendGTMEvent({
@@ -24,6 +30,11 @@ export function trackSignupComplete(variant: SignupVariant, email: string) {
     email,
     page_path: location.pathname,
   });
+
+  if (variant === "B" && typeof window.fbq === "function") {
+    window.fbq("set", "userData", { em: email });
+    window.fbq("track", "Lead");
+  }
 }
 
 /**
