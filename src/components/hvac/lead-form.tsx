@@ -2,11 +2,12 @@
 
 import { useEffect, useRef, useState, type SubmitEvent } from "react";
 import { IconCheck } from "./icons";
-import { submitLead, type LeadPath } from "@/lib/submit-lead";
-import { trackSignupComplete, trackLeadSubmit } from "@/lib/gtm";
+import { type LeadPath } from "@/lib/submit-lead";
+import { trackSignupComplete } from "@/lib/gtm";
 import { identifySignup } from "@/lib/posthog";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const WEB3FORMS_ACCESS_KEY = "f04a7958-62eb-40ef-a36a-82094388363a";
 
 export function LeadForm({
   source,
@@ -51,15 +52,41 @@ export function LeadForm({
     setServerError(null);
     setPending(true);
     try {
-      await submitLead({ path, name, email, source, qualifier });
-      if (!sentRef.current) {
-        sentRef.current = true;
-        trackSignupComplete("A", email);
-        trackLeadSubmit(source);
-        identifySignup("A", email, { name }, { form_source: source, qualifier });
+      const data = new FormData();
+      data.append("access_key", WEB3FORMS_ACCESS_KEY);
+      data.append("path", path);
+      data.append("name", name);
+      data.append("email", email);
+      data.append("source", source);
+      data.append("qualifier", qualifier ?? "");
+      data.append("subject", `New lead from ${path} page`);
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: data,
+      });
+      const res = await response.json();
+
+      if (res.success) {
+        if (!sentRef.current) {
+          sentRef.current = true;
+          window.dataLayer?.push({
+            event: "lead_submit",
+            page_path: location.pathname,
+            form_source: source || "lp",
+          });
+          if (typeof window.fbq === "function") {
+            window.fbq("track", "Lead");
+          }
+          trackSignupComplete("A", email);
+          identifySignup("A", email, { name }, { form_source: source, qualifier });
+        }
+        setSubmitted(true);
+        requestAnimationFrame(() => doneRef.current?.focus());
+      } else {
+        throw new Error(res.message || "Submission failed");
       }
-      setSubmitted(true);
-      requestAnimationFrame(() => doneRef.current?.focus());
     } catch (err) {
       setServerError(
         err instanceof Error
