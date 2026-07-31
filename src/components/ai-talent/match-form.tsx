@@ -46,6 +46,8 @@ export function MatchForm({ subject }: { subject: string }) {
         if (!trackedRef.current) {
           trackedRef.current = true;
           const email = String(formData.get("email") ?? "");
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({ event: "lead_submit", form_location: "aitalent" });
           trackSignupComplete("B", email);
           identifySignup(
             "B",
