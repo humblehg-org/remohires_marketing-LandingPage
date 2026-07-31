@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "../ai-talent.css";
 
-const BOOKING_URL = "https://calendar.app.google/LyRtrf2WDV8UCVxk7";
+const BOOKING_URL = "https://calendar.app.google/opczJKFLUCcXyLN26";
 
 export const metadata: Metadata = {
   title: "Thanks — RemoHires",
