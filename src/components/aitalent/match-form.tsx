@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useRef, useState, type FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import { trackSignupComplete } from "@/lib/gtm";
 import { identifySignup } from "@/lib/posthog";
 
@@ -20,8 +21,8 @@ const INDUSTRIES = [
 
 export function MatchForm({ subject }: { subject: string }) {
   const idPrefix = useId();
+  const router = useRouter();
   const [sending, setSending] = useState(false);
-  const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const trackedRef = useRef(false);
 
@@ -59,7 +60,8 @@ export function MatchForm({ subject }: { subject: string }) {
             { form_source: subject },
           );
         }
-        setSent(true);
+        router.push("/aitalent/thank-you");
+        return;
       } else {
         throw new Error((data && data.message) || "Submission failed");
       }
@@ -73,7 +75,7 @@ export function MatchForm({ subject }: { subject: string }) {
   }
 
   return (
-    <div className={`formcard${sent ? " is-sent" : ""}`}>
+    <div className="formcard">
       <form className="matchform form-body" noValidate onSubmit={handleSubmit}>
         <input type="hidden" name="access_key" value={ACCESS_KEY} />
         <input type="hidden" name="subject" value={subject} />
@@ -172,15 +174,6 @@ export function MatchForm({ subject }: { subject: string }) {
           </div>
         )}
       </form>
-      <div className="success">
-        <div className="ic">
-          <svg fill="none" viewBox="0 0 24 24" strokeWidth={2.4}>
-            <path d="M20 6L9 17l-5-5" />
-          </svg>
-        </div>
-        <h3>Got it.</h3>
-        <p>Thanks — we&rsquo;ll reach out to book a quick discovery call and find your match.</p>
-      </div>
     </div>
   );
 }
