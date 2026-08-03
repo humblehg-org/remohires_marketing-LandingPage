@@ -58,11 +58,29 @@ header.nav.scrolled{box-shadow:0 8px 30px rgba(15,33,112,.10);background:rgba(25
 .hero p.sub{font-size:18px;color:var(--muted);margin:18px 0 26px;max-width:46ch}
 @media(max-width:860px){.hero .grid{grid-template-columns:1fr;padding:44px 0 54px;gap:38px}.hero p.sub{max-width:none}}
 
-.cdone{display:flex;gap:14px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;max-width:540px;box-shadow:var(--shadow-card)}
-.cdone .ic{width:34px;height:34px;flex:none;color:#0f9b6c}
-.cdone b{display:block;color:var(--navy);font-size:15.5px;line-height:1.35}
-.cdone span{color:var(--muted);font-size:13.5px}
+.thankyou-page{position:relative;overflow:hidden;background:radial-gradient(60% 70% at 88% -10%,rgba(0,247,223,.16),transparent 60%),radial-gradient(50% 60% at -5% 10%,rgba(20,65,223,.10),transparent 60%),var(--lgrey)}
+.thankyou-wrap{display:flex;flex-direction:column;align-items:center;width:100%}
+a.thankyou-logo{margin-bottom:40px;width:160px;height:32px}
+
+.thankyou{max-width:540px}
+.thankyou:focus{outline:none}
+.cdone{display:flex;gap:18px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px 30px;box-shadow:var(--shadow-card)}
+.cdone .ic{width:46px;height:46px;flex:none;padding:11px;color:#fff;background:linear-gradient(135deg,#12c48a,#0f9b6c);border-radius:50%;box-shadow:0 10px 22px rgba(15,155,108,.32)}
+.cdone b{display:block;color:var(--navy);font-size:17.5px;line-height:1.4;margin-bottom:6px}
+.cdone span{display:block;color:var(--muted);font-size:14px;line-height:1.6}
 .cdone:focus{outline:none}
+
+.thankyou-booking{margin-top:26px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px 30px;box-shadow:var(--shadow-card);text-align:left}
+.thankyou-list{display:grid;grid-template-columns:repeat(2,1fr);gap:16px 20px;font-size:14px;color:var(--muted);margin-bottom:30px}
+.thankyou-list span{display:inline-flex;align-items:flex-start;gap:9px;line-height:1.5}
+.thankyou-list .ic{width:19px;height:19px;flex:none;color:#0f9b6c;margin-top:1px}
+.thankyou-cta{width:100%;background:var(--grad);color:var(--navy);padding:16px 26px;font-size:16px;transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
+.thankyou-cta:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 16px 36px rgba(0,168,242,.32);filter:brightness(1.06)}
+.thankyou-cta:active{transform:scale(.95);box-shadow:0 6px 16px rgba(0,168,242,.22)}
+.thankyou-cta::after{content:"";position:absolute;top:0;left:-140%;width:60%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-18deg)}
+.thankyou-cta:hover::after{animation:shine .7s ease}
+@media(max-width:480px){.cdone{flex-direction:column;text-align:center;padding:26px 22px}.cdone b,.cdone span{text-align:center}.thankyou-list{grid-template-columns:1fr}.thankyou-booking{padding:24px 22px}}
+@media(max-width:560px){.thankyou-list{grid-template-columns:1fr}.thankyou-booking{padding:18px}}
 
 section{padding:var(--gap) 0}
 .sec-head{max-width:700px;margin-bottom:40px}
@@ -185,6 +203,10 @@ section{padding:var(--gap) 0}
 .final .cdone .ic{color:var(--turq)}
 .final .cdone b{color:#fff}
 .final .cdone span{color:rgba(255,255,255,.85)}
+.final .thankyou{margin:0 auto}
+.final .thankyou-booking{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.32)}
+.final .thankyou-list{color:rgba(255,255,255,.85)}
+.final .thankyou-list .ic{color:var(--turq)}
 @media(max-width:560px){.final{padding:40px 22px}}
 
 footer{background:var(--navy);color:#fff;padding:48px 0 34px;margin-top:70px}

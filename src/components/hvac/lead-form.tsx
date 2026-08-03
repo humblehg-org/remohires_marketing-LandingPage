@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type SubmitEvent } from "react";
-import { IconCheck } from "./icons";
+import { useRouter } from "next/navigation";
 import { type LeadPath } from "@/lib/submit-lead";
 import { trackSignupComplete } from "@/lib/gtm";
 import { identifySignup } from "@/lib/posthog";
@@ -24,13 +24,12 @@ export function LeadForm({
   path?: LeadPath;
   submitLabel?: string;
 }) {
+  const router = useRouter();
   const [invalid, setInvalid] = useState(false);
   const [pending, setPending] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
-  const [submitted, setSubmitted] = useState(false);
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
-  const doneRef = useRef<HTMLDivElement>(null);
   const sentRef = useRef(false);
 
   useEffect(() => {
@@ -82,8 +81,7 @@ export function LeadForm({
           trackSignupComplete("A", email);
           identifySignup("A", email, { name }, { form_source: source, qualifier });
         }
-        setSubmitted(true);
-        requestAnimationFrame(() => doneRef.current?.focus());
+        router.push("/thank-you");
       } else {
         throw new Error(res.message || "Submission failed");
       }
@@ -108,7 +106,6 @@ export function LeadForm({
       <form
         className={`lead-form${center ? " centerform" : ""}${invalid || serverError ? " invalid" : ""}`}
         noValidate
-        hidden={submitted}
         onSubmit={handleSubmit}
         onInput={handleInput}
       >
@@ -149,20 +146,10 @@ export function LeadForm({
       <p
         className={`microcopy${center ? " centerform" : ""}`}
         style={center ? { textAlign: "center" } : undefined}
-        hidden={submitted}
       >
         We will email you back once, from a real person here. No spam, no
         card, no obligation, and no call unless you ask for one.
       </p>
-      <div className="cdone" role="status" hidden={!submitted} tabIndex={-1} ref={doneRef}>
-        <span className="ic">
-          <IconCheck />
-        </span>
-        <div>
-          <b>Thanks &mdash; we&rsquo;ll be in touch within one business day.</b>
-          <span>Watch for an email from remohires.com.</span>
-        </div>
-      </div>
     </>
   );
 }

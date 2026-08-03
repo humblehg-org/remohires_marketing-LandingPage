@@ -184,6 +184,24 @@ export function IconUser(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+export function IconVideo(props: SVGProps<SVGSVGElement>) {
+  return (
+    <IconBase {...props}>
+      <path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5" />
+      <rect x="2" y="6" width="14" height="12" rx="2" />
+    </IconBase>
+  );
+}
+
+export function IconMessageCircle(props: SVGProps<SVGSVGElement>) {
+  return (
+    <IconBase {...props}>
+      <path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z" />
+      <path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1" />
+    </IconBase>
+  );
+}
+
 function IconFilledBase(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
