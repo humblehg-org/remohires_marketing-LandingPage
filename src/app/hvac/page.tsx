@@ -23,9 +23,9 @@ import {
 } from "@/components/hvac/icons";
 
 export const metadata: Metadata = {
-  title: "RemoHires | Close The Quotes You Already Sent",
+  title: "RemoHires | Never Lose Another After Hours Job",
   description:
-    "You already quoted the job. A dedicated remote teammate follows up on every estimate until it books, so it stops going to whoever called back first.",
+    "Your crew is on the job while the phone rings. A dedicated remote teammate answers every call in your company name, books it, and covers your after hours, so the next emergency goes to you.",
 };
 
 const selfCheckOptions = [
@@ -33,18 +33,18 @@ const selfCheckOptions = [
     v: "0-5",
     label: "0 to 5",
     reflect:
-      "Even a handful is worth a second look. Those are people who already asked you for a price.",
+      "Even a few is a few booked jobs. Each one called someone who answered instead of you.",
   },
   {
     v: "6-15",
     label: "6 to 15",
-    reflect: "That is a steady trickle of priced work worth circling back on.",
+    reflect: "That is a steady leak of ready to book work every single week.",
   },
   {
     v: "16+",
     label: "16 or more",
     reflect:
-      "That is a real backlog of people who already wanted a quote from you.",
+      "That is a real stack of jobs going to whoever picked up the phone first.",
   },
 ];
 
@@ -57,61 +57,64 @@ const heroTrust = [
 const painPoints = [
   {
     icon: IconCycleFilled,
-    title: "The Quote Goes Cold",
-    body: "You sent the price. Days pass. The homeowner stops thinking about you.",
+    title: "The 6 PM Call",
+    body: "A family's AC quits after hours. They call the first shop that answers.",
   },
   {
     icon: IconClockFilled,
-    title: "The Follow-Up Piles Up",
-    body: "You mean to call back. The truck, the crew, the day eat the time.",
+    title: "The Phone Rings Out",
+    body: "Your crew is on a job. The call goes to voicemail, and they do not leave one.",
   },
   {
     icon: IconPhoneCallFilled,
     title: "The Job Goes Elsewhere",
-    body: "The competitor who called first books the install you already priced.",
+    body: "They tap the next result and book the install you could have had.",
   },
 ];
 
 const howItems = [
   {
     icon: IconCalendarFilled,
-    title: "Works Your Pipeline Daily",
-    body: "Every open estimate gets worked, every day, until it lands or closes out.",
+    title: "Answers Every Call",
+    body: "In your company name, with a warm greeting, so callers feel like they reached your office.",
   },
   {
     icon: IconPhoneCallFilled,
-    title: "Follows Up Like A Pro",
-    body: "Real calls and texts that sound like your shop, not a script.",
+    title: "Books The Job",
+    body: "Takes the details, checks your schedule, and puts the appointment straight on the board.",
   },
   {
     icon: IconCheckFilled,
-    title: "Books The Ready Ones",
-    body: "Homeowners ready to say yes go straight onto your calendar.",
+    title: "Covers After Hours",
+    body: "Evenings and weekends handled, so the emergency call that pays best stays yours.",
   },
 ];
 
 const themRows = [
-  "An auto-text goes out, then silence.",
-  "You mean to call, the day eats it.",
-  "The homeowner books whoever called back.",
+  "The phone rings out after five.",
+  "The voicemail sits until morning.",
+  "The homeowner books whoever answered.",
 ];
 
 const usRows = [
-  "A real person calls, the same day.",
-  "Follows up on day 2, day 5, day 12.",
-  "Answers the question and asks for the job.",
+  "A real person answers, in your name.",
+  "The job goes straight onto your calendar.",
+  "After hours and weekends stay covered.",
 ];
 
 const pilotCards = [
   {
+    icon: IconBanknote,
     title: "Money Back Your First Month",
     body: "If your teammate does not earn their keep in the first month, you get your money back.",
   },
   {
+    icon: IconClockRingFilled,
     title: "Cancel Anytime",
     body: "No long lock-in. You stay because it works, not because of a contract.",
   },
   {
+    icon: IconBriefcase,
     title: "Founding Rate",
     body: "A flat monthly rate, less than a local front-desk hire, locked in while you stay.",
   },
@@ -149,7 +152,7 @@ export default function QuotesPage() {
       />
       <ScrollProgress />
       <TopStrip />
-      <SiteHeader ctaLabel="Close More Quotes" />
+      <SiteHeader ctaLabel="Cover My Phones" />
       <main id="top">
         {/* ---------- Hero ---------- */}
         <section className="hero" style={{ padding: 0 }}>
@@ -158,17 +161,17 @@ export default function QuotesPage() {
               <Reveal direction="l">
                 <span className="eyebrow">Home-service owners</span>
                 <h1>
-                  <span className="num">3 of 4</span> Estimates You Send Never
-                  Close
+                  Never Lose Another <span className="num">After Hours</span>{" "}
+                  Job
                 </h1>
                 <p className="sub">
-                  Most never come back, and rarely on price. They go quiet
-                  while you are on the next job. A dedicated teammate follows
-                  up on every estimate you send, by call and text, until it
-                  books.
+                  The calls that come in while your crew is on a job are the
+                  ones that pay best. A dedicated remote teammate answers
+                  every one in your company name, books it, and follows up,
+                  during your hours and after them.
                 </p>
                 <SelfCheck
-                  question="How many quotes ghosted you last month?"
+                  question="How many calls go to voicemail in a busy week?"
                   options={selfCheckOptions}
                   path="quotes"
                 />
@@ -183,8 +186,8 @@ export default function QuotesPage() {
                         </span>
                       </div>
                       <div>
-                        <b>One Open Estimate</b>
-                        <small>Maple Street, system replacement</small>
+                        <b>Incoming Call, 6:12 PM</b>
+                        <small>No cool, family with a newborn</small>
                       </div>
                     </div>
                     <div className="callrow">
@@ -192,56 +195,46 @@ export default function QuotesPage() {
                         <IconClockFilled />
                       </span>
                       <div className="t">
-                        Estimate sent
-                        <small>Day 0</small>
+                        Answered in two rings
+                        <small>In your company name</small>
                       </div>
-                      <span className="tag">Sent</span>
+                      <span className="tag">Live</span>
                     </div>
                     <div className="callrow">
                       <span className="ic">
                         <IconPhoneCallFilled />
                       </span>
                       <div className="t">
-                        Follow-up call
-                        <small>Day 2</small>
+                        Job booked
+                        <small>Straight onto the board</small>
                       </div>
-                      <span className="tag blue">Calling</span>
+                      <span className="tag blue">Booked</span>
                     </div>
                     <div className="callrow">
                       <span className="ic">
                         <IconPhoneCallFilled />
                       </span>
                       <div className="t">
-                        Checked in again
-                        <small>Day 5</small>
+                        After hours covered
+                        <small>Evenings and weekends</small>
                       </div>
-                      <span className="tag blue">Nudged</span>
-                    </div>
-                    <div className="callrow">
-                      <span className="ic">
-                        <IconCalendarFilled />
-                      </span>
-                      <div className="t">
-                        Booked the install
-                        <small>Day 12</small>
-                      </div>
-                      <span className="tag won">Won</span>
+                      <span className="tag blue">Handled</span>
                     </div>
                     <p className="illus">
                       Illustrative: how one job moves through your follow-up.
                     </p>
                   </div>
                 </Reveal>
-                <Reveal direction="r" className="herotrust">
+                <div className="herotrust">
                   {heroTrust.map((t) => (
-                    <div className="item" key={t.label}>
+                    <Reveal direction="r" className="item" key={t.label}>
                       <span className="ic">
                         <t.icon />
                       </span>
                       <span>{t.label}</span>
-                    </div>
+                    </Reveal>
                   ))}
-                </Reveal>
+                </div>
               </div>
             </div>
           </div>
@@ -249,7 +242,7 @@ export default function QuotesPage() {
 
         {/* ---------- By the numbers ---------- */}
         <section className="stats">
-          <div className="wrap" style={{ padding: "56px 0" }}>
+          <div className="wrap" style={{ padding: "96px 0" }}>
             <Reveal className="stat-head">
               <span className="eyebrow light">By The Numbers</span>
               <h2>Where Your Booked Jobs Quietly Go</h2>
@@ -263,8 +256,8 @@ export default function QuotesPage() {
                   <StatCounter to={75} suffix="%" />
                 </div>
                 <div className="lab">
-                  of estimates you send never close on their own, and it is
-                  rarely about price.
+                  of callers who reach a voicemail move on instead of leaving
+                  a message.
                 </div>
               </Reveal>
               <Reveal className="stat">
@@ -275,18 +268,18 @@ export default function QuotesPage() {
                   <StatCounter to={78} suffix="%" />
                 </div>
                 <div className="lab">
-                  of jobs go to whoever follows up first, not whoever is
-                  cheapest.
+                  of jobs go to whoever answers or follows up first, not
+                  whoever is cheapest.
                 </div>
               </Reveal>
               <Reveal className="stat">
                 <span className="ic">
                   <IconCalendarFilled />
                 </span>
-                <div className="big">Day 2&middot;5&middot;12</div>
+                <div className="big">2 Rings</div>
                 <div className="lab">
-                  a real follow-up rhythm on every quote, not a one-time
-                  auto-text.
+                  how fast a covered line gets answered, during the day and
+                  after hours.
                 </div>
               </Reveal>
             </div>
@@ -303,11 +296,10 @@ export default function QuotesPage() {
           <div className="wrap">
             <Reveal className="sec-head">
               <span className="eyebrow">Your Most Expensive Silence</span>
-              <h2>The Quotes You Already Priced</h2>
+              <h2>The Calls You Never Hear</h2>
               <p>
-                Owners say about 3 of 4 sent estimates never close, and it is
-                rarely price. It is the follow-up that slips while you are on
-                a roof.
+                Most missed calls never call back. They ring while you are on
+                a roof, hit voicemail, and go to the next shop on the list.
               </p>
             </Reveal>
             <div className="grid3">
@@ -329,10 +321,13 @@ export default function QuotesPage() {
           <div className="wrap">
             <Reveal className="sec-head">
               <span className="eyebrow">What You Get</span>
-              <h2>One Teammate On Every Open Estimate</h2>
+              <h2>
+                A Front Office That Never Misses{" "}
+                <span className="whitespace-nowrap">The Phone</span>
+              </h2>
               <p>
-                A dedicated, full-time teammate who owns your quote pipeline
-                from the estimate to the booked job.
+                A dedicated, full-time teammate who answers your calls, books
+                the work, and follows up on the quotes you already sent.
               </p>
             </Reveal>
             <div className="flow">
@@ -354,13 +349,13 @@ export default function QuotesPage() {
           <div className="wrap">
             <Reveal className="sec-head" style={{ maxWidth: 720 }}>
               <span className="eyebrow">The Difference</span>
-              <h2>What Happens To A Quote</h2>
+              <h2>What Happens To A Call</h2>
             </Reveal>
             <Reveal className="vs">
               <div className="col them">
                 <h4>
                   <span className="dotm" />
-                  Left On Its Own
+                  Left To Voicemail
                 </h4>
                 {themRows.map((r) => (
                   <div className="row" key={r}>
@@ -408,7 +403,7 @@ export default function QuotesPage() {
                 <p style={{ fontSize: 16 }}>
                   Michael was the front desk, the dispatcher, and the man on
                   the roof. We built RemoHires around his real day, so the
-                  quotes that used to sit now get a real follow-up.
+                  calls that used to ring out now get answered.
                 </p>
                 <small>Michael, Founder, Louisiana Home Performance</small>
               </div>
@@ -432,7 +427,7 @@ export default function QuotesPage() {
               {pilotCards.map((c) => (
                 <Reveal key={c.title} className="card">
                   <span className="ic">
-                    <IconCheckFilled />
+                    <c.icon />
                   </span>
                   <h3>{c.title}</h3>
                   <p>{c.body}</p>
@@ -448,7 +443,7 @@ export default function QuotesPage() {
             <Reveal className="final">
               <span className="eyebrow">Get Started</span>
               <h2 style={{ marginTop: 12 }}>
-                Stop Leaving Quotes On The Table
+                Stop Losing Jobs To A Missed Call
               </h2>
               <p>
                 Leave your name and email. A real person here will reach out
@@ -484,7 +479,7 @@ export default function QuotesPage() {
           <div className="frow">
             <p>
               Full-time remote teammates for growing businesses.{" "}
-              <a href="https://remohires.com">remohires.com</a>
+              remohires.com
             </p>
             <p>&copy; 2026 RemoHires</p>
           </div>

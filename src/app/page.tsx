@@ -208,16 +208,16 @@ export default function Home() {
                     </p>
                   </div>
                 </Reveal>
-                <Reveal direction="r" className="herotrust">
+                <div className="herotrust">
                   {heroTrust.map((t) => (
-                    <div className="item" key={t.label}>
+                    <Reveal direction="r" className="item" key={t.label}>
                       <span className="ic">
                         <t.icon />
                       </span>
                       <span>{t.label}</span>
-                    </div>
+                    </Reveal>
                   ))}
-                </Reveal>
+                </div>
               </div>
             </div>
           </div>

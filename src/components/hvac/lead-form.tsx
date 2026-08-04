@@ -10,11 +10,10 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const WEB3FORMS_ACCESS_KEY = "f04a7958-62eb-40ef-a36a-82094388363a";
 
 const HEAR_ABOUT_OPTIONS = [
-  "Google search",
-  "Google ad",
-  "Facebook / Instagram",
+  "Google",
+  "Facebook/Instagram",
   "LinkedIn",
-  "Referral from a friend",
+  "Referral",
   "Other",
 ];
 
