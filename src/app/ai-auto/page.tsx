@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
-import "./ai-talent.css";
-import { Reveal } from "@/components/ai-talent/reveal";
-import { MatchForm } from "@/components/ai-talent/match-form";
-import { CountUp } from "@/components/ai-talent/count-up";
+import "./ai-auto.css";
+import { Reveal } from "@/components/ai-auto/reveal";
+import { MatchForm } from "@/components/ai-auto/match-form";
+import { CountUp } from "@/components/ai-auto/count-up";
 
 export const metadata: Metadata = {
-  title: "RemoHires — The AI Professional You Can't Afford to Hire Locally",
+  title: "RemoHires — AI Automation That Actually Runs",
   description:
-    "RemoHires places a dedicated, full-time AI professional who builds your automations and keeps them running — vetted for the skills you can't test yourself, for up to 80% less than hiring locally in the U.S.",
+    "RemoHires matches you with a dedicated, full-time AI automation specialist who builds, monitors, fixes, and improves your workflows — for up to 83% less than hiring locally in the U.S.",
 };
 
 const handled = [
   {
-    title: "Customer-facing AI",
-    body: "Support agents that handle first-line questions — your team only touches what needs a human.",
+    title: "Lead intake & follow-up",
+    body: "Capture form submissions, notify the right owner, send first responses, and keep leads from sitting untouched.",
     icon: (
       <svg fill="none" viewBox="0 0 24 24" strokeWidth={2}>
         <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
@@ -21,8 +21,17 @@ const handled = [
     ),
   },
   {
-    title: "Internal knowledge tools",
-    body: "Your SOPs and docs turned into something your team can actually ask questions of.",
+    title: "Back-office automation",
+    body: "Connect CRM, inbox, spreadsheets, forms, and internal tools so repetitive admin work moves automatically.",
+    icon: (
+      <svg fill="none" viewBox="0 0 24 24" strokeWidth={2}>
+        <path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8" />
+      </svg>
+    ),
+  },
+  {
+    title: "AI-assisted operations",
+    body: "Use ChatGPT, Claude, Zapier, Make, n8n, and APIs to support reporting, documentation, support, and internal workflows.",
     icon: (
       <svg fill="none" viewBox="0 0 24 24" strokeWidth={2}>
         <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
@@ -31,17 +40,8 @@ const handled = [
     ),
   },
   {
-    title: "Workflow automation",
-    body: "CRM, spreadsheets and inbox wired together so the manual steps in between just run.",
-    icon: (
-      <svg fill="none" viewBox="0 0 24 24" strokeWidth={2}>
-        <path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8" />
-      </svg>
-    ),
-  },
-  {
-    title: "Data & reporting",
-    body: "The reports nobody wants to build, pulled and formatted automatically, every week.",
+    title: "Monitoring & improvement",
+    body: "Check outputs, catch failures, update prompts, improve workflows, and make sure the automation keeps working.",
     icon: (
       <svg fill="none" viewBox="0 0 24 24" strokeWidth={2}>
         <path d="M3 3v18h18" />
@@ -52,7 +52,7 @@ const handled = [
 ];
 
 const runRow = [
-  { b: "Build", s: "Connect your systems & ship the workflow" },
+  { b: "Build", s: "Map the process & build the workflow" },
   { b: "Run", s: "Monitor it and catch failures early" },
   { b: "Fix", s: "Troubleshoot when inputs or APIs break" },
   { b: "Improve", s: "Refine and expand it over time" },
@@ -62,52 +62,52 @@ const steps = [
   {
     n: "01",
     title: "Tell us who you are",
-    body: "Drop your name, email and industry. We'll follow up with a quick discovery call to scope the work worth handing off.",
+    body: "Drop your name, email, industry, and the process you want to automate. We'll follow up with a quick discovery call.",
   },
   {
     n: "02",
-    title: "We match your professional",
-    body: "A dedicated, full-time AI professional matched to your workflow — sourced, screened, and ready to onboard.",
+    title: "We match your automation specialist",
+    body: "A dedicated, full-time AI automation specialist matched to your tools, workflow, and implementation needs.",
   },
   {
     n: "03",
     title: "They build and run it",
-    body: "They ship your automations and keep them working, human-checked. We handle payroll and compliance through our EOR.",
+    body: "They build, run, monitor, and improve your automations. We handle payroll and compliance through our EOR.",
   },
 ];
 
 const faqs = [
   {
     q: "Is this full-time or project-based?",
-    a: "Full-time and dedicated — your professional works only for your business, as part of your team. We handle payroll, contracts, and tax compliance through our Employer of Record service.",
+    a: "Full-time and dedicated — your automation specialist works only for your business, as part of your team. We handle payroll, contracts, and tax compliance through our Employer of Record service.",
+  },
+  {
+    q: "How is this different from buying another AI automation tool?",
+    a: "A tool gives you features. RemoHires gives you the person who turns those features into working automations for your business processes. You get a dedicated automation specialist who builds, monitors, fixes, and improves the workflows using the tools you already have.",
+  },
+  {
+    q: "Will the automation actually be reliable?",
+    a: "A human owns and reviews the workflow, monitors outputs, fixes issues, and improves the automation over time. AI stays behind the process unless you decide otherwise.",
   },
   {
     q: "How is this different from an agency?",
     a: "An agency splits attention across many clients and bills you for deliverables. You get one dedicated person on your team, working only for you — and you stay in control.",
   },
   {
-    q: "Will the AI actually be reliable?",
-    a: "A human owns and reviews every output, and keeps it running — monitoring, fixing, improving. AI stays in the back office and doesn't talk to your customers unless you want it to.",
-  },
-  {
-    q: "How do you handle security and system access?",
-    a: "You grant least-privilege access to only the tools the work needs, and you can revoke it any time. Every engagement is covered by an NDA and a data-processing agreement (DPA), and RemoHires is accountable for the work — you're not handing the keys to a lone freelancer. A full security overview is available on request.",
-  },
-  {
     q: "I'm not technical.",
-    a: "Good. You never touch the AI — your professional does. You just tell them what “done right” looks like.",
+    a: "Good. You do not need to become the AI person. Your professional handles implementation while you define what “done right” looks like.",
   },
   {
     q: "Where is the talent based?",
-    a: "Full-time professionals based in Indonesia — strong English, real time-zone overlap on a US-aligned schedule, and remote-first by default. It's a big part of how you get dedicated output for up to 80% less than a US hire.",
+    a: "Full-time professionals based in Indonesia — strong English, real time-zone overlap on a US-aligned schedule, and remote-first by default. It's a big part of how you get dedicated output for up to 83% less than a US hire.",
   },
   {
     q: "What does it cost?",
-    a: "A monthly rate for a dedicated full-time professional — typically up to 80% less than a comparable US hire (~$107K/yr base). Your exact quote depends on the role and seniority.",
+    a: "A monthly rate for a dedicated full-time professional — typically up to 83% less than a comparable US hire (~$152K/yr base). Your exact quote depends on the role and seniority.",
   },
 ];
 
-export default function AiTalentV2Page() {
+export default function AiAutoPage() {
   return (
     <>
       <header>
@@ -135,20 +135,20 @@ export default function AiTalentV2Page() {
                 <circle cx="9" cy="7" r="4" />
                 <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13A4 4 0 0119 7" />
               </svg>{" "}
-              Dedicated AI professionals
+              AI automation implementation
             </span>
             <h1 style={{ marginTop: 22 }}>
-              AI won&rsquo;t transform
+              AI automation
               <br />
-              your business.
+              that actually runs.
               <br />
-              <span className="t">The right person will.</span>
+              <span className="t">Not another unfinished experiment.</span>
             </h1>
             <p className="sub">
-              You already know AI could change how you operate. You just don&rsquo;t have someone
-              who can actually{" "}
-              <b style={{ color: "#fff" }}>build it — and keep it running</b>. RemoHires places a
-              dedicated AI professional who does both, for up to 80% less than a local hire.
+              You don&rsquo;t need another AI tool or a vague technical hire. You need someone who
+              can turn ChatGPT, Claude, Zapier, Make, n8n, and your existing systems into working
+              automations that save time every week. RemoHires matches you with a dedicated AI
+              automation specialist who builds, monitors, fixes, and improves the workflows.
             </p>
             <div className="stats">
               <div className="st">
@@ -157,19 +157,19 @@ export default function AiTalentV2Page() {
                     <path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" />
                     <circle cx="12" cy="7" r="4" />
                   </svg>{" "}
-                  Full-time
+                  One owner
                 </div>
-                <div className="v">Dedicated to you</div>
+                <div className="v">Dedicated to your automations</div>
               </div>
               <div className="st">
                 <div className="k">
                   <svg fill="none" viewBox="0 0 24 24" strokeWidth={2}>
-                    <path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4" />
+                    <path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M2 12h4M18 12h4" />
                     <circle cx="12" cy="12" r="3" />
                   </svg>{" "}
-                  Builds &amp; runs it
+                  Build, run, improve
                 </div>
-                <div className="v">A human owns every output</div>
+                <div className="v">Automations, not experiments</div>
               </div>
               <div className="st">
                 <div className="k">
@@ -177,7 +177,7 @@ export default function AiTalentV2Page() {
                     <path d="M3 17l6-6 4 4 7-7" />
                     <path d="M17 8h4v4" />
                   </svg>{" "}
-                  Up to 80%
+                  Up to 83%
                 </div>
                 <div className="v">Less than a local hire</div>
               </div>
@@ -185,7 +185,7 @@ export default function AiTalentV2Page() {
           </div>
 
           <div id="start">
-            <MatchForm subject="New RemoHires lead (v2 hero)" />
+            <MatchForm subject="New RemoHires lead (AI automation hero)" />
           </div>
         </div>
       </section>
@@ -195,21 +195,19 @@ export default function AiTalentV2Page() {
         <div className="wrap">
           <span className="eyebrow">Sound familiar</span>
           <h2 style={{ marginTop: 16 }}>
-            Every automation you need is
+            You know what should be automated.
             <br />
-            <span className="t">waiting on a hire you can&rsquo;t justify.</span>
+            <span className="t">Nobody has time to build it.</span>
           </h2>
           <Reveal className="scene">
-            It&rsquo;s 9 PM and you&rsquo;re still reconciling invoices, updating the CRM, and
-            moving data between systems. You&rsquo;ve looked at hiring an automation engineer —
-            but the salary is well beyond budget, and you wouldn&rsquo;t know how to evaluate
-            their skills anyway.
+            Leads need follow-up. Reports need to be pulled. CRM fields need to be updated.
+            Customer questions keep repeating. The work is obvious — but the automation never gets
+            finished, tested, monitored, or improved.
           </Reveal>
           <Reveal className="lead">
-            Call it 10–15 hours a week on invoicing, scheduling, and data entry — your
-            highest-paid person doing $15-an-hour work, while the hire that would end it stays
-            unfilled and the backlog compounds. The problem was never the tools. It&rsquo;s that
-            no one on your team can build and run them.
+            AI automation only helps when someone owns the full workflow. Without that owner,
+            tools become experiments, prompts get outdated, workflows break quietly, and your
+            team goes back to doing everything manually.
           </Reveal>
         </div>
       </section>
@@ -217,18 +215,18 @@ export default function AiTalentV2Page() {
       {/* THE SOLUTION */}
       <section className="band">
         <div className="wrap">
-          <span className="eyebrow">The one hire that changes it</span>
+          <span className="eyebrow">The automation owner</span>
           <h2 style={{ marginTop: 16 }}>
-            The $100K+ automation hire you can&rsquo;t afford —
+            Turn repetitive work into
             <br />
-            <span className="t">on your team, for up to 80% less.</span>
+            <span className="t">AI automations that actually run.</span>
           </h2>
           <p className="lead">
-            RemoHires puts a dedicated, full-time professional on your team — vetted by us for the
-            automation skills you can&rsquo;t test yourself (Make, Zapier, n8n, APIs). They build
-            your automations and run them every day. Not an agency splitting time across ten
-            clients. Not another tool for you to manage. One accountable person, building from
-            week one.
+            RemoHires gives you a dedicated, full-time AI automation specialist who builds
+            practical automations around your real business processes. They connect your tools,
+            document the workflow, monitor the output, fix issues, and improve the system over
+            time. Not another AI tool. Not a one-off freelancer. One accountable person making
+            automation work every day.
           </p>
         </div>
       </section>
@@ -236,13 +234,12 @@ export default function AiTalentV2Page() {
       {/* BUILDS AND RUNS IT */}
       <section>
         <div className="wrap">
-          <span className="eyebrow">Built, run, and kept working</span>
-          <h2 style={{ marginTop: 16 }}>Most AI dies after launch. Yours won&rsquo;t.</h2>
+          <span className="eyebrow">From manual work to automation</span>
+          <h2 style={{ marginTop: 16 }}>Automation only creates value when it keeps running.</h2>
           <p className="lead">
-            AI only creates value when someone owns it after go-live — and most businesses
-            don&rsquo;t have that person. Your RemoHires professional doesn&rsquo;t just ship it
-            once; they keep it reliable, with a human owning every output so it never becomes
-            something your customers have to deal with.
+            A workflow is not finished just because it launches once. Your RemoHires automation
+            specialist builds the automation, checks the output, fixes what breaks, and keeps
+            improving it so the process keeps producing measurable work.
           </p>
           <div className="runrow">
             {runRow.map((r, i) => (
@@ -258,8 +255,8 @@ export default function AiTalentV2Page() {
       {/* WHAT THEY HANDLE */}
       <section className="band">
         <div className="wrap">
-          <span className="eyebrow">What your professional handles</span>
-          <h2 style={{ marginTop: 16 }}>Real work, off your plate.</h2>
+          <span className="eyebrow">What your automation specialist handles</span>
+          <h2 style={{ marginTop: 16 }}>AI automation for the work your team keeps repeating.</h2>
           <div className="grid4">
             {handled.map((h, i) => (
               <Reveal className="bc" index={i} key={h.title}>
@@ -275,19 +272,19 @@ export default function AiTalentV2Page() {
       {/* COST COMPARE */}
       <section>
         <div className="wrap">
-          <span className="eyebrow">The math</span>
-          <h2 style={{ marginTop: 16 }}>Significantly less than hiring locally.</h2>
+          <span className="eyebrow">The alternative</span>
+          <h2 style={{ marginTop: 16 }}>Get AI automation execution without hiring locally.</h2>
           <div className="cmp">
             <Reveal className="c local">
               <h3>Hire locally (US)</h3>
               <div className="big">
                 ~$
-                <CountUp to={107} />K
+                <CountUp to={152} />K
                 <span style={{ fontSize: 16, fontWeight: 600, color: "var(--muted)" }}>/yr</span>
               </div>
               <div className="sub">
-                average base for an automation / AI engineer — before benefits, taxes &amp;
-                overhead
+                average base for an automation-focused technical hire — before benefits, taxes
+                &amp; overhead
               </div>
               <ul>
                 <li>Months to recruit and vet</li>
@@ -298,7 +295,7 @@ export default function AiTalentV2Page() {
             <Reveal className="c rh" index={1}>
               <h3>RemoHires</h3>
               <div className="big">
-                up to <CountUp to={80} />%
+                up to <CountUp to={83} />%
                 <span style={{ fontSize: 16, fontWeight: 600, color: "var(--muted)" }}> less</span>
               </div>
               <div className="sub">
@@ -306,9 +303,9 @@ export default function AiTalentV2Page() {
                 salary, no overhead
               </div>
               <ul>
-                <li>Matched to your workflow, ready to onboard</li>
+                <li>Matched to your tools and workflow, ready to onboard</li>
                 <li>Payroll, contracts &amp; compliance handled (EOR)</li>
-                <li>One accountable person who builds and runs it</li>
+                <li>One accountable person who owns implementation</li>
               </ul>
               <a href="#start" className="btn sm" style={{ marginTop: 18 }}>
                 Get your custom quote{" "}
@@ -319,7 +316,7 @@ export default function AiTalentV2Page() {
             </Reveal>
           </div>
           <p className="fn">
-            *US benchmark: automation engineer average ~$107K/yr —{" "}
+            *US benchmark: automation-focused technical role average ~$152K/yr —{" "}
             <a href="https://www.ziprecruiter.com/Salaries/Automation-Engineer-Salary" target="_blank" rel="noopener">
               ZipRecruiter
             </a>{" "}
@@ -337,7 +334,7 @@ export default function AiTalentV2Page() {
       <section className="band">
         <div className="wrap">
           <span className="eyebrow">How it works</span>
-          <h2 style={{ marginTop: 16 }}>Three steps. We do the lifting.</h2>
+          <h2 style={{ marginTop: 16 }}>Three steps to turn manual work into automation.</h2>
           <div className="steps">
             {steps.map((step, i) => (
               <Reveal className="step" index={i} key={step.n}>
@@ -370,11 +367,11 @@ export default function AiTalentV2Page() {
           <Reveal className="tmwrap">
             <div className="stars">★★★★★</div>
             <p className="quote">
-              &ldquo;I was the bottleneck in my own company — every quote and follow-up ran
-              through me. RemoHires matched me with a{" "}
-              <span className="t">professional who built and now runs the automations</span>{" "}
-              I&rsquo;d been putting off for a year. The busywork runs itself, and I actually get
-              to run the business.&rdquo;
+              &ldquo;We had the tools, the prompts, and the ideas — but nobody owned the
+              implementation. RemoHires matched us with an{" "}
+              <span className="t">automation specialist who turned our AI experiments into workflows</span>{" "}
+              that actually run every day. Now the tools finally do the work we bought them
+              for.&rdquo;
             </p>
             <div className="who">
               <div className="av">M</div>
@@ -391,13 +388,13 @@ export default function AiTalentV2Page() {
       <section className="final">
         <div className="wrap">
           <div className="box">
-            <h2>Get the person who builds and runs it.</h2>
+            <h2>Stop starting automations nobody finishes.</h2>
             <p className="s">
-              Get matched with a dedicated AI professional — free to start, up to 80% less than a
-              local hire.
+              Get matched with a dedicated AI automation specialist who turns repetitive work
+              into reliable business workflows.
             </p>
             <div style={{ textAlign: "left" }}>
-              <MatchForm subject="New RemoHires lead (v2 footer)" />
+              <MatchForm subject="New RemoHires lead (AI automation footer)" />
             </div>
           </div>
         </div>
@@ -410,7 +407,7 @@ export default function AiTalentV2Page() {
             <img className="logo" src="https://remohires.com/assets/logo-ClPCTLmH.svg" alt="RemoHires" />
           </a>
           <span>
-            © 2026 RemoHires · Dedicated AI-ready remote professionals ·{" "}
+            © 2026 RemoHires · Dedicated AI automation-ready remote talent ·{" "}
             <a href="mailto:info@remohires.com">info@remohires.com</a>
           </span>
         </div>

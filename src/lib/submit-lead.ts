@@ -9,8 +9,7 @@ const API_BASE =
 // so it is a gate (paired with the Origin allowlist), not a true secret.
 const API_KEY = process.env.NEXT_PUBLIC_FORMS_API_KEY ?? "";
 
-// Note: /aitalent is not here — that page uses its own (web3forms) form.
-export type LeadPath = "home" | "quotes" | "teamb";
+export type LeadPath = "home" | "quotes";
 
 export type LeadPayload = {
   path: LeadPath;

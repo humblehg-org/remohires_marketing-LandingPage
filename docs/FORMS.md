@@ -6,16 +6,12 @@ backend penangkap lead (**https://frm-v1.remohires.com**, repo
 
 ## 1. Cara kerja singkat
 
-Form landing page (kecuali `/aitalent`) mengirim data ke satu endpoint:
+Form landing page mengirim data ke satu endpoint:
 
 ```
 POST https://frm-v1.remohires.com/api/submit
 Content-Type: application/json
 ```
-
-> **Pengecualian:** halaman `/aitalent` memakai form lama yang mengirim
-> langsung ke **web3forms** (`components/aitalent/match-form.tsx`), bukan ke
-> backend ini. Jangan sambungkan ulang ke backend kecuali diminta.
 
 Semua pengiriman dilakukan lewat helper bersama
 [`src/lib/submit-lead.ts`](../src/lib/submit-lead.ts) — jangan `fetch` manual,
@@ -53,7 +49,7 @@ sisanya opsional. Field apa pun di luar daftar ini tetap tersimpan di kolom
 
 | Field       | Wajib | Tipe   | Keterangan                                                    |
 |-------------|:-----:|--------|---------------------------------------------------------------|
-| `path`      | ✅    | string | Halaman asal. Salah satu: `home`, `quotes`, `teamb`. Menentukan section di dashboard. |
+| `path`      | ✅    | string | Halaman asal. Salah satu: `home`, `quotes`. Menentukan section di dashboard. |
 | `email`     | ✅    | string | Email lead. Divalidasi formatnya.                             |
 | `name`      | —     | string | Nama lead.                                                    |
 | `source`    | —     | string | Penanda form/posisi, mis. `hero_selfcheck`, `bottom_form`, `hero`, `footer`. |
@@ -68,10 +64,7 @@ sisanya opsional. Field apa pun di luar daftar ini tetap tersimpan di kolom
 |------------|--------------------|------------------------------------------|
 | `home`     | `/`                | name, email, source, qualifier           |
 | `quotes`   | `/quotes`          | name, email, source, qualifier           |
-| `teamb`    | `/teamb`           | email, source                            |
 
-> `/aitalent` tidak ada di daftar ini karena memakai web3forms, bukan backend.
->
 > Menambah `path` baru: daftarkan dulu di backend
 > `src/config.js` (objek `PATHS`), lalu tambahkan tipe di `LeadPath`
 > (`src/lib/submit-lead.ts`). Tanpa didaftarkan, submission akan ditolak `400`.
@@ -82,9 +75,6 @@ sisanya opsional. Field apa pun di luar daftar ini tetap tersimpan di kolom
 // Home / Quotes (self-check)
 { "path": "home", "name": "Bob", "email": "bob@co.com",
   "source": "hero_selfcheck", "qualifier": "google" }
-
-// Team B (email saja)
-{ "path": "teamb", "email": "sam@co.com", "source": "hero" }
 ```
 
 Respons sukses: `{ "success": true, "id": 12 }`.
@@ -111,7 +101,7 @@ export function MyForm() {
     setError(null);
     try {
       await submitLead({
-        path: "quotes",                       // home | quotes | teamb
+        path: "quotes",                       // home | quotes
         email: String(fd.get("email") || ""), // wajib
         name: String(fd.get("name") || ""),   // opsional
         source: "my_new_form",                // opsional, penanda form ini
@@ -158,8 +148,6 @@ backend), mis. `https://remohires.com,http://localhost:3000`.
 |---------------------------------------|------------|----------------------------------------|
 | `components/hvac/lead-form.tsx`       | backend (`home`/`quotes`) | name, email, source, qualifier |
 | `components/hvac/self-check.tsx`      | backend (`home`/`quotes`) | (meneruskan ke lead-form)      |
-| `components/teamb/lead-form.tsx`      | backend (`teamb`) | email, source                   |
-| `components/aitalent/match-form.tsx`  | **web3forms** (form lama) | name, email, industry, message, subject |
 
 ## 6. Melihat data lead
 

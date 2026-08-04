@@ -57,7 +57,7 @@ export function MatchForm({ subject }: { subject: string }) {
           trackedRef.current = true;
           const email = String(formData.get("email") ?? "");
           window.dataLayer = window.dataLayer || [];
-          window.dataLayer.push({ event: "lead_submit", form_location: "aitalent" });
+          window.dataLayer.push({ event: "lead_submit", form_location: "ai-auto" });
           trackSignupComplete("B", email);
           identifySignup(
             "B",
@@ -69,7 +69,7 @@ export function MatchForm({ subject }: { subject: string }) {
             { form_source: subject },
           );
         }
-        router.push("/ai-talent/thank-you");
+        router.push("/ai-auto/thank-you");
         return;
       } else {
         throw new Error((data && data.message) || "Submission failed");
@@ -88,7 +88,7 @@ export function MatchForm({ subject }: { subject: string }) {
       <form className="matchform form-body" noValidate onSubmit={handleSubmit}>
         <input type="hidden" name="access_key" value={ACCESS_KEY} />
         <input type="hidden" name="subject" value={subject} />
-        <input type="hidden" name="from_name" value="RemoHires Landing v2" />
+        <input type="hidden" name="from_name" value="RemoHires Landing - AI Automation Focus" />
         <input
           type="checkbox"
           name="botcheck"
@@ -102,9 +102,10 @@ export function MatchForm({ subject }: { subject: string }) {
           </svg>{" "}
           Get matched free
         </div>
-        <h3>Find your AI professional</h3>
+        <h3>Find your AI automation specialist</h3>
         <p className="hint">
-          Tell us who you are and we&rsquo;ll follow up to scope your needs and find your match.
+          Tell us what tools you use and we&rsquo;ll follow up to scope the workflows worth
+          handing off.
         </p>
         <div className="field">
           <label htmlFor={`${idPrefix}-name`}>Name</label>
@@ -159,14 +160,14 @@ export function MatchForm({ subject }: { subject: string }) {
         </div>
         <div className="field">
           <label htmlFor={`${idPrefix}-message`}>
-            What do you need help with?{" "}
+            What process do you want to automate?{" "}
             <span style={{ color: "var(--muted)", fontWeight: 400 }}>(optional)</span>
           </label>
           <input
             id={`${idPrefix}-message`}
             name="message"
             type="text"
-            placeholder="e.g. automate our client onboarding"
+            placeholder="e.g. connect ChatGPT, Zapier, CRM, and reporting"
             suppressHydrationWarning
           />
         </div>
@@ -192,7 +193,7 @@ export function MatchForm({ subject }: { subject: string }) {
             "Sending…"
           ) : (
             <>
-              Get matched — free{" "}
+              Get workflow help — free{" "}
               <svg fill="none" viewBox="0 0 24 24" strokeWidth={2.2}>
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>

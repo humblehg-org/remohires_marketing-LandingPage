@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "../ai-talent2.css";
+import "../ai-eng.css";
 
 const BOOKING_URL = "https://calendar.app.google/opczJKFLUCcXyLN26";
 // Google Calendar's short link (calendar.app.google/...) sends
@@ -24,7 +24,7 @@ const perks = [
   "Get personalized recommendations",
 ];
 
-export default function AiTalent2ThankYouPage() {
+export default function AiEngThankYouPage() {
   return (
     <>
       <header>
@@ -40,7 +40,7 @@ export default function AiTalent2ThankYouPage() {
         <div className="wrap ty-wrap">
           <span className="eyebrow">Request received</span>
           <h1 style={{ marginTop: 16 }}>✅ Thanks! We&rsquo;ve received your request.</h1>
-          <p className="ty-sub">Our team will review your workflow needs shortly.</p>
+          <p className="ty-sub">Our team will review your hiring needs shortly.</p>
           <p className="ty-sub">
             To speed up the process, book a free 15-minute Discovery Call with our team using the
             calendar below.
@@ -90,7 +90,7 @@ export default function AiTalent2ThankYouPage() {
             <img className="logo" src="https://remohires.com/assets/logo-ClPCTLmH.svg" alt="RemoHires" />
           </a>
           <span>
-            © 2026 RemoHires · Dedicated AI-ready remote professionals ·{" "}
+            © 2026 RemoHires · Dedicated AI engineering talent ·{" "}
             <a href="mailto:info@remohires.com">info@remohires.com</a>
           </span>
         </div>

@@ -16,7 +16,8 @@ export type SignupVariant = "A" | "B";
  * Emits `signup_complete_A` / `signup_complete_B` — the exact Custom Event
  * names the GTM Google Ads conversion triggers listen for (see the
  * "Google Ads Conversion B" tag in GTM-K736CCFP). Do not rename without
- * updating the GTM triggers. Team B covers /teamb, /aitalent, and /ai-talent.
+ * updating the GTM triggers. Team B covers /ai-eng and /ai-auto (previously
+ * /aitalent, /ai-talent, /ai-talent2 — all retired).
  *
  * Also fires the Meta Pixel Lead event directly for Team B, instead of
  * relying on a GTM Custom Event trigger on signup_complete_B (that trigger

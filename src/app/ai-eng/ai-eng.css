@@ -131,8 +131,10 @@ footer a{color:var(--near);text-decoration:none}
 .booking-list{list-style:none;display:grid;gap:12px;margin:0 auto 26px;max-width:420px}
 .booking-list li{display:flex;align-items:center;gap:10px;font-size:15px;color:var(--near);font-weight:500}
 .booking-list li:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--teal);flex:none}
+.booking-embed{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:20px}
+.booking-embed iframe{display:block;width:100%;height:720px;border:0}
 .booking-cta{width:100%;justify-content:center;font-size:17px;padding:17px}
 .booking-note{text-align:center;font-size:13px;color:var(--muted);margin-top:14px}
 .ty-back{display:inline-block;margin-top:28px;font-size:14px;color:var(--muted);text-decoration:none}
 .ty-back:hover{color:var(--teal)}
-@media(max-width:520px){.ty-section{padding:56px 0}.booking{padding:24px 18px}}
+@media(max-width:520px){.ty-section{padding:56px 0}.booking{padding:24px 18px}.booking-embed iframe{height:560px}}

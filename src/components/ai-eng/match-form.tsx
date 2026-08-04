@@ -19,6 +19,15 @@ const INDUSTRIES = [
   "Other",
 ];
 
+const HEARD_ABOUT_OPTIONS = [
+  "Google search",
+  "Google ad",
+  "Facebook / Instagram",
+  "LinkedIn",
+  "Referral from a friend",
+  "Other",
+];
+
 export function MatchForm({ subject }: { subject: string }) {
   const idPrefix = useId();
   const router = useRouter();
@@ -48,7 +57,7 @@ export function MatchForm({ subject }: { subject: string }) {
           trackedRef.current = true;
           const email = String(formData.get("email") ?? "");
           window.dataLayer = window.dataLayer || [];
-          window.dataLayer.push({ event: "lead_submit", form_location: "aitalent" });
+          window.dataLayer.push({ event: "lead_submit", form_location: "ai-eng" });
           trackSignupComplete("B", email);
           identifySignup(
             "B",
@@ -60,14 +69,14 @@ export function MatchForm({ subject }: { subject: string }) {
             { form_source: subject },
           );
         }
-        router.push("/aitalent/thank-you");
+        router.push("/ai-eng/thank-you");
         return;
       } else {
         throw new Error((data && data.message) || "Submission failed");
       }
     } catch {
       setError(
-        "Something went wrong. Please email resti@remohires.com and we’ll get right back to you.",
+        "Something went wrong. Please email info@remohires.com and we’ll get right back to you.",
       );
     } finally {
       setSending(false);
@@ -79,7 +88,7 @@ export function MatchForm({ subject }: { subject: string }) {
       <form className="matchform form-body" noValidate onSubmit={handleSubmit}>
         <input type="hidden" name="access_key" value={ACCESS_KEY} />
         <input type="hidden" name="subject" value={subject} />
-        <input type="hidden" name="from_name" value="RemoHires Landing Page" />
+        <input type="hidden" name="from_name" value="RemoHires Landing - AI Engineer" />
         <input
           type="checkbox"
           name="botcheck"
@@ -93,10 +102,10 @@ export function MatchForm({ subject }: { subject: string }) {
           </svg>{" "}
           Get matched free
         </div>
-        <h3>Start with one hire</h3>
+        <h3>Find your AI engineer</h3>
         <p className="hint">
-          Tell us who you are and we&rsquo;ll follow up to scope your needs and find your
-          match.
+          Tell us what you want to build and we&rsquo;ll follow up to scope the AI engineering
+          support you need.
         </p>
         <div className="field">
           <label htmlFor={`${idPrefix}-name`}>Name</label>
@@ -117,6 +126,18 @@ export function MatchForm({ subject }: { subject: string }) {
             type="email"
             placeholder="you@company.com"
             required
+            suppressHydrationWarning
+          />
+        </div>
+        <div className="field">
+          <label htmlFor={`${idPrefix}-phone`}>
+            Phone <span style={{ color: "var(--muted)", fontWeight: 400 }}>(optional)</span>
+          </label>
+          <input
+            id={`${idPrefix}-phone`}
+            name="phone"
+            type="tel"
+            placeholder="+1 555 000 0000"
             suppressHydrationWarning
           />
         </div>
@@ -146,16 +167,33 @@ export function MatchForm({ subject }: { subject: string }) {
             id={`${idPrefix}-message`}
             name="message"
             type="text"
-            placeholder="e.g. automate our client onboarding"
+            placeholder="e.g. build an AI chatbot, workflow, or internal tool"
             suppressHydrationWarning
           />
+        </div>
+        <div className="field">
+          <label htmlFor={`${idPrefix}-heard`}>How did you hear about us?</label>
+          <select
+            id={`${idPrefix}-heard`}
+            name="heard_about"
+            required
+            defaultValue=""
+            suppressHydrationWarning
+          >
+            <option value="" disabled>
+              Select an option...
+            </option>
+            {HEARD_ABOUT_OPTIONS.map((option) => (
+              <option key={option}>{option}</option>
+            ))}
+          </select>
         </div>
         <button type="submit" className="btn" disabled={sending}>
           {sending ? (
             "Sending…"
           ) : (
             <>
-              Get matched — free{" "}
+              Get matched with an AI engineer — free{" "}
               <svg fill="none" viewBox="0 0 24 24" strokeWidth={2.2}>
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
