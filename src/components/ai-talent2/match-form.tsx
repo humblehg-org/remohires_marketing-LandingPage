@@ -19,6 +19,15 @@ const INDUSTRIES = [
   "Other",
 ];
 
+const HEARD_ABOUT_OPTIONS = [
+  "Google search",
+  "Google ad",
+  "Facebook / Instagram",
+  "LinkedIn",
+  "Referral from a friend",
+  "Other",
+];
+
 export function MatchForm({ subject }: { subject: string }) {
   const idPrefix = useId();
   const router = useRouter();
@@ -161,6 +170,23 @@ export function MatchForm({ subject }: { subject: string }) {
             placeholder="e.g. connect ChatGPT, Zapier, CRM, and reporting"
             suppressHydrationWarning
           />
+        </div>
+        <div className="field">
+          <label htmlFor={`${idPrefix}-heard`}>How did you hear about us?</label>
+          <select
+            id={`${idPrefix}-heard`}
+            name="heard_about"
+            required
+            defaultValue=""
+            suppressHydrationWarning
+          >
+            <option value="" disabled>
+              Select an option...
+            </option>
+            {HEARD_ABOUT_OPTIONS.map((option) => (
+              <option key={option}>{option}</option>
+            ))}
+          </select>
         </div>
         <button type="submit" className="btn" disabled={sending}>
           {sending ? (
