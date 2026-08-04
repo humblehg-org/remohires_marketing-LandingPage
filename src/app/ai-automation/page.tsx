@@ -253,7 +253,7 @@ export default function AiAutoPage() {
       </section>
 
       {/* WHAT THEY HANDLE */}
-      <section className="band">
+      <section className="band" id="what-they-handle">
         <div className="wrap">
           <span className="eyebrow">What your automation specialist handles</span>
           <h2 style={{ marginTop: 16 }}>AI automation for the work your team keeps repeating.</h2>
@@ -270,7 +270,7 @@ export default function AiAutoPage() {
       </section>
 
       {/* COST COMPARE */}
-      <section>
+      <section id="cost">
         <div className="wrap">
           <span className="eyebrow">The alternative</span>
           <h2 style={{ marginTop: 16 }}>Get AI automation execution without hiring locally.</h2>
@@ -331,7 +331,7 @@ export default function AiAutoPage() {
       </section>
 
       {/* HOW */}
-      <section className="band">
+      <section className="band" id="how-it-works">
         <div className="wrap">
           <span className="eyebrow">How it works</span>
           <h2 style={{ marginTop: 16 }}>Three steps to turn manual work into automation.</h2>
@@ -348,7 +348,7 @@ export default function AiAutoPage() {
       </section>
 
       {/* OBJECTIONS */}
-      <section>
+      <section id="faq">
         <div className="wrap">
           <span className="eyebrow">Straight answers</span>
           <h2 style={{ margin: "16px 0 10px" }}>What you&rsquo;re thinking.</h2>

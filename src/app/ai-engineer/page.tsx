@@ -254,7 +254,7 @@ export default function AiEngPage() {
       </section>
 
       {/* WHAT THEY HANDLE */}
-      <section className="band">
+      <section className="band" id="what-they-handle">
         <div className="wrap">
           <span className="eyebrow">What your AI engineer handles</span>
           <h2 style={{ marginTop: 16 }}>Technical AI work, moved forward by one accountable owner.</h2>
@@ -271,7 +271,7 @@ export default function AiEngPage() {
       </section>
 
       {/* COST COMPARE */}
-      <section>
+      <section id="cost">
         <div className="wrap">
           <span className="eyebrow">The hiring alternative</span>
           <h2 style={{ marginTop: 16 }}>AI engineering capability without the local hiring cost.</h2>
@@ -332,7 +332,7 @@ export default function AiEngPage() {
       </section>
 
       {/* HOW */}
-      <section className="band">
+      <section className="band" id="how-it-works">
         <div className="wrap">
           <span className="eyebrow">How it works</span>
           <h2 style={{ marginTop: 16 }}>Three steps to get AI engineering support.</h2>
@@ -349,7 +349,7 @@ export default function AiEngPage() {
       </section>
 
       {/* OBJECTIONS */}
-      <section>
+      <section id="faq">
         <div className="wrap">
           <span className="eyebrow">Straight answers</span>
           <h2 style={{ margin: "16px 0 10px" }}>What you&rsquo;re thinking.</h2>
