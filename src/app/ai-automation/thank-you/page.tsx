@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "../ai-auto.css";
+import "../ai-automation.css";
 
 const BOOKING_URL = "https://calendar.app.google/opczJKFLUCcXyLN26";
 // Google Calendar's short link (calendar.app.google/...) sends

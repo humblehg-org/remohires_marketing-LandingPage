@@ -57,7 +57,7 @@ export function MatchForm({ subject }: { subject: string }) {
           trackedRef.current = true;
           const email = String(formData.get("email") ?? "");
           window.dataLayer = window.dataLayer || [];
-          window.dataLayer.push({ event: "lead_submit", form_location: "ai-eng" });
+          window.dataLayer.push({ event: "lead_submit", form_location: "ai-engineer" });
           trackSignupComplete("B", email);
           identifySignup(
             "B",
@@ -69,7 +69,7 @@ export function MatchForm({ subject }: { subject: string }) {
             { form_source: subject },
           );
         }
-        router.push("/ai-eng/thank-you");
+        router.push("/ai-engineer/thank-you");
         return;
       } else {
         throw new Error((data && data.message) || "Submission failed");
