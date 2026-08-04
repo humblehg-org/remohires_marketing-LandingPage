@@ -53,7 +53,8 @@ header.nav.scrolled{box-shadow:0 8px 30px rgba(15,33,112,.10);background:rgba(25
 @media(max-width:860px){.nav .links a:not(.cta){display:none}}
 
 .hero{position:relative;overflow:hidden;background:radial-gradient(60% 70% at 88% -10%,rgba(0,247,223,.16),transparent 60%),radial-gradient(50% 60% at -5% 10%,rgba(20,65,223,.10),transparent 60%),var(--lgrey)}
-.hero .grid{display:grid;grid-template-columns:1.08fr .92fr;gap:48px;align-items:center;padding:76px 0 88px}
+.hero .grid{display:grid;grid-template-columns:1.08fr .92fr;gap:48px;align-items:start;padding:76px 0 88px}
+.hero-right{display:flex;flex-direction:column;gap:16px}
 .hero h1{font-size:clamp(33px,4.9vw,53px)}
 .hero p.sub{font-size:18px;color:var(--muted);margin:18px 0 26px;max-width:46ch}
 @media(max-width:860px){.hero .grid{grid-template-columns:1fr;padding:44px 0 54px;gap:38px}.hero p.sub{max-width:none}}
@@ -239,19 +240,23 @@ footer a{color:var(--turq);font-weight:600}
 @keyframes rotIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 
 /* hero ticks grid */
-.cticks{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px;font-size:13px;color:var(--muted);align-items:start}
-.cticks span{display:inline-flex;align-items:flex-start;gap:7px}
-.cticks .ic{width:16px;height:16px;color:#0f9b6c}
-@media(max-width:620px){.cticks{grid-template-columns:1fr}}
+.herotrust{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.herotrust .item{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 12px;box-shadow:0 8px 20px rgba(15,33,112,.06)}
+.herotrust .ic{width:32px;height:32px;border-radius:10px;background:var(--ash);color:var(--navy);display:grid;place-items:center;flex:none}
+.herotrust .ic svg{width:17px;height:17px}
+.herotrust span:last-child{font-size:12.5px;font-weight:600;color:var(--ink);line-height:1.32}
+@media(max-width:520px){.herotrust{grid-template-columns:1fr}.herotrust .item{flex-direction:row;align-items:center}}
 @media(max-width:860px){.visualcol{display:none}}
 .illus{font-size:11px;color:var(--muted);text-align:center;margin-top:10px}
 
 /* lead capture form */
 .lead-form{display:flex;flex-direction:column;gap:10px;margin:0;max-width:460px}
-.lead-form input{font-family:inherit;font-size:15px;padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);width:100%}
-.lead-form input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(20,65,223,.12)}
+.lead-form input,.lead-form select{font-family:inherit;font-size:15px;padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);width:100%}
+.lead-form select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b6273' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m6 9 6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 14px center;background-size:16px;padding-right:38px;cursor:pointer}
+.lead-form select:invalid{color:var(--muted)}
+.lead-form input:focus,.lead-form select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(20,65,223,.12)}
 .lead-form .btn{width:100%;justify-content:center;margin-top:2px}
-.lead-form.invalid input{border-color:#c02637;box-shadow:0 0 0 3px rgba(192,38,55,.12)}
+.lead-form.invalid input,.lead-form.invalid select{border-color:#c02637;box-shadow:0 0 0 3px rgba(192,38,55,.12)}
 .lead-error{margin:0;font-size:13px;font-weight:600;color:#c02637}
 .microcopy{font-size:12.5px;color:var(--muted);margin:8px 0 0;max-width:460px}
 .centerform{margin-left:auto;margin-right:auto}
@@ -267,7 +272,7 @@ footer a{color:var(--turq);font-weight:600}
 .sc-reflect{font-size:14.5px;color:var(--ink);margin:12px 0 0;min-height:20px;opacity:0;transition:opacity .3s ease}
 .sc-reflect.show{opacity:1}
 .sc-form{overflow:hidden;max-height:0;opacity:0;transition:max-height .45s ease,opacity .35s ease}
-.sc-form.show{max-height:360px;opacity:1;margin-top:16px}
+.sc-form.show{max-height:440px;opacity:1;margin-top:16px}
 .sc-skip{background:none;border:none;color:var(--muted);font:inherit;font-size:13px;text-decoration:underline;cursor:pointer;margin-top:12px;padding:6px 0;min-height:34px}
 .sc-skip.hide{display:none}
 @media(max-width:520px){.sc-opts{flex-direction:column}.sc-opt{width:100%;justify-content:center}}

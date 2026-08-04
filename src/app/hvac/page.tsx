@@ -17,6 +17,9 @@ import {
   IconXFilled,
   IconClockRingFilled,
   IconBoltFilled,
+  IconBanknote,
+  IconUserCheck,
+  IconBriefcase,
 } from "@/components/hvac/icons";
 
 export const metadata: Metadata = {
@@ -43,6 +46,12 @@ const selfCheckOptions = [
     reflect:
       "That is a real backlog of people who already wanted a quote from you.",
   },
+];
+
+const heroTrust = [
+  { icon: IconBanknote, label: "Money back your first month" },
+  { icon: IconUserCheck, label: "A real full-time teammate" },
+  { icon: IconBriefcase, label: "We employ and pay them" },
 ];
 
 const painPoints = [
@@ -163,85 +172,77 @@ export default function QuotesPage() {
                   options={selfCheckOptions}
                   path="quotes"
                 />
-                <div className="cticks">
-                  <span>
-                    <span className="ic">
-                      <IconCheckFilled />
-                    </span>
-                    Money back your first month
-                  </span>
-                  <span>
-                    <span className="ic">
-                      <IconCheckFilled />
-                    </span>
-                    A real full-time teammate
-                  </span>
-                  <span>
-                    <span className="ic">
-                      <IconCheckFilled />
-                    </span>
-                    We employ and pay them
-                  </span>
-                </div>
               </Reveal>
-              <Reveal direction="r" className="visualcol">
-                <div className="callcard">
-                  <div className="bar">
-                    <div className="dot">
+              <div className="hero-right">
+                <Reveal direction="r" className="visualcol">
+                  <div className="callcard">
+                    <div className="bar">
+                      <div className="dot">
+                        <span className="ic">
+                          <IconCycleFilled />
+                        </span>
+                      </div>
+                      <div>
+                        <b>One Open Estimate</b>
+                        <small>Maple Street, system replacement</small>
+                      </div>
+                    </div>
+                    <div className="callrow">
                       <span className="ic">
-                        <IconCycleFilled />
+                        <IconClockFilled />
                       </span>
+                      <div className="t">
+                        Estimate sent
+                        <small>Day 0</small>
+                      </div>
+                      <span className="tag">Sent</span>
                     </div>
-                    <div>
-                      <b>One Open Estimate</b>
-                      <small>Maple Street, system replacement</small>
+                    <div className="callrow">
+                      <span className="ic">
+                        <IconPhoneCallFilled />
+                      </span>
+                      <div className="t">
+                        Follow-up call
+                        <small>Day 2</small>
+                      </div>
+                      <span className="tag blue">Calling</span>
                     </div>
+                    <div className="callrow">
+                      <span className="ic">
+                        <IconPhoneCallFilled />
+                      </span>
+                      <div className="t">
+                        Checked in again
+                        <small>Day 5</small>
+                      </div>
+                      <span className="tag blue">Nudged</span>
+                    </div>
+                    <div className="callrow">
+                      <span className="ic">
+                        <IconCalendarFilled />
+                      </span>
+                      <div className="t">
+                        Booked the install
+                        <small>Day 12</small>
+                      </div>
+                      <span className="tag won">Won</span>
+                    </div>
+                    <p className="illus">
+                      Illustrative: how one job moves through your follow-up.
+                    </p>
                   </div>
-                  <div className="callrow">
-                    <span className="ic">
-                      <IconClockFilled />
-                    </span>
-                    <div className="t">
-                      Estimate sent
-                      <small>Day 0</small>
+                </Reveal>
+                <Reveal direction="r" className="herotrust">
+                  {heroTrust.map((t) => (
+                    <div className="item" key={t.label}>
+                      <span className="ic">
+                        <t.icon />
+                      </span>
+                      <span>{t.label}</span>
                     </div>
-                    <span className="tag">Sent</span>
-                  </div>
-                  <div className="callrow">
-                    <span className="ic">
-                      <IconPhoneCallFilled />
-                    </span>
-                    <div className="t">
-                      Follow-up call
-                      <small>Day 2</small>
-                    </div>
-                    <span className="tag blue">Calling</span>
-                  </div>
-                  <div className="callrow">
-                    <span className="ic">
-                      <IconPhoneCallFilled />
-                    </span>
-                    <div className="t">
-                      Checked in again
-                      <small>Day 5</small>
-                    </div>
-                    <span className="tag blue">Nudged</span>
-                  </div>
-                  <div className="callrow">
-                    <span className="ic">
-                      <IconCalendarFilled />
-                    </span>
-                    <div className="t">
-                      Booked the install
-                      <small>Day 12</small>
-                    </div>
-                    <span className="tag won">Won</span>
-                  </div>
-                  <p className="illus">
-                    Illustrative: how one job moves through your follow-up.
-                  </p>
-                </div>
-              </Reveal>
+                  ))}
+                </Reveal>
+              </div>
             </div>
           </div>
         </section>

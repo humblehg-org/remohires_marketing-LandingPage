@@ -9,6 +9,15 @@ import { identifySignup } from "@/lib/posthog";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const WEB3FORMS_ACCESS_KEY = "f04a7958-62eb-40ef-a36a-82094388363a";
 
+const HEAR_ABOUT_OPTIONS = [
+  "Google search",
+  "Google ad",
+  "Facebook / Instagram",
+  "LinkedIn",
+  "Referral from a friend",
+  "Other",
+];
+
 export function LeadForm({
   source,
   qualifier,
@@ -30,6 +39,7 @@ export function LeadForm({
   const [serverError, setServerError] = useState<string | null>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
+  const heardRef = useRef<HTMLSelectElement>(null);
   const sentRef = useRef(false);
 
   useEffect(() => {
@@ -41,10 +51,11 @@ export function LeadForm({
     if (pending) return;
     const name = nameRef.current?.value.trim() ?? "";
     const email = emailRef.current?.value.trim() ?? "";
-    if (!name || !EMAIL_RE.test(email)) {
+    const heardAbout = heardRef.current?.value ?? "";
+    if (!name || !EMAIL_RE.test(email) || !heardAbout) {
       setInvalid(true);
       setServerError(null);
-      (name ? emailRef : nameRef).current?.focus();
+      (!name ? nameRef : !EMAIL_RE.test(email) ? emailRef : heardRef).current?.focus();
       return;
     }
     setInvalid(false);
@@ -56,6 +67,7 @@ export function LeadForm({
       data.append("path", path);
       data.append("name", name);
       data.append("email", email);
+      data.append("how_heard", heardAbout);
       data.append("source", source);
       data.append("qualifier", qualifier ?? "");
       data.append("subject", `New lead from ${path} page`);
@@ -127,6 +139,23 @@ export function LeadForm({
           disabled={pending}
           suppressHydrationWarning
         />
+        <select
+          name="how_heard"
+          required
+          defaultValue=""
+          ref={heardRef}
+          disabled={pending}
+          suppressHydrationWarning
+        >
+          <option value="" disabled>
+            Select an option...
+          </option>
+          {HEAR_ABOUT_OPTIONS.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
         <input type="hidden" name="qualifier" value={qualifier ?? ""} readOnly />
         <input type="hidden" name="source" value={source} readOnly />
         <button className="btn primary glow" type="submit" disabled={pending}>
@@ -134,7 +163,7 @@ export function LeadForm({
         </button>
         {invalid && (
           <p className="lead-error" role="alert">
-            Enter your name and a valid work email so we can reach you.
+            Enter your name, a valid work email, and how you heard about us.
           </p>
         )}
         {!invalid && serverError && (

@@ -15,6 +15,9 @@ import {
   IconCycleFilled,
   IconClockFilled,
   IconShieldFilled,
+  IconShieldCheck,
+  IconBriefcase,
+  IconBanknote,
   IconXFilled,
   IconDollarFilled,
   IconGroupFilled,
@@ -25,6 +28,12 @@ export const metadata: Metadata = {
   description:
     "The lead you bought from Angi went to five other contractors. We build the channels you own, so the homeowner calls you, and only you.",
 };
+
+const heroTrust = [
+  { icon: IconBanknote, label: "Money back your first month" },
+  { icon: IconShieldCheck, label: "Channels you keep" },
+  { icon: IconBriefcase, label: "We employ and pay them" },
+];
 
 const painPoints = [
   {
@@ -139,85 +148,77 @@ export default function Home() {
                   homeowner calls you, and only you.
                 </p>
                 <SelfCheck />
-                <div className="cticks">
-                  <span>
-                    <span className="ic">
-                      <IconCheckFilled />
-                    </span>
-                    Money back your first month
-                  </span>
-                  <span>
-                    <span className="ic">
-                      <IconCheckFilled />
-                    </span>
-                    Channels you keep
-                  </span>
-                  <span>
-                    <span className="ic">
-                      <IconCheckFilled />
-                    </span>
-                    We employ and pay them
-                  </span>
-                </div>
               </Reveal>
-              <Reveal direction="r" className="visualcol">
-                <div className="callcard">
-                  <div className="bar">
-                    <div className="dot">
+              <div className="hero-right">
+                <Reveal direction="r" className="visualcol">
+                  <div className="callcard">
+                    <div className="bar">
+                      <div className="dot">
+                        <span className="ic">
+                          <IconSparkFilled />
+                        </span>
+                      </div>
+                      <div>
+                        <b>A Channel You Own</b>
+                        <small>Calls come to you, and only you</small>
+                      </div>
+                    </div>
+                    <div className="callrow">
                       <span className="ic">
                         <IconSparkFilled />
                       </span>
+                      <div className="t">
+                        Search: AC repair near me
+                        <small>Google</small>
+                      </div>
+                      <span className="tag">Seen</span>
                     </div>
-                    <div>
-                      <b>A Channel You Own</b>
-                      <small>Calls come to you, and only you</small>
+                    <div className="callrow">
+                      <span className="ic">
+                        <IconSparkFilled />
+                      </span>
+                      <div className="t">
+                        Your profile shows first
+                        <small>Map pack</small>
+                      </div>
+                      <span className="tag blue">Owned</span>
                     </div>
+                    <div className="callrow">
+                      <span className="ic">
+                        <IconPhoneCallFilled />
+                      </span>
+                      <div className="t">
+                        Call comes to you
+                        <small>No reseller</small>
+                      </div>
+                      <span className="tag blue">Direct</span>
+                    </div>
+                    <div className="callrow">
+                      <span className="ic">
+                        <IconCheckFilled />
+                      </span>
+                      <div className="t">
+                        New review posted
+                        <small>Rating up</small>
+                      </div>
+                      <span className="tag won">Growing</span>
+                    </div>
+                    <p className="illus">
+                      Illustrative: how one job moves through your follow-up.
+                    </p>
                   </div>
-                  <div className="callrow">
-                    <span className="ic">
-                      <IconSparkFilled />
-                    </span>
-                    <div className="t">
-                      Search: AC repair near me
-                      <small>Google</small>
+                </Reveal>
+                <Reveal direction="r" className="herotrust">
+                  {heroTrust.map((t) => (
+                    <div className="item" key={t.label}>
+                      <span className="ic">
+                        <t.icon />
+                      </span>
+                      <span>{t.label}</span>
                     </div>
-                    <span className="tag">Seen</span>
-                  </div>
-                  <div className="callrow">
-                    <span className="ic">
-                      <IconSparkFilled />
-                    </span>
-                    <div className="t">
-                      Your profile shows first
-                      <small>Map pack</small>
-                    </div>
-                    <span className="tag blue">Owned</span>
-                  </div>
-                  <div className="callrow">
-                    <span className="ic">
-                      <IconPhoneCallFilled />
-                    </span>
-                    <div className="t">
-                      Call comes to you
-                      <small>No reseller</small>
-                    </div>
-                    <span className="tag blue">Direct</span>
-                  </div>
-                  <div className="callrow">
-                    <span className="ic">
-                      <IconCheckFilled />
-                    </span>
-                    <div className="t">
-                      New review posted
-                      <small>Rating up</small>
-                    </div>
-                    <span className="tag won">Growing</span>
-                  </div>
-                  <p className="illus">
-                    Illustrative: how one job moves through your follow-up.
-                  </p>
-                </div>
-              </Reveal>
+                  ))}
+                </Reveal>
+              </div>
             </div>
           </div>
         </section>
