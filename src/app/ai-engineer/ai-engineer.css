@@ -29,15 +29,16 @@ header{position:sticky;top:0;z-index:40;background:rgba(10,14,20,.82);backdrop-f
 .reveal.in{opacity:1;transform:none}
 .countup{font-variant-numeric:tabular-nums}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}.hero:before{animation:none}}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center;position:relative}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:44px;align-items:center;position:relative}
 .hero p.sub{font-size:20px;max-width:540px;margin:24px 0 26px;color:var(--near)}
 .stats{display:flex;border:1px solid var(--line);border-radius:14px;overflow:hidden;max-width:620px;background:var(--panel2)}
-.stats .st{flex:1;padding:16px 18px;border-right:1px solid var(--line)}
+.stats .st{flex:1;min-width:0;padding:16px 18px;border-right:1px solid var(--line)}
 .stats .st:last-child{border-right:none}
 .stats .st .k{display:flex;align-items:center;gap:7px;color:var(--teal);font-weight:800;font-size:15px}
 .stats .st .k svg{width:17px;height:17px;stroke:var(--teal);flex:none}
 .stats .st .v{font-size:13px;color:var(--muted);margin-top:4px}
-@media(max-width:880px){.hero-grid{grid-template-columns:1fr}.stats{max-width:none}}
+@media(max-width:880px){.hero-grid{grid-template-columns:minmax(0,1fr)}.stats{max-width:none}}
+@media(max-width:520px){.stats{flex-direction:column}.stats .st{border-right:none;border-bottom:1px solid var(--line)}.stats .st:last-child{border-bottom:none}}
 .formcard{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:20px;padding:28px}
 .formcard .badge{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:var(--teal);margin-bottom:6px}
 .formcard h3{font-size:22px;font-weight:800;color:var(--white);letter-spacing:-.02em}
