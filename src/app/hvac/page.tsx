@@ -179,7 +179,7 @@ export default function QuotesPage() {
       <SiteHeader ctaLabel="Cover My Phones" />
       <main id="top">
         {/* ---------- Hero ---------- */}
-        <section className="hero" style={{ padding: 0 }}>
+        <section id="hero" className="hero" style={{ padding: 0 }}>
           <div className="wrap">
             <div className="grid">
               <Reveal direction="l">
@@ -253,14 +253,21 @@ export default function QuotesPage() {
                   </div>
                 </Reveal>
                 <div className="herotrust">
-                  {heroTrust.map((t) => (
-                    <Reveal direction="r" className="item" key={t.label}>
-                      <span className="ic">
-                        <t.icon />
-                      </span>
-                      <span>{t.label}</span>
-                    </Reveal>
-                  ))}
+                  {[0, 1, 2].flatMap((set) =>
+                    heroTrust.map((t) => (
+                      <Reveal
+                        direction="r"
+                        className="item"
+                        key={`${t.label}-${set}`}
+                        aria-hidden={set > 0 ? true : undefined}
+                      >
+                        <span className="ic">
+                          <t.icon />
+                        </span>
+                        <span>{t.label}</span>
+                      </Reveal>
+                    )),
+                  )}
                 </div>
               </div>
             </div>
@@ -269,7 +276,7 @@ export default function QuotesPage() {
 
         {/* ---------- By the numbers ---------- */}
         <section className="stats">
-          <div className="wrap" style={{ padding: "96px 0" }}>
+          <div className="wrap" style={{ paddingTop: 96, paddingBottom: 96 }}>
             <Reveal className="stat-head">
               <span className="eyebrow light">By The Numbers</span>
               <h2>Where Your Booked Jobs Quietly Go</h2>
@@ -388,9 +395,11 @@ export default function QuotesPage() {
             <div className="honestgrid">
               {honestCards.map((f, i) => (
                 <Reveal key={f.title} className="card" delay={0.1 * (i + 1)}>
-                  <span className="ic">
-                    <f.icon />
-                  </span>
+                  <div className="honesticon">
+                    <span className="ic">
+                      <f.icon />
+                    </span>
+                  </div>
                   <div className="honesttext">
                     <h3>{f.title}</h3>
                     <p>{f.body}</p>

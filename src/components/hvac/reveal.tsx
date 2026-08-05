@@ -8,13 +8,14 @@ export function Reveal({
   style,
   delay,
   children,
+  ...rest
 }: {
   direction?: "l" | "r";
   className?: string;
   style?: React.CSSProperties;
   delay?: number;
   children: ReactNode;
-}) {
+} & React.HTMLAttributes<HTMLDivElement>) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -44,7 +45,7 @@ export function Reveal({
     delay !== undefined ? { ...style, transitionDelay: `${delay}s` } : style;
 
   return (
-    <div ref={ref} className={classes} style={combinedStyle}>
+    <div ref={ref} className={classes} style={combinedStyle} {...rest}>
       {children}
     </div>
   );

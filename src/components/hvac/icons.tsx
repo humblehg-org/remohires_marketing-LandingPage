@@ -35,6 +35,16 @@ export function IconCalendarCheck(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+export function IconMenu(props: SVGProps<SVGSVGElement>) {
+  return (
+    <IconBase {...props}>
+      <path d="M4 6h16" />
+      <path d="M4 12h16" />
+      <path d="M4 18h16" />
+    </IconBase>
+  );
+}
+
 export function IconChevronDown(props: SVGProps<SVGSVGElement>) {
   return (
     <IconBase {...props}>
