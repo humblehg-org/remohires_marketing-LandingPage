@@ -362,7 +362,7 @@ export default function AiAutoPage() {
       </section>
 
       {/* TESTIMONIAL */}
-      <section className="tm">
+      <section className="tm" id="testimonial">
         <div className="wrap">
           <Reveal className="tmwrap">
             <div className="stars">★★★★★</div>
