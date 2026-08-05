@@ -3,6 +3,9 @@ import "./ai-automation.css";
 import { Reveal } from "@/components/ai-automation/reveal";
 import { MatchForm } from "@/components/ai-automation/match-form";
 import { CountUp } from "@/components/ai-automation/count-up";
+import { ScrollSpy } from "@/components/ai-automation/scroll-spy";
+
+const SPY_IDS = ["what-they-handle", "cost", "how-it-works", "faq", "testimonial"];
 
 export const metadata: Metadata = {
   title: "RemoHires — AI Automation That Actually Runs",
@@ -110,6 +113,7 @@ const faqs = [
 export default function AiAutoPage() {
   return (
     <>
+      <ScrollSpy ids={SPY_IDS} />
       <header>
         <div className="wrap nav">
           <a href="https://remohires.com" target="_blank" rel="noopener">

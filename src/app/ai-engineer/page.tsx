@@ -3,6 +3,9 @@ import "./ai-engineer.css";
 import { Reveal } from "@/components/ai-engineer/reveal";
 import { MatchForm } from "@/components/ai-engineer/match-form";
 import { CountUp } from "@/components/ai-engineer/count-up";
+import { ScrollSpy } from "@/components/ai-engineer/scroll-spy";
+
+const SPY_IDS = ["what-they-handle", "cost", "how-it-works", "faq", "testimonial"];
 
 export const metadata: Metadata = {
   title: "RemoHires — Hire the AI Engineer Your Business Needs Without the US Salary",
@@ -110,6 +113,7 @@ const faqs = [
 export default function AiEngPage() {
   return (
     <>
+      <ScrollSpy ids={SPY_IDS} />
       <header>
         <div className="wrap nav">
           <a href="https://remohires.com" target="_blank" rel="noopener">
