@@ -23,14 +23,16 @@ export function LeadForm({
   center,
   focusToken,
   path = "home",
-  submitLabel = "Get One Reply From A Real Person",
+  ctaText,
+  microcopyText,
 }: {
   source: string;
   qualifier?: string;
   center?: boolean;
   focusToken?: number;
   path?: LeadPath;
-  submitLabel?: string;
+  ctaText?: string;
+  microcopyText?: string;
 }) {
   const router = useRouter();
   const [invalid, setInvalid] = useState(false);
@@ -158,7 +160,9 @@ export function LeadForm({
         <input type="hidden" name="qualifier" value={qualifier ?? ""} readOnly />
         <input type="hidden" name="source" value={source} readOnly />
         <button className="btn primary glow" type="submit" disabled={pending}>
-          {pending ? "Sending…" : submitLabel}
+          {pending
+            ? "Sending…"
+            : ctaText || "Get One Reply From A Real Person"}
         </button>
         {invalid && (
           <p className="lead-error" role="alert">
@@ -175,8 +179,8 @@ export function LeadForm({
         className={`microcopy${center ? " centerform" : ""}`}
         style={center ? { textAlign: "center" } : undefined}
       >
-        We will email you back once, from a real person here. No spam, no
-        card, no obligation, and no call unless you ask for one.
+        {microcopyText ||
+          "We will email you back once, from a real person here. No spam, no card, no obligation, and no call unless you ask for one."}
       </p>
     </>
   );

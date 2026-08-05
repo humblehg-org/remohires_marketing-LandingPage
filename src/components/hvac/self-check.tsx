@@ -32,12 +32,16 @@ export function SelfCheck({
   options = DEFAULT_OPTIONS,
   source = "hero_selfcheck",
   path = "home",
+  ctaText,
+  microcopyText,
 }: {
   id?: string;
   question?: string;
   options?: SelfCheckOption[];
   source?: string;
   path?: LeadPath;
+  ctaText?: string;
+  microcopyText?: string;
 }) {
   const [selected, setSelected] = useState<string | null>(null);
   const [revealed, setRevealed] = useState(false);
@@ -77,6 +81,8 @@ export function SelfCheck({
           qualifier={selected ?? undefined}
           focusToken={focusToken}
           path={path}
+          ctaText={ctaText}
+          microcopyText={microcopyText}
         />
       </div>
       <button

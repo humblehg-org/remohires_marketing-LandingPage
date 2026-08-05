@@ -6,11 +6,13 @@ export function Reveal({
   direction,
   className,
   style,
+  delay,
   children,
 }: {
   direction?: "l" | "r";
   className?: string;
   style?: React.CSSProperties;
+  delay?: number;
   children: ReactNode;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -38,9 +40,11 @@ export function Reveal({
   }, []);
 
   const classes = ["reveal", direction, className].filter(Boolean).join(" ");
+  const combinedStyle =
+    delay !== undefined ? { ...style, transitionDelay: `${delay}s` } : style;
 
   return (
-    <div ref={ref} className={classes} style={style}>
+    <div ref={ref} className={classes} style={combinedStyle}>
       {children}
     </div>
   );

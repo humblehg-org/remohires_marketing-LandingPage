@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 
 export function SiteHeader({ ctaLabel = "Get Started" }: { ctaLabel?: string }) {
   const [scrolled, setScrolled] = useState(false);
+  const [showCta, setShowCta] = useState(false);
 
   useEffect(() => {
     function onScroll() {
       const y = window.pageYOffset || document.documentElement.scrollTop || 0;
       setScrolled(y > 8);
+      setShowCta(y > 600);
     }
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -24,9 +26,11 @@ export function SiteHeader({ ctaLabel = "Get Started" }: { ctaLabel?: string }) 
           <a href="#how">How It Works</a>
           <a href="#offer">The Offer</a>
           <a href="#faq">FAQ</a>
-          <a href="#book" className="btn primary cta">
-            {ctaLabel}
-          </a>
+          <span className={`cta-wrap${showCta ? " show" : ""}`}>
+            <a href="#book" className="btn primary cta">
+              {ctaLabel}
+            </a>
+          </span>
         </nav>
       </div>
     </header>

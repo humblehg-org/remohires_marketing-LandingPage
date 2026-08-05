@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/hvac/site-header";
 import { ScrollProgress } from "@/components/hvac/scroll-progress";
 import { StatCounter } from "@/components/hvac/stat-counter";
 import { Reveal } from "@/components/hvac/reveal";
+import { FaqItem } from "@/components/hvac/faq-item";
 import { TopStrip } from "@/components/hvac/top-strip";
 import { SelfCheck } from "@/components/hvac/self-check";
 import { LeadForm } from "@/components/hvac/lead-form";
@@ -62,7 +63,7 @@ const painPoints = [
   },
   {
     icon: IconClockFilled,
-    title: "The Phone Rings Out",
+    title: "Nobody Picks Up",
     body: "Your crew is on a job. The call goes to voicemail, and they do not leave one.",
   },
   {
@@ -90,8 +91,31 @@ const howItems = [
   },
 ];
 
+const honestCards = [
+  {
+    icon: IconUserCheck,
+    title: "Clear, Phone-Ready English",
+    body: "Every teammate is screened for clear spoken English before you ever meet them.",
+  },
+  {
+    icon: IconBriefcase,
+    title: "Trained On Your Business First",
+    body: "They learn your services, your pricing, and how you like calls handled before they take a single call.",
+  },
+  {
+    icon: IconPhoneCallFilled,
+    title: "One Dedicated Person",
+    body: "You get the same full-time teammate, in your company name. Not a rotating call-center pool, and not a bot.",
+  },
+  {
+    icon: IconBanknote,
+    title: "Backed By A Guarantee",
+    body: "If the fit is wrong, we replace them. Your first month is money back.",
+  },
+];
+
 const themRows = [
-  "The phone rings out after five.",
+  "The call goes to voicemail after five.",
   "The voicemail sits until morning.",
   "The homeowner books whoever answered.",
 ];
@@ -174,6 +198,8 @@ export default function QuotesPage() {
                   question="How many calls go to voicemail in a busy week?"
                   options={selfCheckOptions}
                   path="quotes"
+                  ctaText="Cover My Phones"
+                  microcopyText="Risk-free. Money back your first month, and cancel anytime."
                 />
               </Reveal>
               <div className="hero-right">
@@ -221,7 +247,8 @@ export default function QuotesPage() {
                       <span className="tag blue">Handled</span>
                     </div>
                     <p className="illus">
-                      Illustrative: how one job moves through your follow-up.
+                      Illustrative: how one after-hours call becomes a booked
+                      job.
                     </p>
                   </div>
                 </Reveal>
@@ -292,19 +319,19 @@ export default function QuotesPage() {
         </section>
 
         {/* ---------- Pain ---------- */}
-        <section id="pain">
+        <section id="pain" className="section-pad">
           <div className="wrap">
             <Reveal className="sec-head">
               <span className="eyebrow">Your Most Expensive Silence</span>
-              <h2>The Calls You Never Hear</h2>
+              <h2>The Calls That Get Away</h2>
               <p>
                 Most missed calls never call back. They ring while you are on
                 a roof, hit voicemail, and go to the next shop on the list.
               </p>
             </Reveal>
             <div className="grid3">
-              {painPoints.map((p) => (
-                <Reveal key={p.title} className="card">
+              {painPoints.map((p, i) => (
+                <Reveal key={p.title} className="card" delay={0.1 * (i + 1)}>
                   <span className="ic">
                     <p.icon />
                   </span>
@@ -317,7 +344,7 @@ export default function QuotesPage() {
         </section>
 
         {/* ---------- What you get ---------- */}
-        <section id="how" className="tint">
+        <section id="how" className="tint section-pad">
           <div className="wrap">
             <Reveal className="sec-head">
               <span className="eyebrow">What You Get</span>
@@ -331,8 +358,11 @@ export default function QuotesPage() {
               </p>
             </Reveal>
             <div className="flow">
-              {howItems.map((f) => (
-                <Reveal key={f.title} className="card">
+              <Reveal className="flow-line" delay={0.15}>
+                {null}
+              </Reveal>
+              {howItems.map((f, i) => (
+                <Reveal key={f.title} className="card" delay={0.1 + i * 0.15}>
                   <span className="ic">
                     <f.icon />
                   </span>
@@ -344,14 +374,41 @@ export default function QuotesPage() {
           </div>
         </section>
 
+        {/* ---------- The honest part ---------- */}
+        <section id="honest" className="tint">
+          <div className="wrap">
+            <Reveal className="sec-head">
+              <span className="eyebrow">The Honest Part</span>
+              <h2>About The Outsourced Part</h2>
+              <p>
+                Your reputation rides on every call. This is how we protect
+                it.
+              </p>
+            </Reveal>
+            <div className="honestgrid">
+              {honestCards.map((f, i) => (
+                <Reveal key={f.title} className="card" delay={0.1 * (i + 1)}>
+                  <span className="ic">
+                    <f.icon />
+                  </span>
+                  <div className="honesttext">
+                    <h3>{f.title}</h3>
+                    <p>{f.body}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ---------- What happens to a quote ---------- */}
-        <section>
+        <section className="section-pad">
           <div className="wrap">
             <Reveal className="sec-head" style={{ maxWidth: 720 }}>
               <span className="eyebrow">The Difference</span>
               <h2>What Happens To A Call</h2>
             </Reveal>
-            <Reveal className="vs">
+            <Reveal className="vs" delay={0.15}>
               <div className="col them">
                 <h4>
                   <span className="dotm" />
@@ -385,13 +442,13 @@ export default function QuotesPage() {
         </section>
 
         {/* ---------- Proof ---------- */}
-        <section>
+        <section className="section-pad">
           <div className="wrap">
             <Reveal className="sec-head" style={{ marginBottom: 22 }}>
               <span className="eyebrow">Proof</span>
               <h2>Built With A Real HVAC Owner</h2>
             </Reveal>
-            <Reveal className="proof">
+            <Reveal className="proof" delay={0.15}>
               <Image
                 className="prooflogo"
                 src="/lhp-logo.png"
@@ -412,7 +469,7 @@ export default function QuotesPage() {
         </section>
 
         {/* ---------- Founding pilot ---------- */}
-        <section id="offer" className="tint">
+        <section id="offer" className="tint section-pad">
           <div className="wrap">
             <Reveal className="sec-head">
               <span className="eyebrow">Founding Pilot</span>
@@ -424,8 +481,8 @@ export default function QuotesPage() {
               </p>
             </Reveal>
             <div className="strip">
-              {pilotCards.map((c) => (
-                <Reveal key={c.title} className="card">
+              {pilotCards.map((c, i) => (
+                <Reveal key={c.title} className="card" delay={0.1 * (i + 1)}>
                   <span className="ic">
                     <c.icon />
                   </span>
@@ -449,7 +506,13 @@ export default function QuotesPage() {
                 Leave your name and email. A real person here will reach out
                 once to see if we are a fit.
               </p>
-              <LeadForm source="bottom_form" center path="quotes" />
+              <LeadForm
+                source="bottom_form"
+                center
+                path="quotes"
+                ctaText="Cover My Phones"
+                microcopyText="Risk-free. Money back your first month, and cancel anytime."
+              />
             </Reveal>
           </div>
         </section>
@@ -463,10 +526,7 @@ export default function QuotesPage() {
             </Reveal>
             <Reveal className="faq">
               {faqs.map((item) => (
-                <details key={item.q}>
-                  <summary>{item.q}</summary>
-                  <p>{item.a}</p>
-                </details>
+                <FaqItem key={item.q} q={item.q} a={item.a} />
               ))}
             </Reveal>
           </div>
