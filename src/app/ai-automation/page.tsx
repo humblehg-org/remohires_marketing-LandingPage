@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./ai-automation.css";
 import { Reveal } from "@/components/ai-automation/reveal";
 import { MatchForm } from "@/components/ai-automation/match-form";
 import { CountUp } from "@/components/ai-automation/count-up";
 import { ScrollSpy } from "@/components/ai-automation/scroll-spy";
+
+const inter = Inter({ subsets: ["latin"] });
+const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains-mono" });
 
 const SPY_IDS = ["what-they-handle", "cost", "how-it-works", "faq", "testimonial"];
 
@@ -112,7 +116,7 @@ const faqs = [
 
 export default function AiAutoPage() {
   return (
-    <>
+    <div className={`${inter.className} ${jetbrainsMono.variable}`}>
       <ScrollSpy ids={SPY_IDS} />
       <header>
         <div className="wrap nav">
@@ -139,20 +143,21 @@ export default function AiAutoPage() {
                 <circle cx="9" cy="7" r="4" />
                 <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13A4 4 0 0119 7" />
               </svg>{" "}
-              AI automation implementation
+              Full-Time Automation Specialits
             </span>
             <h1 style={{ marginTop: 22 }}>
-              AI automation
+              AI won't automate
               <br />
-              that actually runs.
+              your business.
               <br />
-              <span className="t">Not another unfinished experiment.</span>
+              <span className="t">The right person will.</span>
             </h1>
             <p className="sub">
               You don&rsquo;t need another AI tool or a vague technical hire. You need someone who
-              can turn ChatGPT, Claude, Zapier, Make, n8n, and your existing systems into working
-              automations that save time every week. RemoHires matches you with a dedicated AI
-              automation specialist who builds, monitors, fixes, and improves the workflows.
+              can turn ChatGPT, Claude, Zapier, Make, n8n, and your existing systems into{" "}
+              <b style={{ color: "#fff" }}>working automations that save time every week</b>.
+              RemoHires matches you with a dedicated AI automation specialist who builds, monitors,
+              fixes, and improves the workflows.
             </p>
             <div className="stats">
               <div className="st">
@@ -416,6 +421,6 @@ export default function AiAutoPage() {
           </span>
         </div>
       </footer>
-    </>
+    </div>
   );
 }

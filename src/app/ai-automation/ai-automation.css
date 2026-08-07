@@ -12,7 +12,7 @@ h2{font-size:clamp(25px,3.3vw,38px);font-weight:800;letter-spacing:-.02em;color:
 .t{color:var(--teal)}
 p{font-size:18px;color:var(--muted)}
 section{padding:74px 0}
-.eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);border:1px solid rgba(34,230,203,.35);background:rgba(34,230,203,.06);padding:8px 14px;border-radius:999px}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-jetbrains-mono),monospace;font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);border:1px solid rgba(34,230,203,.35);background:rgba(34,230,203,.06);padding:8px 14px;border-radius:999px}
 .eyebrow svg{width:15px;height:15px;stroke:var(--teal)}
 header{position:sticky;top:0;z-index:40;background:rgba(10,14,20,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .nav{display:flex;align-items:center;justify-content:space-between;height:74px}
@@ -80,7 +80,7 @@ header{position:sticky;top:0;z-index:40;background:rgba(10,14,20,.82);backdrop-f
 .cmp .c{border:1px solid var(--line);border-radius:16px;padding:26px}
 .cmp .local{background:var(--panel2)}
 .cmp .rh{background:linear-gradient(180deg,rgba(34,230,203,.08),transparent);border-color:rgba(34,230,203,.5)}
-.cmp .c h3{font-size:15px;font-family:'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.cmp .c h3{font-size:15px;font-family:var(--font-jetbrains-mono),monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
 .cmp .rh h3{color:var(--teal)}
 .cmp .big{font-size:34px;font-weight:900;color:var(--white);letter-spacing:-.02em;line-height:1}
 .cmp .sub{font-size:13.5px;color:var(--muted);margin-top:6px}
@@ -94,7 +94,7 @@ header{position:sticky;top:0;z-index:40;background:rgba(10,14,20,.82);backdrop-f
 @media(max-width:760px){.steps{grid-template-columns:1fr}}
 .step{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;transition:transform .2s,border-color .2s}
 .step:hover{transform:translateY(-4px);border-color:rgba(34,230,203,.45)}
-.step .n{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--teal);font-weight:600;letter-spacing:.1em}
+.step .n{font-family:var(--font-jetbrains-mono),monospace;font-size:13px;color:var(--teal);font-weight:600;letter-spacing:.1em}
 .step h3{font-size:18px;color:var(--white);font-weight:800;margin:8px 0 6px}
 .step p{font-size:15px}
 details{border-bottom:1px solid var(--line)}
