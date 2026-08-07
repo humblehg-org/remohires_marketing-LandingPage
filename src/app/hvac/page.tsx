@@ -190,9 +190,16 @@ export default function QuotesPage() {
                 </h1>
                 <p className="sub">
                   The calls that come in while your crew is on a job are the
-                  ones that pay best. A dedicated remote teammate answers
-                  every one in your company name, books it, and follows up,
-                  during your hours and after them.
+                  ones that pay best.
+                  <span className="block mt-1.5">
+                    <strong>
+                      A dedicated remote teammate answers every call.
+                    </strong>
+                  </span>
+                  <span className="block mt-1.5">
+                    Books the job and follows up, during your hours and after
+                    them.
+                  </span>
                 </p>
                 <SelfCheck
                   question="How many calls go to voicemail in a busy week?"
