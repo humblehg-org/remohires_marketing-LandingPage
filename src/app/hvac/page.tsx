@@ -557,7 +557,22 @@ export default function QuotesPage() {
               Full-time remote teammates for growing businesses.{" "}
               remohires.com
             </p>
-            <p>&copy; 2026 RemoHires</p>
+            <p>
+              &copy; 2026 RemoHires ·{" "}
+              <a
+                href="/privacypolicy"
+                className="text-sm! text-white/60! font-normal! hover:text-white! hover:underline transition-colors"
+              >
+                Privacy Policy
+              </a>{" "}
+              ·{" "}
+              <a
+                href="/termsofservice"
+                className="text-sm! text-white/60! font-normal! hover:text-white! hover:underline transition-colors"
+              >
+                Terms of Service
+              </a>
+            </p>
           </div>
         </div>
       </footer>
