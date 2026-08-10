@@ -130,14 +130,13 @@ export function MatchForm({ subject }: { subject: string }) {
           />
         </div>
         <div className="field">
-          <label htmlFor={`${idPrefix}-phone`}>
-            Phone <span style={{ color: "var(--muted)", fontWeight: 400 }}>(optional)</span>
-          </label>
+          <label htmlFor={`${idPrefix}-phone`}>Phone</label>
           <input
             id={`${idPrefix}-phone`}
             name="phone"
             type="tel"
             placeholder="+1 555 000 0000"
+            required
             suppressHydrationWarning
           />
         </div>
