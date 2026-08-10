@@ -21,12 +21,6 @@ const HEAR_ABOUT_OPTIONS = [
   "Other",
 ];
 
-function flagEmoji(iso: string): string {
-  return iso
-    .toUpperCase()
-    .replace(/./g, (char) => String.fromCodePoint(127397 + char.charCodeAt(0)));
-}
-
 const COUNTRIES: { iso: string; name: string; dial: string }[] = [
   { iso: "US", name: "United States", dial: "+1" },
   { iso: "DZ", name: "Algeria", dial: "+213" },
@@ -140,7 +134,7 @@ const COUNTRY_CODE_OPTIONS = COUNTRIES.map((country) => ({
   key: country.iso,
   value: `${country.iso} (${country.dial})`,
   dial: country.dial,
-  label: `${flagEmoji(country.iso)} ${country.name} (${country.dial})`,
+  label: `${country.name} (${country.dial})`,
 }));
 
 const DEFAULT_COUNTRY_VALUE =
@@ -309,7 +303,7 @@ export function LeadForm({
           suppressHydrationWarning
         >
           <option value="" disabled>
-            Select an option...
+            How did you hear about us?
           </option>
           {HEAR_ABOUT_OPTIONS.map((option) => (
             <option key={option} value={option}>
