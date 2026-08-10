@@ -204,7 +204,7 @@ export default function QuotesPage() {
                 <SelfCheck
                   question="How many calls go to voicemail in a busy week?"
                   options={selfCheckOptions}
-                  path="quotes"
+                  path="hvac"
                   ctaText="Cover My Phones"
                   microcopyText="Risk-free. Money back your first month, and cancel anytime."
                 />
@@ -525,7 +525,7 @@ export default function QuotesPage() {
               <LeadForm
                 source="bottom_form"
                 center
-                path="quotes"
+                path="hvac"
                 ctaText="Cover My Phones"
                 microcopyText="Risk-free. Money back your first month, and cancel anytime."
               />

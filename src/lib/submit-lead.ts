@@ -9,7 +9,7 @@ const API_BASE =
 // so it is a gate (paired with the Origin allowlist), not a true secret.
 const API_KEY = process.env.NEXT_PUBLIC_FORMS_API_KEY ?? "";
 
-export type LeadPath = "home" | "quotes";
+export type LeadPath = "home" | "quotes" | "hvac";
 
 export type LeadPayload = {
   path: LeadPath;

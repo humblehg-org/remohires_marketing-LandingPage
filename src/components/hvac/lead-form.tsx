@@ -9,6 +9,10 @@ import { identifySignup } from "@/lib/posthog";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const WEB3FORMS_ACCESS_KEY = "f04a7958-62eb-40ef-a36a-82094388363a";
 
+const PATH_SUBJECT_LABELS: Partial<Record<LeadPath, string>> = {
+  hvac: "HVAC",
+};
+
 const HEAR_ABOUT_OPTIONS = [
   "Google",
   "Facebook/Instagram",
@@ -71,7 +75,7 @@ export function LeadForm({
       data.append("how_heard", heardAbout);
       data.append("source", source);
       data.append("qualifier", qualifier ?? "");
-      data.append("subject", `New lead from ${path} page`);
+      data.append("subject", `New lead from ${PATH_SUBJECT_LABELS[path] ?? path} page`);
 
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
