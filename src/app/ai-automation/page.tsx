@@ -118,9 +118,10 @@ export default function AiAutoPage() {
   return (
     <div className={`${inter.className} ${jetbrainsMono.variable}`}>
       <ScrollSpy ids={SPY_IDS} />
+      <div id="top" />
       <header>
         <div className="wrap nav">
-          <a href="https://remohires.com" target="_blank" rel="noopener">
+          <a href="#top" aria-label="Back to top">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img className="logo" src="https://remohires.com/assets/logo-ClPCTLmH.svg" alt="RemoHires" />
           </a>
@@ -411,7 +412,7 @@ export default function AiAutoPage() {
 
       <footer>
         <div className="wrap nav">
-          <a href="https://remohires.com" target="_blank" rel="noopener">
+          <a href="#top" aria-label="Back to top">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img className="logo" src="https://remohires.com/assets/logo-ClPCTLmH.svg" alt="RemoHires" />
           </a>

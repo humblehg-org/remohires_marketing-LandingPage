@@ -114,9 +114,10 @@ export default function AiEngPage() {
   return (
     <>
       <ScrollSpy ids={SPY_IDS} />
+      <div id="top" />
       <header>
         <div className="wrap nav">
-          <a href="https://remohires.com" target="_blank" rel="noopener">
+          <a href="#top" aria-label="Back to top">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img className="logo" src="https://remohires.com/assets/logo-ClPCTLmH.svg" alt="RemoHires" />
           </a>
@@ -406,7 +407,7 @@ export default function AiEngPage() {
 
       <footer>
         <div className="wrap nav">
-          <a href="https://remohires.com" target="_blank" rel="noopener">
+          <a href="#top" aria-label="Back to top">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img className="logo" src="https://remohires.com/assets/logo-ClPCTLmH.svg" alt="RemoHires" />
           </a>
