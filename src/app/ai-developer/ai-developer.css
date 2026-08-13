@@ -168,7 +168,8 @@ h1 {
     max-width: none;
   }
 
-  .offer .section-header h2 {
+  .offer .section-header h2,
+  #how-it-works .section-header h2 {
     white-space: nowrap;
   }
 }
@@ -356,39 +357,89 @@ h1 {
 
 .visual-item b { color: var(--white); }
 
-@keyframes hero-fade-up {
-  from { opacity: 0; transform: translateY(18px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.hero .eyebrow,
-.hero h1,
-.hero .hero-lead,
-.hero .hero-actions,
-.hero-proof .proof-card,
-.hero-visual {
+/* ==========================================================================
+   Reveal-on-scroll system
+   - .reveal / .reveal-up / .reveal-left / .reveal-right / .reveal-scale:
+     starting (hidden) state for an element that animates in once.
+   - .in-view: added by the Reveal component (via IntersectionObserver) to
+     the element itself when it self-observes, OR to a .stagger ancestor,
+     which cascades to its .reveal-* children below.
+   - .stagger: put on a group container; its direct children receive an
+     incremental transition-delay (nth-child 1-8) so they settle one after
+     another instead of all at once. Pair with .stagger-fast for a quicker,
+     tighter cadence (e.g. small proof cards, checklist items).
+   ========================================================================== */
+.reveal,
+.reveal-up,
+.reveal-left,
+.reveal-right,
+.reveal-scale {
   opacity: 0;
-  animation: hero-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.hero .eyebrow { animation-delay: 0.05s; }
-.hero h1 { animation-delay: 0.14s; }
-.hero .hero-lead { animation-delay: 0.24s; }
-.hero .hero-actions { animation-delay: 0.34s; }
-.hero-proof .proof-card:nth-child(1) { animation-delay: 0.42s; }
-.hero-proof .proof-card:nth-child(2) { animation-delay: 0.48s; }
-.hero-proof .proof-card:nth-child(3) { animation-delay: 0.54s; }
-.hero-visual { animation-delay: 0.3s; }
+.reveal,
+.reveal-up { transform: translateY(22px); }
+.reveal-left { transform: translateX(-26px); }
+.reveal-right { transform: translateX(26px); }
+.reveal-scale { transform: scale(0.95); }
+
+.reveal.in-view,
+.reveal-up.in-view,
+.reveal-left.in-view,
+.reveal-right.in-view,
+.reveal-scale.in-view,
+.stagger.in-view > .reveal,
+.stagger.in-view > .reveal-up,
+.stagger.in-view > .reveal-left,
+.stagger.in-view > .reveal-right,
+.stagger.in-view > .reveal-scale,
+.stagger-fast.in-view > .reveal,
+.stagger-fast.in-view > .reveal-up,
+.stagger-fast.in-view > .reveal-left,
+.stagger-fast.in-view > .reveal-right,
+.stagger-fast.in-view > .reveal-scale {
+  opacity: 1;
+  transform: none;
+}
+
+.stagger > *:nth-child(1) { transition-delay: 0ms; }
+.stagger > *:nth-child(2) { transition-delay: 90ms; }
+.stagger > *:nth-child(3) { transition-delay: 180ms; }
+.stagger > *:nth-child(4) { transition-delay: 270ms; }
+.stagger > *:nth-child(5) { transition-delay: 360ms; }
+.stagger > *:nth-child(6) { transition-delay: 450ms; }
+.stagger > *:nth-child(7) { transition-delay: 540ms; }
+.stagger > *:nth-child(8) { transition-delay: 630ms; }
+
+.stagger-fast > *:nth-child(1) { transition-delay: 0ms; }
+.stagger-fast > *:nth-child(2) { transition-delay: 60ms; }
+.stagger-fast > *:nth-child(3) { transition-delay: 120ms; }
+.stagger-fast > *:nth-child(4) { transition-delay: 180ms; }
+
+/* Ambient motion, independent of scroll-reveal — hero visual card only */
+@keyframes float-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.float-subtle {
+  animation: float-subtle 6s ease-in-out infinite;
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .hero .eyebrow,
-  .hero h1,
-  .hero .hero-lead,
-  .hero .hero-actions,
-  .hero-proof .proof-card,
-  .hero-visual {
-    animation: none;
-    opacity: 1;
+  .reveal,
+  .reveal-up,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .float-subtle {
+    animation: none !important;
   }
 }
 
@@ -600,7 +651,7 @@ h2 {
 
 .split {
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
+  grid-template-columns: 0.7fr 1.3fr;
   gap: 34px;
   align-items: center;
 }

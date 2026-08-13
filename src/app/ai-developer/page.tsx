@@ -3,6 +3,7 @@ import "./ai-developer.css";
 import { TopbarTyper } from "@/components/ai-developer/topbar-typer";
 import { ScrollSpy } from "@/components/ai-developer/scroll-spy";
 import { MatchForm } from "@/components/ai-developer/match-form";
+import { Reveal } from "@/components/ai-developer/reveal";
 
 const SPY_IDS = ["build", "why-now", "cost", "how-it-works", "lead-form-section"];
 
@@ -91,18 +92,18 @@ export default function AiDeveloperPage() {
       <main>
         <section className="hero">
           <div className="hero-grid">
-            <div className="hero-copy">
-              <div className="eyebrow">
+            <Reveal as="div" className="hero-copy stagger">
+              <div className="eyebrow reveal-up">
                 <span /> AI development talent
               </div>
-              <h1>Build AI Products From $300/Week</h1>
-              <p className="hero-lead">
+              <h1 className="reveal-up">Build AI Products From $300/Week</h1>
+              <p className="hero-lead reveal-up">
                 Get matched with AI-capable developers who can help you build agents, internal
                 tools, prototypes, and AI-powered software without starting with a full US
                 engineering team.
               </p>
 
-              <div className="hero-actions">
+              <div className="hero-actions reveal-up">
                 <a className="button button-primary" href="#lead-form">
                   Start your AI build
                 </a>
@@ -111,24 +112,24 @@ export default function AiDeveloperPage() {
                 </a>
               </div>
 
-              <div className="hero-proof" aria-label="Offer highlights">
-                <div className="proof-card">
+              <Reveal as="div" className="hero-proof stagger-fast" aria-label="Offer highlights">
+                <div className="proof-card reveal-up">
                   <strong>Starting from $300/week</strong>
                   <span>Starting talent option</span>
                 </div>
-                <div className="proof-card">
+                <div className="proof-card reveal-up">
                   <strong>Start lean</strong>
                   <span>Build before scaling</span>
                 </div>
-                <div className="proof-card">
+                <div className="proof-card reveal-up">
                   <strong>AI agents</strong>
                   <span>Products, tools, workflows</span>
                 </div>
-              </div>
-            </div>
+              </Reveal>
+            </Reveal>
 
-            <aside className="hero-visual" aria-label="AI build offer summary">
-              <div className="visual-card">
+            <Reveal as="aside" className="hero-visual reveal-scale" aria-label="AI build offer summary">
+              <div className="visual-card float-subtle">
                 <h2>Start with one AI-capable builder.</h2>
                 <div className="visual-price">
                   <strong>$300</strong>
@@ -155,13 +156,13 @@ export default function AiDeveloperPage() {
                   </div>
                 </div>
               </div>
-            </aside>
+            </Reveal>
           </div>
         </section>
 
         <section id="build">
           <div className="container">
-            <div className="section-header">
+            <Reveal as="div" className="section-header reveal-up">
               <div className="kicker">AI build support</div>
               <h2>From AI idea to working product.</h2>
               <p className="section-copy">
@@ -169,28 +170,28 @@ export default function AiDeveloperPage() {
                 them. RemoHires helps you find technical talent who can move the work from idea to
                 execution.
               </p>
-            </div>
+            </Reveal>
 
-            <div className="build-grid">
+            <Reveal as="div" className="build-grid stagger">
               {buildItems.map((item) => (
-                <article className="build-card" key={item.title}>
+                <article className="build-card reveal-up" key={item.title}>
                   <div className="build-icon">{item.icon}</div>
                   <h3>{item.title}</h3>
                   <p>{item.body}</p>
                 </article>
               ))}
-            </div>
+            </Reveal>
           </div>
         </section>
 
         <section id="why-now">
           <div className="container split">
-            <div className="quote-panel">
+            <Reveal as="div" className="quote-panel reveal-left">
               <p>AI lowered the barrier to building. Execution is still the advantage.</p>
               <span>The right talent can help you move faster without committing to a full US team.</span>
-            </div>
+            </Reveal>
 
-            <div>
+            <Reveal as="div" className="reveal-right">
               <div className="kicker">Why this works</div>
               <h2>Start with the role you need now.</h2>
               <p className="section-copy">
@@ -199,74 +200,74 @@ export default function AiDeveloperPage() {
                 project earns it.
               </p>
 
-              <ul className="simple-list spaced">
-                <li>
+              <Reveal as="ul" className="simple-list spaced stagger-fast">
+                <li className="reveal-up">
                   <span className="check">✓</span>
                   <span>Start with one developer instead of committing to a full US engineering team.</span>
                 </li>
-                <li>
+                <li className="reveal-up">
                   <span className="check">✓</span>
                   <span>Build agents, prototypes, internal tools, and AI-powered product features.</span>
                 </li>
-                <li>
+                <li className="reveal-up">
                   <span className="check">✓</span>
                   <span>Use custom recruitment to match talent to your product, stack, timeline, and budget.</span>
                 </li>
-                <li>
+                <li className="reveal-up">
                   <span className="check">✓</span>
                   <span>Validate the idea before taking on a large engineering budget.</span>
                 </li>
-              </ul>
-            </div>
+              </Reveal>
+            </Reveal>
           </div>
         </section>
 
         <section className="offer" id="cost">
           <div className="container">
-            <div className="section-header">
+            <Reveal as="div" className="section-header reveal-up">
               <div className="kicker">Cost advantage</div>
               <h2>AI development help from a leaner cost base.</h2>
               <p className="section-copy">
                 RemoHires connects you with AI-capable technical talent so you can build, test,
                 and iterate without starting with a full US hiring plan.
               </p>
-            </div>
+            </Reveal>
 
-            <div className="offer-box">
-              <div className="offer-card">
+            <Reveal as="div" className="offer-box stagger">
+              <div className="offer-card reveal-up">
                 <strong>Starting from $300/week</strong>
                 <span>A lean starting point for early AI build support, subject to role scope and final talent match.</span>
               </div>
 
-              <div className="offer-card">
+              <div className="offer-card reveal-up">
                 <strong>Start lean</strong>
                 <span>Build the first version, learn from the market, then decide whether to add more technical support.</span>
               </div>
-            </div>
+            </Reveal>
           </div>
         </section>
 
         <section id="how-it-works">
           <div className="container">
-            <div className="section-header">
+            <Reveal as="div" className="section-header reveal-up">
               <div className="kicker">How it works</div>
               <h2>Share the project. We help define the right talent.</h2>
-            </div>
+            </Reveal>
 
-            <div className="build-grid">
+            <Reveal as="div" className="build-grid stagger">
               {howItWorks.map((step) => (
-                <article className="build-card" key={step.title}>
+                <article className="build-card reveal-up" key={step.title}>
                   <div className="build-icon">{step.icon}</div>
                   <h3>{step.title}</h3>
                   <p>{step.body}</p>
                 </article>
               ))}
-            </div>
+            </Reveal>
           </div>
         </section>
 
         <section className="lead-section" id="lead-form-section">
-          <div className="container lead-grid">
+          <Reveal as="div" className="container lead-grid reveal-up">
             <div className="lead-copy-card">
               <div className="kicker">Start the match</div>
               <h2>Start your AI build.</h2>
@@ -293,12 +294,12 @@ export default function AiDeveloperPage() {
             </div>
 
             <MatchForm subject="New RemoHires AI Developer Landing Page Lead" />
-          </div>
+          </Reveal>
         </section>
 
         <section className="footer-cta">
           <div className="container">
-            <div className="cta-panel">
+            <Reveal as="div" className="cta-panel reveal-up">
               <div>
                 <h2>Ready to build the first version?</h2>
                 <p>Tell us what you want to create. We&rsquo;ll help identify the right AI-capable talent to move the project forward.</p>
@@ -306,7 +307,7 @@ export default function AiDeveloperPage() {
               <a className="button button-primary" href="#lead-form">
                 Start from $300/week
               </a>
-            </div>
+            </Reveal>
           </div>
         </section>
       </main>
