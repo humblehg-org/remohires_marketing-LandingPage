@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const DAYS = [
   "Day 1 · no reply yet",
@@ -11,9 +11,33 @@ const LOST_LINE = "Bought from the agent who called first.";
 const WAITING_LINE = "Day 0 · waiting for follow-up";
 
 export function ColdQuoteCard() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [revealed, setRevealed] = useState(false);
   const [cold, setCold] = useState(false);
   const [badge, setBadge] = useState("🔥 HOT LEAD");
   const [day, setDay] = useState(WAITING_LINE);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (!("IntersectionObserver" in window)) {
+      const raf = requestAnimationFrame(() => setRevealed(true));
+      return () => cancelAnimationFrame(raf);
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setRevealed(true);
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   useEffect(() => {
     if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
@@ -47,7 +71,7 @@ export function ColdQuoteCard() {
   }, []);
 
   return (
-    <div className={`coldcard rev${cold ? " cold" : ""}`}>
+    <div ref={ref} className={`coldcard rev${revealed ? " in" : ""}${cold ? " cold" : ""}`}>
       <div className="qh">
         <span className="clock">9:02 AM</span>
         <span className="badge">{badge}</span>

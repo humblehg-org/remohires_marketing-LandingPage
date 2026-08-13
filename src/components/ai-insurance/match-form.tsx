@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useRef, useState, type FormEvent } from "react";
+import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { trackSignupComplete } from "@/lib/gtm";
 import { identifySignup } from "@/lib/posthog";
@@ -10,9 +10,33 @@ const ACCESS_KEY = "3ed3305a-37b5-4075-8151-f2fb6b838b18";
 export function MatchForm({ subject }: { subject: string }) {
   const idPrefix = useId();
   const router = useRouter();
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [revealed, setRevealed] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const trackedRef = useRef(false);
+
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+    if (!("IntersectionObserver" in window)) {
+      const raf = requestAnimationFrame(() => setRevealed(true));
+      return () => cancelAnimationFrame(raf);
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setRevealed(true);
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -63,7 +87,7 @@ export function MatchForm({ subject }: { subject: string }) {
   }
 
   return (
-    <div className="formcard rev">
+    <div ref={cardRef} className={`formcard rev${revealed ? " in" : ""}`}>
       <form noValidate onSubmit={handleSubmit}>
         <input type="hidden" name="access_key" value={ACCESS_KEY} />
         <input type="hidden" name="subject" value={subject} />
