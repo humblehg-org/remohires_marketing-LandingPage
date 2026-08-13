@@ -1,0 +1,283 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RemoHires — an AI agent for your insurance agency</title>
+<style>
+:root{--bg:#05080c;--panel:#0a0f16;--ink:#fff;--muted:#9aa7b4;--teal:#2fe6c0;--teal2:#54f5d6;--indigo:#6b73ff;--navy:#16225a;--line:#1a2530}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px;position:relative;z-index:2}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:23px;letter-spacing:-.01em}
+.brand img{width:36px;height:36px;object-fit:contain;display:block}
+.brand .r{color:var(--teal)}.brand .h{color:#fff}
+.nav{display:flex;justify-content:center;padding:24px 0}
+section{padding:60px 0;position:relative}
+/* HERO */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);text-align:center;padding-bottom:20px}
+.aurora,.aurora::before,.aurora::after{content:"";position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;z-index:0}
+.aurora{top:-160px;left:15%;width:520px;height:420px;background:radial-gradient(circle,rgba(47,230,192,.55),transparent 60%);animation:float1 16s ease-in-out infinite}
+.aurora::before{top:60px;left:360px;width:460px;height:380px;background:radial-gradient(circle,rgba(107,115,255,.5),transparent 60%);animation:float2 20s ease-in-out infinite}
+.aurora::after{top:-40px;left:-120px;width:360px;height:360px;background:radial-gradient(circle,rgba(84,245,214,.4),transparent 60%);animation:float1 22s ease-in-out infinite reverse}
+@keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(60px,40px)}}
+@keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(-70px,30px)}}
+#glow{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:1;background:radial-gradient(360px circle at var(--mx,50%) var(--my,20%),rgba(47,230,192,.10),transparent 60%);transition:background .12s}
+.chip{display:inline-flex;gap:8px;align-items:center;border:1px solid #2a3a44;background:rgba(10,15,22,.6);color:var(--teal);border-radius:999px;padding:8px 16px;font-size:12px;font-weight:700;letter-spacing:.11em;backdrop-filter:blur(6px)}
+h1{font-size:58px;line-height:1.03;letter-spacing:-.025em;margin:22px auto 0;font-weight:800;max-width:14ch}
+.grad{background:linear-gradient(100deg,var(--teal),var(--indigo));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:#c9d2da;font-size:19px;margin:22px auto 0;max-width:54ch}
+.sub b{color:#fff;font-weight:600}
+.pricepill{display:inline-flex;align-items:baseline;gap:9px;margin-top:26px;background:rgba(13,22,32,.7);border:1px solid #22404a;border-radius:14px;padding:14px 22px;box-shadow:0 0 40px rgba(47,230,192,.12);backdrop-filter:blur(6px)}
+.pricepill .big{font-size:30px;font-weight:800;color:var(--teal)}
+.pricepill .lab{color:var(--muted);font-size:14px}
+.ctarow{margin-top:26px;display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap}
+.cta{position:relative;display:inline-flex;align-items:center;gap:10px;background:linear-gradient(90deg,var(--teal),var(--teal2));color:#04231d;font-weight:800;font-size:18px;border:none;border-radius:13px;padding:16px 30px;cursor:pointer;text-decoration:none;box-shadow:0 8px 30px rgba(47,230,192,.28);transition:transform .15s,box-shadow .15s}
+.cta:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(47,230,192,.42)}
+.trust{color:#aeb8c1;font-size:14px}
+/* terminal */
+.term{max-width:620px;margin:44px auto 8px;text-align:left;background:linear-gradient(180deg,rgba(12,20,29,.92),rgba(8,13,20,.92));border:1px solid #1e2d3a;border-radius:16px;box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 0 1px rgba(47,230,192,.05);overflow:hidden;backdrop-filter:blur(8px)}
+.term .bar{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid #16222e;color:#7f95a3;font-size:12.5px}
+.term .bar i{width:11px;height:11px;border-radius:50%;display:inline-block}
+.dotpulse{width:9px;height:9px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 0 rgba(47,230,192,.6);animation:pulse 1.8s infinite;margin-left:auto}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(47,230,192,.5)}70%{box-shadow:0 0 0 9px rgba(47,230,192,0)}100%{box-shadow:0 0 0 0 rgba(47,230,192,0)}}
+.term .body{padding:16px 18px;min-height:184px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:14px}
+.tline{display:flex;gap:10px;padding:5px 0;opacity:0;transform:translateY(4px);transition:.25s}
+.tline.show{opacity:1;transform:none}
+.tline .tt{color:#5f7481;flex:0 0 52px}
+.tline .arrow{color:var(--teal)}
+.tline .c{color:#d7dee4}.tline .c b{color:var(--teal);font-weight:600}
+.tline.ok .c{color:var(--teal2)}
+.caret{display:inline-block;width:8px;height:15px;background:var(--teal);margin-left:2px;vertical-align:-2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+/* generic */
+h2{font-size:32px;letter-spacing:-.015em;text-align:center;line-height:1.15}
+.lead{color:var(--muted);font-size:16px;text-align:center;max-width:58ch;margin:10px auto 34px}
+.rev{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.rev.in{opacity:1;transform:none}
+/* PAIN */
+.pain{background:linear-gradient(180deg,#080c12,#0b0709)}
+.pain h2 .hot{color:#ff7a6b}
+.paingrid{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;align-items:center;max-width:920px;margin:0 auto}
+@media(max-width:820px){.paingrid{grid-template-columns:1fr}h1{font-size:40px}}
+.coldcard{background:#0c1620;border:1px solid #22333f;border-radius:16px;padding:22px;position:relative;overflow:hidden;transition:filter 1.2s ease,opacity 1.2s ease}
+.coldcard.cold{filter:grayscale(1) brightness(.7);opacity:.75}
+.coldcard .qh{display:flex;justify-content:space-between;align-items:center}
+.badge{font-size:11px;font-weight:800;letter-spacing:.08em;padding:5px 10px;border-radius:999px;background:rgba(47,230,192,.15);color:var(--teal);border:1px solid rgba(47,230,192,.4);transition:.6s}
+.coldcard.cold .badge{background:rgba(150,160,170,.12);color:#98a6b0;border-color:#3a4650}
+.qname{font-size:20px;font-weight:700;margin:14px 0 2px}
+.qmeta{color:var(--muted);font-size:14px}
+.heatwrap{margin:18px 0 6px;height:8px;border-radius:999px;background:#101a24;overflow:hidden}
+.heat{height:100%;width:100%;border-radius:999px;background:linear-gradient(90deg,#2fe6c0,#ffcf5c,#ff7a6b);transform-origin:left;transform:scaleX(1);transition:transform 4s linear}
+.coldcard.cold .heat{transform:scaleX(.04)}
+.day{color:#8aa0ad;font-size:13px;font-family:ui-monospace,monospace;margin-top:10px}
+.stamp{position:absolute;top:40%;left:50%;transform:translate(-50%,-50%) rotate(-11deg) scale(.9);border:3px solid #ff7a6b;color:#ff7a6b;font-weight:900;letter-spacing:.05em;font-size:24px;padding:6px 16px;border-radius:10px;opacity:0;transition:opacity .5s;pointer-events:none}
+.coldcard.cold .stamp{opacity:.92}
+.painside .loss{font-size:15px;color:var(--muted)}
+.painside .lossbig{font-size:44px;font-weight:800;color:#ff8a7b;letter-spacing:-.02em;line-height:1.1;margin:4px 0 2px}
+.q{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:12px;padding:16px 18px;margin-top:14px}
+.q p{font-size:14.5px}.q .src{color:var(--muted);font-size:12.5px;margin-top:8px}
+/* cards / why */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:820px){.cards{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:26px;transition:transform .2s,border-color .2s,box-shadow .2s}
+.card:hover{transform:translateY(-4px);border-color:#2c4a4a;box-shadow:0 16px 40px rgba(0,0,0,.4)}
+.card .ic{font-size:24px}.card h3{font-size:18px;margin:12px 0 8px}.card p{color:var(--muted);font-size:14.5px}
+.why{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:880px;margin:0 auto}
+@media(max-width:820px){.why{grid-template-columns:1fr}}
+.w{display:flex;gap:13px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;transition:border-color .2s}
+.w:hover{border-color:#2c4a4a}
+.w .k{color:var(--teal);font-weight:800;font-size:18px}
+.w h4{font-size:16px;margin-bottom:3px}.w p{color:var(--muted);font-size:14px}
+/* form */
+.formcard{max-width:560px;margin:0 auto;background:linear-gradient(180deg,#0b1119,#090e15);border:1px solid var(--line);border-radius:18px;padding:30px;box-shadow:0 0 60px rgba(47,230,192,.06)}
+.formcard label{display:block;font-size:13px;color:#aeb8c1;margin:12px 0 6px}
+.formcard input,.formcard textarea{width:100%;background:#0d131b;border:1px solid #22303c;border-radius:10px;padding:12px 14px;color:#fff;font-size:15px;font-family:inherit;transition:border-color .15s}
+.formcard input:focus,.formcard textarea:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(47,230,192,.12)}
+.formcard .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.formcard .grid2{grid-template-columns:1fr}}
+.formcard button{width:100%;margin-top:18px;background:linear-gradient(90deg,var(--teal),var(--teal2));color:#04231d;font-weight:800;font-size:17px;border:none;border-radius:12px;padding:15px;cursor:pointer;box-shadow:0 8px 30px rgba(47,230,192,.25);transition:transform .15s}
+.formcard button:hover{transform:translateY(-2px)}
+.alt{text-align:center;color:var(--muted);font-size:14px;margin-top:16px}.alt a{color:var(--teal)}
+.ok{display:none;text-align:center;padding:26px}.ok h3{font-size:22px;margin-bottom:8px}.ok p{color:var(--muted)}
+.hp{display:none}
+.foot{border-top:1px solid var(--line);color:#6b7681;font-size:13px;padding:26px 0;text-align:center}
+.note{color:#5f6d78;font-size:12px;text-align:center;margin-top:20px}
+/* COMPARE */
+.compare{background:linear-gradient(180deg,#070b11,#0a0709)}
+.cmpwrap{display:grid;grid-template-columns:1fr 54px 1fr;gap:16px;align-items:stretch;max-width:780px;margin:0 auto}
+@media(max-width:720px){.cmpwrap{grid-template-columns:1fr}}
+.ccard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px 24px;text-align:center;transition:transform .2s,border-color .2s}
+.ccard.rh{border-color:#22404a;box-shadow:0 0 44px rgba(47,230,192,.10)}
+.ccard:hover{transform:translateY(-3px)}
+.ccard .who{font-size:14px;color:var(--muted);font-weight:600}
+.ccard .amt{font-size:38px;font-weight:800;letter-spacing:-.02em;margin:10px 0 2px;font-variant-numeric:tabular-nums;line-height:1}
+.ccard.us .amt{color:#ff8a7b}.ccard.rh .amt{color:var(--teal)}
+.ccard .per{font-size:13px;color:var(--muted);margin-top:6px}
+.vs{display:flex;align-items:center;justify-content:center;color:#6b7681;font-weight:800;font-size:13px;letter-spacing:.1em}
+.savebadge{text-align:center;margin-top:32px}
+.savebig{font-size:56px;font-weight:800;letter-spacing:-.02em;background:linear-gradient(100deg,var(--teal),var(--indigo));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1.05}
+.savesub{color:#c9d2da;font-size:16px;margin:10px auto 0;max-width:52ch}.savesub b{color:#fff}
+</style></head><body>
+<div id="glow"></div>
+
+<header class="hero">
+  <div class="aurora"></div>
+  <div class="wrap">
+    <div class="nav"><span class="brand"><img alt="RemoHires" src="data:image/png;base64,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"><span><span class="r">Remo</span><span class="h">Hires</span></span></span></div>
+    <span class="chip">✦ AI ENGINEER + AI AGENT · FOR INSURANCE AGENCIES</span>
+    <h1>Every quote worked <span class="grad">the same day.</span></h1>
+    <p class="sub">A dedicated AI engineer builds an <b>AI agent</b> for your agency that works every new quote and keys new business once. Your engineer keeps it running, so you stop losing quotes to whoever called first.</p>
+    <div class="pricepill"><span class="big">From $300</span><span class="lab">/ week · one AI engineer + agent</span></div>
+    <div class="ctarow"><a class="cta" href="#book">Book a 15-Min Call →</a><span class="trust">Free, no obligation. See exactly how it would run for you.</span></div>
+
+    <div class="term" id="term">
+      <div class="bar"><i style="background:#ff5f56"></i><i style="background:#ffbd2e"></i><i style="background:#27c93f"></i><span style="margin-left:8px">quote-agent · your agency</span><span class="dotpulse"></span></div>
+      <div class="body" id="termbody"></div>
+    </div>
+  </div>
+</header>
+
+<section class="pain">
+  <div class="wrap">
+    <h2 class="rev">Right now, quotes you already won are <span class="hot">walking out the door.</span></h2>
+    <p class="lead rev">A prospect asks for a quote. Your team is on the phones. By the time anyone follows up, they have bought from the agent who called first, and you never see the policy or its renewals.</p>
+    <div class="paingrid">
+      <div class="coldcard rev" id="cold">
+        <div class="qh"><span style="color:#8aa0ad;font-size:13px;font-family:ui-monospace,monospace" id="clock">9:02 AM</span><span class="badge" id="badge">🔥 HOT LEAD</span></div>
+        <div class="qname">New auto quote</div>
+        <div class="qmeta">Homeowner · ~$420 first-year commission · renews every year</div>
+        <div class="heatwrap"><div class="heat" id="heat"></div></div>
+        <div class="day" id="day">Day 0 · waiting for follow-up</div>
+        <div class="stamp">GONE</div>
+      </div>
+      <div class="painside">
+        <div class="loss rev">Quotes like this you lose in a year</div>
+        <div class="lossbig rev"><span id="loss">$0</span></div>
+        <div class="loss rev" style="margin-bottom:6px">before you count the renewals that walk with them.</div>
+        <div class="q rev"><p>"I can get back to prospects while they're still hot, not three days later when they've already moved on to the next agent."</p><div class="src">— Producer, quote follow-up (Capterra, EZLynx)</div></div>
+        <div class="q rev"><p>"The software does not integrate with my CRM… therefore I have to do double entry."</p><div class="src">— Agent (Capterra, EZLynx)</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section><div class="wrap">
+  <h2 class="rev">What you get</h2>
+  <p class="lead rev">One person and the agent they build for you. Not a subscription you have to run yourself.</p>
+  <div class="cards">
+    <div class="card rev"><div class="ic">👩‍💻</div><h3>A dedicated AI engineer</h3><p>One person on your team, vetted on the build skills you can't test yourself: agents, LLMs, APIs, Make, Zapier, n8n.</p></div>
+    <div class="card rev"><div class="ic">🤖</div><h3>An agent that does the work</h3><p>Works every new quote the same day and keys new business once, so quotes stop going cold and the double entry stops.</p></div>
+    <div class="card rev"><div class="ic">🔧</div><h3>Kept running every day</h3><p>Your engineer maintains and sharpens the agent as your carriers and AMS change. It doesn't break and sit.</p></div>
+  </div>
+</div></section>
+
+<section style="background:#070b11"><div class="wrap">
+  <h2 class="rev">Why RemoHires</h2>
+  <p class="lead rev">Not a tool. Not a freelancer who disappears. Not a US salary.</p>
+  <div class="why">
+    <div class="w rev"><div class="k">1</div><div><h4>A person, not a tool</h4><p>Your own engineer builds and runs the agent. You're hiring someone, not buying software you have to figure out.</p></div></div>
+    <div class="w rev"><div class="k">2</div><div><h4>From $300 a week</h4><p>About a tenth of a US AI engineer. Matched free, no placement fee. You pay once someone joins your team.</p></div></div>
+    <div class="w rev"><div class="k">3</div><div><h4>Back office only</h4><p>They run the busywork and follow-up. Quoting decisions, selling, and binding stay with your licensed producers.</p></div></div>
+    <div class="w rev"><div class="k">4</div><div><h4>Access you control</h4><p>Scoped, least-privilege access you grant and can revoke. RemoHires is accountable, not a lone freelancer.</p></div></div>
+  </div>
+</div></section>
+
+<section class="compare"><div class="wrap">
+  <h2 class="rev">What a US hire costs — and what you'd pay</h2>
+  <p class="lead rev">Same build skills — agents, LLMs, APIs, automation. A fraction of the price.</p>
+  <div class="cmpwrap rev" id="cmp">
+    <div class="ccard us"><div class="who">A US AI engineer</div><div class="amt" id="usval">$0</div><div class="per">average base salary / year</div></div>
+    <div class="vs">VS</div>
+    <div class="ccard rh"><div class="who">RemoHires</div><div class="amt">From $300</div><div class="per">per week · one AI engineer + agent</div></div>
+  </div>
+  <div class="savebadge rev">
+    <div class="savebig">about <span id="savepct">0</span>% less</div>
+    <div class="savesub">than hiring in the US — and that's <b>before</b> the benefits, payroll taxes, and overhead a US salary adds on top.</div>
+  </div>
+  <div class="note">US figure: average AI engineer base salary, $152,661/yr (Indeed, Aug 2026). RemoHires: from $300/week. "About 83% less" is our standard comparison figure, pending final confirmation.</div>
+</div></section>
+
+<section id="book"><div class="wrap">
+  <h2 class="rev">Book your 15-minute call</h2>
+  <p class="lead rev">Tell us about your agency and we'll walk you through exactly how it would run for you. No pressure, no obligation.</p>
+  <div class="formcard rev">
+    <form id="lead" onsubmit="return sendLead(event)">
+      <input type="hidden" name="access_key" value="REPLACE_WITH_YOUR_WEB3FORMS_ACCESS_KEY">
+      <input type="hidden" name="subject" value="New RemoHires insurance-agency call request">
+      <input type="hidden" name="from_name" value="RemoHires Landing Page">
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+      <div class="grid2"><div><label>Your name *</label><input name="name" required></div><div><label>Agency name *</label><input name="agency" required></div></div>
+      <div class="grid2"><div><label>Work email *</label><input type="email" name="email" required></div><div><label>Phone</label><input name="phone"></div></div>
+      <label>Your AMS (EZLynx, AMS360, HawkSoft, …)</label><input name="ams">
+      <label>Your biggest bottleneck right now</label><textarea name="message" rows="2" placeholder="e.g. quotes going cold, double entry into QuickBooks…"></textarea>
+      <button type="submit">Book my call →</button>
+    </form>
+    <div class="ok" id="ok"><h3>Got it. 🎉</h3><p>We'll email you within one business day to lock in 15 minutes. Prefer to grab a time now? <a href="https://calendar.app.google/opcyzJKFLUCcXyLN26" target="_blank">Pick a slot here.</a></p></div>
+    <div class="alt">Prefer to book directly? <a href="https://calendar.app.google/opcyzJKFLUCcXyLN26" target="_blank">Pick a time on the calendar →</a></div>
+  </div>
+  <div class="note">"From $300 a week" is a starting price, pending final confirmation. Add your Web3Forms access key to activate the form.</div>
+</div></section>
+
+<div class="foot"><div class="wrap">RemoHires — a dedicated AI engineer and agent for independent insurance agencies.</div></div>
+
+<script>
+// cursor glow
+addEventListener('mousemove',function(e){var g=document.getElementById('glow');g.style.setProperty('--mx',e.clientX+'px');g.style.setProperty('--my',e.clientY+'px');});
+// scroll reveal
+var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}})},{threshold:.15});
+document.querySelectorAll('.rev').forEach(function(el){io.observe(el);});
+// hero agent terminal (typing loop)
+var lines=[
+ {t:'9:02',a:false,html:'new quote · <b>auto</b> · homeowner'},
+ {t:'9:02',a:true,html:'follows up by text + email, in <b>your agency’s name</b>'},
+ {t:'9:03',a:true,html:'writes the details to your <b>AMS</b> · once'},
+ {t:'9:05',a:true,html:'flags your <b>licensed producer</b> to bind'},
+ {t:'live',a:true,ok:true,html:'following up until they book…'}
+];
+var body=document.getElementById('termbody');
+function typeLine(line,done){
+ var row=document.createElement('div');row.className='tline'+(line.ok?' ok':'');
+ var tt=document.createElement('span');tt.className='tt';tt.textContent=line.t;
+ var ar=document.createElement('span');ar.className='arrow';ar.textContent=line.a?'agent →':'•';
+ var c=document.createElement('span');c.className='c';
+ row.appendChild(tt);row.appendChild(ar);row.appendChild(c);body.appendChild(row);
+ requestAnimationFrame(function(){row.classList.add('show')});
+ var txt=line.html, i=0, buf='';
+ var caret=document.createElement('span');caret.className='caret';c.appendChild(caret);
+ (function tick(){
+   if(i>=txt.length){caret.remove();done&&setTimeout(done,line.ok?1600:260);return;}
+   if(txt[i]==='<'){var j=txt.indexOf('>',i);buf+=txt.slice(i,j+1);i=j+1;}
+   else{buf+=txt[i];i++;}
+   c.innerHTML=buf;c.appendChild(caret);
+   setTimeout(tick,14);
+ })();
+}
+function runTerm(k){k=k||0;if(k===0)body.innerHTML='';
+ if(k>=lines.length){setTimeout(function(){runTerm(0)},2600);return;}
+ typeLine(lines[k],function(){runTerm(k+1)});
+}
+runTerm(0);
+// pain: cold-quote loop + loss countup
+var cold=document.getElementById('cold'),heat=document.getElementById('heat'),badge=document.getElementById('badge'),day=document.getElementById('day'),clock=document.getElementById('clock');
+function coldLoop(){
+ cold.classList.remove('cold');badge.textContent='🔥 HOT LEAD';day.textContent='Day 0 · waiting for follow-up';clock.textContent='9:02 AM';
+ // force reflow so heat resets
+ void heat.offsetWidth;
+ var days=['Day 1 · no reply yet','Day 2 · still no follow-up','Day 3 · gone quiet'];var di=0;
+ var iv=setInterval(function(){day.textContent=days[di]||days[2];di++;if(di>=3)clearInterval(iv);},1200);
+ setTimeout(function(){cold.classList.add('cold');badge.textContent='✕ LOST';day.textContent='Bought from the agent who called first.';},600);
+ setTimeout(coldLoop,6400);
+}
+setTimeout(coldLoop,600);
+// count up loss when visible
+var lossEl=document.getElementById('loss'),counted=false;
+var io2=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting&&!counted){counted=true;var target=48000,cur=0;var step=target/60;var t=setInterval(function(){cur+=step;if(cur>=target){cur=target;clearInterval(t);}lossEl.textContent='$'+Math.round(cur).toLocaleString();},22);}})},{threshold:.4});
+io2.observe(lossEl);
+// cost comparison: grow bars + count up numbers
+var cmp=document.getElementById('cmp'),cmpDone=false;
+function countTo(el,target,pfx){var cur=0,step=target/55;var t=setInterval(function(){cur+=step;if(cur>=target){cur=target;clearInterval(t);}el.textContent=(pfx||'')+Math.round(cur).toLocaleString();},22);}
+var io3=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting&&!cmpDone){cmpDone=true;
+  countTo(document.getElementById('usval'),152661,'$');
+  countTo(document.getElementById('savepct'),83,'');
+}})},{threshold:.4});
+io3.observe(cmp);
+</script>
+</body></html>
