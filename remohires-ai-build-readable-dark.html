@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Build AI Products From $300/Week | RemoHires</title>
+  <meta name="description" content="Build AI agents, internal tools, prototypes, and AI-powered products from $300/week with affordable AI-capable developers matched by RemoHires." />
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-K736CCFP');</script>
+  <!-- End Google Tag Manager -->
+
+  <!--
+    RemoHires AI Team Landing Page
+    Direction source: Sir Mike feedback from Aug 13 meeting.
+    Key angle: Simple, bold, money-forward, AI team / AI agent / AI builder focus.
+    Replace YOUR_WEB3FORMS_ACCESS_KEY before publishing.
+  -->
+
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #0A0E14;
+      --bg-2: #0E1622;
+      --bg-3: #111823;
+      --card: rgba(255, 255, 255, 0.06);
+      --card-strong: rgba(255, 255, 255, 0.10);
+      --text: #EEF2F7;
+      --text-soft: #C7D2E0;
+      --muted: #94A3B5;
+      --line: rgba(148, 163, 181, 0.22);
+      --indigo: #3A49C4;
+      --cyan: #22E6CB;
+      --cyan-d: #1BC3AC;
+      --white: #FFFFFF;
+      --ink: #04211D;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: "Satoshi", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: inherit; }
+
+    h1, h2, h3 {
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.022em;
+      margin: 0;
+    }
+
+    p { margin: 0; }
+
+    .page {
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top left, rgba(34, 230, 203, 0.18), transparent 30%),
+        radial-gradient(circle at 90% 10%, rgba(58, 73, 196, 0.18), transparent 32%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-3) 42%, var(--bg) 100%);
+    }
+
+    .topbar {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-soft);
+      padding: 12px 20px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 750;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topbar-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      margin-left: 2px;
+      background: var(--cyan);
+      vertical-align: -2px;
+      animation: topbar-blink 0.9s steps(1) infinite;
+    }
+
+    @keyframes topbar-blink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .topbar-cursor { animation: none; opacity: 0; }
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 22px 20px;
+    }
+
+    .logo {
+      height: 32px;
+      filter: brightness(0) invert(1);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      align-items: center;
+      color: var(--text-soft);
+      font-weight: 750;
+      font-size: 14px;
+    }
+
+    .nav-links a { text-decoration: none; }
+
+    .nav-cta {
+      background: var(--white);
+      color: var(--ink);
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-weight: 900;
+    }
+
+    .hero {
+      position: relative;
+      padding: 44px 20px 76px;
+    }
+
+    .hero-grid {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.75fr);
+      gap: 44px;
+      align-items: stretch;
+    }
+
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      border-radius: 999px;
+      background: rgba(34, 230, 203, 0.16);
+      border: 1px solid rgba(34, 230, 203, 0.24);
+      color: var(--cyan);
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 600;
+      font-size: 12.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow span {
+      width: 8px;
+      height: 8px;
+      border-radius: 99px;
+      background: #22C55E;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--text);
+      font-size: clamp(33px, 4.9vw, 53px);
+      line-height: 1.04;
+      max-width: 640px;
+    }
+
+    .price-highlight {
+      color: var(--cyan);
+      white-space: nowrap;
+      text-shadow: 0 0 34px rgba(34, 230, 203, 0.30);
+    }
+
+    .hero-lead {
+      margin: 24px 0 0;
+      max-width: 46ch;
+      font-size: 18px;
+      color: var(--text-soft);
+      line-height: 1.45;
+    }
+
+    @media (min-width: 861px) {
+      .hero-lead { font-size: 16px; max-width: none; }
+    }
+
+    .hero-lead strong { color: var(--white); }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 15px 22px;
+      border-radius: 999px;
+      border: 0;
+      font-weight: 900;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+
+    .button svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      flex: none;
+    }
+
+    .button:hover { transform: translateY(-2px); }
+
+    .button-primary {
+      background: var(--cyan);
+      color: var(--ink);
+      box-shadow: 0 16px 34px rgba(34, 230, 203, 0.26);
+    }
+
+    .button-primary:hover { background: var(--cyan-d); }
+
+    .button-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+
+    .hero-proof {
+      margin-top: auto;
+      padding-top: 26px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 680px;
+    }
+
+    .proof-card,
+    .build-card,
+    .lead-copy-card,
+    .cta-panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.18);
+      backdrop-filter: blur(12px);
+      transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+    }
+
+    .build-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(34, 230, 203, 0.45);
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .proof-card {
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .proof-card strong {
+      display: block;
+      color: var(--white);
+      font-size: 20px;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+
+    .proof-card span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .hero-visual {
+      background: var(--card);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      border-radius: 30px;
+      padding: 26px;
+      backdrop-filter: blur(14px);
+    }
+
+    .visual-card {
+      background: linear-gradient(180deg, var(--card-strong), rgba(255,255,255,0.05));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 24px;
+    }
+
+    .visual-card h2 {
+      font-size: 26px;
+      color: var(--white);
+      margin-bottom: 14px;
+    }
+
+    .visual-price {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 8px;
+      margin: 12px 0 18px;
+      padding: 12px 16px;
+      border-radius: 18px;
+      background: rgba(34, 230, 203, 0.14);
+      border: 1px solid rgba(34, 230, 203, 0.24);
+      color: var(--white);
+      font-weight: 950;
+    }
+
+    .visual-price strong {
+      font-size: clamp(30px, 4vw, 54px);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+      color: var(--cyan);
+    }
+
+    .visual-price span {
+      color: var(--text-soft);
+      font-size: 15px;
+    }
+
+    .visual-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .visual-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: var(--text-soft);
+      font-weight: 750;
+      font-size: 15px;
+    }
+
+    .visual-item b { color: var(--white); }
+
+    @keyframes hero-fade-up {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero .eyebrow,
+    .hero h1,
+    .hero .hero-lead,
+    .hero .hero-actions,
+    .hero-proof .proof-card,
+    .hero-visual {
+      opacity: 0;
+      animation: hero-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .hero .eyebrow { animation-delay: 0.05s; }
+    .hero h1 { animation-delay: 0.14s; }
+    .hero .hero-lead { animation-delay: 0.24s; }
+    .hero .hero-actions { animation-delay: 0.34s; }
+    .hero-proof .proof-card:nth-child(1) { animation-delay: 0.42s; }
+    .hero-proof .proof-card:nth-child(2) { animation-delay: 0.48s; }
+    .hero-proof .proof-card:nth-child(3) { animation-delay: 0.54s; }
+    .hero-visual { animation-delay: 0.3s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero .eyebrow,
+      .hero h1,
+      .hero .hero-lead,
+      .hero .hero-actions,
+      .hero-proof .proof-card,
+      .hero-visual {
+        animation: none;
+        opacity: 1;
+      }
+    }
+
+    .form-card {
+      background: linear-gradient(180deg, var(--bg-3), var(--bg-2));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      border-radius: 28px;
+      padding: 26px;
+      color: var(--text);
+    }
+
+    .form-card .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--cyan);
+      margin-bottom: 6px;
+    }
+
+    .form-card h2 {
+      margin: 0;
+      color: var(--white);
+      font-size: 26px;
+    }
+
+    .optional-label {
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .form-card p {
+      margin: 10px 0 20px;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .field label {
+      display: block;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 850;
+      margin: 0 0 6px;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 13px 14px;
+      font: inherit;
+      color: var(--white);
+      background: var(--bg);
+      outline: none;
+      transition: border 150ms ease, box-shadow 150ms ease;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder { color: #5F6B7B; }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(34, 230, 203, 0.15);
+    }
+
+    .field textarea {
+      min-height: 96px;
+      resize: vertical;
+    }
+
+    .form-note {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .form-status {
+      display: none;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .form-status.success {
+      display: block;
+      color: var(--cyan);
+      background: rgba(34, 230, 203, 0.12);
+    }
+
+    .form-status.error {
+      display: block;
+      color: #FF9B9B;
+      background: rgba(255, 155, 155, 0.12);
+    }
+
+    section { padding: 72px 20px; }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      max-width: 760px;
+      margin-bottom: 34px;
+    }
+
+    .kicker {
+      color: var(--cyan);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--white);
+      font-size: clamp(27px, 3.6vw, 39px);
+      line-height: 1.1;
+    }
+
+    .section-copy {
+      margin: 16px 0 0;
+      color: var(--text-soft);
+      font-size: 19px;
+      max-width: 760px;
+    }
+
+    .build-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .build-card {
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .build-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      background: rgba(34, 230, 203, 0.13);
+      color: var(--cyan);
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+
+    .build-card h3 {
+      margin: 0;
+      color: var(--white);
+      font-size: 19px;
+    }
+
+    .build-card p {
+      margin: 9px 0 0;
+      color: var(--text-soft);
+      font-weight: 650;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .quote-panel {
+      border-radius: 30px;
+      background: linear-gradient(135deg, var(--bg-3), var(--bg));
+      color: var(--white);
+      padding: 34px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+    }
+
+    .quote-panel p {
+      margin: 0;
+      font-size: clamp(20px, 2.6vw, 28px);
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .quote-panel span {
+      display: block;
+      margin-top: 18px;
+      color: var(--text-soft);
+      font-weight: 750;
+    }
+
+    .simple-list {
+      display: grid;
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .simple-list li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px 18px;
+      font-weight: 750;
+      color: var(--text-soft);
+    }
+
+    .check {
+      flex: 0 0 auto;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.18);
+      color: #86EFAC;
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      font-weight: 950;
+    }
+
+    .offer {
+      background: linear-gradient(135deg, var(--bg), var(--bg-3));
+      color: var(--white);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .offer .section-copy { color: var(--text-soft); }
+
+    .offer-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-top: 34px;
+    }
+
+    .offer-card {
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 28px;
+      backdrop-filter: blur(10px);
+      transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+    }
+
+    .offer-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(34, 230, 203, 0.45);
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .offer-card strong {
+      display: block;
+      color: var(--white);
+      font-size: clamp(34px, 5vw, 60px);
+      line-height: 0.94;
+      letter-spacing: -0.06em;
+    }
+
+    .offer-card span {
+      display: block;
+      margin-top: 12px;
+      color: var(--text-soft);
+      font-weight: 750;
+    }
+
+    .lead-section {
+      background:
+        radial-gradient(circle at top right, rgba(34, 230, 203, 0.12), transparent 32%),
+        linear-gradient(180deg, var(--bg-3) 0%, var(--bg) 100%);
+    }
+
+    .lead-grid {
+      display: grid;
+      grid-template-columns: 0.9fr minmax(360px, 0.72fr);
+      gap: 34px;
+      align-items: start;
+    }
+
+    .lead-copy-card {
+      border-radius: 28px;
+      padding: 30px;
+    }
+
+    .lead-copy-card p {
+      color: var(--text-soft);
+      font-size: 19px;
+      font-weight: 700;
+      margin: 16px 0 0;
+    }
+
+    .lead-copy-card .simple-list { margin-top: 24px; }
+
+    .footer-cta { background: var(--bg-3); }
+
+    .cta-panel {
+      border-radius: 32px;
+      padding: 42px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .cta-panel p {
+      color: var(--text-soft);
+      font-size: 18px;
+      font-weight: 700;
+      margin: 14px 0 0;
+      max-width: 720px;
+    }
+
+    footer {
+      padding: 34px 20px;
+      color: var(--muted);
+      background: var(--bg);
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 940px) {
+      .hero-grid, .split, .cta-panel, .lead-grid { grid-template-columns: 1fr; }
+      .hero-proof, .build-grid, .offer-box { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hero { padding-top: 24px; }
+      .form-card { padding: 22px; }
+    }
+
+    @media (max-width: 560px) {
+      .hero-actions { align-items: stretch; }
+      .button { width: 100%; }
+      .cta-panel { padding: 28px; }
+      section { padding: 54px 20px; }
+    }
+  </style>
+
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K736CCFP"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div class="page">
+    <div class="topbar"><span class="topbar-text" id="topbarText">Launch AI products, agents, and internal tools with affordable technical talent.</span><span class="topbar-cursor" aria-hidden="true"></span></div>
+
+    <header class="nav" aria-label="Main navigation">
+      <a href="#" aria-label="RemoHires">
+        <img class="logo" src="https://remohires.com/assets/logo-ClPCTLmH.svg" alt="RemoHires" />
+      </a>
+      <nav class="nav-links" aria-label="Page sections">
+        <a href="#build">What you can build</a>
+        <a href="#why-now">Why this works</a>
+        <a href="#cost">Cost</a>
+        <a class="nav-cta" href="#lead-form">Start building</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="eyebrow"><span></span> AI development talent</div>
+            <h1>Build AI Products From $300/Week</h1>
+            <p class="hero-lead">
+              Get matched with AI-capable developers who can help you build agents, internal tools, prototypes, and AI-powered software without starting with a full US engineering team.
+            </p>
+
+            <div class="hero-actions">
+              <a class="button button-primary" href="#lead-form">Start your AI build</a>
+              <a class="button button-secondary" href="#build">Explore use cases</a>
+            </div>
+
+            <div class="hero-proof" aria-label="Offer highlights">
+              <div class="proof-card">
+                <strong>Starting from $300/week</strong>
+                <span>Starting talent option</span>
+              </div>
+              <div class="proof-card">
+                <strong>Start lean</strong>
+                <span>Build before scaling</span>
+              </div>
+              <div class="proof-card">
+                <strong>AI agents</strong>
+                <span>Products, tools, workflows</span>
+              </div>
+            </div>
+          </div>
+          <aside class="hero-visual" aria-label="AI build offer summary">
+            <div class="visual-card">
+              <h2>Start with one AI-capable builder.</h2>
+              <div class="visual-price">
+                <strong>$300</strong>
+                <span>/ week starting option</span>
+              </div>
+              <div class="visual-list">
+                <div class="visual-item"><span class="check">✓</span><span><b>AI agents</b> for support, research, operations, and customer workflows.</span></div>
+                <div class="visual-item"><span class="check">✓</span><span><b>Internal tools</b> like dashboards, admin panels, and reporting systems.</span></div>
+                <div class="visual-item"><span class="check">✓</span><span><b>MVPs and prototypes</b> to validate the idea before hiring a full team.</span></div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="build">
+        <div class="container">
+          <div class="section-header">
+            <div class="kicker">AI build support</div>
+            <h2>From AI idea to working product.</h2>
+            <p class="section-copy">
+              Tools and agents are only useful when someone can design, build, test, and improve them. RemoHires helps you find technical talent who can move the work from idea to execution.
+            </p>
+          </div>
+
+          <div class="build-grid">
+            <article class="build-card">
+              <div class="build-icon">🤖</div>
+              <h3>AI agents</h3>
+              <p>Create AI agents for customer support, research, operations, lead handling, or internal productivity.</p>
+            </article>
+
+            <article class="build-card">
+              <div class="build-icon">🛠️</div>
+              <h3>Internal AI tools</h3>
+              <p>Build dashboards, admin panels, reporting tools, and AI-assisted systems designed around your team’s workflow.</p>
+            </article>
+
+            <article class="build-card">
+              <div class="build-icon">🚀</div>
+              <h3>MVPs and prototypes</h3>
+              <p>Move from concept to a testable first version without hiring a full engineering department.</p>
+            </article>
+
+            <article class="build-card">
+              <div class="build-icon">💬</div>
+              <h3>AI assistants</h3>
+              <p>Create AI assistants for customers, employees, sales, operations, or knowledge workflows.</p>
+            </article>
+
+            <article class="build-card">
+              <div class="build-icon">🔌</div>
+              <h3>API integrations</h3>
+              <p>Connect models, databases, business systems, and third-party tools into one working product flow.</p>
+            </article>
+
+            <article class="build-card">
+              <div class="build-icon">📈</div>
+              <h3>AI marketing systems</h3>
+              <p>Build AI-supported systems for content production, lead research, campaign operations, and reporting.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="why-now">
+        <div class="container split">
+          <div class="quote-panel">
+            <p>AI lowered the barrier to building. Execution is still the advantage.</p>
+            <span>The right talent can help you move faster without committing to a full US team.</span>
+          </div>
+
+          <div>
+            <div class="kicker">Why this works</div>
+            <h2>Start with the role you need now.</h2>
+            <p class="section-copy">
+              You do not need to hire a full engineering department to validate an AI idea. Start with one AI-capable developer, prove the concept, then expand only when the project earns it.
+            </p>
+
+            <ul class="simple-list" style="margin-top: 24px;">
+              <li><span class="check">✓</span><span>Start with one developer instead of committing to a full US engineering team.</span></li>
+              <li><span class="check">✓</span><span>Build agents, prototypes, internal tools, and AI-powered product features.</span></li>
+              <li><span class="check">✓</span><span>Use custom recruitment to match talent to your product, stack, timeline, and budget.</span></li>
+              <li><span class="check">✓</span><span>Validate the idea before taking on a large engineering budget.</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="offer" id="cost">
+        <div class="container">
+          <div class="section-header">
+            <div class="kicker">Cost advantage</div>
+            <h2>AI development help from a leaner cost base.</h2>
+            <p class="section-copy">
+              RemoHires connects you with AI-capable technical talent so you can build, test, and iterate without starting with a full US hiring plan.
+            </p>
+          </div>
+
+          <div class="offer-box">
+            <div class="offer-card">
+              <strong>Starting from $300/week</strong>
+              <span>A lean starting point for early AI build support, subject to role scope and final talent match.</span>
+            </div>
+
+            <div class="offer-card">
+              <strong>Start lean</strong>
+              <span>Build the first version, learn from the market, then decide whether to add more technical support.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="how-it-works">
+        <div class="container">
+          <div class="section-header">
+            <div class="kicker">How it works</div>
+            <h2>Share the project. We help define the right talent.</h2>
+          </div>
+
+          <div class="build-grid">
+            <article class="build-card">
+              <div class="build-icon">1</div>
+              <h3>Share the project</h3>
+              <p>Tell us whether you are building an AI agent, MVP, internal tool, chatbot, dashboard, or product feature.</p>
+            </article>
+
+            <article class="build-card">
+              <div class="build-icon">2</div>
+              <h3>Define the role</h3>
+              <p>We help clarify the skills needed, from AI development to full-stack implementation, integrations, automation, or product support.</p>
+            </article>
+
+            <article class="build-card">
+              <div class="build-icon">3</div>
+              <h3>Get matched</h3>
+              <p>RemoHires supports the matching and employment setup so you can focus on building the product.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+
+      <section class="lead-section" id="lead-form-section">
+        <div class="container lead-grid">
+          <div class="lead-copy-card">
+            <div class="kicker">Start the match</div>
+            <h2>Start your AI build.</h2>
+            <p>
+              Keep it simple. Share the AI product, agent, internal tool, or prototype you want to create.
+              We’ll help identify the right AI-capable talent for the first build.
+            </p>
+
+            <ul class="simple-list">
+              <li><span class="check">✓</span><span>Good for founders, operators, and teams testing an AI idea.</span></li>
+              <li><span class="check">✓</span><span>Start with one builder instead of committing to a full engineering team.</span></li>
+              <li><span class="check">✓</span><span>Use the call to clarify scope, role, timeline, and budget.</span></li>
+            </ul>
+          </div>
+
+
+          <aside class="form-card" id="lead-form" aria-label="Lead form">
+            <div class="badge">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 3l1.5 3L10 7 6.5 8.5 5 12 3.5 8.5 0 7l3.5-1zM18 9l1 2 2 1-2 1-1 2-1-2-2-1 2-1z"/></svg>
+              Get matched free
+            </div>
+            <h2>Find your AI builder</h2>
+            <p>Start your AI build and we’ll follow up to scope the AI talent you need.</p>
+
+            <form class="form-grid js-lead-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
+              <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
+              <input type="hidden" name="subject" value="New RemoHires AI Build Landing Page Lead" />
+              <input type="hidden" name="source" value="AI Build Landing Page" />
+              <input type="checkbox" name="botcheck" style="display: none;" tabindex="-1" autocomplete="off" />
+
+              <div class="field">
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" placeholder="Your name" required />
+              </div>
+
+              <div class="field">
+                <label for="email">Work email</label>
+                <input id="email" name="email" type="email" placeholder="you@company.com" required />
+              </div>
+
+              <div class="field">
+                <label for="phone">Phone</label>
+                <input id="phone" name="phone" type="tel" placeholder="+1 555 000 0000" required />
+              </div>
+
+              <div class="field">
+                <label for="industry">Industry</label>
+                <select id="industry" name="industry" required>
+                  <option value="" disabled selected>Select your industry</option>
+                  <option>Marketing / Creative Agency</option>
+                  <option>E-commerce &amp; Retail</option>
+                  <option>Real Estate</option>
+                  <option>Construction &amp; Trades</option>
+                  <option>Professional Services</option>
+                  <option>SaaS &amp; Software</option>
+                  <option>Logistics &amp; Supply Chain</option>
+                  <option>Healthcare &amp; Clinics</option>
+                  <option>Other</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="build">What are you building? <span class="optional-label">(optional)</span></label>
+                <input id="build" name="what_to_build" type="text" placeholder="e.g. an AI agent, internal dashboard, chatbot, workflow tool, MVP" />
+              </div>
+
+              <div class="field">
+                <label for="heard">How did you hear about us?</label>
+                <select id="heard" name="heard_about" required>
+                  <option value="" disabled selected>Select an option...</option>
+                  <option>Google search</option>
+                  <option>Google ad</option>
+                  <option>Facebook / Instagram</option>
+                  <option>LinkedIn</option>
+                  <option>Referral from a friend</option>
+                  <option>Other</option>
+                </select>
+              </div>
+
+              <button class="button button-primary" type="submit">
+                <span class="btn-label">Get matched with AI talent — free</span>
+                <svg fill="none" viewBox="0 0 24 24" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+
+              <div class="form-status js-form-status" role="status" aria-live="polite"></div>
+
+              <p class="form-note">
+                Free to start — we’ll follow up to scope your needs.
+              </p>
+            </form>
+          </aside>
+        </div>
+      </section>
+
+      <section class="footer-cta">
+        <div class="container">
+          <div class="cta-panel">
+            <div>
+              <h2>Ready to build the first version?</h2>
+              <p>Tell us what you want to create. We’ll help identify the right AI-capable talent to move the project forward.</p>
+            </div>
+            <a class="button button-primary" href="#lead-form">Start from $300/week</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <div>© 2026 RemoHires. All rights reserved.</div>
+        <div class="footer-links">
+          <a href="/privacy-policy">Privacy Policy</a>
+          <a href="/terms-of-service">Terms of Service</a>
+          <a href="#lead-form">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var el = document.getElementById("topbarText");
+      if (!el) return;
+
+      var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduceMotion) return;
+
+      var fullText = el.textContent;
+      el.textContent = "";
+      var i = 0;
+
+      function typeNext() {
+        el.textContent = fullText.slice(0, i);
+        if (i < fullText.length) {
+          i++;
+          setTimeout(typeNext, 28);
+        }
+      }
+
+      typeNext();
+    })();
+  </script>
+
+  <script>
+    document.querySelectorAll(".js-lead-form").forEach((form) => {
+      const status = form.querySelector(".js-form-status");
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        const accessKey = form.querySelector('input[name="access_key"]')?.value;
+        if (!accessKey || accessKey === "YOUR_WEB3FORMS_ACCESS_KEY") {
+          status.className = "form-status js-form-status error";
+          status.textContent = "Please replace YOUR_WEB3FORMS_ACCESS_KEY before testing the form.";
+          return;
+        }
+
+        const submitButton = form.querySelector('button[type="submit"]');
+        const labelEl = submitButton.querySelector(".btn-label");
+        const originalText = labelEl ? labelEl.textContent : submitButton.textContent;
+        submitButton.disabled = true;
+        if (labelEl) {
+          labelEl.textContent = "Sending...";
+        } else {
+          submitButton.textContent = "Sending...";
+        }
+
+        try {
+          const formData = new FormData(form);
+          const response = await fetch(form.action, {
+            method: "POST",
+            body: formData
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            status.className = "form-status js-form-status success";
+            status.textContent = "Thanks. We received your project request and will follow up shortly.";
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({ event: "lead_submit", form_location: "ai-build" });
+            form.reset();
+          } else {
+            status.className = "form-status js-form-status error";
+            status.textContent = result.message || "Something went wrong. Please try again.";
+          }
+        } catch (error) {
+          status.className = "form-status js-form-status error";
+          status.textContent = "Submission failed. Please check the form setup and try again.";
+        } finally {
+          submitButton.disabled = false;
+          if (labelEl) {
+            labelEl.textContent = originalText;
+          } else {
+            submitButton.textContent = originalText;
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
