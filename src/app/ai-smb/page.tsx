@@ -81,9 +81,9 @@ export default function AiSmbPage() {
           <div className="wrap">
             <span className="chip">✦ CUSTOM AI AUTOMATION · FOR SMALL BUSINESSES</span>
             <h1 style={{ maxWidth: "21ch" }}>
-              An AI developer automates the busywork,
+              Automate the Work That Eats Your Time
               <br />
-              <span className="grad">so you stop losing leads.</span>
+              <span className="grad">— With a Dedicated AI Developer.</span>
             </h1>
             <p className="sub">
               A dedicated AI developer builds <b>custom automation</b> for your business that
