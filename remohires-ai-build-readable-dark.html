@@ -118,7 +118,6 @@
 
     .logo {
       height: 32px;
-      filter: brightness(0) invert(1);
     }
 
     .nav-links {
@@ -438,11 +437,6 @@
       font-size: 26px;
     }
 
-    .optional-label {
-      color: var(--muted);
-      font-weight: 400;
-    }
-
     .form-card p {
       margin: 10px 0 20px;
       color: var(--muted);
@@ -496,6 +490,22 @@
       font-size: 12px;
       line-height: 1.45;
     }
+
+    .booking-reveal {
+      display: none;
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+
+    .booking-reveal p {
+      margin: 8px 0 20px;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .form-card.is-sent .form-grid { display: none; }
+    .form-card.is-sent .booking-reveal { display: block; }
 
     .booking-card {
       background: linear-gradient(180deg, var(--bg-3), var(--bg-2));
@@ -832,7 +842,7 @@
 
     <header class="nav" aria-label="Main navigation">
       <a href="#" aria-label="RemoHires">
-        <img class="logo" src="https://remohires.com/assets/logo-ClPCTLmH.svg" alt="RemoHires" />
+        <img class="logo" src="/logo-remohires-color.svg" alt="RemoHires" />
       </a>
       <nav class="nav-links" aria-label="Page sections">
         <a href="#build">What you can build</a>
@@ -1081,8 +1091,8 @@
               </div>
 
               <div class="field">
-                <label for="build">What are you building? <span class="optional-label">(optional)</span></label>
-                <input id="build" name="what_to_build" type="text" placeholder="e.g. an AI agent, internal dashboard, chatbot, workflow tool, MVP" />
+                <label for="what-to-build">What are you building?</label>
+                <input id="what-to-build" name="what_to_build" type="text" placeholder="e.g. an AI agent, internal dashboard, chatbot, workflow tool, MVP" required />
               </div>
 
               <div class="field">
@@ -1103,45 +1113,39 @@
                 <svg fill="none" viewBox="0 0 24 24" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
               </button>
 
-              <div class="form-status js-form-status" role="status" aria-live="polite"></div>
-
               <p class="form-note">
                 Free to start — we’ll follow up to scope your needs.
               </p>
             </form>
-          </aside>
-        </div>
-      </section>
 
-      <section id="book-a-call">
-        <div class="container">
-          <div class="section-header" style="margin-left: auto; margin-right: auto; text-align: center;">
-            <div class="kicker">Prefer to talk it through</div>
-            <h2>Book a free 15-minute call.</h2>
-            <p class="section-copy">
-              Skip the form and grab a time that works for you. We&rsquo;ll walk through your AI build and the right talent match.
-            </p>
-          </div>
+            <div class="form-status js-form-status" role="status" aria-live="polite"></div>
 
-          <div class="booking-card">
-            <div class="booking-embed">
-              <iframe
-                src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3q29yVNyePP8DQDgwpl_2DfSCwd602bQR0uaNY3ENUqgTbR1bJN6JNpsdNj6HcTdDmunkAHNMl?gv=true"
-                title="Book a Discovery Call"
-                loading="lazy"
-              ></iframe>
+            <div class="booking-reveal">
+              <div class="kicker">You&rsquo;re in</div>
+              <h2>Book a free 15-minute call.</h2>
+              <p>Pick a time below to speed things up — we already have your details.</p>
+
+              <div class="booking-card">
+                <div class="booking-embed">
+                  <iframe
+                    src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3q29yVNyePP8DQDgwpl_2DfSCwd602bQR0uaNY3ENUqgTbR1bJN6JNpsdNj6HcTdDmunkAHNMl?gv=true"
+                    title="Book a Discovery Call"
+                    loading="lazy"
+                  ></iframe>
+                </div>
+                <a
+                  class="button button-primary booking-cta"
+                  href="https://calendar.app.google/opczJKFLUCcXyLN26"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open booking page in a new tab
+                  <svg fill="none" viewBox="0 0 24 24" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </a>
+                <p class="booking-note">Booking is optional — we already have your request and will follow up either way.</p>
+              </div>
             </div>
-            <a
-              class="button button-primary booking-cta"
-              href="https://calendar.app.google/opczJKFLUCcXyLN26"
-              target="_blank"
-              rel="noopener"
-            >
-              Open booking page in a new tab
-              <svg fill="none" viewBox="0 0 24 24" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </a>
-            <p class="booking-note">Booking is optional — the form above works just as well.</p>
-          </div>
+          </aside>
         </div>
       </section>
 
@@ -1196,7 +1200,8 @@
 
   <script>
     document.querySelectorAll(".js-lead-form").forEach((form) => {
-      const status = form.querySelector(".js-form-status");
+      const card = form.closest(".form-card");
+      const status = card ? card.querySelector(".js-form-status") : form.querySelector(".js-form-status");
 
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
@@ -1238,6 +1243,7 @@
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({ event: "lead_submit", form_location: "ai-build" });
             form.reset();
+            if (card) card.classList.add("is-sent");
           } else {
             status.className = "form-status js-form-status error";
             status.textContent = result.message || "Something went wrong. Please try again.";

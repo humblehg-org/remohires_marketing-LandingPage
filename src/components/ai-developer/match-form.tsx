@@ -161,14 +161,13 @@ export function MatchForm({ subject }: { subject: string }) {
         </div>
 
         <div className="field">
-          <label htmlFor={`${idPrefix}-build`}>
-            What are you building? <span className="optional-label">(optional)</span>
-          </label>
+          <label htmlFor={`${idPrefix}-build`}>What are you building?</label>
           <input
             id={`${idPrefix}-build`}
             name="what_to_build"
             type="text"
             placeholder="e.g. an AI agent, internal dashboard, chatbot, workflow tool, MVP"
+            required
             suppressHydrationWarning
           />
         </div>

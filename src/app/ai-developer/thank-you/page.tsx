@@ -30,7 +30,7 @@ export default function AiDeveloperThankYouPage() {
       <header className="nav" aria-label="Main navigation">
         <a href="https://remohires.com" target="_blank" rel="noopener">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="logo" src="https://remohires.com/assets/logo-ClPCTLmH.svg" alt="RemoHires" />
+          <img className="logo" src="/logo-remohires-color.svg" alt="RemoHires" />
         </a>
       </header>
 

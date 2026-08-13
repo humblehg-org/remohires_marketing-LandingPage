@@ -4,16 +4,7 @@ import { TopbarTyper } from "@/components/ai-developer/topbar-typer";
 import { ScrollSpy } from "@/components/ai-developer/scroll-spy";
 import { MatchForm } from "@/components/ai-developer/match-form";
 
-const SPY_IDS = ["build", "why-now", "cost", "how-it-works", "lead-form-section", "book-a-call"];
-
-const BOOKING_URL = "https://calendar.app.google/opczJKFLUCcXyLN26";
-// Google Calendar's short link (calendar.app.google/...) sends
-// X-Frame-Options: SAMEORIGIN and can't be put in an <iframe>. This is the
-// long-form scheduling URL it redirects to, which Google does allow to be
-// embedded. Re-resolve BOOKING_URL's redirect target if the schedule ever
-// changes and this embed goes blank.
-const BOOKING_EMBED_URL =
-  "https://calendar.google.com/calendar/appointments/schedules/AcZssZ3q29yVNyePP8DQDgwpl_2DfSCwd602bQR0uaNY3ENUqgTbR1bJN6JNpsdNj6HcTdDmunkAHNMl?gv=true";
+const SPY_IDS = ["build", "why-now", "cost", "how-it-works", "lead-form-section"];
 
 export const metadata: Metadata = {
   title: "Build AI Products From $300/Week | RemoHires",
@@ -85,7 +76,7 @@ export default function AiDeveloperPage() {
       <header className="nav" aria-label="Main navigation">
         <a href="#" aria-label="RemoHires">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="logo" src="https://remohires.com/assets/logo-ClPCTLmH.svg" alt="RemoHires" />
+          <img className="logo" src="/logo-remohires-color.svg" alt="RemoHires" />
         </a>
         <nav className="nav-links" aria-label="Page sections">
           <a href="#build">What you can build</a>
@@ -302,37 +293,6 @@ export default function AiDeveloperPage() {
             </div>
 
             <MatchForm subject="New RemoHires AI Developer Landing Page Lead" />
-          </div>
-        </section>
-
-        <section id="book-a-call">
-          <div className="container">
-            <div className="section-header centered">
-              <div className="kicker">Prefer to talk it through</div>
-              <h2>Book a free 15-minute call.</h2>
-              <p className="section-copy">
-                Skip the form and grab a time that works for you. We&rsquo;ll walk through your AI
-                build and the right talent match.
-              </p>
-            </div>
-
-            <div className="booking-card">
-              <div className="booking-embed">
-                <iframe src={BOOKING_EMBED_URL} title="Book a Discovery Call" loading="lazy" />
-              </div>
-              <a
-                className="button button-primary booking-cta"
-                href={BOOKING_URL}
-                target="_blank"
-                rel="noopener"
-              >
-                Open booking page in a new tab
-                <svg fill="none" viewBox="0 0 24 24" strokeWidth={2.2}>
-                  <path d="M5 12h14M13 6l6 6-6 6" />
-                </svg>
-              </a>
-              <p className="booking-note">Booking is optional — the form above works just as well.</p>
-            </div>
           </div>
         </section>
 

@@ -88,7 +88,6 @@ p { margin: 0; }
 
 .logo {
   height: 32px;
-  filter: brightness(0) invert(1);
 }
 
 .nav-links {
@@ -414,11 +413,6 @@ h1 {
   font-size: 26px;
 }
 
-.optional-label {
-  color: var(--muted);
-  font-weight: 400;
-}
-
 .form-card p {
   margin: 10px 0 20px;
   color: var(--muted);
@@ -539,12 +533,6 @@ section { padding: 72px 20px; }
 .section-header {
   max-width: 760px;
   margin-bottom: 34px;
-}
-
-.section-header.centered {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
 }
 
 .kicker {
