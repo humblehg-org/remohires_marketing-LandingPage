@@ -192,6 +192,14 @@
       max-width: 640px;
     }
 
+    @media (min-width: 941px) {
+      h1 {
+        font-size: clamp(24px, 2.5vw, 32px);
+        white-space: nowrap;
+        max-width: none;
+      }
+    }
+
     .price-highlight {
       color: var(--cyan);
       white-space: nowrap;
@@ -487,6 +495,42 @@
       color: var(--muted);
       font-size: 12px;
       line-height: 1.45;
+    }
+
+    .booking-card {
+      background: linear-gradient(180deg, var(--bg-3), var(--bg-2));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .booking-embed {
+      background: #FFFFFF;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .booking-embed iframe {
+      display: block;
+      width: 100%;
+      height: 700px;
+      border: 0;
+    }
+
+    .booking-cta {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .booking-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 14px;
     }
 
     .form-status {
@@ -1066,6 +1110,38 @@
               </p>
             </form>
           </aside>
+        </div>
+      </section>
+
+      <section id="book-a-call">
+        <div class="container">
+          <div class="section-header" style="margin-left: auto; margin-right: auto; text-align: center;">
+            <div class="kicker">Prefer to talk it through</div>
+            <h2>Book a free 15-minute call.</h2>
+            <p class="section-copy">
+              Skip the form and grab a time that works for you. We&rsquo;ll walk through your AI build and the right talent match.
+            </p>
+          </div>
+
+          <div class="booking-card">
+            <div class="booking-embed">
+              <iframe
+                src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3q29yVNyePP8DQDgwpl_2DfSCwd602bQR0uaNY3ENUqgTbR1bJN6JNpsdNj6HcTdDmunkAHNMl?gv=true"
+                title="Book a Discovery Call"
+                loading="lazy"
+              ></iframe>
+            </div>
+            <a
+              class="button button-primary booking-cta"
+              href="https://calendar.app.google/opczJKFLUCcXyLN26"
+              target="_blank"
+              rel="noopener"
+            >
+              Open booking page in a new tab
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <p class="booking-note">Booking is optional — the form above works just as well.</p>
+          </div>
         </div>
       </section>
 
