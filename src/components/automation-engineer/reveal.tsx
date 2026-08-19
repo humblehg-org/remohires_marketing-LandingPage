@@ -1,17 +1,19 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode, type Ref } from "react";
 
 export function Reveal({
   as: Tag = "div",
   className,
   children,
+  id,
 }: {
-  as?: "div";
+  as?: "div" | "section";
   className?: string;
   children: ReactNode;
+  id?: string;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const el = ref.current;
@@ -36,7 +38,11 @@ export function Reveal({
   }, []);
 
   return (
-    <Tag ref={ref} className={["rev", className].filter(Boolean).join(" ")}>
+    <Tag
+      ref={ref as Ref<HTMLDivElement>}
+      id={id}
+      className={["rev", className].filter(Boolean).join(" ")}
+    >
       {children}
     </Tag>
   );

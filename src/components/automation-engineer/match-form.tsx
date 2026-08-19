@@ -28,7 +28,7 @@ const HEARD_ABOUT_OPTIONS = [
   "Other",
 ];
 
-export function MatchForm({ subject }: { subject: string }) {
+export function MatchForm() {
   const idPrefix = useId();
   const router = useRouter();
   const [sending, setSending] = useState(false);
@@ -66,7 +66,7 @@ export function MatchForm({ subject }: { subject: string }) {
               name: String(formData.get("name") ?? "") || undefined,
               industry: String(formData.get("industry") ?? "") || undefined,
             },
-            { form_source: subject },
+            { form_source: "New RemoHires Lead" },
           );
         }
         router.push("/automation-engineer/thank-you");
@@ -75,139 +75,138 @@ export function MatchForm({ subject }: { subject: string }) {
         throw new Error((data && data.message) || "Submission failed");
       }
     } catch {
-      setError(
-        "Something went wrong. Please email info@remohires.com and we’ll get right back to you.",
-      );
+      setError("Something went wrong. Please try again.");
     } finally {
       setSending(false);
     }
   }
 
   return (
-    <div className="formcard">
-      <form noValidate onSubmit={handleSubmit}>
-        <input type="hidden" name="access_key" value={ACCESS_KEY} />
-        <input type="hidden" name="subject" value={subject} />
-        <input type="hidden" name="from_name" value="RemoHires Landing - Automation Engineer" />
-        <input
-          type="checkbox"
-          name="botcheck"
-          tabIndex={-1}
-          style={{ display: "none" }}
-          aria-hidden="true"
-        />
-        <div className="badge">
-          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#22e6cb" strokeWidth={2}>
-            <path d="M5 3l1.5 3L10 7 6.5 8.5 5 12 3.5 8.5 0 7l3.5-1zM18 9l1 2 2 1-2 1-1 2-1-2-2-1 2-1z" />
-          </svg>{" "}
-          Get matched free
-        </div>
-        <h3>Find your automation expert</h3>
-        <p className="hint">
-          Book a free fit call and we&rsquo;ll follow up to scope the workflows worth handing
-          off.
-        </p>
+    <div className="form-shell">
+      <div className="form-card">
+        <form noValidate onSubmit={handleSubmit} className="form-grid">
+          <input type="hidden" name="access_key" value={ACCESS_KEY} />
+          <input type="hidden" name="subject" value="New RemoHires Lead" />
+          <input type="hidden" name="from_name" value="RemoHires Landing Page" />
+          <input
+            type="checkbox"
+            name="botcheck"
+            tabIndex={-1}
+            style={{ display: "none" }}
+            aria-hidden="true"
+          />
 
-        <div className="field">
-          <label htmlFor={`${idPrefix}-name`}>Name</label>
-          <input
-            id={`${idPrefix}-name`}
-            name="name"
-            type="text"
-            placeholder="Your name"
-            required
-            suppressHydrationWarning
-          />
-        </div>
-        <div className="field">
-          <label htmlFor={`${idPrefix}-email`}>Work email</label>
-          <input
-            id={`${idPrefix}-email`}
-            name="email"
-            type="email"
-            placeholder="you@company.com"
-            required
-            suppressHydrationWarning
-          />
-        </div>
-        <div className="field">
-          <label htmlFor={`${idPrefix}-phone`}>Phone</label>
-          <input
-            id={`${idPrefix}-phone`}
-            name="phone"
-            type="tel"
-            placeholder="+1 555 000 0000"
-            required
-            suppressHydrationWarning
-          />
-        </div>
-        <div className="field">
-          <label htmlFor={`${idPrefix}-industry`}>Industry</label>
-          <select
-            id={`${idPrefix}-industry`}
-            name="industry"
-            required
-            defaultValue=""
-            suppressHydrationWarning
-          >
-            <option value="" disabled>
-              Select your industry
-            </option>
-            {INDUSTRIES.map((industry) => (
-              <option key={industry}>{industry}</option>
-            ))}
-          </select>
-        </div>
-        <div className="field">
-          <label htmlFor={`${idPrefix}-message`}>What would you want automated first?</label>
-          <input
-            id={`${idPrefix}-message`}
-            name="message"
-            type="text"
-            placeholder="e.g. invoicing, CRM updates, lead routing, reporting"
-            required
-            suppressHydrationWarning
-          />
-        </div>
-        <div className="field">
-          <label htmlFor={`${idPrefix}-heard`}>How did you hear about us?</label>
-          <select
-            id={`${idPrefix}-heard`}
-            name="heard_about"
-            required
-            defaultValue=""
-            suppressHydrationWarning
-          >
-            <option value="" disabled>
-              Select an option...
-            </option>
-            {HEARD_ABOUT_OPTIONS.map((option) => (
-              <option key={option}>{option}</option>
-            ))}
-          </select>
-        </div>
-
-        <button type="submit" className="btn btn-primary" disabled={sending}>
-          {sending ? (
-            "Sending…"
-          ) : (
-            <>
-              Book your free fit call <span className="arw">→</span>
-            </>
-          )}
-        </button>
-        <div className="reassure">
-          <svg fill="none" viewBox="0 0 24 24" strokeWidth={2}>
-            <path d="M12 3l8 3v6c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V6z" />
-          </svg>{" "}
-          Free to start — we&rsquo;ll follow up to scope your needs.
-        </div>
-        {error && (
-          <div className="err show" role="status" aria-live="polite">
-            {error}
+          <div className="form-row-2">
+            <div className="fgroup">
+              <input
+                id={`${idPrefix}-name`}
+                type="text"
+                name="name"
+                className="finput"
+                placeholder="John Doe"
+                required
+                suppressHydrationWarning
+              />
+              <label htmlFor={`${idPrefix}-name`} className="flabel">
+                Your Name
+              </label>
+            </div>
+            <div className="fgroup">
+              <input
+                id={`${idPrefix}-phone`}
+                type="tel"
+                name="phone"
+                className="finput"
+                placeholder="+1 555 000 0000"
+                required
+                suppressHydrationWarning
+              />
+              <label htmlFor={`${idPrefix}-phone`} className="flabel">
+                Phone Number
+              </label>
+            </div>
           </div>
-        )}
-      </form>
+
+          <div className="fgroup">
+            <input
+              id={`${idPrefix}-email`}
+              type="email"
+              name="email"
+              className="finput"
+              placeholder="you@company.com"
+              required
+              suppressHydrationWarning
+            />
+            <label htmlFor={`${idPrefix}-email`} className="flabel">
+              Work Email
+            </label>
+          </div>
+
+          <div className="fgroup">
+            <select
+              id={`${idPrefix}-industry`}
+              name="industry"
+              className="fselect"
+              required
+              defaultValue=""
+              suppressHydrationWarning
+            >
+              <option value="" disabled></option>
+              {INDUSTRIES.map((industry) => (
+                <option key={industry}>{industry}</option>
+              ))}
+            </select>
+            <label htmlFor={`${idPrefix}-industry`} className="flabel">
+              Industry
+            </label>
+          </div>
+
+          <div className="fgroup">
+            <input
+              id={`${idPrefix}-message`}
+              type="text"
+              name="message"
+              className="finput"
+              placeholder="e.g. invoicing, lead routing"
+              required
+              suppressHydrationWarning
+            />
+            <label htmlFor={`${idPrefix}-message`} className="flabel">
+              What do you want to automate first?
+            </label>
+          </div>
+
+          <div className="fgroup">
+            <select
+              id={`${idPrefix}-heard`}
+              name="heard_about"
+              className="fselect"
+              required
+              defaultValue=""
+              suppressHydrationWarning
+            >
+              <option value="" disabled></option>
+              {HEARD_ABOUT_OPTIONS.map((option) => (
+                <option key={option}>{option}</option>
+              ))}
+            </select>
+            <label htmlFor={`${idPrefix}-heard`} className="flabel">
+              How did you hear about us?
+            </label>
+          </div>
+
+          <button type="submit" className="btn btn-primary form-submit" disabled={sending}>
+            {sending ? "Sending…" : "Start My 14-Day Sprint for $49"}
+          </button>
+          <p
+            className={`form-status${error ? " is-error" : ""}`}
+            role="status"
+            aria-live="polite"
+          >
+            {error ?? "🔒 No credit card required to start. We'll email you."}
+          </p>
+        </form>
+      </div>
     </div>
   );
 }
