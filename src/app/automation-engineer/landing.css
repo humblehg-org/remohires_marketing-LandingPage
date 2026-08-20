@@ -205,6 +205,8 @@
 .ael .why .wrap { max-width: 800px; }
 .ael .why h2 { font-size: clamp(28px, 4.2vw, 42px); margin: 0 0 20px; }
 .ael .why p { font-size: 18px; color: hsl(var(--muted-foreground)); max-width: 66ch; line-height: 1.65; }
+.ael .why p + p { margin-top: 20px; }
+.ael .why strong { color: hsl(var(--foreground)); font-weight: 700; }
 
 /* ---------- start / form ---------- */
 .ael .start { position: relative; overflow: hidden; }
@@ -302,11 +304,75 @@
 .ael .fgroup .finput:focus + .flabel,
 .ael .fgroup .finput:not(:placeholder-shown) + .flabel,
 .ael .fgroup .fselect:focus + .flabel,
-.ael .fgroup .fselect:valid + .flabel {
+.ael .fgroup.has-value .flabel {
   transform: translateY(-0.8rem) scale(0.75);
 }
 .ael .fgroup .finput:focus + .flabel,
 .ael .fgroup .fselect:focus + .flabel { color: hsl(var(--primary)); }
+
+/* ---------- phone field: country-code select + number combined into one bordered box ----------
+   Unlike the other fields, the label here is a real (always-visible-when-
+   empty) placeholder on the number input rather than a floating label —
+   the label's horizontal start position would otherwise have to shift
+   with the width of whatever code is selected ("+1" vs "+353"), which is
+   fragile to hardcode in CSS. A visually-hidden <label> still gives it an
+   accessible name. */
+.ael .fgroup-phone .phone-inner {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 3.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.02);
+  padding: 0 16px 0 12px;
+  transition: all 0.2s ease;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.ael .fgroup-phone:hover .phone-inner { background: rgba(255, 255, 255, 0.04); border-color: rgba(255, 255, 255, 0.2); }
+.ael .fgroup-phone .phone-inner:focus-within {
+  border-color: hsl(var(--primary));
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 4px hsl(var(--primary) / 0.2);
+}
+.ael .phone-code {
+  appearance: none;
+  flex: none;
+  width: 84px;
+  border: 0;
+  background: transparent;
+  color: hsl(var(--foreground));
+  font-size: 15px;
+  font-family: inherit;
+  padding-right: 4px;
+  cursor: pointer;
+}
+.ael .phone-code option { background: #090b11; color: hsl(var(--foreground)); }
+.ael .phone-divider { width: 1px; align-self: stretch; margin: 10px 10px; background: rgba(255, 255, 255, 0.14); flex: none; }
+.ael .phone-number {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  color: hsl(var(--foreground));
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+}
+.ael .phone-number::placeholder { color: hsl(var(--muted-foreground)); }
+
+.ael .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 .ael .form-submit {
   width: 100%;
   margin-top: 24px;
@@ -325,6 +391,49 @@
 }
 .ael .form-status.is-error { color: hsl(0 90% 75%); }
 .ael .form-status.is-success { color: hsl(var(--primary)); font-weight: 600; }
+
+/* ---------- start modal ---------- */
+.ael .modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(5, 6, 10, 0.72);
+  backdrop-filter: blur(6px);
+  animation: modal-fade-in 0.18s ease;
+}
+.ael .modal-panel {
+  width: 100%;
+  max-width: 560px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  animation: modal-pop-in 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ael .modal-panel .form-shell { margin-inline: 0; }
+.ael .modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 0;
+  background: transparent;
+  color: hsl(var(--muted-foreground));
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.ael .modal-close:hover { color: hsl(var(--foreground)); background: hsl(var(--secondary)); }
+.ael .modal-title { position: relative; z-index: 1; font-size: 26px; margin: 0 0 24px; padding-right: 40px; }
+@keyframes modal-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modal-pop-in { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: none; } }
 
 /* ---------- how it works / features ---------- */
 .ael .how .wrap { display: flex; flex-direction: column; gap: clamp(48px, 8vw, 96px); }
