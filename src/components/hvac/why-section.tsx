@@ -62,9 +62,11 @@ export function WhySection() {
                 opacity: headingOpacity,
               }}
             >
-              We Pay Their Salary. You Pay $49.
+              We Pay Their Salary.
+              <br className="md:hidden" /> You Pay $49.
             </h2>
             <p
+              className="why-p1"
               style={{
                 opacity: para1Progress,
                 transform: `translateY(${(1 - para1Progress) * 16}px)`,

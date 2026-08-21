@@ -191,7 +191,6 @@ export default function QuotesPage() {
                 <span className="eyebrow">HVAC owners</span>
                 <h1
                   style={{
-                    fontSize: "clamp(2.15rem, 4.7vw, 3.5rem)",
                     lineHeight: 1.05,
                     textWrap: "balance",
                   }}
@@ -202,19 +201,19 @@ export default function QuotesPage() {
                 </h1>
                 <p className="sub">
                   Every lead you buy went to four other shops this morning.
-                  <br className="hidden md:block" />
+                  <br className="hidden md:block" />{" "}
                   The estimates in your own system went to nobody.
                   <span className="block mt-1.5">
                     <strong>
                       For $49, a full-time Remote Sales Specialist works that
-                      <br className="hidden md:block" />
+                      <br className="hidden md:block" />{" "}
                       list for two weeks, in your company name.
                     </strong>
                   </span>
                   <span className="block mt-1.5">
                     Your open estimates and aging installs, worked by call and
                     text.
-                    <br className="hidden md:block" />
+                    <br className="hidden md:block" />{" "}
                     Nobody can outbid you for leads you already own.
                   </span>
                 </p>
@@ -428,7 +427,7 @@ export default function QuotesPage() {
                   </div>
                   <div className="honesttext">
                     <h3>{f.title}</h3>
-                    <p>{f.body}</p>
+                    <p className="line-clamp-3 md:line-clamp-none">{f.body}</p>
                   </div>
                 </Reveal>
               ))}
@@ -537,8 +536,10 @@ export default function QuotesPage() {
           <div className="wrap">
             <Reveal className="final">
               <span className="eyebrow">Get Started</span>
-              <h2 style={{ marginTop: 12 }}>Count Your Open Estimates With Us</h2>
-              <p>
+              <h2 style={{ marginTop: 12 }}>
+                Count Your Open <br className="md:hidden" /> Estimates With Us
+              </h2>
+              <p className="line-clamp-3 md:line-clamp-none">
                 Leave your name and email. We will send a link to grab ten
                 minutes, count your open estimates together, and you keep the
                 list either way.
