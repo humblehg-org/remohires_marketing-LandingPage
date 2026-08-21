@@ -119,6 +119,8 @@ section{padding:var(--gap) 0}
 .sec-head p{color:var(--muted);font-size:16.5px;margin-top:12px}
 #how .sec-head{max-width:960px}
 @media(min-width:900px){#how .sec-head h2{white-space:nowrap;font-size:clamp(24px,3.1vw,36px)}}
+.hvacpage #offer .sec-head{max-width:900px}
+@media(min-width:900px){.hvacpage #offer .sec-head h2{white-space:nowrap;font-size:clamp(22px,2.8vw,34px)}}
 .tint{background:var(--ash)}
 
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
@@ -136,6 +138,24 @@ section{padding:var(--gap) 0}
 }
 #pain .card{border-top:3px solid transparent}
 #pain .card:hover{border-top-color:var(--turq)}
+
+/* Why $49 — scroll-linked reveal: no card, full-bleed drifting gradient, centered copy.
+   .why-scroll is a plain, unstyled scroll track (no overflow, no background) so it never
+   interferes with its sticky child's containing-block chain. .why-pin is the pinned box that
+   actually stays on screen and carries all visual treatment. */
+.why-scroll{position:relative;min-height:300vh}
+.why-pin{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;overflow:hidden;background-color:var(--lgrey);background-repeat:no-repeat;background-image:radial-gradient(45% 40% at 50% 50%,rgba(0,247,223,.24),transparent 70%),radial-gradient(40% 38% at 50% 50%,rgba(20,65,223,.16),transparent 70%),radial-gradient(38% 34% at 50% 50%,rgba(0,168,242,.14),transparent 70%);background-size:150% 150%,135% 135%,120% 120%;background-position:15% 20%,85% 30%,50% 85%;animation:whyGradientDrift 30s ease-in-out infinite alternate}
+.why-copy{max-width:680px}
+.why-copy h2{transform-origin:center;will-change:transform,filter,opacity;margin-top:14px}
+.why-copy p{color:var(--muted);font-size:16.5px;margin:14px 0 0;will-change:transform,opacity}
+@media(max-width:820px){.why-scroll{min-height:260vh}}
+@media(prefers-reduced-motion:reduce){
+  .why-scroll{min-height:0}
+  .why-pin{position:relative;height:auto;padding:64px 0;animation:none}
+  .why-copy .eyebrow{opacity:1!important}
+  .why-copy h2{transform:none!important;filter:none!important;opacity:1!important}
+  .why-copy p{opacity:1!important;transform:none!important}
+}
 
 /* how-it-works flow */
 .flow{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:start;position:relative}
@@ -214,6 +234,11 @@ section{padding:var(--gap) 0}
 .callrow:nth-child(3){animation-delay:.7s}
 .callrow:nth-child(4){animation-delay:1.05s}
 .callrow:nth-child(5){animation-delay:1.4s}
+/* HVAC page only: the hero call-card loops continuously instead of a one-shot entrance */
+.hvacpage .callcard{--slot-shift:-70px}
+.hvacpage .callrow:nth-child(2){animation:callrowLoop1 8.1s ease infinite}
+.hvacpage .callrow:nth-child(3){animation:callrowLoop2 8.1s ease infinite}
+.hvacpage .callrow:nth-child(4){animation:callrowLoop3 8.1s ease infinite}
 .callrow .ic{width:18px;height:18px;color:var(--blue);flex:none}
 .callrow .t{font-size:13.5px;font-weight:600;color:var(--navy);min-width:0}
 .callrow .t small{display:block;font-weight:500;color:var(--muted);font-size:12px}
@@ -275,6 +300,45 @@ footer a{color:var(--turq);font-weight:600}
 
 @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 @keyframes rowIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+/* HVAC page only — call-card queue loop: visible -> hold 3s -> row 1 slides up + fades out while
+   rows 2 and 3 shift up one slot (translateY) to fill the gap -> hold 1s -> row 2 (now in slot 1)
+   slides up + fades out while row 3 shifts up one more slot -> hold 1s -> row 3 (now in slot 1)
+   slides up + fades out -> reset to blank -> rows re-enter one by one (opening motion) -> hold 3s
+   -> repeat. Each row gets its own keyframes (not a single shared one + animation-delay) because
+   the entrance stagger (.35s apart) and the exit/shift stagger (1s apart) run at different speeds
+   and can't both be expressed as one shape shifted by a single delay. --slot-shift (set on
+   .callcard) is the Y distance between two row slots. */
+@keyframes callrowLoop1{
+  0%{opacity:0;transform:translateX(16px)}
+  7.41%{opacity:1;transform:none}
+  53.09%{opacity:1;transform:none}
+  60.49%{opacity:0;transform:translateY(var(--slot-shift))}
+  100%{opacity:0;transform:translateY(var(--slot-shift))}
+}
+@keyframes callrowLoop2{
+  0%,4.32%{opacity:0;transform:translateX(16px)}
+  11.73%{opacity:1;transform:none}
+  53.09%{opacity:1;transform:none}
+  60.49%{opacity:1;transform:translateY(var(--slot-shift))}
+  72.84%{opacity:1;transform:translateY(var(--slot-shift))}
+  80.25%{opacity:0;transform:translateY(calc(var(--slot-shift) * 2))}
+  100%{opacity:0;transform:translateY(calc(var(--slot-shift) * 2))}
+}
+@keyframes callrowLoop3{
+  0%,8.64%{opacity:0;transform:translateX(16px)}
+  16.05%{opacity:1;transform:none}
+  53.09%{opacity:1;transform:none}
+  60.49%{opacity:1;transform:translateY(var(--slot-shift))}
+  72.84%{opacity:1;transform:translateY(var(--slot-shift))}
+  80.25%{opacity:1;transform:translateY(calc(var(--slot-shift) * 2))}
+  92.59%{opacity:1;transform:translateY(calc(var(--slot-shift) * 2))}
+  100%{opacity:0;transform:translateY(calc(var(--slot-shift) * 3))}
+}
+@keyframes whyGradientDrift{
+  0%{background-position:15% 20%,85% 30%,50% 85%}
+  50%{background-position:35% 55%,60% 65%,25% 55%}
+  100%{background-position:60% 35%,30% 75%,75% 30%}
+}
 @keyframes ctaGlow{0%,100%{box-shadow:0 10px 24px rgba(15,33,112,.24)}50%{box-shadow:0 12px 34px rgba(0,247,223,.5)}}
 @keyframes shine{from{left:-140%}to{left:160%}}
 

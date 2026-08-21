@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type SubmitEvent } from "react";
+import { useEffect, useRef, useState, type ReactNode, type SubmitEvent } from "react";
 import { useRouter } from "next/navigation";
 import { type LeadPath } from "@/lib/submit-lead";
 import { trackSignupComplete } from "@/lib/gtm";
@@ -140,6 +140,9 @@ const COUNTRY_CODE_OPTIONS = COUNTRIES.map((country) => ({
 const DEFAULT_COUNTRY_VALUE =
   COUNTRY_CODE_OPTIONS.find((option) => option.key === "US")?.value ?? "US (+1)";
 
+const CTA_FX =
+  "transition-transform duration-150 ease-out hover:scale-105! active:scale-95! hover:shadow-[0_0_20px_rgba(34,230,203,0.5)]!";
+
 export function LeadForm({
   source,
   qualifier,
@@ -148,6 +151,7 @@ export function LeadForm({
   path = "home",
   ctaText,
   microcopyText,
+  isCollapsible = false,
 }: {
   source: string;
   qualifier?: string;
@@ -155,18 +159,22 @@ export function LeadForm({
   focusToken?: number;
   path?: LeadPath;
   ctaText?: string;
-  microcopyText?: string;
+  microcopyText?: ReactNode;
+  isCollapsible?: boolean;
 }) {
   const router = useRouter();
   const [invalid, setInvalid] = useState(false);
   const [pending, setPending] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
+  const [revealed, setRevealed] = useState(!isCollapsible);
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const countryCodeRef = useRef<HTMLSelectElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
   const heardRef = useRef<HTMLSelectElement>(null);
   const sentRef = useRef(false);
+
+  const ctaLabel = ctaText || "Get One Reply From A Real Person";
 
   useEffect(() => {
     if (focusToken) nameRef.current?.focus();
@@ -250,74 +258,111 @@ export function LeadForm({
         onSubmit={handleSubmit}
         onInput={handleInput}
       >
-        <input
-          type="text"
-          name="name"
-          placeholder="First name"
-          required
-          ref={nameRef}
-          disabled={pending}
-          suppressHydrationWarning
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Work email"
-          required
-          ref={emailRef}
-          disabled={pending}
-          suppressHydrationWarning
-        />
-        <div className="flex gap-3">
-          <select
-            name="country_code"
-            ref={countryCodeRef}
-            disabled={pending}
-            defaultValue={DEFAULT_COUNTRY_VALUE}
-            suppressHydrationWarning
-            className="w-[132px] truncate"
-            style={{ width: "132px" }}
-          >
-            {COUNTRY_CODE_OPTIONS.map((option) => (
-              <option key={option.key} value={option.value}>
-                {option.label}
+        {revealed && (
+          <>
+            <input
+              type="text"
+              name="name"
+              placeholder="First name *"
+              required
+              ref={nameRef}
+              disabled={pending}
+              suppressHydrationWarning
+              className={isCollapsible ? "rise" : undefined}
+              style={isCollapsible ? { animationDelay: "0s" } : undefined}
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Work email *"
+              required
+              ref={emailRef}
+              disabled={pending}
+              suppressHydrationWarning
+              className={isCollapsible ? "rise" : undefined}
+              style={isCollapsible ? { animationDelay: "0.08s" } : undefined}
+            />
+            <div
+              className={`flex gap-3${isCollapsible ? " rise" : ""}`}
+              style={isCollapsible ? { animationDelay: "0.16s" } : undefined}
+            >
+              <select
+                name="country_code"
+                ref={countryCodeRef}
+                disabled={pending}
+                defaultValue={DEFAULT_COUNTRY_VALUE}
+                suppressHydrationWarning
+                className="w-[132px] truncate"
+                style={{ width: "132px" }}
+              >
+                {COUNTRY_CODE_OPTIONS.map((option) => (
+                  <option key={option.key} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Phone number"
+                ref={phoneRef}
+                disabled={pending}
+                suppressHydrationWarning
+                className="flex-1"
+              />
+            </div>
+            <select
+              name="how_heard"
+              required
+              defaultValue=""
+              ref={heardRef}
+              disabled={pending}
+              suppressHydrationWarning
+              className={isCollapsible ? "rise" : undefined}
+              style={isCollapsible ? { animationDelay: "0.24s" } : undefined}
+            >
+              <option value="" disabled>
+                How did you hear about us? *
               </option>
-            ))}
-          </select>
-          <input
-            type="tel"
-            name="phone"
-            placeholder="Phone number"
-            ref={phoneRef}
-            disabled={pending}
-            suppressHydrationWarning
-            className="flex-1"
-          />
-        </div>
-        <select
-          name="how_heard"
-          required
-          defaultValue=""
-          ref={heardRef}
-          disabled={pending}
-          suppressHydrationWarning
-        >
-          <option value="" disabled>
-            How did you hear about us?
-          </option>
-          {HEAR_ABOUT_OPTIONS.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
+              {HEAR_ABOUT_OPTIONS.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </>
+        )}
         <input type="hidden" name="qualifier" value={qualifier ?? ""} readOnly />
         <input type="hidden" name="source" value={source} readOnly />
-        <button className="btn primary glow" type="submit" disabled={pending}>
-          {pending
-            ? "Sending…"
-            : ctaText || "Get One Reply From A Real Person"}
-        </button>
+        {revealed ? (
+          isCollapsible ? (
+            <div className="rise" style={{ animationDelay: "0.32s" }}>
+              <button
+                className={`btn primary glow ${CTA_FX}`}
+                type="submit"
+                disabled={pending}
+              >
+                {pending ? "Sending…" : ctaLabel}
+              </button>
+            </div>
+          ) : (
+            <button
+              className={`btn primary glow ${CTA_FX}`}
+              type="submit"
+              disabled={pending}
+            >
+              {pending ? "Sending…" : ctaLabel}
+            </button>
+          )
+        ) : (
+          <button
+            className={`btn primary glow ${CTA_FX}`}
+            type="button"
+            onClick={() => setRevealed(true)}
+          >
+            {ctaLabel}
+          </button>
+        )}
         {invalid && (
           <p className="lead-error" role="alert">
             Enter your name, a valid work email, and how you heard about us.
