@@ -117,7 +117,7 @@ export default function QuotesPage() {
           <section id="hero" className="hero" style={{ padding: 0 }}>
           <div className="wrap">
             <div className="grid">
-              <Reveal direction="l">
+              <div>
                 <span className="eyebrow">HVAC owners</span>
                 <h1
                   style={{
@@ -209,10 +209,10 @@ export default function QuotesPage() {
                     </p>
                   </div>
                 </div>
-              </Reveal>
+              </div>
               <div className="hidden md:block">
                 <div className="hero-right">
-                  <Reveal direction="r" className="visualcol">
+                  <div className="visualcol">
                     <div className="callcard">
                       <div className="bar">
                         <div className="dot">
@@ -268,7 +268,7 @@ export default function QuotesPage() {
                         We pay two weeks of their salary. You pay $49.
                       </p>
                     </div>
-                  </Reveal>
+                  </div>
                 </div>
               </div>
             </div>
