@@ -6,7 +6,7 @@ import { ScrollProgress } from "@/components/hvac/scroll-progress";
 import { Reveal } from "@/components/hvac/reveal";
 import { TopStrip } from "@/components/hvac/top-strip";
 import { WhySection } from "@/components/hvac/why-section";
-import { InteractiveFeatures } from "@/components/hvac/interactive-features";
+import { InteractiveFeatures } from "@/components/hvac/interactive-features-dynamic";
 import { BookButton } from "@/components/hvac/book-button";
 import { splitIntoParagraphs } from "@/lib/text";
 import {
