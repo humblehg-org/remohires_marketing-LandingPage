@@ -4,10 +4,9 @@ import { useEffect, useState } from "react";
 import { IconMenu, IconXFilled } from "./icons";
 
 const navLinks = [
-  { href: "#pain", label: "The Problem" },
-  { href: "#how", label: "How It Works" },
-  { href: "#offer", label: "The Offer" },
-  { href: "#faq", label: "FAQ" },
+  { href: "#why", label: "What It Cost" },
+  { href: "#features", label: "Features" },
+  { href: "#details", label: "Before You Start" },
 ];
 
 export function SiteHeader({ ctaLabel = "Get Started" }: { ctaLabel?: string }) {
@@ -69,10 +68,9 @@ export function SiteHeader({ ctaLabel = "Get Started" }: { ctaLabel?: string }) 
         <div className="wrap row">
           <a className="logo" href="#top" aria-label="RemoHires home" />
           <nav className="links" aria-label="Primary">
-            <a href="#pain">The Problem</a>
-            <a href="#how">How It Works</a>
-            <a href="#offer">The Offer</a>
-            <a href="#faq">FAQ</a>
+            <a href="#why">What It Cost</a>
+            <a href="#features">Features</a>
+            <a href="#details">Before You Start</a>
             <span className={`cta-wrap${showCta ? " show" : ""}`}>
               <a href="#book" className="btn primary cta">
                 {ctaLabel}

@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import Script from "next/script";
 import "../hvac.css";
 import { SiteHeader } from "@/components/hvac/site-header";
 import { ScrollProgress } from "@/components/hvac/scroll-progress";
-import { StatCounter } from "@/components/hvac/stat-counter";
 import { Reveal } from "@/components/hvac/reveal";
-import { FaqItem } from "@/components/hvac/faq-item";
 import { TopStrip } from "@/components/hvac/top-strip";
-import { SelfCheck } from "@/components/hvac/self-check";
-import { LeadForm } from "@/components/hvac/lead-form";
 import { WhySection } from "@/components/hvac/why-section";
+import { InteractiveFeatures } from "@/components/hvac/interactive-features";
+import { splitIntoParagraphs } from "@/lib/text";
 import {
   IconCheckFilled,
   IconCycleFilled,
@@ -24,151 +22,100 @@ import {
 } from "@/components/hvac/icons";
 
 export const metadata: Metadata = {
-  title: "RemoHires | Work the Leads You Already Own",
+  title: "RemoHires | Book More Jobs From Leads You Already Own",
   description:
-    "Every lead you buy is sold to four other shops. Your open estimates and aging installs are yours alone. For $49, a full-time specialist works that list for two weeks, by call and text, in your company name.",
+    "$49 buys two weeks of a full-time specialist working only on your business. They find homeowners in your service area and work every estimate and install already in your system, by call and text, in your company name.",
 };
 
-const selfCheckOptions = [
-  {
-    v: "0-20",
-    label: "Under 20",
-    reflect:
-      "Even a short list is booked work sitting there. Each estimate cost you a truck roll and an hour before you sent it.",
-  },
-  {
-    v: "20-100",
-    label: "20 to 100",
-    reflect:
-      "That is real money already spent to produce, waiting on a follow-up nobody has time to make.",
-  },
-  {
-    v: "100+",
-    label: "More than 100",
-    reflect:
-      "That is a pile of quotes you paid to create, going cold while you chase brand-new leads.",
-  },
-];
+const BOOKING_URL = "https://calendar.app.google/opczJKFLUCcXyLN26";
 
-const heroTrust = [
-  { icon: IconBanknote, label: "$49 is one charge, not a trial" },
-  { icon: IconUserCheck, label: "You approve every script" },
-  { icon: IconClockRingFilled, label: "Month to month, refundable" },
-];
+// Booking button. All CTAs on this page point to the calendar link (books a call, no card).
+// Deo: restyle via the .bookbtn class in hvac.css if you want it to match the site button exactly.
+function BookButton({ label = "Book 10 Minutes" }: { label?: string }) {
+  return (
+    <a
+      className="bookbtn"
+      href={BOOKING_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        display: "inline-block",
+        background: "#0F2170",
+        color: "#ffffff",
+        fontWeight: 700,
+        padding: "15px 30px",
+        borderRadius: 9999,
+        textDecoration: "none",
+        fontSize: 16,
+        lineHeight: 1,
+      }}
+    >
+      {label}
+    </a>
+  );
+}
 
-const painPoints = [
-  {
-    icon: IconBanknote,
-    title: "You Bid For It",
-    body: "You paid about $80 for that lead. Four other shops bought the same one this morning.",
-  },
+// Section 5 - the twelve feature blocks, in Nick's order. [BRACKETS] = supply before launch.
+const features = [
   {
     icon: IconCycleFilled,
-    title: "It Is A Race",
-    body: "First to call, lowest to quote. The job you win is the one you discounted.",
+    title: "Where The Jobs Come From",
+    body: "Four places, and you pay no lead fee for any of them: homeowners your specialist finds directly in your service area, the estimates you sent that never got a second call, the systems you installed that are now past fifteen years, and the customers you have already served who have not heard from you since. Every lead you buy went to four other shops at once. None of these did.",
+  },
+  {
+    icon: IconUserCheck,
+    title: "Leads That Were Never For Sale",
+    body: "A lead platform sells you a homeowner who filled in a form, then sells the same one to four competitors. Your specialist buys no one. They go and find them. Nobody sold those homeowners a list, so no competitor is calling them.",
+  },
+  {
+    icon: IconCalendarFilled,
+    title: "Every Open Estimate, Worked Three Times",
+    body: "You sent the quote and never heard back. It happens dozens of times a season, and the pile is invisible because nobody has counted it. Every one cost you a truck roll and an hour before you hit send, so an unclosed estimate is money already spent. Week one your specialist pulls every open estimate from the last 90 days, strips the won and the lost, and works what is left, three contacts on day 1, day 3, and day 7, by call and text in your company name, with the outcome logged against the job.",
+  },
+  {
+    icon: IconPhoneCallFilled,
+    title: "A Person Answers, Not An Autoresponder",
+    body: "You have probably already bought the tool that texts a homeowner sixty seconds after the quote. That part works. Day three is where it breaks: she replies asking whether the price includes the permit, and nobody answers. That was the most interested person on your list, and she called the shop that picked up. Your specialist knows your pricing and answers the same day, in your company name.",
+  },
+  {
+    icon: IconClockRingFilled,
+    title: "We Call The Systems You Installed",
+    body: "When a system you installed fails, the homeowner shops the replacement around, and you bid against strangers for a $12,000 job in a house you already worked in. You know one thing no competitor knows: when you put each system in. A furnace or condenser runs about fifteen years, so everything you installed before then is at the end of its life now. Your specialist works your install records by age and reaches those homeowners before the failure. A replacement quoted to someone who already knows you is a phone call, not a bid.",
   },
   {
     icon: IconClockFilled,
-    title: "Your Own List Sits",
-    body: "The estimates you already sent went to nobody. Neither did the systems you installed years ago.",
-  },
-];
-
-const howItems = [
-  {
-    icon: IconCalendarFilled,
-    title: "Works Every Open Estimate",
-    body: "Pulls your quotes from the last ninety days and contacts each one on day 1, day 3, and day 7, by call and text.",
-  },
-  {
-    icon: IconClockRingFilled,
-    title: "Calls Your Aging Installs",
-    body: "Sorts your install records by age and reaches homeowners whose systems are near the end of their life, before the failure.",
-  },
-  {
-    icon: IconPhoneCallFilled,
-    title: "Answers Every Reply",
-    body: "When a homeowner replies to a follow-up, a real person answers the same day, in your company name, not an autoresponder.",
-  },
-];
-
-const honestCards = [
-  {
-    icon: IconUserCheck,
-    title: "Clear, Phone-Ready English",
-    body: "Skilled remote professionals, many based in Indonesia, screened for clear spoken English before you ever meet them.",
-  },
-  {
-    icon: IconBriefcase,
-    title: "Trained On Your Business First",
-    body: "They learn your services, your pricing, and how you talk to homeowners before they make a single call.",
-  },
-  {
-    icon: IconPhoneCallFilled,
-    title: "One Dedicated Person",
-    body: "You get the same full-time specialist, working only on your shop. Not a rotating call-center pool, and not a bot.",
+    title: "Your Customers Hear From Somebody Every Month",
+    body: "Somebody is sending your customers a reminder every season. If it is not you, they get the tune-up, and whoever does the tune-up is in the house when the system fails, so the $12,000 replacement is theirs by default. Then you buy that customer back at $80 a lead. Your specialist handles the between-jobs contact: renewals, seasonal check-ins, and the replacement conversation before the unit dies.",
   },
   {
     icon: IconCheckFilled,
-    title: "You Approve Every Script",
-    body: "Nothing goes out to a homeowner until you have seen it and said yes. It runs in your company name, in your software.",
+    title: "Nothing Goes Out Until You've Approved It",
+    body: "You sign off on the call script and the text wording before your specialist contacts a single person. Every call and message is logged against the job in your own system, so you can read all of it as it happens, and one message from you stops it. It is your name on those calls, so you decide what gets said.",
   },
-];
-
-const themRows = [
-  "Sold to four or five shops at once.",
-  "You quote lowest to win the race.",
-  "The fee comes out of your margin.",
-];
-
-const usRows = [
-  "Yours alone, nobody else can buy them.",
-  "You quote your own price, not the lowest.",
-  "No lead fee on a customer you already have.",
-];
-
-const offerCards = [
   {
-    icon: IconBanknote,
-    title: "Two Weeks For $49",
-    body: "A full-time specialist works your lists for two weeks. One charge, not a trial that starts billing.",
+    icon: IconClockFilled,
+    title: "Two Hours Of Your Time In Week One",
+    body: "A kickoff call, access to your estimating system, and sign-off on the wording. That is the whole ask, and it is front-loaded. After week one your specialist works and you read the log. If we cannot get those three things we will cancel and charge you nothing.",
+  },
+  {
+    icon: IconUserCheck,
+    title: "One Person, And The Same One Every Day",
+    body: "They learn your pricing, your service area, your objections, and the two competitors who keep undercutting you, and none of it walks out to another account on Thursday.",
   },
   {
     icon: IconBriefcase,
-    title: "From $450 A Month",
-    body: "Only if you say yes on day 14. Month to month, no annual contract, no notice period.",
+    title: "Works With The Software You Already Use",
+    body: "No migration and nothing for your techs to learn. Your specialist works inside [ServiceTitan, Housecall Pro, Jobber, OTHERS], and every call and text goes out from your business, under your name, logged against the job in your own software. Running estimates from a spreadsheet and a phone works too.",
   },
   {
-    icon: IconClockRingFilled,
-    title: "Backed Both Ways",
-    body: "Every open estimate contacted within thirty days, in writing, or your first month is free. If the two weeks are not worth continuing, we refund the $49.",
-  },
-];
-
-const faqs = [
-  {
-    q: "What is the $49 for?",
-    a: "Two weeks of a full-time Remote Sales Specialist working only on your shop, about eighty hours. It is one charge, not a trial that starts billing. The monthly rate starts only if you say yes on day 14.",
+    icon: IconBanknote,
+    title: "What Happens After Two Weeks",
+    body: "Nothing, unless you want it. The $49 is one charge, with no subscription running in the background and no card waiting to start billing. On day 14 you will have a worked list and the outcomes logged against every job. Keep going and it is $450 a month, month to month. If you stop, tell us and we refund the $49, and you keep the list, the scripts, and everything on it.",
   },
   {
-    q: "What does the specialist actually do?",
-    a: "They work your open estimates on a day 1, day 3, day 7 cadence, call the homeowners whose systems are aging, and answer replies the same day, all by call and text in your company name and logged in your software.",
-  },
-  {
-    q: "Is this the same as buying leads?",
-    a: "The opposite. Every lead you buy is sold to several shops at once. Your specialist works the lists nobody else can touch: the estimates you already sent and the systems you already installed.",
-  },
-  {
-    q: "Will homeowners understand them?",
-    a: "Yes. Every candidate is screened for clear, phone-ready English and trained on your services and pricing first. You approve every script before it goes out.",
-  },
-  {
-    q: "What happens after I leave my email?",
-    a: "One email back from a real person here with a link to grab ten minutes. On that call we count your open estimates together, and you keep the list whether or not you go further.",
-  },
-  {
-    q: "What does it cost after the two weeks?",
-    a: "From $450 a month, month to month, and only if you choose to continue. No annual contract and no notice period. We give you the exact number for your shop on the call.",
+    icon: IconXFilled,
+    title: "Who This Doesn't Work For",
+    body: "If you do not send written estimates, if you cannot give access to where they live, if your open list is a handful of quotes a month, or if what you want is somebody to answer the phone rather than go and find work, this is not it, and we will tell you on the call rather than after.",
   },
 ];
 
@@ -182,48 +129,45 @@ export default function QuotesPage() {
       <ScrollProgress />
       <TopStrip />
       <SiteHeader ctaLabel="Book 10 Minutes" />
-      <main id="top" className="hvacpage">
-        {/* ---------- Hero ---------- */}
-        <section id="hero" className="hero" style={{ padding: 0 }}>
+      <main id="top">
+        {/* ---------- 2 & 3 - Hero + Why $49 share one seamless background (hero-why-shell) ---------- */}
+        <div className="hero-why-shell">
+          <section id="hero" className="hero" style={{ padding: 0 }}>
           <div className="wrap">
             <div className="grid">
               <Reveal direction="l">
                 <span className="eyebrow">HVAC owners</span>
                 <h1
                   style={{
-                    lineHeight: 1.05,
+                    lineHeight: 1.06,
                     textWrap: "balance",
                   }}
                 >
-                  Work The Leads
-                  <br />
-                  <span className="num">You Already Own.</span>
+                  Book 40% More Jobs
+                  <br className="hidden md:block" />
+                  <span className="num">Without Buying Another Lead.</span>
                 </h1>
                 <p className="sub">
-                  Every lead you buy went to four other shops this morning.
-                  <br className="hidden md:block" />{" "}
-                  The estimates in your own system went to nobody.
+                  $49 buys two weeks of a full-time specialist, working only on
+                  your business.
                   <span className="block mt-1.5">
-                    <strong>
-                      For $49, a full-time Remote Sales Specialist works that
-                      <br className="hidden md:block" />{" "}
-                      list for two weeks, in your company name.
-                    </strong>
-                  </span>
-                  <span className="block mt-1.5">
-                    Your open estimates and aging installs, worked by call and
-                    text.
-                    <br className="hidden md:block" />{" "}
-                    Nobody can outbid you for leads you already own.
+                    They find homeowners in your service area and contact them
+                    directly, and they work every estimate and install already
+                    sitting in your system, by call and text, in your company
+                    name.
                   </span>
                 </p>
-                <SelfCheck
-                  question="Roughly how many estimates have you sent that never closed?"
-                  options={selfCheckOptions}
-                  path="hvac"
-                  ctaText="Book 10 Minutes"
-                  microcopyText="$49 for two weeks. Month to month after, and we refund the $49 if it is not worth continuing."
-                />
+                <div style={{ marginTop: 24 }}>
+                  <BookButton />
+                </div>
+                <p
+                  className="max-w-[520px] md:max-w-none md:whitespace-nowrap"
+                  style={{ fontSize: 12, opacity: 0.62, marginTop: 10 }}
+                >
+                  {
+                    "$49 for the two weeks. After that it's month to month, and if it isn't worth continuing we'll refund the $49."
+                  }
+                </p>
               </Reveal>
               <div className="hero-right">
                 <Reveal direction="r" className="visualcol">
@@ -236,7 +180,7 @@ export default function QuotesPage() {
                       </div>
                       <div>
                         <b>Open Estimates, Last 90 Days</b>
-                        <small>Pulled from your system, sorted by value</small>
+                        <small>Age, value, and follow-ups logged per job</small>
                       </div>
                     </div>
                     <div className="callrow">
@@ -244,366 +188,239 @@ export default function QuotesPage() {
                         <IconClockRingFilled />
                       </span>
                       <div className="t">
-                        Estimate, $12,000 replacement
-                        <small>System past 15 years</small>
+                        4620 Live Oak Dr &middot; Condenser Replacement
+                        <small>System installed 16 yrs ago</small>
                       </div>
-                      <span className="tag">Day 3</span>
-                    </div>
-                    <div className="callrow">
-                      <span className="ic">
-                        <IconPhoneCallFilled />
-                      </span>
-                      <div className="t">
-                        Homeowner replied
-                        <small>Answered the same day</small>
+                      <div className="callmeta">
+                        <span className="val">$12,000</span>
+                        <span className="tag">Day 3 logged</span>
                       </div>
-                      <span className="tag blue">Booked</span>
                     </div>
                     <div className="callrow">
                       <span className="ic">
                         <IconCalendarFilled />
                       </span>
                       <div className="t">
-                        Estimate, $3,200 repair
-                        <small>Follow-up logged in your software</small>
+                        212 Magnolia Ct &middot; Full System Install
+                        <small>Estimate sent 74 days ago</small>
                       </div>
-                      <span className="tag blue">Day 7</span>
+                      <div className="callmeta">
+                        <span className="val">$8,400</span>
+                        <span className="tag blue">Day 7 logged</span>
+                      </div>
+                    </div>
+                    <div className="callrow">
+                      <span className="ic">
+                        <IconCalendarFilled />
+                      </span>
+                      <div className="t">
+                        88 Riverside Ave &middot; Repair &amp; Recharge
+                        <small>Estimate sent 21 days ago</small>
+                      </div>
+                      <div className="callmeta">
+                        <span className="val">$3,200</span>
+                        <span className="tag blue">Day 1 logged</span>
+                      </div>
                     </div>
                     <p className="illus">
-                      Illustrative: how your open estimates get worked, three
-                      times each.
+                      We pay two weeks of their salary. You pay $49.
                     </p>
                   </div>
                 </Reveal>
-                <div className="herotrust">
-                  {[0, 1, 2].flatMap((set) =>
-                    heroTrust.map((t) => (
-                      <Reveal
-                        direction="r"
-                        className="item"
-                        key={`${t.label}-${set}`}
-                        aria-hidden={set > 0 ? true : undefined}
-                      >
-                        <span className="ic">
-                          <t.icon />
-                        </span>
-                        <span>{t.label}</span>
-                      </Reveal>
-                    )),
-                  )}
-                </div>
               </div>
             </div>
           </div>
-        </section>
+          </section>
 
-        {/* ---------- By the numbers ---------- */}
-        <section className="stats">
-          <div className="wrap" style={{ paddingTop: 96, paddingBottom: 96 }}>
-            <Reveal className="stat-head">
-              <span className="eyebrow light">What We Supply</span>
-              <h2>What You Get For $49</h2>
-            </Reveal>
-            <div className="statgrid">
-              <Reveal className="stat">
-                <span className="ic">
-                  <IconClockFilled />
-                </span>
-                <div className="big">
-                  <StatCounter to={80} suffix=" Hours" />
-                </div>
-                <div className="lab">
-                  two weeks of a full-time specialist, working only on your
-                  shop.
-                </div>
-              </Reveal>
-              <Reveal className="stat">
-                <span className="ic">
-                  <IconCalendarFilled />
-                </span>
-                <div className="big">Day 1&middot;3&middot;7</div>
-                <div className="lab">
-                  every open estimate contacted three times, by call and text,
-                  in your company name.
-                </div>
-              </Reveal>
-              <Reveal className="stat">
-                <span className="ic">
-                  <IconBanknote />
-                </span>
-                <div className="big">$450/mo</div>
-                <div className="lab">
-                  month to month after the two weeks, only if you say yes. No
-                  annual contract.
-                </div>
-              </Reveal>
-            </div>
-            <p className="src">
-              These describe what we supply and charge, not results. Your own
-              numbers are what count. Ask us to run them on the call.
-            </p>
-          </div>
-        </section>
+          <WhySection />
+        </div>
 
-        {/* ---------- Pain ---------- */}
-        <section id="pain" className="section-pad">
+        {/* ---------- 4 - Who we are / CTA ---------- */}
+        <section id="who" className="section-pad">
           <div className="wrap">
-            <Reveal className="sec-head">
-              <span className="eyebrow">The Leads You Rent</span>
-              <h2>You Are Paying To Bid</h2>
-              <p>
-                Every lead you buy from a platform is sold to four or five shops
-                at once. It is an auction you pay to enter, and you win it by
-                quoting lowest.
-              </p>
-            </Reveal>
-            <div className="grid3">
-              {painPoints.map((p, i) => (
-                <Reveal key={p.title} className="card" delay={0.1 * (i + 1)}>
-                  <span className="ic">
-                    <p.icon />
-                  </span>
-                  <h3>{p.title}</h3>
-                  <p>{p.body}</p>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ---------- What you get ---------- */}
-        <section id="how" className="tint section-pad">
-          <div className="wrap">
-            <Reveal className="sec-head">
-              <span className="eyebrow">What You Get</span>
-              <h2>
-                A Specialist Who Works{" "}
-                <span className="whitespace-nowrap">Your Lists</span>
-              </h2>
-              <p>
-                A dedicated, full-time person working the leads no other shop can
-                touch: the estimates you already sent and the systems you
-                already installed.
-              </p>
-            </Reveal>
-            <div className="flow">
-              <Reveal className="flow-line" delay={0.15}>
-                {null}
-              </Reveal>
-              {howItems.map((f, i) => (
-                <Reveal key={f.title} className="card" delay={0.1 + i * 0.15}>
-                  <span className="ic">
-                    <f.icon />
-                  </span>
-                  <h3>{f.title}</h3>
-                  <p>{f.body}</p>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ---------- Why $49 ---------- */}
-        <WhySection />
-
-        {/* ---------- The honest part ---------- */}
-        <section id="honest" className="tint">
-          <div className="wrap">
-            <Reveal className="sec-head">
-              <span className="eyebrow">The Honest Part</span>
-              <h2>About The Remote Part</h2>
-              <p>
-                This person speaks to your homeowners in your name. This is how
-                we protect your reputation.
-              </p>
-            </Reveal>
-            <div className="honestgrid">
-              {honestCards.map((f, i) => (
-                <Reveal key={f.title} className="card" delay={0.1 * (i + 1)}>
-                  <div className="honesticon">
-                    <span className="ic">
-                      <f.icon />
-                    </span>
-                  </div>
-                  <div className="honesttext">
-                    <h3>{f.title}</h3>
-                    <p className="line-clamp-3 md:line-clamp-none">{f.body}</p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ---------- Bought vs owned ---------- */}
-        <section className="section-pad">
-          <div className="wrap">
-            <Reveal className="sec-head" style={{ maxWidth: 720 }}>
-              <span className="eyebrow">The Difference</span>
-              <h2>Bought Leads Vs Leads You Own</h2>
-            </Reveal>
-            <Reveal className="vs" delay={0.15}>
-              <div className="col them">
-                <h4>
-                  <span className="dotm" />
-                  A Lead You Buy
-                </h4>
-                {themRows.map((r) => (
-                  <div className="row" key={r}>
-                    <span className="ic">
-                      <IconXFilled />
-                    </span>
-                    <div>{r}</div>
-                  </div>
-                ))}
-              </div>
-              <div className="col us">
-                <h4>
-                  <span className="dotm" />
-                  A Lead You Own
-                </h4>
-                {usRows.map((r) => (
-                  <div className="row" key={r}>
-                    <span className="ic">
-                      <IconCheckFilled />
-                    </span>
-                    <div>{r}</div>
-                  </div>
-                ))}
-              </div>
-            </Reveal>
-          </div>
-        </section>
-
-        {/* ---------- Proof ---------- */}
-        <section className="section-pad">
-          <div className="wrap">
-            <Reveal className="sec-head" style={{ marginBottom: 22 }}>
-              <span className="eyebrow">Proof</span>
-              <h2>Built With A Real HVAC Owner</h2>
-            </Reveal>
-            <Reveal className="proof" delay={0.15}>
-              <Image
-                className="prooflogo"
-                src="/lhp-logo.png"
-                alt="Louisiana Home Performance"
-                width={198}
-                height={150}
-              />
+            <div className="grid items-center gap-10 md:grid-cols-2">
               <div>
-                <p style={{ fontSize: 16 }}>
-                  We built RemoHires working alongside a real HVAC owner, so the
-                  way a specialist handles estimates, installs, and homeowners
-                  fits how a shop actually runs.
-                </p>
-                <p style={{ fontSize: 16, marginTop: 12, fontWeight: 600 }}>
-                  &ldquo;RemoHires helped us find the right talent for our needs,
-                  keeping our projects on track and costs under control.&rdquo;
-                </p>
-                <small>Michael, Founder, Louisiana Home Performance</small>
+                <Reveal direction="l" className="sec-head" style={{ maxWidth: 480 }}>
+                  <h2>10 Minutes. We&apos;ll Count Your Open Estimates Together.</h2>
+                  <p>
+                    On the call we pull every open estimate in your system, sort them
+                    by value and by age, and hand you the list. You keep it whether
+                    or not you go any further.
+                  </p>
+                </Reveal>
+                <Reveal direction="l" delay={0.1} style={{ marginTop: 24 }}>
+                  <BookButton />
+                </Reveal>
               </div>
-            </Reveal>
+              <div className="hero-right">
+                <Reveal direction="r" delay={0.1} className="visualcol">
+                  <div className="callcard">
+                    <div className="bar">
+                      <div className="dot">
+                        <span className="ic">
+                          <IconCalendarFilled />
+                        </span>
+                      </div>
+                      <div>
+                        <b>Open Estimates, Your System</b>
+                        <small>Pulled live on the call, sorted by value</small>
+                      </div>
+                    </div>
+                    <div className="callrow">
+                      <span className="ic">
+                        <IconClockRingFilled />
+                      </span>
+                      <div className="t">
+                        910 Cypress Bend &middot; Full System Install
+                        <small>Estimate sent 63 days ago</small>
+                      </div>
+                      <div className="callmeta">
+                        <span className="val">$9,800</span>
+                        <span className="tag">Day 3 logged</span>
+                      </div>
+                    </div>
+                    <div className="callrow">
+                      <span className="ic">
+                        <IconCalendarFilled />
+                      </span>
+                      <div className="t">
+                        44 Harbor View Ln &middot; Heat Pump Replacement
+                        <small>Estimate sent 38 days ago</small>
+                      </div>
+                      <div className="callmeta">
+                        <span className="val">$7,150</span>
+                        <span className="tag blue">Day 7 logged</span>
+                      </div>
+                    </div>
+                    <div className="callrow">
+                      <span className="ic">
+                        <IconCalendarFilled />
+                      </span>
+                      <div className="t">
+                        305 Birchwood Dr &middot; Repair &amp; Recharge
+                        <small>Estimate sent 12 days ago</small>
+                      </div>
+                      <div className="callmeta">
+                        <span className="val">$2,650</span>
+                        <span className="tag blue">Day 1 logged</span>
+                      </div>
+                    </div>
+                    <p className="illus">
+                      You keep the list whether or not you go any further.
+                    </p>
+                  </div>
+                </Reveal>
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* ---------- The offer ---------- */}
-        <section id="offer" className="tint section-pad">
+        {/* ---------- 5 - Features ---------- */}
+        <section id="features" className="tint section-pad">
+          <InteractiveFeatures
+            features={features.slice(0, 10).map((f) => ({
+              title: f.title,
+              body: f.body,
+              icon: <f.icon />,
+            }))}
+          />
+        </section>
+
+        {/* ---------- 5b - Remaining two feature blocks ---------- */}
+        <section id="details" className="section-pad">
           <div className="wrap">
-            <Reveal className="sec-head">
-              <span className="eyebrow">The Offer</span>
-              <h2>Two Weeks For $49, Then Month To Month</h2>
-              <p>
-                You get a dedicated, full-time specialist working your lists, and
-                the risk sits with us, not you.
-              </p>
+            <Reveal className="sec-head mx-auto text-center" style={{ maxWidth: 700 }}>
+              <span className="eyebrow">Before You Start</span>
+              <h2>2 Things Worth Knowing</h2>
             </Reveal>
-            <div className="strip">
-              {offerCards.map((c, i) => (
-                <Reveal key={c.title} className="card" delay={0.1 * (i + 1)}>
-                  <span className="ic">
-                    <c.icon />
-                  </span>
-                  <h3>{c.title}</h3>
-                  <p>{c.body}</p>
+            <div className="grid gap-6 md:grid-cols-2">
+              {features.slice(10, 12).map((f, i) => (
+                <Reveal
+                  key={f.title}
+                  delay={0.08 * (i + 1)}
+                  className="rounded-2xl border border-line bg-transparent p-6 transition-transform duration-200 ease-out hover:-translate-y-1"
+                >
+                  <f.icon className="mb-6 block h-9 w-9 text-blue" />
+                  <h3 className="text-lg font-bold text-navy">
+                    {f.title}
+                  </h3>
+                  <div className="mt-3 text-[15px] leading-relaxed text-ink-soft">
+                    {splitIntoParagraphs(f.body).map((paragraph, idx) => (
+                      <p key={idx} className="mb-4 last:mb-0">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
                 </Reveal>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ---------- Final CTA ---------- */}
+        {/* ---------- 6 - Repeat CTA ---------- */}
         <section id="book">
           <div className="wrap">
             <Reveal className="final">
               <span className="eyebrow">Get Started</span>
               <h2 style={{ marginTop: 12 }}>
-                Count Your Open <br className="md:hidden" /> Estimates With Us
+                Two Weeks Of A Full-Time Specialist. $49.
               </h2>
-              <p className="line-clamp-3 md:line-clamp-none">
-                Leave your name and email. We will send a link to grab ten
-                minutes, count your open estimates together, and you keep the
-                list either way.
+              <p>
+                10 minutes, we will count your open estimates together,
+                <br className="hidden md:block" /> and you keep the list
+                either way.
               </p>
-              <LeadForm
-                source="bottom_form"
-                center
-                path="hvac"
-                ctaText="Book 10 Minutes"
-                isCollapsible={true}
-                microcopyText={
-                  <>
-                    $49 for two weeks. Month to month after, and we refund the
-                    $49 <br className="hidden sm:block" /> if it is not worth
-                    continuing.
-                  </>
-                }
-              />
-            </Reveal>
-          </div>
-        </section>
-
-        {/* ---------- FAQ ---------- */}
-        <section id="faq">
-          <div className="wrap">
-            <Reveal className="sec-head">
-              <span className="eyebrow">Questions</span>
-              <h2>Questions, Answered</h2>
-            </Reveal>
-            <Reveal className="faq">
-              {faqs.map((item) => (
-                <FaqItem key={item.q} q={item.q} a={item.a} />
-              ))}
+              <div style={{ marginTop: 20 }}>
+                <BookButton />
+              </div>
             </Reveal>
           </div>
         </section>
       </main>
 
+      {/* ---------- 7 - Footer ---------- */}
       <footer>
         <div className="wrap">
           <span className="logo" role="img" aria-label="RemoHires" />
           <div className="frow">
             <p>
-              Full-time remote teammates for growing businesses. remohires.com
+              Full-time remote specialists for HVAC owners. remohires.com
             </p>
             <p>
               &copy; 2026 RemoHires &middot;{" "}
               <a
-                href="/privacypolicy"
-                className="text-sm! text-white/60! font-normal! hover:text-white! hover:underline transition-colors"
-              >
-                Privacy Policy
-              </a>{" "}
-              &middot;{" "}
-              <a
                 href="/termsofservice"
                 className="text-sm! text-white/60! font-normal! hover:text-white! hover:underline transition-colors"
               >
-                Terms of Service
+                Terms
+              </a>{" "}
+              &middot;{" "}
+              <a
+                href="/privacypolicy"
+                className="text-sm! text-white/60! font-normal! hover:text-white! hover:underline transition-colors"
+              >
+                Privacy
               </a>
+            </p>
+            <p style={{ opacity: 0.6 }}>
+              PT Sentra Talenta Unggul &middot; (504) 265-1063
             </p>
           </div>
         </div>
       </footer>
+
+      <Script
+        type="module"
+        src="https://cdn.landbot.io/landbot-3/landbot-3.0.0.mjs"
+        strategy="afterInteractive"
+      />
+      <Script id="landbot-livechat" type="module" strategy="afterInteractive">
+        {`
+          var myLandbot = new Landbot.Livechat({
+            configUrl: 'https://storage.googleapis.com/landbot.online/v3/H-3497472-BV2M5Q5WU7GV91CT/index.json',
+          });
+        `}
+      </Script>
     </>
   );
 }
