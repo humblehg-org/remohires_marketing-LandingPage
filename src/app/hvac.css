@@ -16,6 +16,8 @@ h1{line-height:1.04}
 h2{font-size:clamp(27px,3.6vw,39px)}
 h3{font-size:19px;font-weight:700;letter-spacing:-.01em}
 #features h3{font-weight:500}
+#features h3.cat-title{font-weight:900}
+#features h3.acc-title{font-weight:700}
 p{margin:0}
 a{color:inherit;text-decoration:none}
 img{max-width:100%}

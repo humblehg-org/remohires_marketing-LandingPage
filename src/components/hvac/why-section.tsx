@@ -21,25 +21,22 @@ export function WhySection() {
           <div className="hidden md:block">
             <p>
               Two weeks of a full-time specialist costs us about{" "}
-              <b>$150</b> in salary. We charge you <b>$49</b> and eat the
-              difference, because it&apos;s cheaper than how companies like
-              ours normally find customers: ads, discovery calls, three
-              weeks of proposals that go nowhere. We&apos;d rather put the
-              money into working your actual pipeline and let the result be
-              the pitch.
+              <b>$150</b> in salary. We charge you <b>$49</b>{" "}
+              and eat the difference, because it&apos;s cheaper than how
+              companies like ours normally find customers: ads, discovery
+              calls, three weeks of proposals that go nowhere. We&apos;d
+              rather put the money into working your actual pipeline and let
+              the result be the pitch.
             </p>
             <p>
-              Your specialist is <b>based in Indonesia</b> and works your
-              hours. That&apos;s the whole reason a dedicated full-time
-              person costs a fraction of a US hire, and it&apos;s better you
-              know it now than on day 10.
-            </p>
-            <p>
-              They are <b>not shared</b> with two or three other shops.
-              That&apos;s how most offshore help works: you can&apos;t see
-              those people&apos;s hours, you&apos;re competing for their
-              attention, and they never stay long enough to learn what you
-              charge.
+              Your specialist is <b>based in Indonesia</b>{" "}
+              and works your hours, and they are <b>not shared</b>{" "}
+              with two or three other shops. That&apos;s the whole reason a
+              dedicated full-time person costs a fraction of a US hire: most
+              offshore help means you can&apos;t see those people&apos;s
+              hours, you&apos;re competing for their attention, and they
+              never stay long enough to learn what you charge. It&apos;s
+              better you know all of this now than on day 10.
             </p>
             <p>
               After the 2 weeks it&apos;s{" "}
@@ -91,19 +88,19 @@ export function WhySection() {
 
           {/* Icon chips: shown on mobile and desktop */}
           <div className="mt-5 flex w-full gap-2.5">
-            <div className="flex-1 rounded-2xl border border-line bg-white p-3.5 text-center">
+            <div className="flex-1 rounded-2xl border border-line bg-white p-3.5 text-center transition-transform duration-300 hover:scale-105 hover:shadow-md">
               <IconCardFilled className="mx-auto h-6 w-6 text-blue" />
               <b className="mt-2 block text-[12.5px] font-bold leading-tight text-navy">
                 $49 is one charge, not a trial
               </b>
             </div>
-            <div className="flex-1 rounded-2xl border border-line bg-white p-3.5 text-center">
+            <div className="flex-1 rounded-2xl border border-line bg-white p-3.5 text-center transition-transform duration-300 hover:scale-105 hover:shadow-md">
               <IconCheckFilled className="mx-auto h-6 w-6 text-blue" />
               <b className="mt-2 block text-[12.5px] font-bold leading-tight text-navy">
                 You approve every script
               </b>
             </div>
-            <div className="flex-1 rounded-2xl border border-line bg-white p-3.5 text-center">
+            <div className="flex-1 rounded-2xl border border-line bg-white p-3.5 text-center transition-transform duration-300 hover:scale-105 hover:shadow-md">
               <IconShieldBadgeFilled className="mx-auto h-6 w-6 text-blue" />
               <b className="mt-2 block text-[12.5px] font-bold leading-tight text-navy">
                 Month to month, refundable

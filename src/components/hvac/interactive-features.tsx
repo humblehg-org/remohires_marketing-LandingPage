@@ -68,7 +68,7 @@ export function InteractiveFeatures({
               {category && (
                 <div className={i === 0 ? "mb-6" : "mb-6 mt-8"}>
                   <span className="eyebrow text-[11px]">{category.number}</span>
-                  <h3 className="mt-2 text-[19px] font-black text-navy">
+                  <h3 className="cat-title mt-2 text-[19px] font-black text-navy">
                     {category.title}
                   </h3>
                 </div>
@@ -91,7 +91,7 @@ export function InteractiveFeatures({
                   >
                     {feature.icon}
                   </span>
-                  <h3 className="flex-1 text-base leading-snug text-ink sm:text-lg md:font-bold">
+                  <h3 className="acc-title flex-1 text-base leading-snug text-ink sm:text-lg md:font-bold">
                     {feature.title}
                   </h3>
                   <span
