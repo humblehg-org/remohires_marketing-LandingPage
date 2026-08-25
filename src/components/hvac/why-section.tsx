@@ -10,7 +10,12 @@ export function WhySection() {
       <div className="wrap">
         <div className="why-copy mx-auto flex flex-col items-center text-center">
           <span className="eyebrow">What It Costs</span>
-          <h2>We Pay 2 Weeks of Their Salary. You pay $49.</h2>
+          <h2 className="md:whitespace-nowrap">
+            We Pay 2 Weeks of Their Salary.{" "}
+            <span className="bg-gradient-to-r from-[#1441DF] to-[#00A8F2] bg-clip-text text-transparent">
+              You pay $49.
+            </span>
+          </h2>
 
           {/* Desktop: same bolded emphasis as mobile */}
           <div className="hidden md:block">
@@ -84,8 +89,8 @@ export function WhySection() {
             </p>
           </div>
 
-          {/* Mobile: icon chips */}
-          <div className="block md:hidden mt-5 flex w-full gap-2.5">
+          {/* Icon chips: shown on mobile and desktop */}
+          <div className="mt-5 flex w-full gap-2.5">
             <div className="flex-1 rounded-2xl border border-line bg-white p-3.5 text-center">
               <IconCardFilled className="mx-auto h-6 w-6 text-blue" />
               <b className="mt-2 block text-[12.5px] font-bold leading-tight text-navy">
