@@ -16,9 +16,10 @@ import {
   IconCalendarFilled,
   IconXFilled,
   IconClockRingFilled,
-  IconBanknote,
-  IconUserCheck,
-  IconBriefcase,
+  IconSearchFilled,
+  IconUserFilled,
+  IconDesktopFilled,
+  IconCardFilled,
 } from "@/components/hvac/icons";
 
 export const metadata: Metadata = {
@@ -63,7 +64,7 @@ const features = [
     body: "Four places, and you pay no lead fee for any of them: homeowners your specialist finds directly in your service area, the estimates you sent that never got a second call, the systems you installed that are now past fifteen years, and the customers you have already served who have not heard from you since. Every lead you buy went to four other shops at once. None of these did.",
   },
   {
-    icon: IconUserCheck,
+    icon: IconSearchFilled,
     title: "Leads That Were Never For Sale",
     body: "A lead platform sells you a homeowner who filled in a form, then sells the same one to four competitors. Your specialist buys no one. They go and find them. Nobody sold those homeowners a list, so no competitor is calling them.",
   },
@@ -98,17 +99,17 @@ const features = [
     body: "A kickoff call, access to your estimating system, and sign-off on the wording. That is the whole ask, and it is front-loaded. After week one your specialist works and you read the log. If we cannot get those three things we will cancel and charge you nothing.",
   },
   {
-    icon: IconUserCheck,
+    icon: IconUserFilled,
     title: "One Person, And The Same One Every Day",
     body: "They learn your pricing, your service area, your objections, and the two competitors who keep undercutting you, and none of it walks out to another account on Thursday.",
   },
   {
-    icon: IconBriefcase,
+    icon: IconDesktopFilled,
     title: "Works With The Software You Already Use",
     body: "No migration and nothing for your techs to learn. Your specialist works inside [ServiceTitan, Housecall Pro, Jobber, OTHERS], and every call and text goes out from your business, under your name, logged against the job in your own software. Running estimates from a spreadsheet and a phone works too.",
   },
   {
-    icon: IconBanknote,
+    icon: IconCardFilled,
     title: "What Happens After Two Weeks",
     body: "Nothing, unless you want it. The $49 is one charge, with no subscription running in the background and no card waiting to start billing. On day 14 you will have a worked list and the outcomes logged against every job. Keep going and it is $450 a month, month to month. If you stop, tell us and we refund the $49, and you keep the list, the scripts, and everything on it.",
   },
@@ -117,6 +118,14 @@ const features = [
     title: "Who This Doesn't Work For",
     body: "If you do not send written estimates, if you cannot give access to where they live, if your open list is a handful of quotes a month, or if what you want is somebody to answer the phone rather than go and find work, this is not it, and we will tell you on the call rather than after.",
   },
+];
+
+// Mobile-only static grouping of the first 10 features (indices into `features` above),
+// mirroring the mockup's "01/02/03" clusters. Desktop keeps the InteractiveFeatures accordion.
+const featureClusters = [
+  { number: "01", title: "Leads You Already Own", indices: [0, 1, 4, 5] },
+  { number: "02", title: "How The Work Gets Done", indices: [2, 3] },
+  { number: "03", title: "You Stay In Control", indices: [6, 8, 9, 7] },
 ];
 
 export default function QuotesPage() {
@@ -143,7 +152,7 @@ export default function QuotesPage() {
                     textWrap: "balance",
                   }}
                 >
-                  Book 40% More Jobs
+                  <span className="hero-line1">Book 40% More Jobs</span>
                   <br className="hidden md:block" />
                   <span className="num">Without Buying Another Lead.</span>
                 </h1>
@@ -168,9 +177,9 @@ export default function QuotesPage() {
                     "$49 for the two weeks. After that it's month to month, and if it isn't worth continuing we'll refund the $49."
                   }
                 </p>
-              </Reveal>
-              <div className="hero-right">
-                <Reveal direction="r" className="visualcol">
+
+                {/* Mobile: floating estimate card, stacked below the hero text */}
+                <div className="block md:hidden mt-8">
                   <div className="callcard">
                     <div className="bar">
                       <div className="dot">
@@ -226,7 +235,68 @@ export default function QuotesPage() {
                       We pay two weeks of their salary. You pay $49.
                     </p>
                   </div>
-                </Reveal>
+                </div>
+              </Reveal>
+              <div className="hidden md:block">
+                <div className="hero-right">
+                  <Reveal direction="r" className="visualcol">
+                    <div className="callcard">
+                      <div className="bar">
+                        <div className="dot">
+                          <span className="ic">
+                            <IconCalendarFilled />
+                          </span>
+                        </div>
+                        <div>
+                          <b>Open Estimates, Last 90 Days</b>
+                          <small>Age, value, and follow-ups logged per job</small>
+                        </div>
+                      </div>
+                      <div className="callrow">
+                        <span className="ic">
+                          <IconClockRingFilled />
+                        </span>
+                        <div className="t">
+                          4620 Live Oak Dr &middot; Condenser Replacement
+                          <small>System installed 16 yrs ago</small>
+                        </div>
+                        <div className="callmeta">
+                          <span className="val">$12,000</span>
+                          <span className="tag">Day 3 logged</span>
+                        </div>
+                      </div>
+                      <div className="callrow">
+                        <span className="ic">
+                          <IconCalendarFilled />
+                        </span>
+                        <div className="t">
+                          212 Magnolia Ct &middot; Full System Install
+                          <small>Estimate sent 74 days ago</small>
+                        </div>
+                        <div className="callmeta">
+                          <span className="val">$8,400</span>
+                          <span className="tag blue">Day 7 logged</span>
+                        </div>
+                      </div>
+                      <div className="callrow">
+                        <span className="ic">
+                          <IconCalendarFilled />
+                        </span>
+                        <div className="t">
+                          88 Riverside Ave &middot; Repair &amp; Recharge
+                          <small>Estimate sent 21 days ago</small>
+                        </div>
+                        <div className="callmeta">
+                          <span className="val">$3,200</span>
+                          <span className="tag blue">Day 1 logged</span>
+                        </div>
+                      </div>
+                      <p className="illus">
+                        We pay two weeks of their salary. You pay $49.
+                      </p>
+                    </div>
+                  </Reveal>
+                </div>
               </div>
             </div>
           </div>
@@ -241,7 +311,7 @@ export default function QuotesPage() {
             <div className="grid items-center gap-10 md:grid-cols-2">
               <div>
                 <Reveal direction="l" className="sec-head" style={{ maxWidth: 480 }}>
-                  <h2>10 Minutes. We&apos;ll Count Your Open Estimates Together.</h2>
+                  <h2>Ten Minutes. We&apos;ll Count Your Open Estimates Together.</h2>
                   <p>
                     On the call we pull every open estimate in your system, sort them
                     by value and by age, and hand you the list. You keep it whether
@@ -317,13 +387,56 @@ export default function QuotesPage() {
 
         {/* ---------- 5 - Features ---------- */}
         <section id="features" className="tint section-pad">
-          <InteractiveFeatures
-            features={features.slice(0, 10).map((f) => ({
-              title: f.title,
-              body: f.body,
-              icon: <f.icon />,
-            }))}
-          />
+          {/* Desktop: interactive accordion */}
+          <div className="hidden md:block">
+            <InteractiveFeatures
+              features={features.slice(0, 10).map((f) => ({
+                title: f.title,
+                body: f.body,
+                icon: <f.icon />,
+              }))}
+            />
+          </div>
+
+          {/* Mobile: static grouped cards matching the mockup's "How It Works" layout */}
+          <div className="block md:hidden">
+            <div className="wrap flex flex-col gap-9 py-10">
+              {featureClusters.map((cluster) => (
+                <div key={cluster.number}>
+                  <Reveal className="mb-4">
+                    <span className="eyebrow text-[11px]">{cluster.number}</span>
+                    <h3 className="mt-2 text-[19px] font-black text-navy">
+                      {cluster.title}
+                    </h3>
+                  </Reveal>
+                  <div className="flex flex-col gap-3">
+                    {cluster.indices.map((idx, i) => {
+                      const f = features[idx];
+                      return (
+                        <Reveal
+                          key={f.title}
+                          delay={0.06 * i}
+                          className="rounded-2xl border border-line bg-white p-4 shadow-[0_8px_20px_rgba(20,40,110,.05)]"
+                        >
+                          <f.icon className="mb-3 block h-[34px] w-[34px] rounded-[10px] bg-navy-soft p-2 text-blue" />
+                          <h4 className="text-[15.5px] font-bold text-navy">
+                            {f.title}
+                          </h4>
+                          <div className="mt-2 text-sm leading-relaxed text-ink-soft">
+                            {splitIntoParagraphs(f.body).map((paragraph, pIdx) => (
+                              <p key={pIdx} className="mb-3 last:mb-0">
+                                {paragraph}
+                              </p>
+                            ))}
+                          </div>
+                        </Reveal>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
 
         {/* ---------- 5b - Remaining two feature blocks ---------- */}

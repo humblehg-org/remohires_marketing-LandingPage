@@ -96,7 +96,7 @@ header.nav.scrolled{box-shadow:0 8px 30px rgba(15,33,112,.10);background:rgba(25
    the hero doesn't leave a large gap before #why. */
 #hero .grid{padding-bottom:40px}
 #hero h1{font-size:clamp(1.4rem,2.75vw,2.1rem)}
-@media(max-width:860px){#hero h1{font-size:clamp(2rem,4.2vw,3.1rem)}}
+@media(max-width:860px){#hero h1{font-size:clamp(2rem,4.2vw,3.1rem)}.hero-line1{display:block;white-space:nowrap;font-size:clamp(1.375rem,7.2vw,2.125rem);letter-spacing:-0.01em}}
 .hero p.sub{font-size:18px;color:var(--muted);margin:18px 0 26px;max-width:46ch;line-height:1.45}
 @media(min-width:861px){.hero p.sub{font-size:16px;max-width:none}}
 @media(max-width:860px){.hero .grid{grid-template-columns:1fr;padding:44px 0 54px;gap:38px}.hero p.sub{max-width:none}}
@@ -299,6 +299,7 @@ footer .logo{filter:brightness(0) invert(1);opacity:.92;margin-bottom:16px}
 footer .frow{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
 footer p{color:rgba(255,255,255,.7);font-size:13.5px}
 footer a{color:var(--turq);font-weight:600}
+@media(max-width:860px){footer{padding:40px 0 104px}footer .frow{flex-direction:column;align-items:flex-start;text-align:left;gap:10px}}
 
 .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.3,1),filter .6s ease;filter:blur(7px)}
 .reveal.l{transform:translateX(-22px)}
