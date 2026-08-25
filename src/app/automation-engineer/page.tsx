@@ -6,7 +6,7 @@ import { MobileNav } from "@/components/automation-engineer/mobile-nav";
 import { StartLink } from "@/components/automation-engineer/start-link";
 import { ScrollDepth } from "@/components/automation-engineer/scroll-depth";
 import { Reveal } from "@/components/automation-engineer/reveal";
-import { MatchForm } from "@/components/automation-engineer/match-form";
+import { StartModal } from "@/components/automation-engineer/start-modal";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const jetbrainsMono = JetBrains_Mono({
@@ -31,6 +31,7 @@ export default function AutomationEngineerPage() {
           layout, so it is not re-initialized here. */}
       <HeaderScroll />
       <ScrollDepth />
+      <StartModal />
 
       {/* ===================== 1 · NAVBAR ===================== */}
       <header id="hdr">
@@ -156,12 +157,25 @@ export default function AutomationEngineerPage() {
         <Reveal as="section" id="why" className="tint why">
           <div className="wrap">
             <span className="eyebrow">What it costs</span>
-            <h2>We cover the salary. You cover $49.</h2>
+            <h2>We pay two weeks of their salary. You pay $49.</h2>
             <p>
-              A full-time US automation engineer costs upwards of $143,000 a year. We give you two
-              weeks of their time for a single $49 payment. Why? Because we know that once you see
-              a painful bottleneck disappear from your business, you will want us to automate the
-              rest of it. There is zero obligation. We are putting our money where our mouth is.
+              Two weeks of a full-time engineer costs us around <strong>$1,200</strong>. You pay
+              $49. We absorb the difference because it&rsquo;s cheaper than the usual agency
+              playbook of running ads and sitting through weeks of discovery calls that go
+              nowhere. We&rsquo;d rather invest that money into building you a real solution,
+              letting the automation itself be our pitch.
+            </p>
+            <p>
+              Your engineer is dedicated full-time to your business. They are based in Indonesia
+              and work US business hours. This global talent advantage is what makes our ongoing
+              rate a fraction of a US salary. We believe in being completely transparent about it
+              from day one.
+            </p>
+            <p>
+              We only accept <strong>10 new companies a month.</strong>{" "}
+              This isn&rsquo;t artificial scarcity; it&rsquo;s the realistic limit on the
+              exceptional engineering
+              talent we can recruit and properly vet.
             </p>
           </div>
         </Reveal>
@@ -174,7 +188,9 @@ export default function AutomationEngineerPage() {
               Pick a start date and your engineer begins Monday. See it running live in 14 days,
               or we send you $500.
             </p>
-            <MatchForm />
+            <StartLink className="btn btn-primary btn-lg">
+              Start My 14-Day Sprint for $49 <span className="arw">&rarr;</span>
+            </StartLink>
           </div>
         </Reveal>
 
@@ -231,7 +247,7 @@ export default function AutomationEngineerPage() {
                   <div className="card example">
                     <div className="tag">EXAMPLE 1</div>
                     <p>
-                      An enquiry arrives by email and comes back as a drafted quote from your own
+                      An inquiry arrives by email and comes back as a drafted quote from your own
                       price list, sitting in your outbox waiting for you to hit send.
                     </p>
                   </div>

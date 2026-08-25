@@ -19,16 +19,30 @@ const INDUSTRIES = [
   "Other",
 ];
 
-const HEARD_ABOUT_OPTIONS = [
-  "Google search",
-  "Google ad",
-  "Facebook / Instagram",
-  "LinkedIn",
-  "Referral from a friend",
-  "Other",
+const COUNTRY_CODES = [
+  { code: "+1", flag: "🇺🇸", label: "United States" },
+  { code: "+1", flag: "🇨🇦", label: "Canada" },
+  { code: "+44", flag: "🇬🇧", label: "United Kingdom" },
+  { code: "+61", flag: "🇦🇺", label: "Australia" },
+  { code: "+64", flag: "🇳🇿", label: "New Zealand" },
+  { code: "+353", flag: "🇮🇪", label: "Ireland" },
+  { code: "+65", flag: "🇸🇬", label: "Singapore" },
+  { code: "+63", flag: "🇵🇭", label: "Philippines" },
+  { code: "+62", flag: "🇮🇩", label: "Indonesia" },
+  { code: "+91", flag: "🇮🇳", label: "India" },
+  { code: "+49", flag: "🇩🇪", label: "Germany" },
+  { code: "+33", flag: "🇫🇷", label: "France" },
 ];
 
-export function MatchForm() {
+/** Shrinks/colors the Industry field's floating label from JS. Its
+ * `<select>` has no `required` attribute (it's optional), so it's always
+ * `:valid` — the CSS-only trick the other fields use can't tell
+ * "untouched" from "a real option chosen" without this. */
+function toggleHasValue(target: HTMLSelectElement) {
+  target.closest(".fgroup")?.classList.toggle("has-value", target.value.length > 0);
+}
+
+export function MatchForm({ onClose }: { onClose: () => void }) {
   const idPrefix = useId();
   const router = useRouter();
   const [sending, setSending] = useState(false);
@@ -46,6 +60,18 @@ export function MatchForm() {
     setError(null);
     try {
       const formData = new FormData(form);
+
+      // Combine the country-code select + number input into one "phone"
+      // value (e.g. "+1 5551234567") before it goes anywhere — Web3Forms,
+      // tracking, and the notification email should all see a single,
+      // already-formatted phone field, not two separate raw inputs.
+      const countryCode = String(formData.get("phone_country_code") ?? "");
+      const phoneNumber = String(formData.get("phone") ?? "").trim();
+      formData.delete("phone_country_code");
+      if (countryCode && phoneNumber) {
+        formData.set("phone", `${countryCode} ${phoneNumber}`);
+      }
+
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { Accept: "application/json" },
@@ -84,6 +110,23 @@ export function MatchForm() {
   return (
     <div className="form-shell">
       <div className="form-card">
+        <button type="button" className="modal-close" aria-label="Close" onClick={onClose}>
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+        <h2 className="modal-title">Start your 14-day sprint</h2>
+
         <form noValidate onSubmit={handleSubmit} className="form-grid">
           <input type="hidden" name="access_key" value={ACCESS_KEY} />
           <input type="hidden" name="subject" value="New RemoHires Lead" />
@@ -108,22 +151,39 @@ export function MatchForm() {
                 suppressHydrationWarning
               />
               <label htmlFor={`${idPrefix}-name`} className="flabel">
-                Your Name
+                Your Name *
               </label>
             </div>
-            <div className="fgroup">
-              <input
-                id={`${idPrefix}-phone`}
-                type="tel"
-                name="phone"
-                className="finput"
-                placeholder="+1 555 000 0000"
-                required
-                suppressHydrationWarning
-              />
-              <label htmlFor={`${idPrefix}-phone`} className="flabel">
-                Phone Number
-              </label>
+
+            <div className="fgroup fgroup-phone">
+              <div className="phone-inner">
+                <select
+                  name="phone_country_code"
+                  className="phone-code"
+                  defaultValue="+1"
+                  aria-label="Country code"
+                  suppressHydrationWarning
+                >
+                  {COUNTRY_CODES.map((c) => (
+                    <option key={c.label} value={c.code}>
+                      {c.flag} {c.code}
+                    </option>
+                  ))}
+                </select>
+                <span className="phone-divider" aria-hidden="true" />
+                <label htmlFor={`${idPrefix}-phone`} className="sr-only">
+                  Phone Number
+                </label>
+                <input
+                  id={`${idPrefix}-phone`}
+                  type="tel"
+                  name="phone"
+                  className="phone-number"
+                  placeholder="Phone Number *"
+                  required
+                  suppressHydrationWarning
+                />
+              </div>
             </div>
           </div>
 
@@ -138,7 +198,7 @@ export function MatchForm() {
               suppressHydrationWarning
             />
             <label htmlFor={`${idPrefix}-email`} className="flabel">
-              Work Email
+              Work Email *
             </label>
           </div>
 
@@ -147,8 +207,8 @@ export function MatchForm() {
               id={`${idPrefix}-industry`}
               name="industry"
               className="fselect"
-              required
               defaultValue=""
+              onChange={(e) => toggleHasValue(e.currentTarget)}
               suppressHydrationWarning
             >
               <option value="" disabled></option>
@@ -157,46 +217,12 @@ export function MatchForm() {
               ))}
             </select>
             <label htmlFor={`${idPrefix}-industry`} className="flabel">
-              Industry
-            </label>
-          </div>
-
-          <div className="fgroup">
-            <input
-              id={`${idPrefix}-message`}
-              type="text"
-              name="message"
-              className="finput"
-              placeholder="e.g. invoicing, lead routing"
-              required
-              suppressHydrationWarning
-            />
-            <label htmlFor={`${idPrefix}-message`} className="flabel">
-              What do you want to automate first?
-            </label>
-          </div>
-
-          <div className="fgroup">
-            <select
-              id={`${idPrefix}-heard`}
-              name="heard_about"
-              className="fselect"
-              required
-              defaultValue=""
-              suppressHydrationWarning
-            >
-              <option value="" disabled></option>
-              {HEARD_ABOUT_OPTIONS.map((option) => (
-                <option key={option}>{option}</option>
-              ))}
-            </select>
-            <label htmlFor={`${idPrefix}-heard`} className="flabel">
-              How did you hear about us?
+              Industry (Optional)
             </label>
           </div>
 
           <button type="submit" className="btn btn-primary form-submit" disabled={sending}>
-            {sending ? "Sending…" : "Start My 14-Day Sprint for $49"}
+            {sending ? "Sending…" : "Submit Request"}
           </button>
           <p
             className={`form-status${error ? " is-error" : ""}`}
