@@ -62,6 +62,15 @@ export function SiteHeader({ ctaLabel = "Get Started" }: { ctaLabel?: string }) 
 
   const closeMenu = () => setMenuOpen(false);
 
+  const trackLead = () => {
+    if (typeof window !== "undefined" && window.fbq) {
+      window.fbq("track", "Lead", {
+        content_name: "HVAC Book 10 Minutes",
+        content_category: "hvac",
+      });
+    }
+  };
+
   return (
     <>
       <header className={`nav${scrolled ? " scrolled" : ""}`}>
@@ -72,7 +81,7 @@ export function SiteHeader({ ctaLabel = "Get Started" }: { ctaLabel?: string }) 
             <a href="#features">Features</a>
             <a href="#details">Before You Start</a>
             <span className={`cta-wrap${showCta ? " show" : ""}`}>
-              <a href="#book" className="btn primary cta">
+              <a href="#book" className="btn primary cta" onClick={trackLead}>
                 {ctaLabel}
               </a>
             </span>
@@ -108,7 +117,10 @@ export function SiteHeader({ ctaLabel = "Get Started" }: { ctaLabel?: string }) 
       <a
         href="#book"
         className={`mobile-fab btn primary${fabVisible ? " show" : ""}`}
-        onClick={closeMenu}
+        onClick={() => {
+          closeMenu();
+          trackLead();
+        }}
       >
         {ctaLabel}
       </a>

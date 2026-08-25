@@ -7,6 +7,7 @@ import { Reveal } from "@/components/hvac/reveal";
 import { TopStrip } from "@/components/hvac/top-strip";
 import { WhySection } from "@/components/hvac/why-section";
 import { InteractiveFeatures } from "@/components/hvac/interactive-features";
+import { BookButton } from "@/components/hvac/book-button";
 import { splitIntoParagraphs } from "@/lib/text";
 import {
   IconCheckFilled,
@@ -27,34 +28,6 @@ export const metadata: Metadata = {
   description:
     "$49 buys two weeks of a full-time specialist working only on your business. They find homeowners in your service area and work every estimate and install already in your system, by call and text, in your company name.",
 };
-
-const BOOKING_URL = "https://calendar.app.google/opczJKFLUCcXyLN26";
-
-// Booking button. All CTAs on this page point to the calendar link (books a call, no card).
-// Deo: restyle via the .bookbtn class in hvac.css if you want it to match the site button exactly.
-function BookButton({ label = "Book 10 Minutes" }: { label?: string }) {
-  return (
-    <a
-      className="bookbtn"
-      href={BOOKING_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{
-        display: "inline-block",
-        background: "#0F2170",
-        color: "#ffffff",
-        fontWeight: 700,
-        padding: "15px 30px",
-        borderRadius: 9999,
-        textDecoration: "none",
-        fontSize: 16,
-        lineHeight: 1,
-      }}
-    >
-      {label}
-    </a>
-  );
-}
 
 // Section 5 - the twelve feature blocks, in Nick's order. [BRACKETS] = supply before launch.
 const features = [
