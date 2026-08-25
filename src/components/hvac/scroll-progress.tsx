@@ -16,7 +16,7 @@ export function ScrollProgress() {
       const h = document.documentElement;
       const scrolled = h.scrollTop || document.body.scrollTop;
       const max = h.scrollHeight - h.clientHeight || 1;
-      el!.style.width = `${(scrolled / max) * 100}%`;
+      el!.style.transform = `scaleX(${scrolled / max})`;
     }
     update();
     window.addEventListener("scroll", update, { passive: true });
