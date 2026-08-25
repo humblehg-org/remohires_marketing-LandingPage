@@ -368,6 +368,11 @@ export default function QuotesPage() {
                 body: f.body,
                 icon: <f.icon />,
               }))}
+              categories={[
+                { number: "01", title: "Leads You Already Own", startIndex: 0 },
+                { number: "02", title: "How The Work Gets Done", startIndex: 4 },
+                { number: "03", title: "You Stay In Control", startIndex: 6 },
+              ]}
             />
           </div>
 

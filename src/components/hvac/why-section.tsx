@@ -12,27 +12,35 @@ export function WhySection() {
           <span className="eyebrow">What It Costs</span>
           <h2>We Pay 2 Weeks of Their Salary. You pay $49.</h2>
 
-          {/* Desktop: plain copy, unchanged */}
+          {/* Desktop: same bolded emphasis as mobile */}
           <div className="hidden md:block">
             <p>
-              {
-                "Two weeks of a full-time specialist costs us about $150 in salary. We charge you $49 and eat the difference, because it's cheaper than how companies like ours normally find customers — ads, discovery calls, three weeks of proposals that go nowhere. We'd rather put the money into working your actual pipeline and let the result be the pitch."
-              }
+              Two weeks of a full-time specialist costs us about{" "}
+              <b>$150</b> in salary. We charge you <b>$49</b> and eat the
+              difference, because it&apos;s cheaper than how companies like
+              ours normally find customers: ads, discovery calls, three
+              weeks of proposals that go nowhere. We&apos;d rather put the
+              money into working your actual pipeline and let the result be
+              the pitch.
             </p>
             <p>
-              {
-                "Your specialist is based in Indonesia and works your hours. That's the whole reason a dedicated full-time person costs a fraction of a US hire, and it's better you know it now than on day 10."
-              }
+              Your specialist is <b>based in Indonesia</b> and works your
+              hours. That&apos;s the whole reason a dedicated full-time
+              person costs a fraction of a US hire, and it&apos;s better you
+              know it now than on day 10.
             </p>
             <p>
-              {
-                "They are not shared with two or three other shops. That's how most offshore help works — you can't see those people's hours, you're competing for their attention, and they never stay long enough to learn what you charge."
-              }
+              They are <b>not shared</b> with two or three other shops.
+              That&apos;s how most offshore help works: you can&apos;t see
+              those people&apos;s hours, you&apos;re competing for their
+              attention, and they never stay long enough to learn what you
+              charge.
             </p>
             <p>
-              {
-                "After the 2 weeks it's $450 a month, month to month. No annual contract and no notice period — tell us to stop and it stops at the end of the month."
-              }
+              After the 2 weeks it&apos;s{" "}
+              <b>$450 a month, month to month</b>. No annual contract and no
+              notice period: tell us to stop and it stops at the end of the
+              month.
             </p>
           </div>
 
@@ -44,7 +52,7 @@ export function WhySection() {
               salary. We charge you{" "}
               <strong className="font-bold text-ink">$49</strong> and eat
               the difference, because it&apos;s cheaper than how companies
-              like ours normally find customers — ads, discovery calls,
+              like ours normally find customers: ads, discovery calls,
               three weeks of proposals that go nowhere. We&apos;d rather
               put the money into working your actual pipeline and let the
               result be the pitch.
@@ -62,7 +70,7 @@ export function WhySection() {
               They are{" "}
               <strong className="font-bold text-ink">not shared</strong>{" "}
               with two or three other shops. That&apos;s how most offshore
-              help works — you can&apos;t see those people&apos;s hours,
+              help works: you can&apos;t see those people&apos;s hours,
               you&apos;re competing for their attention, and they never
               stay long enough to learn what you charge.
             </p>
@@ -71,8 +79,8 @@ export function WhySection() {
               <strong className="font-bold text-ink">
                 $450 a month, month to month
               </strong>
-              . No annual contract and no notice period — tell us to stop
-              and it stops at the end of the month.
+              . No annual contract and no notice period: tell us to stop and
+              it stops at the end of the month.
             </p>
           </div>
 

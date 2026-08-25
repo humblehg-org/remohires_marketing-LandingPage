@@ -9,10 +9,18 @@ export interface InteractiveFeature {
   body: string;
 }
 
+export interface FeatureCategory {
+  number: string;
+  title: string;
+  startIndex: number;
+}
+
 export function InteractiveFeatures({
   features,
+  categories,
 }: {
   features: InteractiveFeature[];
+  categories?: FeatureCategory[];
 }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(
@@ -53,55 +61,65 @@ export function InteractiveFeatures({
       >
         {features.map((feature, i) => {
           const open = openIndex === i;
+          const category = categories?.find((c) => c.startIndex === i);
 
           return (
-            <div
-              key={feature.title}
-              className={`overflow-hidden rounded-2xl border transition-colors duration-300 ${
-                open ? "border-navy bg-white shadow-lg" : "border-line bg-white"
-              }`}
-            >
-              <button
-                type="button"
-                onClick={() => toggle(i)}
-                aria-expanded={open}
-                className="flex w-full items-center gap-4 p-5 text-left"
-              >
-                <span
-                  className={`h-6 w-6 shrink-0 [&>svg]:h-full [&>svg]:w-full ${
-                    open ? "text-navy" : "text-blue"
-                  }`}
-                >
-                  {feature.icon}
-                </span>
-                <h3 className="flex-1 text-base leading-snug text-ink sm:text-lg">
-                  {feature.title}
-                </h3>
-                <span
-                  className={`grid h-7 w-7 shrink-0 place-items-center rounded-full border text-base font-semibold transition-transform duration-300 ${
-                    open
-                      ? "rotate-180 border-navy text-navy"
-                      : "border-line text-ink-soft"
-                  }`}
-                >
-                  {open ? "–" : "+"}
-                </span>
-              </button>
-
+            <div key={feature.title}>
+              {category && (
+                <div className={i === 0 ? "mb-1" : "mb-1 mt-6"}>
+                  <span className="eyebrow text-[11px]">{category.number}</span>
+                  <h3 className="mt-2 text-[19px] font-black text-navy">
+                    {category.title}
+                  </h3>
+                </div>
+              )}
               <div
-                className={`grid transition-all duration-500 ease-out ${
-                  open
-                    ? "grid-rows-[1fr] opacity-100"
-                    : "grid-rows-[0fr] opacity-0"
+                className={`overflow-hidden rounded-2xl border transition-colors duration-300 ${
+                  open ? "border-navy bg-white shadow-lg" : "border-line bg-white"
                 }`}
               >
-                <div className="overflow-hidden">
-                  <div className="px-5 pb-6 pl-[3.75rem] text-base leading-relaxed text-ink-soft sm:pl-16">
-                    {splitIntoParagraphs(feature.body).map((paragraph, idx) => (
-                      <p key={idx} className="mb-3 last:mb-0">
-                        {paragraph}
-                      </p>
-                    ))}
+                <button
+                  type="button"
+                  onClick={() => toggle(i)}
+                  aria-expanded={open}
+                  className="flex w-full items-center gap-4 p-5 text-left"
+                >
+                  <span
+                    className={`h-6 w-6 shrink-0 [&>svg]:h-full [&>svg]:w-full ${
+                      open ? "text-navy" : "text-blue"
+                    }`}
+                  >
+                    {feature.icon}
+                  </span>
+                  <h3 className="flex-1 text-base leading-snug text-ink sm:text-lg">
+                    {feature.title}
+                  </h3>
+                  <span
+                    className={`grid h-7 w-7 shrink-0 place-items-center rounded-full border text-base font-semibold transition-transform duration-300 ${
+                      open
+                        ? "rotate-180 border-navy text-navy"
+                        : "border-line text-ink-soft"
+                    }`}
+                  >
+                    {open ? "–" : "+"}
+                  </span>
+                </button>
+
+                <div
+                  className={`grid transition-all duration-500 ease-out ${
+                    open
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="px-5 pb-6 pl-[3.75rem] text-base leading-relaxed text-ink-soft sm:pl-16">
+                      {splitIntoParagraphs(feature.body).map((paragraph, idx) => (
+                        <p key={idx} className="mb-3 last:mb-0">
+                          {paragraph}
+                        </p>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
