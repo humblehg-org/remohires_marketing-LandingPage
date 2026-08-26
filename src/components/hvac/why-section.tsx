@@ -12,7 +12,7 @@ export function WhySection() {
           <span className="eyebrow">What It Costs</span>
           <h2 className="md:whitespace-nowrap">
             We Pay 2 Weeks of Their Salary.{" "}
-            <span className="bg-gradient-to-r from-[#1441DF] to-[#00A8F2] bg-clip-text text-transparent">
+            <span className="text-blue">
               You pay $49.
             </span>
           </h2>
@@ -26,7 +26,7 @@ export function WhySection() {
               companies like ours normally find customers: ads, discovery
               calls, three weeks of proposals that go nowhere. We&apos;d
               rather put the money into working your actual pipeline and let
-              the result be the pitch.
+              the result be the&nbsp;pitch.
             </p>
             <p>
               Your specialist is <b>based in Indonesia</b>{" "}
@@ -52,8 +52,8 @@ export function WhySection() {
               Two weeks of a full-time specialist costs us about{" "}
               <strong className="font-bold text-ink">$150</strong> in
               salary. We charge you{" "}
-              <strong className="font-bold text-ink">$49</strong> and eat
-              the difference, because it&apos;s cheaper than how companies
+              <strong className="font-bold text-ink">$49</strong>{" "}
+              and eat the difference, because it&apos;s cheaper than how companies
               like ours normally find customers: ads, discovery calls,
               three weeks of proposals that go nowhere. We&apos;d rather
               put the money into working your actual pipeline and let the

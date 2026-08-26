@@ -114,32 +114,34 @@ export default function QuotesPage() {
       <main id="top">
         {/* ---------- 2 & 3 - Hero + Why $49 share one seamless background (hero-why-shell) ---------- */}
         <div className="hero-why-shell">
-          <section id="hero" className="hero" style={{ padding: 0 }}>
+          <section
+            id="hero"
+            className="hero flex flex-col justify-center min-h-[85vh] md:min-h-0 md:justify-start"
+            style={{ padding: 0 }}
+          >
           <div className="wrap">
             <div className="grid">
               <div>
                 <span className="eyebrow">HVAC owners</span>
-                <h1
-                  style={{
-                    lineHeight: 1.06,
-                    textWrap: "balance",
-                  }}
-                >
-                  <span className="hero-line1">Book 40% More Jobs</span>
-                  <br className="hidden md:block" />
-                  <span className="num">Without Buying Another Lead.</span>
+                <h1>
+                  <span className="hero-line1">Book <span className="hero-num">40%</span> More Jobs</span>
+                  <br />
+                  <span className="hero-line2"><span className="hero-num">Without</span> Buying<span className="hidden md:inline"> Another Lead.</span></span>
+                  <br className="md:hidden" />
+                  <span className="hero-line3 md:hidden">Another Lead.</span>
                 </h1>
                 <p className="sub">
-                  $49 buys two weeks of a full-time specialist, working only on
+                  <b>$49 buys two weeks</b>{" "}
+                  of a full-time specialist, working only on
                   your business.
                   <span className="block mt-1.5">
                     They find homeowners in your service area and contact them
                     directly, and they work every estimate and install already
-                    sitting in your system, by call and text, in your company
-                    name.
+                    sitting <b>in your system</b>, by call and text,{" "}
+                    <b>in your company name</b>.
                   </span>
                 </p>
-                <div style={{ marginTop: 24 }}>
+                <div className="mt-6 md:mt-10">
                   <BookButton />
                 </div>
                 <p
@@ -150,65 +152,6 @@ export default function QuotesPage() {
                     "$49 for the two weeks. After that it's month to month, and if it isn't worth continuing we'll refund the $49."
                   }
                 </p>
-
-                {/* Mobile: floating estimate card, stacked below the hero text */}
-                <div className="block md:hidden mt-8">
-                  <div className="callcard">
-                    <div className="bar">
-                      <div className="dot">
-                        <span className="ic">
-                          <IconCalendarFilled />
-                        </span>
-                      </div>
-                      <div>
-                        <b>Open Estimates, Last 90 Days</b>
-                        <small>Age, value, and follow-ups logged per job</small>
-                      </div>
-                    </div>
-                    <div className="callrow">
-                      <span className="ic">
-                        <IconClockRingFilled />
-                      </span>
-                      <div className="t">
-                        4620 Live Oak Dr &middot; Condenser Replacement
-                        <small>System installed 16 yrs ago</small>
-                      </div>
-                      <div className="callmeta">
-                        <span className="val">$12,000</span>
-                        <span className="tag">Day 3 logged</span>
-                      </div>
-                    </div>
-                    <div className="callrow">
-                      <span className="ic">
-                        <IconCalendarFilled />
-                      </span>
-                      <div className="t">
-                        212 Magnolia Ct &middot; Full System Install
-                        <small>Estimate sent 74 days ago</small>
-                      </div>
-                      <div className="callmeta">
-                        <span className="val">$8,400</span>
-                        <span className="tag blue">Day 7 logged</span>
-                      </div>
-                    </div>
-                    <div className="callrow">
-                      <span className="ic">
-                        <IconCalendarFilled />
-                      </span>
-                      <div className="t">
-                        88 Riverside Ave &middot; Repair &amp; Recharge
-                        <small>Estimate sent 21 days ago</small>
-                      </div>
-                      <div className="callmeta">
-                        <span className="val">$3,200</span>
-                        <span className="tag blue">Day 1 logged</span>
-                      </div>
-                    </div>
-                    <p className="illus">
-                      We pay two weeks of their salary. You pay $49.
-                    </p>
-                  </div>
-                </div>
               </div>
               <div className="hidden md:block">
                 <div className="hero-right">
@@ -283,12 +226,13 @@ export default function QuotesPage() {
           <div className="wrap">
             <div className="grid items-center gap-10 md:grid-cols-2">
               <div>
-                <Reveal direction="l" className="sec-head" style={{ maxWidth: 480 }}>
-                  <h2>Ten Minutes. We&apos;ll Count Your Open Estimates Together.</h2>
+                <Reveal direction="l" className="sec-head max-w-[480px] md:max-w-[560px]">
+                  <h2>10 Minutes. We&apos;ll Count Your Open Estimates Together.</h2>
                   <p>
-                    On the call we pull every open estimate in your system, sort them
-                    by value and by age, and hand you the list. You keep it whether
-                    or not you go any further.
+                    On the call we pull every open estimate in your system, sort
+                    them by value and by age,
+                    <br className="hidden md:block" /> and hand you the list. You
+                    keep it whether or not you go any further.
                   </p>
                 </Reveal>
                 <Reveal direction="l" delay={0.1} style={{ marginTop: 24 }}>
@@ -454,7 +398,7 @@ export default function QuotesPage() {
             <Reveal className="final">
               <span className="eyebrow">Get Started</span>
               <h2 style={{ marginTop: 12 }}>
-                Two Weeks Of A Full-Time Specialist. $49.
+                2 Weeks Of A Full-Time Specialist. $49.
               </h2>
               <p>
                 10 minutes, we will count your open estimates together,
