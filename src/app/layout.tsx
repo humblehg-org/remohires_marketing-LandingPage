@@ -8,8 +8,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <GoogleTagManager gtmId="GTM-K736CCFP" />
       <body>
+        <GoogleTagManager gtmId="GTM-K736CCFP" />
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-K736CCFP"

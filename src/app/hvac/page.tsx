@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import "../hvac.css";
+import { satoshi } from "./fonts";
 import { SiteHeader } from "@/components/hvac/site-header";
 import { ScrollProgress } from "@/components/hvac/scroll-progress";
 import { Reveal } from "@/components/hvac/reveal";
@@ -103,11 +103,7 @@ const featureClusters = [
 
 export default function QuotesPage() {
   return (
-    <>
-      <link
-        href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap"
-        rel="stylesheet"
-      />
+    <div className={satoshi.variable}>
       <ScrollProgress />
       <TopStrip />
       <SiteHeader ctaLabel="Book 10 Minutes" />
@@ -443,19 +439,6 @@ export default function QuotesPage() {
           </div>
         </div>
       </footer>
-
-      <Script
-        type="module"
-        src="https://cdn.landbot.io/landbot-3/landbot-3.0.0.mjs"
-        strategy="afterInteractive"
-      />
-      <Script id="landbot-livechat" type="module" strategy="afterInteractive">
-        {`
-          var myLandbot = new Landbot.Livechat({
-            configUrl: 'https://storage.googleapis.com/landbot.online/v3/H-3497472-BV2M5Q5WU7GV91CT/index.json',
-          });
-        `}
-      </Script>
-    </>
+    </div>
   );
 }
