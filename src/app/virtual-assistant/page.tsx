@@ -7,6 +7,7 @@ import { Reveal } from "@/components/virtual-assistant/reveal";
 import { BookCta } from "@/components/virtual-assistant/book-cta";
 import { ServicesWidget, type ServiceCategory } from "@/components/virtual-assistant/services-widget";
 import { Logo } from "@/components/virtual-assistant/logo";
+import { MobileBookFab } from "@/components/virtual-assistant/mobile-book-fab";
 import {
   IconCheck,
   IconMail,
@@ -163,6 +164,7 @@ export default function VirtualAssistantWholesalePage() {
 
       <TopStrip />
       <SiteHeader />
+      <MobileBookFab />
 
       <main id="main">
         <div className="hero-why-shell">
@@ -183,7 +185,7 @@ export default function VirtualAssistantWholesalePage() {
                     scheduling, research, and day-to-day admin. It&rsquo;s built with wholesale distributors in
                     mind, but works great for any growing business.
                   </p>
-                  <div style={{ marginTop: 8 }}>
+                  <div id="hero-cta" style={{ marginTop: 8 }}>
                     <BookCta ctaName="hero" className="btn primary bookbtn js-book-cta">
                       Book Your Discovery Call
                     </BookCta>
