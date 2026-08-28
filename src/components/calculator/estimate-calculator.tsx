@@ -2,6 +2,7 @@
 
 import { useId, useState } from "react";
 import styles from "@/app/calculator/page.module.css";
+import { CalculatorCTA } from "./calculator-cta";
 
 function money(n: number) {
   return "$" + Math.round(n).toLocaleString("en-US");
@@ -75,21 +76,19 @@ export function EstimateCalculator() {
       <div className={styles.result}>
         <div className={styles.lab}>Value Sitting In Your Pipeline (Last 90 Days)</div>
         <div className={styles.mid}>
-          <div className={styles.big}>{money(pipeline)}</div>
+          <div className={styles.big}>{money(pipeline)}*</div>
         </div>
         <div className={styles.rows}>
           <div className={styles.row}>
             <span>If You Recovered Just 1 In 10</span>
-            <b>{money(recoverValue)}</b>
+            <b>{money(recoverValue)}*</b>
           </div>
           <div className={styles.row}>
             <span>Extra Jobs Booked</span>
             <b>{Math.round(recoverJobs)}</b>
           </div>
         </div>
-        <a className={styles.cta} href="/homeservices">
-          Get The Real Number, Free Audit
-        </a>
+        <CalculatorCTA />
       </div>
     </div>
   );
