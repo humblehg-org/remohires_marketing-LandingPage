@@ -23,6 +23,7 @@ export function CalculatorCTA() {
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    window.dataLayer?.push({ event: "calculator_form_submit" });
     setIsSubmitted(true);
   }
 
@@ -62,7 +63,7 @@ export function CalculatorCTA() {
                 </p>
                 <a
                   className={styles.modalSubmit}
-                  href="https://calendar.google.com/"
+                  href="https://calendar.app.google/opczJKFLUCcXyLN26"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
