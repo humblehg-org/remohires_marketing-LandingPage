@@ -67,7 +67,7 @@ export default function AutomationPage() {
               </p>
               <div className={styles.ctaRow}>
                 <StartLink className={`${styles.btn} ${styles.btnPrimary} ${styles.btnLg}`}>
-                  Start My `$49 Sprint <span className={styles.arrow}>&rarr;</span>
+                  Start My $49 Sprint <span className={styles.arrow}>&rarr;</span>
                 </StartLink>
               </div>
               <div className={styles.trustList}>
@@ -423,7 +423,7 @@ export default function AutomationPage() {
 
           <div className={styles.faqCta}>
             <StartLink className={`${styles.btn} ${styles.btnPrimary} ${styles.btnLg} ${styles.faqCtaBtn}`}>
-              Start My `$49 Sprint
+              Start My $49 Sprint
             </StartLink>
           </div>
         </Reveal>

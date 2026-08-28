@@ -75,7 +75,7 @@ export default function BusinessAutomationPage() {
               </p>
               <div className={styles.ctaRow}>
                 <StartLink className={`${styles.btn} ${styles.btnPrimary} ${styles.btnLg}`}>
-                  Automate One Process for `$49 <span className={styles.arrow}>&rarr;</span>
+                  Automate One Process for $49 <span className={styles.arrow}>&rarr;</span>
                 </StartLink>
               </div>
               <div className={styles.trustList}>
@@ -438,7 +438,7 @@ export default function BusinessAutomationPage() {
 
           <div className={styles.faqCta}>
             <StartLink className={`${styles.btn} ${styles.btnPrimary} ${styles.btnLg} ${styles.faqCtaBtn}`}>
-              Automate One Process for `$49
+              Automate One Process for $49
             </StartLink>
           </div>
         </Reveal>
