@@ -112,7 +112,7 @@ export default function QuotesPage() {
         <div className="hero-why-shell">
           <section
             id="hero"
-            className="hero flex flex-col justify-center min-h-[85vh] md:min-h-0 md:justify-start"
+            className="hero flex flex-col justify-start min-h-0 md:min-h-0 md:justify-start"
             style={{ padding: 0 }}
           >
           <div className="wrap">
