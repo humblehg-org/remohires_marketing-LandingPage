@@ -1,0 +1,432 @@
+/* Ported from custom-recruitment.html's inline <style> block. Scoped to
+   /custom-recruitment only (imported solely by this route's page.tsx), so these
+   generic-looking class names (.container, .hero, .btn, .section, ...) do not leak
+   into other routes. */
+
+/* Unscoped (not `.cr`-prefixed) on purpose: `html`/`body` can't be reached from a
+   wrapper div selector. Safe because Next.js only loads this file's compiled chunk on
+   the /custom-recruitment route itself, so it doesn't affect other pages. */
+html { scroll-behavior: smooth }
+body { overflow-x: hidden }
+
+.cr {
+  --radius: 0.875rem;
+  --background: #ffffff;
+  --foreground: #1a1f4d;
+  --card: #ffffff;
+  --card-foreground: #1a1f4d;
+  --primary: #0f2170;
+  --primary-foreground: #f8fffe;
+  --secondary: #f2f4fb;
+  --secondary-foreground: #0f2170;
+  --muted: #f4f6fb;
+  --muted-foreground: #5e6a8a;
+  --accent: #01e0cb;
+  --accent-foreground: #0f2170;
+  --border: #e2e6f3;
+  --input: #e2e6f3;
+  --ring: #01e0cb;
+  --navy: #0f2170;
+  --navy-deep: #09134d;
+  --teal: #01e0cb;
+  --teal-soft: #e3fffb;
+  --mist: #f4f8fb;
+  --shadow-soft: 0 1px 2px rgba(15, 33, 112, 0.06), 0 12px 32px -12px rgba(15, 33, 112, 0.18);
+  --shadow-lift: 0 30px 70px -30px rgba(15, 33, 112, 0.45);
+  --gradient-navy: linear-gradient(150deg, #09134d, #0f2170 60%, #172a8a);
+  --gradient-teal: linear-gradient(100deg, #01e0cb, #7af2e6);
+
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.cr * { box-sizing: border-box }
+.cr a { text-decoration: none; color: inherit }
+.cr button { font-family: inherit; cursor: pointer }
+.cr img { max-width: 100%; display: block }
+
+.cr .container {
+  width: 100%;
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+/* Top strip */
+.cr .topstrip { background: var(--navy); color: #fff; font-size: 13px; font-weight: 600; text-align: center; padding: 8px 12px }
+.cr .topstrip .rot {
+  display: inline-block; white-space: nowrap; color: var(--teal); max-width: 100%;
+  overflow: hidden; text-overflow: ellipsis; vertical-align: bottom
+}
+.cr .topstrip .rot span { display: inline-block; animation: cr-rotIn .5s ease }
+
+@keyframes cr-rotIn {
+  from { opacity: 0; transform: translateY(5px) }
+  to { opacity: 1; transform: none }
+}
+
+/* Header */
+.cr .header {
+  position: sticky; top: 0; z-index: 50; border-bottom: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  transition: box-shadow .25s ease, background .25s ease
+}
+.cr .header.scrolled { box-shadow: 0 8px 30px rgba(15, 33, 112, .10); background: rgba(255, 255, 255, .95) }
+
+.cr .header-inner { display: flex; height: 4rem; align-items: center; justify-content: space-between; gap: 16px; position: relative }
+.cr .logo-img { display: block; height: 26px; width: auto; color: var(--primary) }
+
+.cr .nav-links { display: flex; gap: 26px; align-items: center }
+.cr .nav-links a:not(.btn) {
+  font-size: 14.5px; font-weight: 500; color: var(--foreground); opacity: .82;
+  display: inline-block; transition: opacity .18s, color .18s
+}
+.cr .nav-links a:not(.btn):hover { opacity: 1; color: var(--primary) }
+
+@media (max-width: 940px) { .cr .nav-links { display: none } }
+
+.cr .mobile-menu-btn {
+  display: none; align-items: center; justify-content: center; width: 38px; height: 38px;
+  border-radius: 10px; border: 1px solid var(--border); background: #fff; color: var(--primary);
+  cursor: pointer; flex: none
+}
+.cr .mobile-menu-btn svg { width: 20px; height: 20px }
+.cr .mobile-menu-btn:hover { border-color: var(--primary) }
+
+@media (max-width: 940px) { .cr .mobile-menu-btn { display: inline-flex } }
+
+.cr .mobile-menu {
+  position: absolute; top: 100%; left: 0; right: 0; display: flex; flex-direction: column;
+  background: #fff; border-bottom: 1px solid var(--border); box-shadow: 0 20px 40px rgba(15, 33, 112, .12);
+  max-height: 0; overflow: hidden; opacity: 0; transition: max-height .3s ease, opacity .25s ease
+}
+.cr .mobile-menu.open { max-height: 340px; opacity: 1 }
+.cr .mobile-menu a { padding: 16px 24px; font-size: 15px; font-weight: 600; color: var(--foreground); border-bottom: 1px solid var(--border) }
+.cr .mobile-menu a:last-child { border-bottom: none }
+.cr .mobile-menu a:hover { color: var(--primary); background: var(--muted) }
+.cr .mobile-menu .btn { margin: 14px 24px }
+
+/* Floating mobile CTA, shown once the visitor scrolls past the hero CTA */
+.cr .mobile-float-cta {
+  position: fixed; left: 16px; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom));
+  z-index: 70; display: flex; justify-content: center; pointer-events: none;
+  opacity: 0; transform: translateY(18px) scale(.97); transition: opacity .32s ease, transform .32s ease
+}
+.cr .mobile-float-cta.show { opacity: 1; transform: none; pointer-events: auto }
+.cr .mobile-float-cta .btn {
+  width: 100%; color: #fff; background: rgba(15, 33, 112, .62);
+  backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, .28);
+  box-shadow: 0 14px 34px rgba(15, 33, 112, .38), inset 0 1px 0 rgba(255, 255, 255, .25)
+}
+
+@media (min-width: 941px) { .cr .mobile-float-cta { display: none } }
+@media (max-width: 940px) {
+  /* Reserve space so the fixed floating CTA never sits flush against (or over) the
+     last bit of content on the page. */
+  .cr main { padding-bottom: 88px }
+}
+
+/* Shimmer sheen on the primary booking CTA */
+.cr .bookbtn { position: relative; overflow: hidden }
+.cr .bookbtn::after {
+  content: ""; position: absolute; top: 0; left: 0; width: 55%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .55), transparent);
+  transform: translateX(-254.55%) skewX(-18deg); animation: cr-bookbtnShimmer 3.2s ease-in-out infinite
+}
+
+@keyframes cr-bookbtnShimmer {
+  0% { transform: translateX(-254.55%) skewX(-18deg) }
+  55% { transform: translateX(290.91%) skewX(-18deg) }
+  100% { transform: translateX(290.91%) skewX(-18deg) }
+}
+
+.cr .btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  border-radius: 9999px; font-size: 0.875rem; font-weight: 500;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease; border: none
+}
+.cr .btn:hover { transform: translateY(-2px) }
+
+.cr .btn-primary { height: 2.5rem; padding: 0 1.25rem; background: var(--primary); color: var(--primary-foreground); box-shadow: var(--shadow-soft) }
+.cr .btn-lg { height: 3rem; padding: 0 1.5rem }
+.cr .btn-outline { height: 3rem; padding: 0 1.5rem; background: transparent; border: 1px solid rgba(15, 33, 112, 0.2); color: var(--primary) }
+.cr .btn-outline:hover { background: var(--card) }
+
+/* Hero */
+.cr .hero { position: relative; overflow: hidden; background: var(--mist) }
+.cr .hero-glow {
+  position: absolute; right: -10rem; top: -10rem; height: 34rem; width: 34rem; border-radius: 9999px;
+  opacity: 0.4; filter: blur(64px); background: var(--gradient-teal); pointer-events: none
+}
+
+.cr .hero-grid { position: relative; display: grid; gap: 3.5rem; padding-top: 5rem; padding-bottom: 5rem }
+
+@media (min-width: 1024px) {
+  .cr .hero-grid { grid-template-columns: 1.05fr 1fr; align-items: center; padding-top: 7rem; padding-bottom: 7rem }
+}
+
+.cr .badge {
+  display: inline-flex; align-items: center; gap: 0.5rem; border-radius: 9999px; background: var(--accent);
+  padding: 0.25rem 0.75rem; font-size: 0.75rem; font-weight: 500; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--background)
+}
+.cr .badge svg { width: 0.875rem; height: 0.875rem }
+
+.cr .hero h1 { margin-top: 1.5rem; font-size: 2.5rem; font-weight: 600; line-height: 1.05; letter-spacing: -0.025em; color: var(--primary) }
+@media (min-width: 640px) { .cr .hero h1 { font-size: 3rem } }
+@media (min-width: 1024px) { .cr .hero h1 { font-size: 3.6rem } }
+.cr .hero h1 .teal { color: var(--teal) }
+
+.cr .hero p { margin-top: 1.25rem; max-width: 36rem; font-size: 1.125rem; line-height: 1.625; color: var(--muted-foreground) }
+
+.cr .hero-actions { margin-top: 2rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem }
+
+.cr .hero-image-wrap { position: relative; animation: cr-slide-in-right 0.6s ease-out both; animation-delay: 0.2s }
+.cr .hero-image {
+  width: 100%; border-radius: 1rem; border: 1px solid var(--border); background: var(--card);
+  box-shadow: var(--shadow-lift); transition: transform 0.5s ease
+}
+.cr .hero-image:hover { transform: scale(1.01) }
+
+.cr .float-card {
+  position: absolute; bottom: -1.5rem; left: 1.5rem; display: none; align-items: center; gap: 0.75rem;
+  border-radius: 0.75rem; border: 1px solid var(--border); background: var(--card); padding: 0.75rem 1rem;
+  box-shadow: var(--shadow-soft); animation: cr-float 4s ease-in-out infinite
+}
+@media (min-width: 640px) { .cr .float-card { display: flex } }
+.cr .float-card svg { width: 1.25rem; height: 1.25rem; color: rgba(15, 33, 112, 0.7) }
+.cr .float-card p:first-child { font-weight: 500; color: var(--primary) }
+.cr .float-card p:last-child { font-size: 0.75rem; color: var(--muted-foreground) }
+
+/* Stats */
+.cr .stats { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--background) }
+.cr .stats-grid { display: grid; gap: 2rem; padding-top: 3rem; padding-bottom: 3rem }
+@media (min-width: 640px) { .cr .stats-grid { grid-template-columns: repeat(4, 1fr) } }
+
+.cr .stat-value { font-size: 1.875rem; font-weight: 600; letter-spacing: -0.025em; color: var(--primary) }
+.cr .stat-label { margin-top: 0.25rem; font-size: 0.875rem; color: var(--muted-foreground) }
+
+/* Sections */
+.cr .section { padding-top: 5rem; padding-bottom: 5rem }
+.cr .section-title { font-size: 1.875rem; font-weight: 600; letter-spacing: -0.025em; color: var(--primary); line-height: 1.2 }
+@media (min-width: 640px) { .cr .section-title { font-size: 2.25rem } }
+.cr .section-subtitle { margin-top: 1rem; font-size: 1.125rem; line-height: 1.625; color: var(--muted-foreground); max-width: 36rem }
+.cr .eyebrow { font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.18em; color: var(--muted-foreground) }
+
+/* Outcomes */
+.cr .outcomes-grid { margin-top: 3rem; display: grid; gap: 1.25rem }
+@media (min-width: 640px) { .cr .outcomes-grid { grid-template-columns: repeat(2, 1fr) } }
+@media (min-width: 1024px) { .cr .outcomes-grid { grid-template-columns: repeat(4, 1fr) } }
+
+.cr .outcome-card { border-radius: 1rem; border: 1px solid var(--border); background: var(--card); padding: 1.5rem; transition: transform 0.2s ease, box-shadow 0.2s ease }
+.cr .outcome-card:hover { transform: translateY(-0.25rem); box-shadow: var(--shadow-soft) }
+
+.cr .icon-wrap {
+  display: inline-flex; height: 2.5rem; width: 2.5rem; align-items: center; justify-content: center;
+  border-radius: 0.75rem; background: var(--teal-soft); transition: transform 0.3s ease
+}
+.cr .outcome-card:hover .icon-wrap { transform: scale(1.1) }
+.cr .icon-wrap svg { width: 1.25rem; height: 1.25rem; color: var(--primary) }
+
+.cr .outcome-card h3 { margin-top: 1.25rem; font-size: 1rem; font-weight: 600; color: var(--primary) }
+.cr .outcome-card p { margin-top: 0.5rem; font-size: 0.875rem; line-height: 1.625; color: var(--muted-foreground) }
+
+/* Split feature */
+.cr .bg-mist { background: var(--mist) }
+.cr .split-grid { display: grid; gap: 3rem; align-items: center }
+@media (min-width: 1024px) { .cr .split-grid { grid-template-columns: repeat(2, 1fr) } }
+
+.cr .split-image {
+  width: 100%; border-radius: 1rem; border: 1px solid var(--border); object-fit: cover;
+  box-shadow: var(--shadow-soft); transition: transform 0.5s ease; max-height: 32rem
+}
+.cr .split-image:hover { transform: scale(1.01) }
+
+.cr .feature-list { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.25rem }
+.cr .feature-item { border-left: 2px solid var(--accent); background: rgba(255, 255, 255, 0.5); padding-left: 1.25rem; transition: all 0.2s ease }
+.cr .feature-item:hover { border-left-width: 4px; background: var(--card); padding-left: 1.5rem }
+.cr .feature-item h3 { font-size: 1rem; font-weight: 600; color: var(--primary) }
+.cr .feature-item p { margin-top: 0.25rem; font-size: 0.875rem; line-height: 1.625; color: var(--muted-foreground) }
+
+/* Steps */
+.cr .steps-grid { margin-top: 3rem; display: grid; gap: 1rem }
+@media (min-width: 768px) { .cr .steps-grid { grid-template-columns: repeat(5, 1fr) } }
+
+.cr .step-card {
+  position: relative; height: 100%; width: 100%; border-radius: 1rem; border: 1px solid var(--border);
+  background: var(--card); padding: 1.25rem; text-align: left; transition: all 0.3s ease
+}
+.cr .step-card.active { border-color: var(--accent); background: rgba(1, 224, 203, 0.15); box-shadow: var(--shadow-soft) }
+.cr .step-card:not(.active):hover { border-color: rgba(1, 224, 203, 0.5); background: rgba(1, 224, 203, 0.08) }
+
+.cr .step-icon {
+  display: inline-flex; height: 2.25rem; width: 2.25rem; align-items: center; justify-content: center;
+  border-radius: 0.5rem; background: var(--teal-soft); color: var(--primary); transition: background 0.3s ease
+}
+.cr .step-card.active .step-icon { background: var(--primary); color: var(--primary-foreground) }
+.cr .step-icon svg { width: 1rem; height: 1rem }
+
+.cr .step-number { position: absolute; right: 1rem; top: 1rem; font-family: ui-monospace, monospace; font-size: 0.75rem; color: rgba(94, 106, 138, 0.6) }
+.cr .step-card h3 { margin-top: 1rem; font-size: 1rem; font-weight: 600; color: var(--primary) }
+.cr .step-card p { margin-top: 0.5rem; font-size: 0.875rem; line-height: 1.625; color: var(--muted-foreground) }
+
+.cr .step-bar { margin-top: 1rem; height: 0.25rem; border-radius: 9999px; background: var(--accent); width: 0; opacity: 0; transition: width 0.5s ease, opacity 0.5s ease }
+.cr .step-card.active .step-bar { width: 100%; opacity: 1 }
+
+/* Comparison */
+.cr .table-wrap { margin-top: 2.5rem; overflow-x: auto; border-radius: 1rem; border: 1px solid var(--border); background: var(--card); box-shadow: var(--shadow-soft); -webkit-overflow-scrolling: touch }
+.cr .comparison-table { width: 100%; min-width: 42rem; border-collapse: collapse; text-align: left; font-size: 0.875rem }
+.cr .comparison-table th, .cr .comparison-table td { padding: 1rem 1.5rem }
+.cr .comparison-table thead tr { border-bottom: 1px solid var(--border); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted-foreground) }
+.cr .comparison-table th:nth-child(2) { color: var(--primary); font-weight: 600 }
+.cr .comparison-table tbody tr { border-bottom: 1px solid rgba(226, 230, 243, 0.7); transition: background-color 0.2s ease }
+.cr .comparison-table tbody tr:last-child { border-bottom: none }
+.cr .comparison-table tbody tr:hover { background: var(--muted) }
+.cr .comparison-table td:first-child { font-weight: 500; color: var(--primary) }
+.cr .comparison-table td:nth-child(2) { background: rgba(1, 224, 203, 0.25); font-weight: 500; color: var(--primary); transition: background-color 0.2s ease }
+.cr .comparison-table tbody tr:hover td:nth-child(2) { background: rgba(1, 224, 203, 0.35) }
+.cr .comparison-table td { color: var(--muted-foreground) }
+
+/* Roles */
+.cr .roles-grid { margin-top: 3rem; display: grid; gap: 1rem }
+@media (min-width: 768px) { .cr .roles-grid { grid-template-columns: repeat(2, 1fr) } }
+@media (min-width: 1024px) { .cr .roles-grid { grid-template-columns: repeat(3, 1fr) } }
+
+.cr .role-card { display: flex; align-items: center; justify-content: space-between; border-radius: 1rem; border: 1px solid var(--border); background: var(--card); padding: 1.25rem; transition: all 0.2s ease }
+.cr .role-card:hover { transform: translateY(-0.25rem); border-color: var(--accent); box-shadow: var(--shadow-soft) }
+.cr .role-card span { font-weight: 500; color: var(--primary) }
+.cr .role-card svg { width: 1rem; height: 1rem; color: var(--muted-foreground); transform: translateX(-0.5rem); opacity: 0; transition: all 0.2s ease }
+.cr .role-card:hover svg { transform: translateX(0); color: var(--primary); opacity: 1 }
+
+/* FAQ */
+.cr .faq-wrap { margin-top: 2.5rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border) }
+.cr .faq-item { overflow: hidden; border-bottom: 1px solid var(--border) }
+.cr .faq-item:last-child { border-bottom: none }
+
+.cr .faq-trigger {
+  display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 1.5rem;
+  padding: 1.25rem 0; text-align: left; background: none; border: none; transition: color 0.2s ease
+}
+.cr .faq-trigger:hover { color: var(--primary) }
+.cr .faq-trigger span { font-size: 1rem; font-weight: 500; color: var(--primary) }
+.cr .faq-trigger svg { width: 1rem; height: 1rem; flex-shrink: 0; color: var(--muted-foreground); transition: transform 0.3s ease }
+.cr .faq-item.open .faq-trigger svg { transform: rotate(180deg) }
+
+.cr .faq-content { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.3s ease-out, opacity 0.3s ease-out }
+.cr .faq-item.open .faq-content { grid-template-rows: 1fr; opacity: 1 }
+.cr .faq-content-inner { overflow: hidden }
+.cr .faq-content p { padding-bottom: 1.5rem; font-size: 0.875rem; line-height: 1.625; color: var(--muted-foreground) }
+
+/* CTA */
+.cr .cta-box { position: relative; overflow: hidden; border-radius: 1.5rem; padding: 3.5rem 2rem; text-align: center; background: var(--gradient-navy) }
+@media (min-width: 640px) { .cr .cta-box { padding: 3.5rem 4rem } }
+
+.cr .cta-glow { position: absolute; left: -6rem; top: -6rem; height: 18rem; width: 18rem; border-radius: 9999px; opacity: 0.3; filter: blur(48px); background: var(--gradient-teal); pointer-events: none }
+
+.cr .cta-box h2 { position: relative; max-width: 42rem; margin: 0 auto; font-size: 1.875rem; font-weight: 600; letter-spacing: -0.025em; line-height: 1.2; color: var(--primary-foreground) }
+@media (min-width: 640px) { .cr .cta-box h2 { font-size: 2.25rem } }
+.cr .cta-box p { position: relative; max-width: 36rem; margin: 1rem auto 0; color: rgba(248, 255, 254, 0.75) }
+
+/* Footer */
+.cr .footer { background: var(--navy); color: #fff; padding: 48px 0 34px; margin-top: 0 }
+.cr .footer .logo-img { margin-bottom: 16px; height: 26px }
+.cr .footer-inner { display: flex; flex-direction: column; gap: 1rem; padding-top: 0; padding-bottom: 0; font-size: 13.5px; color: rgba(255, 255, 255, 0.7) }
+@media (min-width: 640px) { .cr .footer-inner { flex-direction: row; align-items: center; justify-content: space-between } }
+.cr .footer-brand { font-weight: 700; color: #fff }
+.cr .footer a { color: var(--teal); font-weight: 600 }
+
+/* Animations */
+@keyframes cr-fade-in-up { from { opacity: 0; transform: translateY(1.25rem) } to { opacity: 1; transform: translateY(0) } }
+@keyframes cr-scale-in { from { opacity: 0; transform: scale(0.96) } to { opacity: 1; transform: scale(1) } }
+@keyframes cr-slide-in-right { from { opacity: 0; transform: translateX(1.5rem) } to { opacity: 1; transform: translateX(0) } }
+@keyframes cr-pulse-soft { 0%, 100% { box-shadow: 0 0 0 0 rgba(1, 224, 203, 0.35) } 50% { box-shadow: 0 0 0 0.75rem rgba(1, 224, 203, 0) } }
+@keyframes cr-float { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-0.5rem) } }
+
+.cr .animate-fade-in-up { animation: cr-fade-in-up 0.6s ease-out both }
+
+.cr .reveal { opacity: 0; transform: translateY(1.5rem); transition: opacity 0.55s ease-out, transform 0.55s ease-out }
+.cr .reveal.visible { opacity: 1; transform: translateY(0) }
+.cr .reveal-scale { opacity: 0; transform: scale(0.97); transition: opacity 0.5s ease-out, transform 0.5s ease-out }
+.cr .reveal-scale.visible { opacity: 1; transform: scale(1) }
+
+/* Fluid media + grid safety (prevents horizontal overflow on phones) */
+.cr .hero-grid > *, .cr .split-grid > *, .cr .stats-grid > *, .cr .outcomes-grid > *, .cr .steps-grid > *, .cr .roles-grid > * { min-width: 0 }
+.cr .hero-image, .cr .split-image { width: 100%; height: auto; max-width: 100% }
+.cr .hero-image-wrap { width: 100%; min-width: 0 }
+.cr h1, .cr h2, .cr h3, .cr p, .cr span, .cr a { overflow-wrap: break-word }
+
+/* ===== Mobile responsive optimisations ===== */
+.cr { overflow-x: hidden }
+.cr * { -webkit-tap-highlight-color: rgba(1, 224, 203, 0.2) }
+
+@media (hover: none) {
+  .cr .btn:hover, .cr .role-card:hover, .cr .outcome-card:hover, .cr .split-image:hover { transform: none }
+  .cr .role-card svg { opacity: 1; transform: none }
+  .cr .feature-item:hover { padding-left: 1.25rem; border-left-width: 2px }
+}
+
+.cr .btn:active, .cr .role-card:active, .cr .step-card:active, .cr .faq-trigger:active { transform: scale(0.98) }
+
+@media (max-width: 640px) {
+  .cr .container { padding-left: 1rem; padding-right: 1rem }
+
+  .cr .section { padding-top: 3rem; padding-bottom: 3rem }
+
+  /* Hero: the only source of vertical hero spacing is .hero-grid's own padding (the
+     "hero" section itself carries no separate/generic section padding to stack with),
+     so the fix here is just the mobile padding-top value itself — down from 2.5rem
+     (40px) to 22px, landing in the requested ~20-24px range below the sticky navbar.
+     Bottom padding and every desktop/tablet breakpoint above are untouched. */
+  .cr .hero-grid { padding-top: 22px; padding-bottom: 3rem; gap: 2.25rem }
+
+  .cr .stats-grid { gap: 1.5rem; padding-top: 2rem; padding-bottom: 2rem; grid-template-columns: repeat(2, 1fr) }
+  .cr .outcomes-grid, .cr .steps-grid, .cr .roles-grid { margin-top: 2rem }
+  .cr .split-grid { gap: 2rem }
+  .cr .feature-list { margin-top: 1.5rem; gap: 1rem }
+  .cr .table-wrap { margin-top: 1.5rem }
+  .cr .faq-wrap { margin-top: 1.5rem }
+
+  .cr .hero-glow { height: 20rem; width: 20rem; right: -6rem; top: -6rem }
+
+  .cr h1 { font-size: 2rem !important; line-height: 1.12 !important }
+  .cr .section-title { font-size: 1.5rem }
+  .cr .section-subtitle { font-size: 1rem; margin-top: 0.75rem }
+  .cr .stat-value { font-size: 1.5rem }
+
+  .cr .cta-box { padding: 2.5rem 1.25rem; border-radius: 1.25rem }
+  .cr .cta-box h2 { font-size: 1.5rem }
+  .cr .cta-box p { font-size: 0.9375rem }
+
+  .cr .btn-lg, .cr .btn-outline { width: 100%; height: 3rem; padding: 0 1.25rem }
+  .cr .btn-primary { height: 2.75rem; padding: 0 1rem }
+  .cr .hero-grid .btn-lg, .cr .hero-grid .btn-outline { min-height: 3rem }
+
+  .cr .outcome-card { padding: 1.25rem }
+  .cr .role-card, .cr .step-card { padding: 1rem 1.125rem }
+  .cr .split-image { max-height: 20rem }
+
+  .cr .comparison-table { min-width: 34rem; font-size: 0.8125rem }
+  .cr .comparison-table th, .cr .comparison-table td { padding: 0.75rem 1rem }
+
+  .cr .faq-trigger { padding: 1.125rem 0; min-height: 3.25rem; gap: 1rem }
+  .cr .faq-trigger span { font-size: 0.9375rem; line-height: 1.4 }
+  .cr .faq-content p { padding-bottom: 1.125rem }
+}
+
+@media (max-width: 380px) {
+  .cr .stats-grid { grid-template-columns: 1fr }
+  .cr h1 { font-size: 1.75rem !important }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cr .reveal, .cr .reveal-scale { opacity: 1 !important; transform: none !important }
+  .cr .bookbtn::after { animation: none }
+  .cr .topstrip .rot span { animation: none }
+  .cr .mobile-float-cta { transition: opacity .01s linear }
+}
