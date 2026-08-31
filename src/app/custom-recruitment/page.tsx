@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Script from "next/script";
 import "./custom-recruitment.css";
 import { TopStrip } from "@/components/custom-recruitment/top-strip";
@@ -202,12 +203,13 @@ export default function CustomRecruitmentPage() {
             </div>
 
             <div className="hero-image-wrap">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="/custom-recruitment-hero.png"
                 alt="RemoHires shortlist dashboard showing screened remote candidates ready to interview"
                 width={1408}
                 height={1008}
+                priority
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="hero-image"
               />
               <div className="float-card">
