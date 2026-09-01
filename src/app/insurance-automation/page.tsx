@@ -25,9 +25,9 @@ import {
 } from "@/components/insurance-automation/icons";
 
 export const metadata: Metadata = {
-  title: "Insurance Agency Automation | Automate Repetitive Work",
+  title: "Hire An Insurance Automation Developer | RemoHires",
   description:
-    "Automate repetitive insurance agency workflows, from lead follow-ups and CRM updates to client communication and internal processes.",
+    "Place a dedicated automation developer, specialized in insurance workflows, directly on your team. Not a generalist VA or outside agency - a specialist hire who builds and manages your automations from within.",
 };
 
 const FLOW_STEPS: FlowStepData[] = [
@@ -56,17 +56,17 @@ const AUTOMATIONS = [
   {
     icon: <IconUser />,
     title: "Lead Follow-Up",
-    body: "A new lead comes in and everything moves on its own: the CRM updates, the right person gets assigned, and follow-up goes out before the lead has a chance to go cold.",
+    body: "Your developer builds it so a new lead moves on its own: the CRM updates, the right person gets assigned, and follow-up goes out before the lead has a chance to go cold.",
   },
   {
     icon: <IconDoc />,
     title: "Quote Workflow",
-    body: "No more chasing missing paperwork or checking quote status by hand. Requests move forward on their own, and your team hears about it the moment something needs their attention.",
+    body: "No more chasing missing paperwork or checking quote status by hand. Your hire keeps requests moving forward on their own, and flags your team the moment something needs attention.",
   },
   {
     icon: <IconMail />,
     title: "Client Communication",
-    body: "Reminders, confirmations, follow-ups, and document requests go out right on schedule, in your agency's voice, without anyone having to remember to send them.",
+    body: "Reminders, confirmations, follow-ups, and document requests go out right on schedule, in your agency's voice, managed day-to-day by the automation specialist on your team.",
   },
 ];
 
@@ -84,9 +84,9 @@ const AUTOMATION_CHIPS = [
 ];
 
 const HOW_IT_WORKS = [
-  { num: "01", title: "Identify", body: "We sit down with your team and find out exactly what's eating their time." },
-  { num: "02", title: "Automate", body: "We build it right into the tools you already use. No new software, no retraining." },
-  { num: "03", title: "Improve", body: "We keep an eye on it and sharpen it as your agency grows and changes." },
+  { num: "01", title: "Match", body: "We learn your agency's workflows and tools, then match you with a vetted automation developer who has insurance industry experience." },
+  { num: "02", title: "Place", body: "Your developer joins your team directly, working inside the CRM, calendar, and inbox you already use. No new software, no retraining." },
+  { num: "03", title: "Manage & Grow", body: "They stay on as part of your team, managing what's live and building new automations as your agency grows and changes." },
 ];
 
 const TOOL_CHIPS = [
@@ -131,19 +131,20 @@ export default function InsuranceAutomationPage() {
             <div className="wrap">
               <div className="grid">
                 <div>
-                  <span className="eyebrow">Insurance Agency Automation</span>
-                  <h1 id="hero-heading">Automate The Work That Slows Your Insurance Agency Down.</h1>
+                  <span className="eyebrow">Insurance Automation Hiring</span>
+                  <h1 id="hero-heading">Lead Follow-Ups, Quotes, And Data Entry Finally Off Your Plate</h1>
                   <p className="sub">
-                    Your team loses hours every week to lead follow-ups, quote paperwork, client emails, and data
-                    entry that never stops piling up. We build automations that take that work off their plate, so
-                    they can focus on selling and taking care of clients.
+                    You get a dedicated automation developer who owns your automations end-to-end, working from
+                    inside your team - not a generalist VA juggling ten other clients, not an outside agency handing
+                    off a project and disappearing. Someone who builds it, runs it, and keeps it working as your
+                    agency grows.
                   </p>
                   <div id="hero-cta" style={{ marginTop: 8 }}>
-                    <BookCta ctaName="hero" className="btn primary bookbtn">
-                      Book an Automation Call
+                    <BookCta ctaName="hiring-hero" className="btn primary bookbtn">
+                      Book a Hiring Call
                     </BookCta>
                   </div>
-                  <p className="hero-microcopy">We&rsquo;ll identify the processes worth automating first.</p>
+                  <p className="hero-microcopy">We&rsquo;ll match you with a vetted automation developer for your agency.</p>
                 </div>
 
                 <div className="visualcol">
@@ -155,8 +156,8 @@ export default function InsuranceAutomationPage() {
                         </span>
                       </div>
                       <div>
-                        <b>Automation In Motion</b>
-                        <small>What happens without anyone lifting a finger</small>
+                        <b>Your Hire, In Action</b>
+                        <small>What your automation developer builds and manages</small>
                       </div>
                       <span className="live-badge">
                         <span className="live-dot" aria-hidden="true" />
@@ -166,7 +167,9 @@ export default function InsuranceAutomationPage() {
 
                     <FlowCard steps={FLOW_STEPS} />
 
-                    <p className="illus">This work happens automatically, in the tools your team already uses.</p>
+                    <p className="illus">
+                      Built and managed by your dedicated automation developer, inside the tools your team already uses.
+                    </p>
                   </Reveal>
                 </div>
               </div>
@@ -183,6 +186,7 @@ export default function InsuranceAutomationPage() {
               <p>
                 Every lead, every quote, every policy moves through the same manual steps. None of that time gets
                 you closer to a sale or a happier client. It just gets repeated, over and over, week after week.
+                That&rsquo;s exactly the kind of work a dedicated automation hire takes off their plate.
               </p>
             </Reveal>
             <div className="problem-grid">
@@ -203,8 +207,12 @@ export default function InsuranceAutomationPage() {
           <div className="wrap">
             <Reveal className="sec-head">
               <span className="eyebrow">Automations</span>
-              <h2 id="automations-heading">The Work We Take Off Your Plate.</h2>
-              <p>Not generic software. Automation built around the repetitive work already eating into your team&rsquo;s week.</p>
+              <h2 id="automations-heading">The Work Your Dedicated Hire Will Own.</h2>
+              <p>
+                Not a generic VA, not outsourced software. Your automation developer works inside your agency,
+                building and owning the systems that solve the repetitive work already eating into your team&rsquo;s
+                week.
+              </p>
             </Reveal>
             <div className="grid3">
               {AUTOMATIONS.map((a) => (
@@ -233,7 +241,7 @@ export default function InsuranceAutomationPage() {
           <div className="wrap">
             <Reveal className="sec-head">
               <span className="eyebrow">How It Works</span>
-              <h2 id="how-heading">You Run The Agency. We&rsquo;ll Handle The Automation.</h2>
+              <h2 id="how-heading">You Run The Agency. Your New Hire Handles The Automation.</h2>
             </Reveal>
             <div className="grid3">
               {HOW_IT_WORKS.map((s) => (
@@ -254,8 +262,8 @@ export default function InsuranceAutomationPage() {
               <span className="eyebrow">No New Software To Learn</span>
               <h2 id="tools-heading">Works With The Tools Your Agency Already Uses.</h2>
               <p>
-                You already have a CRM, a calendar, and an inbox. We build automation around what you have, not a
-                new system you have to learn.
+                You already have a CRM, a calendar, and an inbox. Your dedicated hire works inside what you already
+                have, not a new system you have to learn.
               </p>
             </Reveal>
             <div className="chip-row">
@@ -272,17 +280,17 @@ export default function InsuranceAutomationPage() {
         <section id="final-cta" aria-labelledby="final-cta-heading">
           <div className="wrap">
             <Reveal className="final">
-              <span className="eyebrow">Ready To Automate?</span>
+              <span className="eyebrow">Ready To Hire?</span>
               <h2 id="final-cta-heading" style={{ marginTop: 12 }}>
-                Find The Work Your Agency Shouldn&rsquo;t Be Doing Manually.
+                Find The Right Automation Developer For Your Agency.
               </h2>
               <p>
-                Book a call and we&rsquo;ll walk through your current process together. No pitch, just a clear look
-                at what&rsquo;s worth automating first.
+                Book a call and we&rsquo;ll walk through your agency&rsquo;s workflows together. No pitch, just a
+                clear look at whether a dedicated automation hire is the right fit.
               </p>
               <div style={{ marginTop: 20 }}>
-                <BookCta ctaName="final" className="btn primary bookbtn">
-                  Book an Automation Call
+                <BookCta ctaName="hiring-final" className="btn primary bookbtn">
+                  Book a Hiring Call
                 </BookCta>
               </div>
             </Reveal>
@@ -294,7 +302,7 @@ export default function InsuranceAutomationPage() {
         <div className="wrap">
           <Logo variant="footer" className="logo-img" />
           <div className="frow">
-            <p>Automation systems for insurance agencies and business owners. remohires.com</p>
+            <p>Dedicated automation developer hires for insurance agencies and business owners. remohires.com</p>
             <p>
               &copy; 2026 RemoHires &middot; <a href="/termsofservice">Terms</a> &middot;{" "}
               <a href="/privacypolicy">Privacy</a>
