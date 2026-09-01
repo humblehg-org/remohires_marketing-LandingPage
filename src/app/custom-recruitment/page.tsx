@@ -183,13 +183,13 @@ export default function CustomRecruitmentPage() {
                 <span className="teal">Get Your Next Hire for FREE.</span>
               </h1>
               <p>
-                We find, vet, and present candidates for your role. No recruitment fee. No obligation. Free
+                We find, vet, and present candidates for your role. Any role, any industry. No upfront fee. Free
                 replacement if the fit is wrong.
               </p>
               <div className="hero-actions">
                 <div id="hero-cta">
                   <BookCta ctaName="hero" className="btn btn-primary btn-lg bookbtn">
-                    Claim My Free Shortlist
+                    Find My Next Hire
                     <IconArrowRight style={{ width: "1rem", height: "1rem", transition: "transform .2s" }} />
                   </BookCta>
                 </div>
@@ -198,7 +198,7 @@ export default function CustomRecruitmentPage() {
                 </a>
               </div>
               <p style={{ marginTop: 14, fontSize: 12, opacity: 0.62, maxWidth: "30rem" }}>
-                No spam. We&rsquo;ll confirm your hours and role before the shortlist starts.
+                Pay only when you find your next hire.
               </p>
             </div>
 
