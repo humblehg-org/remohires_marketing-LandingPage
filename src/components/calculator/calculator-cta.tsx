@@ -6,6 +6,7 @@ import styles from "@/app/calculator/page.module.css";
 export function CalculatorCTA() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSending, setIsSending] = useState(false);
 
   useEffect(() => {
     if (!isModalOpen) return;
@@ -21,20 +22,44 @@ export function CalculatorCTA() {
     setIsModalOpen(true);
   }
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    window.dataLayer?.push({ event: "calculator_form_submit" });
+    const form = e.currentTarget;
+    setIsSending(true);
 
-    if (typeof window !== "undefined") {
-      if (window.fbq) {
-        window.fbq("track", "Lead", { content_name: "Calculator Form Submit" });
+    try {
+      const formData = new FormData(form);
+      formData.append("access_key", "1ab0d6ca-0e58-4326-be4f-dcc0dc8b84d6");
+      formData.append("subject", "New Calculator Lead");
+
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: formData,
+      });
+      const data = await res.json();
+
+      if (res.status === 200 && data.success) {
+        window.dataLayer?.push({ event: "calculator_form_submit" });
+
+        if (typeof window !== "undefined") {
+          if (window.fbq) {
+            window.fbq("track", "Lead", { content_name: "Calculator Form Submit" });
+          }
+          if (window.dataLayer) {
+            window.dataLayer.push({ event: "generate_lead", form_name: "calculator_form" });
+          }
+        }
+
+        setIsSubmitted(true);
+      } else {
+        console.error("Web3Forms submission failed:", data);
       }
-      if (window.dataLayer) {
-        window.dataLayer.push({ event: "generate_lead", form_name: "calculator_form" });
-      }
+    } catch (err) {
+      console.error("Web3Forms submission error:", err);
+    } finally {
+      setIsSending(false);
     }
-
-    setIsSubmitted(true);
   }
 
   return (
@@ -129,8 +154,8 @@ export function CalculatorCTA() {
                     required
                     placeholder="Your business"
                   />
-                  <button type="submit" className={styles.modalSubmit}>
-                    Book My Free Audit
+                  <button type="submit" className={styles.modalSubmit} disabled={isSending}>
+                    {isSending ? "Sending..." : "Book My Free Audit"}
                   </button>
                   <p className={styles.modalFine}>By submitting you agree to be contacted about your audit.</p>
                 </form>
