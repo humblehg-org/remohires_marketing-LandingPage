@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Script from "next/script";
 import "./custom-recruitment.css";
 import { TopStrip } from "@/components/custom-recruitment/top-strip";
@@ -182,13 +183,13 @@ export default function CustomRecruitmentPage() {
                 <span className="teal">Get Your Next Hire for FREE.</span>
               </h1>
               <p>
-                We find, vet, and present candidates for your role. No recruitment fee. No obligation. Free
+                We find, vet, and present candidates for your role. Any role, any industry. No upfront fee. Free
                 replacement if the fit is wrong.
               </p>
               <div className="hero-actions">
                 <div id="hero-cta">
                   <BookCta ctaName="hero" className="btn btn-primary btn-lg bookbtn">
-                    Claim My Free Shortlist
+                    Find My Next Hire
                     <IconArrowRight style={{ width: "1rem", height: "1rem", transition: "transform .2s" }} />
                   </BookCta>
                 </div>
@@ -197,17 +198,18 @@ export default function CustomRecruitmentPage() {
                 </a>
               </div>
               <p style={{ marginTop: 14, fontSize: 12, opacity: 0.62, maxWidth: "30rem" }}>
-                No spam. We&rsquo;ll confirm your hours and role before the shortlist starts.
+                Pay only when you find your next hire.
               </p>
             </div>
 
             <div className="hero-image-wrap">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="/custom-recruitment-hero.png"
                 alt="RemoHires shortlist dashboard showing screened remote candidates ready to interview"
                 width={1408}
                 height={1008}
+                priority
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="hero-image"
               />
               <div className="float-card">
