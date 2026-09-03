@@ -24,6 +24,16 @@ export function CalculatorCTA() {
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     window.dataLayer?.push({ event: "calculator_form_submit" });
+
+    if (typeof window !== "undefined") {
+      if (window.fbq) {
+        window.fbq("track", "Lead", { content_name: "Calculator Form Submit" });
+      }
+      if (window.dataLayer) {
+        window.dataLayer.push({ event: "generate_lead", form_name: "calculator_form" });
+      }
+    }
+
     setIsSubmitted(true);
   }
 
