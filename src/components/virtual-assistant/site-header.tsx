@@ -39,7 +39,7 @@ export function SiteHeader() {
             </a>
           ))}
           <BookCta ctaName="header" className="btn primary cta js-book-cta">
-            Talk to Our Team
+           Book Your Discovery Call
           </BookCta>
         </nav>
         <button
@@ -65,7 +65,7 @@ export function SiteHeader() {
           className="btn primary js-book-cta"
           style={{ margin: "14px 24px", width: "calc(100% - 48px)" }}
         >
-          Talk to Our Team
+          Book Your Discovery Call
         </BookCta>
       </div>
     </header>

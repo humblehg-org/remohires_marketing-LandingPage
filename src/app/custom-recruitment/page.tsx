@@ -365,7 +365,7 @@ export default function CustomRecruitmentPage() {
                     animation: "cr-pulse-soft 2s ease-in-out infinite",
                   }}
                 >
-                  Request a Call
+                  Find My Next Hire
                   <IconArrowRight style={{ width: "1rem", height: "1rem" }} />
                 </BookCta>
               </div>

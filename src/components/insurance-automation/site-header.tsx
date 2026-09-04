@@ -38,7 +38,7 @@ export function SiteHeader() {
             </a>
           ))}
           <BookCta ctaName="header" className="btn primary cta">
-            Request a Call
+            Book a Hiring Call
           </BookCta>
         </nav>
         <button

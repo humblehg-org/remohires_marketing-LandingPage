@@ -130,7 +130,7 @@ export function CallbackModal() {
         ref={panelRef}
         role="dialog"
         aria-modal="true"
-        aria-label="Request a call"
+        aria-label="Find My Next Hire"
         onMouseDown={(e) => e.stopPropagation()}
       >
         <button type="button" className="callback-close" aria-label="Close" onClick={() => setOpen(false)}>

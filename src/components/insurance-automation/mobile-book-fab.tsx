@@ -38,7 +38,7 @@ export function MobileBookFab() {
   return (
     <div className={`mobile-float-cta${visible ? " show" : ""}`} id="mobile-float-cta">
       <BookCta ctaName="mobile-float" className="btn primary">
-        Request a Call
+       Book a Hiring Call
       </BookCta>
     </div>
   );

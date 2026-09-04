@@ -130,7 +130,7 @@ export function CallbackModal() {
         ref={panelRef}
         role="dialog"
         aria-modal="true"
-        aria-label="Request a call"
+        aria-label="Book a Hiring Call"
         onMouseDown={(e) => e.stopPropagation()}
       >
         <button type="button" className="callback-close" aria-label="Close" onClick={() => setOpen(false)}>
@@ -163,7 +163,7 @@ export function CallbackModal() {
             <input type="hidden" name="callback_type" value={callbackType ?? ""} />
 
             <div style={step === "details" ? undefined : { display: "none" }}>
-              <h2 className="callback-title">Talk to Our Team</h2>
+              <h2 className="callback-title">Book Your Discovery Call</h2>
               <p className="callback-subtitle">Tell us how to reach you and we&rsquo;ll take it from there.</p>
               <div className="callback-field">
                 <label htmlFor="va-cb-name">Name *</label>
