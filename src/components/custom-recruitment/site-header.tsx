@@ -40,7 +40,7 @@ export function SiteHeader() {
             </a>
           ))}
           <BookCta ctaName="header" className="btn btn-primary">
-            Book a Hiring Call
+            Request a Call
           </BookCta>
         </nav>
         <button
@@ -62,7 +62,7 @@ export function SiteHeader() {
           </a>
         ))}
         <BookCta ctaName="mobile-menu" className="btn btn-primary">
-          Book a Hiring Call
+          Request a Call
         </BookCta>
       </div>
     </header>

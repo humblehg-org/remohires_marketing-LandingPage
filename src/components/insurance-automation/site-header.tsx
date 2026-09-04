@@ -38,7 +38,7 @@ export function SiteHeader() {
             </a>
           ))}
           <BookCta ctaName="header" className="btn primary cta">
-            Book an Automation Call
+            Request a Call
           </BookCta>
         </nav>
         <button
@@ -60,7 +60,7 @@ export function SiteHeader() {
           </a>
         ))}
         <BookCta ctaName="mobile-menu" className="btn primary" style={{ margin: "14px 24px", width: "calc(100% - 48px)" }}>
-          Book an Automation Call
+          Request a Call
         </BookCta>
       </div>
     </header>

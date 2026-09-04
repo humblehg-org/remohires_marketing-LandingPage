@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { BookCta } from "./book-cta";
 
 /**
- * Mobile-only floating "Book a Hiring Call" button (hidden on desktop via CSS — see
+ * Mobile-only floating "Request a Call" button (hidden on desktop via CSS — see
  * .mobile-float-cta in custom-recruitment.css). Visible once the hero's own CTA
  * (#hero-cta) has scrolled out of view, hidden again once the final CTA section
  * (#shortlist) comes into view, so it never duplicates a CTA already on screen.
@@ -38,7 +38,7 @@ export function MobileBookFab() {
   return (
     <div className={`mobile-float-cta${visible ? " show" : ""}`} id="mobile-float-cta">
       <BookCta ctaName="mobile-float" className="btn btn-primary">
-        Book a Hiring Call
+        Request a Call
       </BookCta>
     </div>
   );

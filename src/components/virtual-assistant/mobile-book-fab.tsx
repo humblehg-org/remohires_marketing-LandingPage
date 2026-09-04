@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { BookCta } from "./book-cta";
 
 /**
- * Mobile-only floating "Book Your Discovery Call" button (hidden on desktop via CSS —
+ * Mobile-only floating "Talk to Our Team" button (hidden on desktop via CSS —
  * see .mobile-book-fab in virtual-assistant.css). Visible once the hero's own CTA
  * (#hero-cta) has scrolled out of view, hidden again once the final CTA section
  * (#final-cta) comes into view, so it never duplicates a CTA already on screen.
@@ -38,7 +38,7 @@ export function MobileBookFab() {
   return (
     <div className={`mobile-book-fab${visible ? " show" : ""}`}>
       <BookCta ctaName="mobile-fab" className="btn primary bookbtn block js-book-cta">
-        Book Your Discovery Call
+        Talk to Our Team
       </BookCta>
     </div>
   );

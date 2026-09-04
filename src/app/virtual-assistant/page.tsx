@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import "./virtual-assistant.css";
 import { TopStrip } from "@/components/virtual-assistant/top-strip";
 import { SiteHeader } from "@/components/virtual-assistant/site-header";
@@ -8,6 +7,7 @@ import { BookCta } from "@/components/virtual-assistant/book-cta";
 import { ServicesWidget, type ServiceCategory } from "@/components/virtual-assistant/services-widget";
 import { Logo } from "@/components/virtual-assistant/logo";
 import { MobileBookFab } from "@/components/virtual-assistant/mobile-book-fab";
+import { CallbackModal } from "@/components/virtual-assistant/callback-modal";
 import {
   IconCheck,
   IconMail,
@@ -145,19 +145,6 @@ const SERVICE_CATEGORIES: ServiceCategory[] = [
 export default function VirtualAssistantWholesalePage() {
   return (
     <div className="va">
-      {/* Cal element-click embed init — attaches click handling to every element with
-          data-cal-link/data-cal-namespace (see BookCta). GTM itself is already loaded
-          sitewide in the root layout, so it's not re-initialized here. */}
-      <Script id="cal-embed-virtual-assistant" strategy="afterInteractive">
-        {`
-          (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-          Cal("init", "15mins", { origin: "https://app.cal.com" });
-          Cal.config = Cal.config || {};
-          Cal.config.forwardQueryParams = true;
-          Cal.ns["15mins"]("ui", { "cssVarsPerTheme": { "light": { "cal-brand": "#0F2170" }, "dark": { "cal-brand": "#00F7DF" } }, "hideEventTypeDetails": false, "layout": "month_view" });
-        `}
-      </Script>
-
       <a className="skip-link" href="#main">
         Skip to content
       </a>
@@ -165,6 +152,7 @@ export default function VirtualAssistantWholesalePage() {
       <TopStrip />
       <SiteHeader />
       <MobileBookFab />
+      <CallbackModal />
 
       <main id="main">
         <div className="hero-why-shell">
