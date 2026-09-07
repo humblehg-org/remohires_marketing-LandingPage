@@ -124,10 +124,12 @@ export default function HvacNewPage() {
     const form = e.currentTarget;
     const nameInput = form.elements.namedItem("fullname") as HTMLInputElement;
     const phoneInput = form.elements.namedItem("phone") as HTMLInputElement;
+    const emailInput = form.elements.namedItem("email") as HTMLInputElement;
     const callNowInput = form.elements.namedItem("callnow") as HTMLInputElement;
 
     const name = nameInput.value.trim();
     const phone = phoneInput.value.trim();
+    const email = emailInput.value.trim();
 
     if (!name) {
       nameInput.focus();
@@ -157,8 +159,27 @@ export default function HvacNewPage() {
       ? `Thanks, ${first}. A RemoHires specialist will call you within 15 minutes during business hours.`
       : `Thanks, ${first}. A RemoHires specialist will call you shortly to start the search.`;
 
-    setDoneMsg(msg);
-    setLeadDone(true);
+    fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        access_key: "1ab0d6ca-0e58-4326-be4f-dcc0dc8b84d6",
+        subject: "New HVAC Lead From Landing Page",
+        fullname: name,
+        phone,
+        email,
+        call_now: callNow,
+      }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          setDoneMsg(msg);
+          setLeadDone(true);
+        }
+      })
+      .catch((err) => {
+        console.error("Web3Forms submission failed:", err);
+      });
   }
 
   return (
