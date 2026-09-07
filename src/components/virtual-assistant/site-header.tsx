@@ -39,7 +39,7 @@ export function SiteHeader() {
             </a>
           ))}
           <BookCta ctaName="header" className="btn primary cta js-book-cta">
-            Book Your Discovery Call
+           Book Your Discovery Call
           </BookCta>
         </nav>
         <button

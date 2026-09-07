@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 const MESSAGES = [
   "One dedicated assistant. Not a marketplace of freelancers.",
   "Works inside the tools you already use - no migration.",
-  "Book a free 15-minute discovery call.",
+  "Request a free callback from our team.",
 ];
 
 export function TopStrip() {

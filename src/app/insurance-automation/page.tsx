@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import "./insurance-automation.css";
 import { TopStrip } from "@/components/insurance-automation/top-strip";
 import { SiteHeader } from "@/components/insurance-automation/site-header";
 import { Reveal } from "@/components/insurance-automation/reveal";
 import { BookCta } from "@/components/insurance-automation/book-cta";
 import { MobileBookFab } from "@/components/insurance-automation/mobile-book-fab";
+import { CallbackModal } from "@/components/insurance-automation/callback-modal";
 import { FlowCard, type FlowStepData } from "@/components/insurance-automation/flow-card";
 import { Logo } from "@/components/insurance-automation/logo";
 import {
@@ -104,19 +104,6 @@ const TOOL_CHIPS = [
 export default function InsuranceAutomationPage() {
   return (
     <div className="ia">
-      {/* Cal element-click embed init — attaches click handling to every element with
-          data-cal-link/data-cal-namespace (see BookCta). GTM itself is already loaded
-          sitewide in the root layout, so it's not re-initialized here. */}
-      <Script id="cal-embed-insurance-automation" strategy="afterInteractive">
-        {`
-          (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-          Cal("init", "15mins", { origin: "https://app.cal.com" });
-          Cal.config = Cal.config || {};
-          Cal.config.forwardQueryParams = true;
-          Cal.ns["15mins"]("ui", { "cssVarsPerTheme": { "light": { "cal-brand": "#0F2170" }, "dark": { "cal-brand": "#00F7DF" } }, "hideEventTypeDetails": false, "layout": "month_view" });
-        `}
-      </Script>
-
       <a className="skip-link" href="#main">
         Skip to content
       </a>
@@ -124,6 +111,7 @@ export default function InsuranceAutomationPage() {
       <TopStrip />
       <SiteHeader />
       <MobileBookFab />
+      <CallbackModal />
 
       <main id="main">
         <div className="hero-shell">
