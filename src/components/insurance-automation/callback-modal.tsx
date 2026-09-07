@@ -6,21 +6,28 @@ import { trackLeadSubmit } from "@/lib/gtm";
 
 const ACCESS_KEY = "3ed3305a-37b5-4075-8151-f2fb6b838b18";
 const PAGE_PATH = "/insurance-automation";
+const FALLBACK_TIMEZONE = "UTC";
 
-const TIMEZONES = [
-  "Eastern Time (ET)",
-  "Central Time (CT)",
-  "Mountain Time (MT)",
-  "Pacific Time (PT)",
-  "Alaska Time (AKT)",
-  "Hawaii Time (HT)",
-  "Atlantic Time (AT)",
-  "UK Time (GMT/BST)",
-  "Central European Time (CET)",
-  "India Standard Time (IST)",
-  "Philippine Time (PHT)",
-  "Other",
-];
+function detectTimezone(): string {
+  try {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone || FALLBACK_TIMEZONE;
+  } catch {
+    return FALLBACK_TIMEZONE;
+  }
+}
+
+/**
+ * Web3Forms emails list fields in FormData submission order. Re-append
+ * callback_type/preferred_date/preferred_time/timezone last, in that order,
+ * so the scheduled-call email groups them instead of splitting timezone
+ * away from the date/time it applies to.
+ */
+function groupScheduleFields(formData: FormData) {
+  const keys = ["callback_type", "preferred_date", "preferred_time", "timezone"];
+  const values = keys.map((key) => String(formData.get(key) ?? ""));
+  keys.forEach((key) => formData.delete(key));
+  keys.forEach((key, i) => formData.append(key, values[i]));
+}
 
 type Step = "details" | "callback";
 type CallbackType = "asap" | "scheduled";
@@ -46,6 +53,7 @@ export function CallbackModal() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<CallbackType | null>(null);
   const [ctaSource, setCtaSource] = useState("cta");
+  const [timezone, setTimezone] = useState(FALLBACK_TIMEZONE);
   const formRef = useRef<HTMLFormElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -57,6 +65,7 @@ export function CallbackModal() {
       setCallbackType(null);
       setError(null);
       setSuccess(null);
+      setTimezone(detectTimezone());
       setOpen(true);
     }
     window.addEventListener(OPEN_CALLBACK_MODAL_EVENT, onOpen);
@@ -101,6 +110,8 @@ export function CallbackModal() {
       const formData = new FormData(form);
       if (callbackType === "asap") {
         formData.set("submitted_at", new Date().toISOString());
+      } else if (callbackType === "scheduled") {
+        groupScheduleFields(formData);
       }
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -161,6 +172,7 @@ export function CallbackModal() {
             <input type="hidden" name="page" value={PAGE_PATH} />
             <input type="hidden" name="cta_source" value={ctaSource} />
             <input type="hidden" name="callback_type" value={callbackType ?? ""} />
+            <input type="hidden" name="timezone" value={timezone} />
 
             <div style={step === "details" ? undefined : { display: "none" }}>
               <h2 className="callback-title">Talk to Our Team</h2>
@@ -195,7 +207,7 @@ export function CallbackModal() {
                     className={`callback-option${callbackType === "asap" ? " selected" : ""}`}
                     onClick={() => setCallbackType("asap")}
                   >
-                    <strong>Call Me ASAP</strong>
+                    <strong>Call Me Within 15 Minutes</strong>
                     <span>Have someone from RemoHires call me as soon as possible.</span>
                   </button>
                   <button
@@ -217,19 +229,6 @@ export function CallbackModal() {
                     <div className="callback-field">
                       <label htmlFor="ia-cb-time">Preferred Time *</label>
                       <input id="ia-cb-time" type="time" name="preferred_time" required disabled={pending} />
-                    </div>
-                    <div className="callback-field">
-                      <label htmlFor="ia-cb-tz">Timezone *</label>
-                      <select id="ia-cb-tz" name="timezone" required disabled={pending} defaultValue="">
-                        <option value="" disabled>
-                          Choose your timezone
-                        </option>
-                        {TIMEZONES.map((tz) => (
-                          <option key={tz} value={tz}>
-                            {tz}
-                          </option>
-                        ))}
-                      </select>
                     </div>
                   </div>
                 )}
