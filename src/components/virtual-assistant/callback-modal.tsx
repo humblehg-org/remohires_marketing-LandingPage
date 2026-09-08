@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { OPEN_CALLBACK_MODAL_EVENT } from "./callback-cta";
 import { trackLeadSubmit } from "@/lib/gtm";
 
-const ACCESS_KEY = "3ed3305a-37b5-4075-8151-f2fb6b838b18";
+const ACCESS_KEY = "8326652c-ecb6-4130-8f8b-5a477deaae3d";
 const PAGE_PATH = "/virtual-assistant";
 const FALLBACK_TIMEZONE = "UTC";
 
