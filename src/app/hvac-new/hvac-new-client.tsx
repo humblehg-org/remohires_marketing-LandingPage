@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import posthog from "posthog-js";
 import "./hvac-new.css";
 import { FOOTER_LOGO_SRC } from "./footer-logo-data";
 
@@ -339,6 +340,11 @@ export default function HvacNewClient() {
     e.preventDefault();
     setErrors({});
     setModalOpen(true);
+    try {
+      posthog.capture("hvac_form_opened");
+    } catch {
+      // Analytics must never break the modal flow.
+    }
   }
 
   function closeModal() {
@@ -406,6 +412,11 @@ export default function HvacNewClient() {
         if (res.ok) {
           setDoneMsg(msg);
           setLeadDone(true);
+          try {
+            posthog.capture("hvac_lead_submitted");
+          } catch {
+            // Analytics must never break the signup flow.
+          }
         }
       })
       .catch((err) => {
