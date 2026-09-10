@@ -239,6 +239,8 @@ export default function HvacNewClient() {
   const [doneMsg, setDoneMsg] = useState("");
   const [countryValue, setCountryValue] = useState(DEFAULT_COUNTRY_VALUE);
   const [errors, setErrors] = useState<FieldErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [modalOpenTime, setModalOpenTime] = useState(0);
 
   const selectedDialCode = countryValue.split("|")[0] || "+1";
 
@@ -339,6 +341,8 @@ export default function HvacNewClient() {
   function openModal(e: React.MouseEvent) {
     e.preventDefault();
     setErrors({});
+    setIsSubmitting(false);
+    setModalOpenTime(Date.now());
     setModalOpen(true);
     try {
       posthog.capture("hvac_form_opened");
@@ -358,6 +362,9 @@ export default function HvacNewClient() {
     const phoneInput = form.elements.namedItem("phone") as HTMLInputElement;
     const emailInput = form.elements.namedItem("email") as HTMLInputElement;
     const callNowInput = form.elements.namedItem("callnow") as HTMLInputElement;
+    const honeypotInput = form.elements.namedItem(
+      "company_website"
+    ) as HTMLInputElement | null;
 
     const name = nameInput.value.trim();
     const countryCode = selectedDialCode;
@@ -374,6 +381,24 @@ export default function HvacNewClient() {
     }
 
     setErrors({});
+
+    // Honeypot: bots that fill hidden fields get a fake success, no submission.
+    if (honeypotInput && honeypotInput.value.trim()) {
+      const first = name.split(" ")[0];
+      setDoneMsg(
+        `Thanks, ${first}. A RemoHires specialist will call you shortly to start the search.`
+      );
+      setLeadDone(true);
+      return;
+    }
+
+    // Time-on-form gate: reject submits faster than a human could plausibly complete the form.
+    if (Date.now() - modalOpenTime < 3000) {
+      window.alert("Please check your number and try again.");
+      return;
+    }
+
+    setIsSubmitting(true);
 
     const phone = `${countryCode} ${phoneDigits}`;
 
@@ -417,10 +442,13 @@ export default function HvacNewClient() {
           } catch {
             // Analytics must never break the signup flow.
           }
+        } else {
+          setIsSubmitting(false);
         }
       })
       .catch((err) => {
         console.error("Web3Forms submission failed:", err);
+        setIsSubmitting(false);
       });
   }
 
@@ -794,6 +822,21 @@ export default function HvacNewClient() {
             </button>
             {!leadDone ? (
               <form id="leadform" onSubmit={handleLeadSubmit} noValidate>
+                <input
+                  type="text"
+                  name="company_website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  style={{
+                    position: "absolute",
+                    left: "-9999px",
+                    width: 1,
+                    height: 1,
+                    opacity: 0,
+                    pointerEvents: "none",
+                  }}
+                />
                 <div className="lf-eyebrow">Free To Start</div>
                 <h4 id="lm-title">Get Someone On Your Lead List</h4>
                 <p className="lf-sub">
@@ -941,8 +984,8 @@ export default function HvacNewClient() {
                     <span className="ts">A real person, during business hours</span>
                   </span>
                 </label>
-                <button className="btn" type="submit">
-                  Get Started Free
+                <button className="btn" type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? "Sending..." : "Get Started Free"}
                 </button>
                 <p className="note">
                   Free to start. You pay when you hire, and you keep the list
