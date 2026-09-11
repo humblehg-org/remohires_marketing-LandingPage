@@ -477,6 +477,32 @@
 
 .hvac-est .field input:focus {border-bottom-color:var(--blue);}
 
+.hvac-est .field .phone-input {
+    --PhoneInput-color--focus: var(--blue);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:.95rem;
+    padding:.55em 0;
+    border-bottom:1px solid rgba(74,71,68,.45);}
+
+.hvac-est .field .phone-input.phone-input-error {border-bottom-color:var(--red);}
+
+.hvac-est .field .phone-input:focus-within {border-bottom-color:var(--blue);}
+
+.hvac-est .field .phone-input .PhoneInputInput {
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:.95rem;
+    border:none;
+    background:transparent;
+    color:var(--ink);
+    padding:0;
+    outline:none;}
+
+.hvac-est .field-error {
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:.8rem;
+    color:var(--red);
+    margin:0;}
+
 .hvac-est form .btn {justify-self:start;
     border:none;
     cursor:pointer;
@@ -552,6 +578,17 @@
 .hvac-est .final {margin-top:56px; transform:rotate(0);}
 .hvac-est .ply {padding-left:36px;}
 .hvac-est .ply.approval {transform:rotate(.4deg); padding-left:44px;}
+}
+
+/* Mobile-only: the "problem" paper card's rotate() bounding box grows wider
+   than its layout width by roughly height * sin(angle). On desktop the card
+   is short enough for that to stay within the sheet's own margin, but on
+   narrow screens the card's text wraps into many more lines (much taller),
+   so the same rotation pushes its corners past the viewport edge and they
+   get clipped by .hvac-est's overflow-x:hidden. Dropping the tilt below
+   768px removes that overflow without touching desktop at all. */
+@media (max-width:768px) {
+.hvac-est .problem {transform:none; margin-left:0; margin-right:0; max-width:100%;}
 }
 
 .hvac-est .cost .cost-note {margin-top:1.1em; padding-top:.9em;

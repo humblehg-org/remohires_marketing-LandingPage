@@ -2,6 +2,8 @@
 
 import { useRef, useState, type FormEvent } from "react";
 import posthog from "posthog-js";
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 import "./hvac-new.css";
 
 // Web3Forms public access key already used elsewhere on /hvac-new — this
@@ -17,6 +19,8 @@ declare global {
 export default function HvacNewClient() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDone, setIsDone] = useState(false);
+  const [phone, setPhone] = useState<string | undefined>(undefined);
+  const [phoneError, setPhoneError] = useState<string | null>(null);
   const submittedRef = useRef(false);
   const intentFiredRef = useRef(false);
 
@@ -29,7 +33,7 @@ export default function HvacNewClient() {
       // Analytics must never break the page.
     }
     try {
-      window.fbq?.("trackCustom", "LeadIntent");
+      window.fbq?.("trackCustom", "Lead Intent");
     } catch {
       // ignore
     }
@@ -42,6 +46,12 @@ export default function HvacNewClient() {
     const form = e.currentTarget;
     const honeypot = form.elements.namedItem("botcheck") as HTMLInputElement | null;
     if (honeypot?.checked) return;
+
+    if (!phone || !isValidPhoneNumber(phone)) {
+      setPhoneError("Enter a valid mobile number, including area code.");
+      return;
+    }
+    setPhoneError(null);
 
     submittedRef.current = true;
     setIsSubmitting(true);
@@ -513,14 +523,29 @@ export default function HvacNewClient() {
                 </div>
                 <div className="field">
                   <label htmlFor="mobile">Mobile number</label>
-                  <input
+                  <PhoneInput
                     id="mobile"
-                    name="mobile"
-                    type="tel"
+                    international
+                    defaultCountry="US"
                     autoComplete="tel"
-                    inputMode="tel"
-                    required
+                    placeholder="(555) 555-5555"
+                    value={phone}
+                    onChange={(value) => {
+                      setPhone(value);
+                      if (phoneError) setPhoneError(null);
+                    }}
+                    className={phoneError ? "phone-input phone-input-error" : "phone-input"}
+                    aria-invalid={phoneError ? true : undefined}
+                    aria-describedby={phoneError ? "mobile-error" : undefined}
                   />
+                  {/* Web3Forms reads this hidden field; it always holds the
+                      library's parsed E.164 value, never the raw display text. */}
+                  <input type="hidden" name="mobile" value={phone ?? ""} />
+                  {phoneError && (
+                    <p className="field-error" id="mobile-error" role="alert">
+                      {phoneError}
+                    </p>
+                  )}
                 </div>
                 <button className="btn" type="submit" disabled={isSubmitting}>
                   {isSubmitting ? "Calling you shortly..." : "Call me in the next 15 minutes"}
