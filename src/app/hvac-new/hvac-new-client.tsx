@@ -1,1010 +1,555 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import posthog from "posthog-js";
 import "./hvac-new.css";
-import { FOOTER_LOGO_SRC } from "./footer-logo-data";
 
-const BOOK_URL = "https://cal.com/team/remohires/15mins";
+// Web3Forms public access key already used elsewhere on /hvac-new — this
+// key is write-only and safe to ship to the client.
+const WEB3FORMS_ACCESS_KEY = "8326652c-ecb6-4130-8f8b-5a477deaae3d";
 
-const COUNTRY_CODES: { name: string; code: string }[] = [
-  { name: "United States", code: "+1" },
-  { name: "Afghanistan", code: "+93" },
-  { name: "Albania", code: "+355" },
-  { name: "Algeria", code: "+213" },
-  { name: "Andorra", code: "+376" },
-  { name: "Angola", code: "+244" },
-  { name: "Antigua and Barbuda", code: "+1" },
-  { name: "Argentina", code: "+54" },
-  { name: "Armenia", code: "+374" },
-  { name: "Australia", code: "+61" },
-  { name: "Austria", code: "+43" },
-  { name: "Azerbaijan", code: "+994" },
-  { name: "Bahamas", code: "+1" },
-  { name: "Bahrain", code: "+973" },
-  { name: "Bangladesh", code: "+880" },
-  { name: "Barbados", code: "+1" },
-  { name: "Belarus", code: "+375" },
-  { name: "Belgium", code: "+32" },
-  { name: "Belize", code: "+501" },
-  { name: "Benin", code: "+229" },
-  { name: "Bhutan", code: "+975" },
-  { name: "Bolivia", code: "+591" },
-  { name: "Bosnia and Herzegovina", code: "+387" },
-  { name: "Botswana", code: "+267" },
-  { name: "Brazil", code: "+55" },
-  { name: "Brunei", code: "+673" },
-  { name: "Bulgaria", code: "+359" },
-  { name: "Burkina Faso", code: "+226" },
-  { name: "Burundi", code: "+257" },
-  { name: "Cabo Verde", code: "+238" },
-  { name: "Cambodia", code: "+855" },
-  { name: "Cameroon", code: "+237" },
-  { name: "Canada", code: "+1" },
-  { name: "Central African Republic", code: "+236" },
-  { name: "Chad", code: "+235" },
-  { name: "Chile", code: "+56" },
-  { name: "China", code: "+86" },
-  { name: "Colombia", code: "+57" },
-  { name: "Comoros", code: "+269" },
-  { name: "Congo (Republic of the)", code: "+242" },
-  { name: "Congo (Democratic Republic of the)", code: "+243" },
-  { name: "Costa Rica", code: "+506" },
-  { name: "Croatia", code: "+385" },
-  { name: "Cuba", code: "+53" },
-  { name: "Cyprus", code: "+357" },
-  { name: "Czech Republic", code: "+420" },
-  { name: "Denmark", code: "+45" },
-  { name: "Djibouti", code: "+253" },
-  { name: "Dominica", code: "+1" },
-  { name: "Dominican Republic", code: "+1" },
-  { name: "Ecuador", code: "+593" },
-  { name: "Egypt", code: "+20" },
-  { name: "El Salvador", code: "+503" },
-  { name: "Equatorial Guinea", code: "+240" },
-  { name: "Eritrea", code: "+291" },
-  { name: "Estonia", code: "+372" },
-  { name: "Eswatini", code: "+268" },
-  { name: "Ethiopia", code: "+251" },
-  { name: "Fiji", code: "+679" },
-  { name: "Finland", code: "+358" },
-  { name: "France", code: "+33" },
-  { name: "Gabon", code: "+241" },
-  { name: "Gambia", code: "+220" },
-  { name: "Georgia", code: "+995" },
-  { name: "Germany", code: "+49" },
-  { name: "Ghana", code: "+233" },
-  { name: "Greece", code: "+30" },
-  { name: "Grenada", code: "+1" },
-  { name: "Guatemala", code: "+502" },
-  { name: "Guinea", code: "+224" },
-  { name: "Guinea-Bissau", code: "+245" },
-  { name: "Guyana", code: "+592" },
-  { name: "Haiti", code: "+509" },
-  { name: "Honduras", code: "+504" },
-  { name: "Hungary", code: "+36" },
-  { name: "Iceland", code: "+354" },
-  { name: "India", code: "+91" },
-  { name: "Indonesia", code: "+62" },
-  { name: "Iran", code: "+98" },
-  { name: "Iraq", code: "+964" },
-  { name: "Ireland", code: "+353" },
-  { name: "Israel", code: "+972" },
-  { name: "Italy", code: "+39" },
-  { name: "Ivory Coast", code: "+225" },
-  { name: "Jamaica", code: "+1" },
-  { name: "Japan", code: "+81" },
-  { name: "Jordan", code: "+962" },
-  { name: "Kazakhstan", code: "+7" },
-  { name: "Kenya", code: "+254" },
-  { name: "Kiribati", code: "+686" },
-  { name: "Kosovo", code: "+383" },
-  { name: "Kuwait", code: "+965" },
-  { name: "Kyrgyzstan", code: "+996" },
-  { name: "Laos", code: "+856" },
-  { name: "Latvia", code: "+371" },
-  { name: "Lebanon", code: "+961" },
-  { name: "Lesotho", code: "+266" },
-  { name: "Liberia", code: "+231" },
-  { name: "Libya", code: "+218" },
-  { name: "Liechtenstein", code: "+423" },
-  { name: "Lithuania", code: "+370" },
-  { name: "Luxembourg", code: "+352" },
-  { name: "Madagascar", code: "+261" },
-  { name: "Malawi", code: "+265" },
-  { name: "Malaysia", code: "+60" },
-  { name: "Maldives", code: "+960" },
-  { name: "Mali", code: "+223" },
-  { name: "Malta", code: "+356" },
-  { name: "Marshall Islands", code: "+692" },
-  { name: "Mauritania", code: "+222" },
-  { name: "Mauritius", code: "+230" },
-  { name: "Mexico", code: "+52" },
-  { name: "Micronesia", code: "+691" },
-  { name: "Moldova", code: "+373" },
-  { name: "Monaco", code: "+377" },
-  { name: "Mongolia", code: "+976" },
-  { name: "Montenegro", code: "+382" },
-  { name: "Morocco", code: "+212" },
-  { name: "Mozambique", code: "+258" },
-  { name: "Myanmar", code: "+95" },
-  { name: "Namibia", code: "+264" },
-  { name: "Nauru", code: "+674" },
-  { name: "Nepal", code: "+977" },
-  { name: "Netherlands", code: "+31" },
-  { name: "New Zealand", code: "+64" },
-  { name: "Nicaragua", code: "+505" },
-  { name: "Niger", code: "+227" },
-  { name: "Nigeria", code: "+234" },
-  { name: "North Korea", code: "+850" },
-  { name: "North Macedonia", code: "+389" },
-  { name: "Norway", code: "+47" },
-  { name: "Oman", code: "+968" },
-  { name: "Pakistan", code: "+92" },
-  { name: "Palau", code: "+680" },
-  { name: "Palestine", code: "+970" },
-  { name: "Panama", code: "+507" },
-  { name: "Papua New Guinea", code: "+675" },
-  { name: "Paraguay", code: "+595" },
-  { name: "Peru", code: "+51" },
-  { name: "Philippines", code: "+63" },
-  { name: "Poland", code: "+48" },
-  { name: "Portugal", code: "+351" },
-  { name: "Qatar", code: "+974" },
-  { name: "Romania", code: "+40" },
-  { name: "Russia", code: "+7" },
-  { name: "Rwanda", code: "+250" },
-  { name: "Saint Kitts and Nevis", code: "+1" },
-  { name: "Saint Lucia", code: "+1" },
-  { name: "Saint Vincent and the Grenadines", code: "+1" },
-  { name: "Samoa", code: "+685" },
-  { name: "San Marino", code: "+378" },
-  { name: "Sao Tome and Principe", code: "+239" },
-  { name: "Saudi Arabia", code: "+966" },
-  { name: "Senegal", code: "+221" },
-  { name: "Serbia", code: "+381" },
-  { name: "Seychelles", code: "+248" },
-  { name: "Sierra Leone", code: "+232" },
-  { name: "Singapore", code: "+65" },
-  { name: "Slovakia", code: "+421" },
-  { name: "Slovenia", code: "+386" },
-  { name: "Solomon Islands", code: "+677" },
-  { name: "Somalia", code: "+252" },
-  { name: "South Africa", code: "+27" },
-  { name: "South Korea", code: "+82" },
-  { name: "South Sudan", code: "+211" },
-  { name: "Spain", code: "+34" },
-  { name: "Sri Lanka", code: "+94" },
-  { name: "Sudan", code: "+249" },
-  { name: "Suriname", code: "+597" },
-  { name: "Sweden", code: "+46" },
-  { name: "Switzerland", code: "+41" },
-  { name: "Syria", code: "+963" },
-  { name: "Taiwan", code: "+886" },
-  { name: "Tajikistan", code: "+992" },
-  { name: "Tanzania", code: "+255" },
-  { name: "Thailand", code: "+66" },
-  { name: "Timor-Leste", code: "+670" },
-  { name: "Togo", code: "+228" },
-  { name: "Tonga", code: "+676" },
-  { name: "Trinidad and Tobago", code: "+1" },
-  { name: "Tunisia", code: "+216" },
-  { name: "Turkey", code: "+90" },
-  { name: "Turkmenistan", code: "+993" },
-  { name: "Tuvalu", code: "+688" },
-  { name: "Uganda", code: "+256" },
-  { name: "Ukraine", code: "+380" },
-  { name: "United Arab Emirates", code: "+971" },
-  { name: "United Kingdom", code: "+44" },
-  { name: "Uruguay", code: "+598" },
-  { name: "Uzbekistan", code: "+998" },
-  { name: "Vanuatu", code: "+678" },
-  { name: "Vatican City", code: "+379" },
-  { name: "Venezuela", code: "+58" },
-  { name: "Vietnam", code: "+84" },
-  { name: "Yemen", code: "+967" },
-  { name: "Zambia", code: "+260" },
-  { name: "Zimbabwe", code: "+263" },
-];
-
-function countryOptionValue(c: { name: string; code: string }) {
-  return `${c.code}|${c.name}`;
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void;
+  }
 }
 
-const DEFAULT_COUNTRY_VALUE = countryOptionValue(COUNTRY_CODES[0]);
-
-const errorBorderStyle: React.CSSProperties = {
-  borderColor: "#ff5c5c",
-  boxShadow: "0 0 0 3px rgba(255,92,92,.25)",
-};
-
-const errorTextStyle: React.CSSProperties = {
-  color: "#ff9c9c",
-  fontSize: 12,
-  fontWeight: 500,
-  marginTop: 6,
-  lineHeight: 1.4,
-};
-
-type FieldErrors = { fullname?: boolean; phone?: boolean };
-
 export default function HvacNewClient() {
-  const rootRef = useRef<HTMLDivElement | null>(null);
-  const heroRef = useRef<HTMLElement | null>(null);
-  const firstFieldRef = useRef<HTMLInputElement | null>(null);
-
-  const [stickOn, setStickOn] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [leadDone, setLeadDone] = useState(false);
-  const [doneMsg, setDoneMsg] = useState("");
-  const [countryValue, setCountryValue] = useState(DEFAULT_COUNTRY_VALUE);
-  const [errors, setErrors] = useState<FieldErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [modalOpenTime, setModalOpenTime] = useState(0);
+  const [isDone, setIsDone] = useState(false);
+  const submittedRef = useRef(false);
+  const intentFiredRef = useRef(false);
 
-  const selectedDialCode = countryValue.split("|")[0] || "+1";
-
-  useEffect(() => {
-    const root = rootRef.current;
-    if (!root) return;
-
-    document.documentElement.classList.add("js");
-
-    const reduce =
-      window.matchMedia &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    const revs = root.querySelectorAll<HTMLElement>(".rv, .stagger");
-
-    function fillCounts() {
-      root!.querySelectorAll<HTMLElement>("[data-count]").forEach((el) => {
-        el.textContent = "$" + (+el.dataset.count!).toLocaleString("en-US");
-      });
-    }
-
-    function countUp(scope: HTMLElement) {
-      scope.querySelectorAll<HTMLElement>("[data-count]").forEach((el) => {
-        if (el.dataset.done) return;
-        el.dataset.done = "1";
-        const target = +el.dataset.count!;
-        const dur = 900;
-        let start: number | null = null;
-
-        function step(t: number) {
-          if (start === null) start = t;
-          const p = Math.min((t - start) / dur, 1);
-          const v = Math.floor((0.5 - Math.cos(p * Math.PI) / 2) * target);
-          el.textContent = "$" + v.toLocaleString("en-US");
-          if (p < 1) requestAnimationFrame(step);
-          else el.textContent = "$" + target.toLocaleString("en-US");
-        }
-        requestAnimationFrame(step);
-      });
-    }
-
-    let io: IntersectionObserver | null = null;
-
-    if (!("IntersectionObserver" in window) || reduce) {
-      revs.forEach((e) => e.classList.add("in"));
-      fillCounts();
-    } else {
-      io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const target = entry.target as HTMLElement;
-              target.classList.add("in");
-              if (target.querySelector("[data-count]")) {
-                countUp(target);
-              }
-              io!.unobserve(target);
-            }
-          });
-        },
-        { threshold: 0.16 }
-      );
-      revs.forEach((e) => io!.observe(e));
-    }
-
-    let stickIo: IntersectionObserver | null = null;
-    const hero = heroRef.current;
-    if (hero && "IntersectionObserver" in window) {
-      stickIo = new IntersectionObserver(
-        (entries) => {
-          setStickOn(!entries[0].isIntersecting);
-        },
-        { threshold: 0 }
-      );
-      stickIo.observe(hero);
-    }
-
-    return () => {
-      io?.disconnect();
-      stickIo?.disconnect();
-      document.documentElement.classList.remove("js");
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!modalOpen) return;
-    const id = setTimeout(() => firstFieldRef.current?.focus(), 60);
-    function onKeydown(e: KeyboardEvent) {
-      if (e.key === "Escape") setModalOpen(false);
-    }
-    document.addEventListener("keydown", onKeydown);
-    return () => {
-      clearTimeout(id);
-      document.removeEventListener("keydown", onKeydown);
-    };
-  }, [modalOpen]);
-
-  function openModal(e: React.MouseEvent) {
-    e.preventDefault();
-    setErrors({});
-    setIsSubmitting(false);
-    setModalOpenTime(Date.now());
-    setModalOpen(true);
+  function markIntent() {
+    if (intentFiredRef.current) return;
+    intentFiredRef.current = true;
     try {
       posthog.capture("hvac_form_opened");
     } catch {
-      // Analytics must never break the modal flow.
+      // Analytics must never break the page.
     }
-  }
-
-  function closeModal() {
-    setModalOpen(false);
-  }
-
-  function handleLeadSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const nameInput = form.elements.namedItem("fullname") as HTMLInputElement;
-    const phoneInput = form.elements.namedItem("phone") as HTMLInputElement;
-    const emailInput = form.elements.namedItem("email") as HTMLInputElement;
-    const callNowInput = form.elements.namedItem("callnow") as HTMLInputElement;
-    const honeypotInput = form.elements.namedItem(
-      "company_website"
-    ) as HTMLInputElement | null;
-
-    const name = nameInput.value.trim();
-    const countryCode = selectedDialCode;
-    const phoneDigits = phoneInput.value.trim().replace(/[^0-9]/g, "");
-    const email = emailInput.value.trim();
-
-    const nameMissing = !name;
-    const phoneMissing = phoneDigits.length < 7 || phoneDigits.length > 15;
-
-    if (nameMissing || phoneMissing) {
-      setErrors({ fullname: nameMissing, phone: phoneMissing });
-      (nameMissing ? nameInput : phoneInput).focus();
-      return;
-    }
-
-    setErrors({});
-
-    // Honeypot: bots that fill hidden fields get a fake success, no submission.
-    if (honeypotInput && honeypotInput.value.trim()) {
-      const first = name.split(" ")[0];
-      setDoneMsg(
-        `Thanks, ${first}. A RemoHires specialist will call you shortly to start the search.`
-      );
-      setLeadDone(true);
-      return;
-    }
-
-    // Time-on-form gate: reject submits faster than a human could plausibly complete the form.
-    if (Date.now() - modalOpenTime < 3000) {
-      window.alert("Please check your number and try again.");
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    const phone = `${countryCode} ${phoneDigits}`;
-
-    const callNow = callNowInput.checked;
-
     try {
-      const fbq = (window as unknown as { fbq?: (...args: unknown[]) => void })
-        .fbq;
-      fbq?.("track", "Lead", {
-        content_name: "HVAC Start Free Form",
-        content_category: "hvac",
-        call_now: callNow,
-      });
+      window.fbq?.("trackCustom", "LeadIntent");
     } catch {
       // ignore
     }
+  }
 
-    const first = name.split(" ")[0];
-    const msg = callNow
-      ? `Thanks, ${first}. A RemoHires specialist will call you within 15 minutes during business hours.`
-      : `Thanks, ${first}. A RemoHires specialist will call you shortly to start the search.`;
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (submittedRef.current) return;
+
+    const form = e.currentTarget;
+    const honeypot = form.elements.namedItem("botcheck") as HTMLInputElement | null;
+    if (honeypot?.checked) return;
+
+    submittedRef.current = true;
+    setIsSubmitting(true);
+    markIntent();
+
+    const data = new FormData(form);
+    data.append("page_url", window.location.href);
 
     fetch("https://api.web3forms.com/submit", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        access_key: "8326652c-ecb6-4130-8f8b-5a477deaae3d",
-        subject: "New HVAC Lead From Landing Page",
-        fullname: name,
-        phone,
-        email,
-        call_now: callNow,
-      }),
+      headers: { Accept: "application/json" },
+      body: data,
     })
-      .then((res) => {
-        if (res.ok) {
-          setDoneMsg(msg);
-          setLeadDone(true);
+      .then((res) => res.json())
+      .then((result) => {
+        if (result && result.success) {
           try {
             posthog.capture("hvac_lead_submitted");
           } catch {
             // Analytics must never break the signup flow.
           }
+          try {
+            window.fbq?.("track", "Lead");
+          } catch {
+            // ignore
+          }
+          setIsDone(true);
         } else {
+          submittedRef.current = false;
           setIsSubmitting(false);
+          window.alert("Something went wrong sending that. Please try again.");
         }
       })
       .catch((err) => {
         console.error("Web3Forms submission failed:", err);
+        submittedRef.current = false;
         setIsSubmitting(false);
+        window.alert("Something went wrong sending that. Please try again.");
       });
   }
 
   return (
     <>
-      <link rel="preconnect" href="https://api.fontshare.com" />
+      {/*
+        TODO(fonts): these four Google Fonts are loaded page-locally, the
+        same way the sibling /hvac-new design loads Satoshi from Fontshare.
+        For the next/font-optimized route, move this to app/layout.tsx, e.g.:
+
+          import { Special_Elite, IBM_Plex_Sans, Courier_Prime, Archivo } from "next/font/google";
+          const specialElite = Special_Elite({ weight: "400", subsets: ["latin"], variable: "--font-special-elite" });
+          const ibmPlexSans = IBM_Plex_Sans({ weight: ["400","500","600","700"], subsets: ["latin"], variable: "--font-ibm-plex-sans" });
+          const courierPrime = Courier_Prime({ weight: ["400","700"], subsets: ["latin"], variable: "--font-courier-prime" });
+          const archivo = Archivo({ weight: ["700","800","900"], subsets: ["latin"], variable: "--font-archivo" });
+
+        ...then swap the font-family values in hvac-new.css for the
+        generated CSS variables and drop the <link> tags below.
+      */}
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link
-        href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Special+Elite&family=IBM+Plex+Sans:wght@400;500;600;700&family=Courier+Prime:wght@400;700&family=Archivo:wght@700;800;900&display=swap"
         rel="stylesheet"
       />
-      <div className="rh" ref={rootRef}>
-        <section className="hero" ref={heroRef}>
-          <div className="aura">
-            <i className="b1"></i>
-            <i className="b2"></i>
-          </div>
-          <div className="wrap">
-            <nav className="nav">
-              <img src={FOOTER_LOGO_SRC} alt="RemoHires" />
-              <div className="r">
-                <span className="navtag">For HVAC Owners</span>
-                <a className="btn openform" href={BOOK_URL} onClick={openModal}>
-                  Get Started Free
+
+      <div className="hvac-est">
+        <main>
+          <section className="hero-wrap" id="hero">
+            {/* the fan: full width across the top of the page, as if looking down
+                at a desk. Four estimates for the same address. Nothing overlaps
+                it and nothing sits on top of it. */}
+            <div className="fan-bleed">
+              <div className="fan" aria-hidden="true">
+                <div className="est est-1">
+                  <div className="es-head">
+                    <span>ESTIMATE</span>
+                    <span>228 Maple Hollow Rd.</span>
+                  </div>
+                  <div className="es-shop">Ridgeline Heating &amp; Air</div>
+                  <div className="es-line">
+                    <span>16 SEER heat pump &mdash; install</span>
+                    <span>$9,450</span>
+                  </div>
+                  <div className="es-age">Sent 21 days ago &mdash; no reply</div>
+                </div>
+                <div className="est est-3">
+                  <div className="es-head">
+                    <span>ESTIMATE</span>
+                    <span>228 Maple Hollow Rd.</span>
+                  </div>
+                  <div className="es-shop">Bellwood Mechanical</div>
+                  <div className="es-line">
+                    <span>16 SEER heat pump &mdash; install</span>
+                    <span>$9,180</span>
+                  </div>
+                  <div className="es-age">Sent 8 days ago &mdash; no reply</div>
+                </div>
+                <div className="est est-2">
+                  <div className="es-head">
+                    <span>ESTIMATE</span>
+                    <span>228 Maple Hollow Rd.</span>
+                  </div>
+                  <div className="es-shop">Cardinal Air Systems</div>
+                  <div className="es-line">
+                    <span>16 SEER heat pump &mdash; install</span>
+                    <span>$8,920</span>
+                  </div>
+                  <div className="es-age">Sent 14 days ago &mdash; no reply</div>
+                </div>
+                <div className="est est-yours">
+                  <div className="es-head">
+                    <span>ESTIMATE</span>
+                    <span>228 Maple Hollow Rd.</span>
+                  </div>
+                  <div className="es-shop">Your shop</div>
+                  <div className="es-line">
+                    <span>16 SEER heat pump &mdash; install</span>
+                    <span>$8,750</span>
+                  </div>
+                  <div className="es-age">Sent 6 days ago</div>
+                </div>
+              </div>
+            </div>
+
+            {/* the conversion unit: one sheet, directly beneath the fan, at a
+                comfortable reading measure. Nothing sits on this first screen
+                except what is needed to act: eyebrow, headline, subhead, the
+                button, the refund microcopy, then the supply line. */}
+            <div className="sheet hero-copy">
+              <div className="hero-copy-head">
+                <span className="tag">Outbound for HVAC contractors</span>
+                <h1>Get leads nobody else is calling, and someone to call them.</h1>
+                <p className="subhead">
+                  We find you a person, and you approve them before they dial.
+                  Then they go and find homeowners in your service area, and
+                  work the estimates your shop already sent, in your company
+                  name. One named person, the same one every day.
+                </p>
+              </div>
+
+              <div className="hero-copy-cta">
+                <a href="#cta-form" className="btn" onClick={markIntent}>
+                  Call me in the next 15 minutes
                 </a>
+                <p className="microcopy">
+                  A real person calls you, usually within fifteen minutes, and
+                  the call takes ten. The two weeks cost $49 and the $49 comes
+                  back if you stop at the end of them. Either way, on day 14
+                  you have a worked list and the outcome logged against every
+                  job, and it is yours.
+                </p>
+                <p className="supply">
+                  We take six shops a month, because that is how many callers
+                  we can recruit and vet.
+                </p>
               </div>
-            </nav>
-            <div className="hero-in">
-              <div className="tag dark anim d0">
-                <span className="d"></span>Outbound For HVAC Contractors
-              </div>
-              <h1>
-                <span className="line anim d1">Get Someone To Call</span>
-                <span className="line anim d2">
-                  The <span className="c-turq shimmer">Leads You Own</span>
-                </span>
-              </h1>
-              <p className="sub anim d3">
-                We find and place a dedicated remote caller who works your open
-                estimates and past installs, by phone and text, in your company
-                name. Start free, you pay when you hire.
-              </p>
-              <div className="cta-row anim d4">
-                <a className="btn lg openform" href={BOOK_URL} onClick={openModal}>
-                  Get Started Free
-                </a>
-                <a className="scrolllink" href="#how">
-                  See how it works
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2.4}
-                  >
-                    <path d="M12 5v14M5 12l7 7 7-7" />
-                  </svg>
-                </a>
-              </div>
-              <p className="trust anim d5">
-                <strong>Free to start.</strong> You pay when you hire, and you
-                keep the list either way.
+            </div>
+          </section>
+
+          {/* "Who they call": the rest of the hero's content, moved off the first
+              screen onto its own sheet below the fold. Same words, same order,
+              just no longer competing with the ask for the reader's first look. */}
+          <section className="sheet who-sheet" id="who-they-call">
+            <div className="who-they-call">
+              <p className="label">Who they call</p>
+              <ol>
+                <li>Homeowners in your service area, found by your person</li>
+                <li>People you quoted who never got a second call</li>
+                <li>Houses you put a system in over fifteen years ago</li>
+                <li>Customers you have not spoken to since the job</li>
+              </ol>
+              <p className="closing">
+                You pay no lead fee on any of them, and three of the four are
+                already sitting in your system.
               </p>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section id="how">
-          <div className="wrap">
-            <div className="shead">
-              <div className="slabel rv">
-                <span className="sn">01</span>Why It Works
-              </div>
-              <h2 className="rv">Leads Nobody Else Can Buy</h2>
-              <p className="lead rv">
-                The homeowners most likely to say yes are already in your
-                system. We put a person on them, in your name, every day.
+          <section className="sheet problem" id="problem">
+            <h2>Nobody has an hour to make those calls.</h2>
+            <div className="body">
+              <p>
+                A dispatcher describes the day as &ldquo;a bucket of
+                overbooked prescheduled jobs that keeps getting more added in
+                as the day goes on.&rdquo; An owner who bought one of the big
+                field platforms found that its features &ldquo;all demand
+                dedicated office staff.&rdquo;
+              </p>
+              <p>
+                So the report gets built and the calls never get made. Here is
+                how that looks from the homeowner&apos;s side. One wrote this
+                about a contractor who had already visited:
+              </p>
+              <blockquote>
+                &ldquo;He was honest and to the point and said our furnace
+                would likely last another 10-20 years so he would suggest just
+                AC. Yet he never followed through with the estimate. I
+                followed up twice and never heard back.&rdquo;
+              </blockquote>
+              <p>
+                That contractor did not lose on price, or on skill, or on
+                reputation. The customer chased him twice. He lost on silence,
+                and he will never know it happened.
+              </p>
+              <p>
+                None of this is a filing problem. Your field software will
+                hand you every quote you sent in the last ninety days, sorted
+                by value and by age. The list is not the missing thing.
+              </p>
+              <p>
+                The reflex, when the month is soft, is to go and buy more. One
+                contractor&rsquo;s account of what that buys: leads sold
+                &ldquo;to 4 professionals for one lead and charge 80+ dollars
+                to each of them then the homeowner pays nothing.&rdquo;
+                Another paid for &ldquo;over 200 Leads&rdquo; in a year and
+                set ten appointments.
+              </p>
+              <p>
+                The open estimates in your system were sold to nobody. Neither
+                were the systems you put in fifteen years ago. And when they
+                go cold the loss leaves no trace. No invoice, no bad review,
+                no argument. Nobody complains about a quiet phone.
               </p>
             </div>
-            <div className="cards3 stagger">
-              <div className="fcard">
-                <div className="ic">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                    <path d="M12 2 3 7v6c0 5 4 8 9 9 5-1 9-4 9-9V7z" />
-                  </svg>
-                </div>
-                <h3>Yours Alone</h3>
+            <details className="sources">
+              <summary>Sources</summary>
+              <p>
+                (https://old.reddit.com/r/hvacadvice/search?q=%22never+heard+back%22+estimate&amp;restrict_sr=on)
+                <br />
+                Dispatcher and owner quotes from Indeed and Trustpilot reviews
+                of a field service platform
+                (https://www.indeed.com/cmp/Isaac-Heating-&amp;-Air-Conditioning/reviews,
+                https://www.trustpilot.com/review/servicetitan.com). Lead
+                marketplace quotes from Trustpilot and PissedConsumer
+                (https://www.trustpilot.com/review/thumbtack.com,
+                https://networx-systems.pissedconsumer.com/complaints).
+              </p>
+            </details>
+          </section>
+
+          <section className="sheet how" id="how">
+            <h2>Ten minutes to set up. Then your person starts calling.</h2>
+            <div className="carbon-stack">
+              <div className="ply">
+                <span className="ply-num">1</span>
                 <p>
-                  Every lead you buy is sold to <strong>4 shops</strong> at
-                  once. Your open estimates, aging installs, and past
-                  customers stay <strong>yours alone</strong>.
+                  Give us ten minutes on the phone. We go through your open
+                  estimates, sort them by value and age, and agree who gets
+                  called first. Nobody touches your system until you approve
+                  a person.
                 </p>
               </div>
-              <div className="fcard">
-                <div className="ic">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                    <path d="M4 4h16v12H5.2L4 17.2z" />
-                  </svg>
-                </div>
-                <h3>A Real Person, Same Day</h3>
+              <div className="ply approval">
+                <span className="ply-num">2</span>
                 <p>
-                  Your caller works a <strong>day 1, 3, 7</strong> cadence and
-                  knows your pricing, so an interested homeowner hears back
-                  that <strong>same day</strong>.
+                  Meet the person before they call anyone. We find and vet
+                  them. You sign off on the person, the call script, and the
+                  text wording before anyone is contacted. It is your name on
+                  those calls. You decide who says it and what they say.
                 </p>
+                <div className="sign-line" aria-hidden="true"></div>
               </div>
-              <div className="fcard">
-                <div className="ic">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                    <path d="M20 6 9 17l-5-5" />
-                  </svg>
-                </div>
-                <h3>Free To Start</h3>
+              <div className="ply">
+                <span className="ply-num">3</span>
                 <p>
-                  No upfront cost to begin the search. You{" "}
-                  <strong>pay when you hire</strong>, month to month after,
-                  and a message from you stops it.
+                  Read every call in your own software. Your person works the
+                  list on day 1, day 3, and day 7, by phone and text. Every
+                  call and text is logged against the job, in the software you
+                  already use. One message from you stops the calling that
+                  day. On day 14 the worked list is yours. Keep it whether you
+                  continue or not.
                 </p>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section className="band">
-          <div className="wrap">
-            <div className="split">
-              <div>
-                <div className="slabel rv">
-                  <span className="sn">02</span>The $12,000 Job You Earned
-                </div>
-                <h2 className="rv" style={{ marginTop: 22 }}>
-                  We Call The Systems You Installed
-                </h2>
-                <p className="body rv" style={{ marginTop: 20 }}>
-                  A furnace or condenser lasts about <strong>15 years</strong>,
-                  so everything you installed before then is near the end of
-                  its life now. You know something no competitor knows:{" "}
-                  <strong>the date you put it in</strong>. Your caller works
-                  your install records by age and reaches those homeowners{" "}
-                  <strong>before the failure</strong>, so a replacement quoted
-                  to someone who already knows you closes on the phone.
+          <section className="sheet proof" id="proof">
+            <h2>Your file has the install date. No lead platform can sell it.</h2>
+            <div className="body">
+              <p>
+                ENERGY STAR says to consider replacing a furnace after fifteen
+                years, and an AC or heat pump after ten. Your records show
+                which houses crossed that line, and when. You wrote the date
+                down.
+              </p>
+              <blockquote>
+                &ldquo;I asked for a quote to replace the lineset and cased
+                coil this time rather than repairing again. Never heard back,
+                so called company 2 to come out and diagnose.&rdquo;
+              </blockquote>
+              <p>
+                64% of contractors still run primarily on phone calls. This is
+                a person making them, not another automated message.
+              </p>
+              <details className="sources">
+                <summary>Sources</summary>
+                <p>
+                  (https://www.energystar.gov/saveathome/heating-cooling/replace)
+                  <br />
+                  (https://www.servicetitan.com/press/residential-industry-report-2025)
+                  <br />
+                  (a homeowner on r/hvacadvice, writing about a contractor who
+                  had already done a $2,600 repair in that same house,
+                  https://old.reddit.com/r/hvacadvice/comments/1iugawg/)
                 </p>
-                <div className="bignum stagger">
-                  <div>
-                    <div className="n">
-                      15<span className="u"> yrs</span>
-                    </div>
-                    <div className="l">
-                      Average system life, so your old installs are coming due
-                      now
-                    </div>
-                  </div>
-                  <div>
-                    <div className="n">$12k</div>
-                    <div className="l">
-                      Typical changeout you already earned the right to quote
-                    </div>
-                  </div>
-                  <div>
-                    <div className="n">1&middot;3&middot;7</div>
-                    <div className="l">
-                      The day cadence your caller works every lead on
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div className="dash float rv">
-                  <div className="chead">
-                    <span className="dot"></span>
-                    <h4>Open Estimates, Last 90 Days</h4>
-                  </div>
-                  <div className="sub">Pulled from your system, sorted by value</div>
-                  <div className="stagger">
-                    <div className="row">
-                      <div>
-                        <div className="addr">4620 Live Oak Dr, Condenser Replacement</div>
-                        <div className="meta">System installed 16 yrs ago</div>
-                      </div>
-                      <div>
-                        <div className="val" data-count="12000">
-                          $12,000
-                        </div>
-                        <div className="day">Day 3</div>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div>
-                        <div className="addr">212 Magnolia Ct, Full System Install</div>
-                        <div className="meta">Estimate sent 74 days ago</div>
-                      </div>
-                      <div>
-                        <div className="val" data-count="8400">
-                          $8,400
-                        </div>
-                        <div className="day">Day 7</div>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div>
-                        <div className="addr">88 Riverside Ave, Repair And Recharge</div>
-                        <div className="meta">Estimate sent 21 days ago</div>
-                      </div>
-                      <div>
-                        <div className="val" data-count="3200">
-                          $3,200
-                        </div>
-                        <div className="day">Day 1</div>
-                      </div>
-                    </div>
-                  </div>
-                  <p className="foot-note">
-                    A sample of what your caller works through, in your
-                    company name.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <div className="wrap">
-            <div className="shead">
-              <div className="slabel rv">
-                <span className="sn">03</span>How It Starts
-              </div>
-              <h2 className="rv">Free To Start, You Pay When You Hire</h2>
-              <p className="lead rv">
-                No setup fee and no upfront cost. You see the person, approve
-                the plan, and the number is one simple figure built around the
-                role you need.
+              </details>
+              <p>
+                We have no HVAC case study and no testimonial for this. It is
+                a new offer. That is exactly why two weeks costs $49, why you
+                approve the person and every word before anyone dials, and why
+                the worked list is yours at the end of it either way.
               </p>
             </div>
-            <div className="steps stagger">
-              <div className="step">
-                <div className="sn">1</div>
-                <h3>Book Your Free Call</h3>
-                <p>
-                  Leave your number and a real person calls you back. You
-                  count your open estimates together and map the outreach, at
-                  no cost.
-                </p>
-              </div>
-              <div className="step">
-                <div className="sn">2</div>
-                <h3>We Find Your Caller</h3>
-                <p>
-                  We recruit and vet a dedicated remote caller for your
-                  business. You sign off on the person and the script before
-                  anyone dials.
-                </p>
-              </div>
-              <div className="step">
-                <div className="sn">3</div>
-                <h3>They Work Your List</h3>
-                <p>
-                  In your company name, on your software, day 1, 3, 7. You pay
-                  once they are hired and working, one all-in number for the
-                  role.
-                </p>
-              </div>
-            </div>
-            <div className="note-line rv">
-              <span className="tk"></span>
-              <div>
-                One simple number for the role and experience you need,
-                quoted on your call. No per-call fees, no line items, and no
-                surprises on the invoice.
-              </div>
-            </div>
-          </div>
-        </section>
+          </section>
 
-        <section className="band">
-          <div className="wrap">
-            <div className="shead">
-              <div className="slabel rv">
-                <span className="sn">04</span>Before You Start
-              </div>
-              <h2 className="rv">You Stay In Control</h2>
-            </div>
-            <div className="two stagger">
-              <div className="panel">
-                <h3>Your Name, Your Software, No Lock-In</h3>
-                <p style={{ marginTop: 4 }}>
-                  You sign off on the <strong>call script</strong> and text
-                  wording before your caller contacts a single person. Every
-                  call is logged in <strong>your own software</strong>, works
-                  inside <strong>ServiceTitan, Housecall Pro, or Jobber</strong>,
-                  and a spreadsheet and a phone works too.
-                </p>
-                <p style={{ marginTop: 14 }}>
-                  Month to month once hired, and a single message from you
-                  stops it. You <strong>keep the list either way</strong>.
+          <section className="sheet objections" id="objections">
+            <div className="obj-list">
+              <div className="obj">
+                <h3>&ldquo;The last outsider who talked to my customers cost me jobs.&rdquo;</h3>
+                <p>
+                  One owner wrote that a vendor &ldquo;started sending
+                  customized messages to customers, that we did NOT okay to be
+                  sent. These messages have lost us jobs.&rdquo; You met this
+                  person and approved every word before they dialed. That is
+                  the difference. The approval comes before the work, not
+                  after.
                 </p>
               </div>
-              <div className="panel">
-                <h3>Who This Fits Best</h3>
-                <p style={{ marginTop: 4 }}>
-                  This works best when you send <strong>written estimates</strong>{" "}
-                  and can give access to where they live. If your open list is
-                  a <strong>handful a month</strong>, we will tell you on the
-                  call, early.
+              <div className="obj">
+                <h3>&ldquo;They will not know enough to talk to my customers.&rdquo;</h3>
+                <p>
+                  The complaint people write about call services is that
+                  &ldquo;agents don&rsquo;t know your business or region and
+                  can&rsquo;t have meaningful conversations.&rdquo; This is one
+                  person, the same one every day, not a pool. They get your
+                  price list before the first call. By day three they answer
+                  from it, instead of promising a call back.
                 </p>
-                <p style={{ marginTop: 14 }}>
-                  Nothing to migrate, and nothing for your techs to learn.
-                  Your caller starts on the list you already have.
+              </div>
+              <div className="obj">
+                <h3>&ldquo;I have been sold a cadence before and it harassed my customer.&rdquo;</h3>
+                <p>
+                  Fair. One owner found a tool that &ldquo;continues to send
+                  reminders to the client every 4 hours.&rdquo; This is three
+                  contacts. Day 1, day 3, day 7. Then it stops. Nothing keeps
+                  running in the background afterwards, and one message from
+                  you ends it at any point.
                 </p>
               </div>
             </div>
-          </div>
-        </section>
+            <details className="sources">
+              <summary>Sources</summary>
+              <p>
+                Quotes from Trustpilot reviews of a field service platform and
+                an answering service
+                (https://www.trustpilot.com/review/housecallpro.com,
+                https://www.trustpilot.com/review/answeringservicecare.com).
+              </p>
+            </details>
+          </section>
 
-        <section className="cta">
-          <div className="aura">
-            <i className="b1"></i>
-            <i className="b2"></i>
-          </div>
-          <div className="wrap">
-            <div className="tagwrap">
-              <div className="tag dark rv">
-                <span className="d"></span>Get Started
-              </div>
+          <section className="sheet cost" id="cost">
+            <h2>One named person, the same one every day, from $450 a month.</h2>
+            <div className="body">
+              <p>
+                Here is why that number is possible. We recruit and vet them,
+                you approve them, and then they are yours, not split across
+                three shops. They work from Indonesia.
+              </p>
+              <p>
+                Where they work is why the price is what it is. Keeping them
+                to one shop is why the work is good. The same person every day
+                learns your prices and how you pitch them. None of it walks to
+                another account on Thursday.
+              </p>
             </div>
-            <h2 className="rv">Put Someone On The List You Already Own</h2>
-            <p className="lead rv">
-              Leave your number. We call you back, look at your open
-              estimates together, and start the search. You keep the list
-              either way.
+            <p className="cost-note">
+              A US seat doing this work runs roughly $50,000 to $65,000 a year
+              all in. That is a median telemarketer wage of $34,480 (May 2023)
+              or a median customer service wage of $44,770 (May 2025), loaded
+              for employer costs using the BLS Employer Costs for Employee
+              Compensation release of June 2026, where benefits are 31.5% of
+              total compensation for full time private industry work.
+              Published market costs, not a claim about what our customers
+              have achieved.
             </p>
-            <a className="btn lg openform rv" href={BOOK_URL} onClick={openModal}>
-              Get Started Free
-            </a>
-            <p className="trust rv">
-              Free to start. You pay when you hire. A real person calls,
-              during business hours.
+            <details className="sources">
+              <summary>Sources</summary>
+              <p>
+                (https://www.bls.gov/oes/2023/may/oes419041.htm)
+                <br />
+                (https://www.bls.gov/ooh/office-and-administrative-support/customer-service-representatives.htm)
+                <br />
+                (https://www.bls.gov/news.release/pdf/ecec.pdf)
+              </p>
+            </details>
+            <p className="closing-line">
+              And you cannot trial a hire. You commit to a person long before
+              you know whether they are any good at this. That is the part we
+              removed. Two weeks, a worked list, then you decide.
             </p>
-          </div>
-        </section>
+          </section>
 
-        <footer>
-          <div className="wrap fbar">
-            <img src={FOOTER_LOGO_SRC} alt="RemoHires" />
-            <div className="links">
-              Terms<span>&middot;</span>Privacy<span>&middot;</span>PT Sentra
-              Talenta Unggul<span>&middot;</span>(504) 265-1063
+          <section className="sheet final" id="cta-form">
+            <h2>Two weeks of one named person calling. $49.</h2>
+            <p className="proof-line">
+              Put your number in. A real person calls, usually within fifteen
+              minutes, and the call takes ten. You meet the person and approve
+              them. They start on day one. On day 14 the worked list is yours.
+            </p>
+
+            <div className="terms-block">
+              <h3>What it costs, and how to stop</h3>
+              <p>
+                Two weeks costs $49, charged once. Stop at the end and we
+                refund it, and you keep the list, the scripts and everything
+                on it.
+              </p>
+              <p>
+                Carry on and it is from $450 a month, month to month. Tell us
+                to stop and it stops at the end of the month.
+              </p>
             </div>
-          </div>
-        </footer>
 
-        <a
-          className={`btn stick openform${stickOn ? " on" : ""}`}
-          href={BOOK_URL}
-          onClick={openModal}
-        >
-          Get Started Free
-        </a>
+            <div className="not-for">
+              <h3>Who this is not for</h3>
+              <ul>
+                <li>You do not send written estimates.</li>
+                <li>You cannot give access to where those estimates live.</li>
+                <li>Your open list is a handful of quotes a month.</li>
+                <li>
+                  What you actually want is somebody to answer your phone,
+                  rather than go and find work. This is outbound only. We will
+                  tell you on the call rather than after.
+                </li>
+              </ul>
+            </div>
 
-        <div
-          className={`modal${modalOpen ? " open" : ""}`}
-          id="leadmodal"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="lm-title"
-        >
-          <div className="scrim" onClick={closeModal}></div>
-          <div className="box">
-            <button className="x" type="button" onClick={closeModal} aria-label="Close">
-              &times;
-            </button>
-            {!leadDone ? (
-              <form id="leadform" onSubmit={handleLeadSubmit} noValidate>
+            {!isDone ? (
+              <form id="lead-form" onSubmit={handleSubmit}>
+                <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
                 <input
-                  type="text"
-                  name="company_website"
+                  type="hidden"
+                  name="subject"
+                  value="New HVAC callback request (estimate LP)"
+                />
+                <input
+                  type="hidden"
+                  name="from_name"
+                  value="RemoHires HVAC LP (estimate)"
+                />
+                <input type="hidden" name="landing_page" value="hvac-new" />
+                <input
+                  type="checkbox"
+                  name="botcheck"
                   tabIndex={-1}
                   autoComplete="off"
+                  style={{ display: "none" }}
                   aria-hidden="true"
-                  style={{
-                    position: "absolute",
-                    left: "-9999px",
-                    width: 1,
-                    height: 1,
-                    opacity: 0,
-                    pointerEvents: "none",
-                  }}
                 />
-                <div className="lf-eyebrow">Free To Start</div>
-                <h4 id="lm-title">Get Someone On Your Lead List</h4>
-                <p className="lf-sub">
-                  Leave your number. A RemoHires specialist calls you back,
-                  looks at your open estimates with you, and starts the
-                  search. Free to start, you pay when you hire.
-                </p>
-                <div className="fields">
-                  <div>
-                    <input
-                      ref={firstFieldRef}
-                      type="text"
-                      name="fullname"
-                      placeholder="Your name"
-                      autoComplete="name"
-                      required
-                      onChange={() => {
-                        if (errors.fullname) {
-                          setErrors((prev) => ({ ...prev, fullname: false }));
-                        }
-                      }}
-                      style={errors.fullname ? errorBorderStyle : undefined}
-                    />
-                    {errors.fullname && (
-                      <div style={errorTextStyle}>This field is required.</div>
-                    )}
-                  </div>
-                  <div>
-                    <div style={{ display: "flex", gap: 10 }}>
-                      <div
-                        style={{
-                          position: "relative",
-                          flex: "0 0 92px",
-                          minWidth: 0,
-                        }}
-                      >
-                        <div
-                          aria-hidden="true"
-                          style={{
-                            position: "absolute",
-                            inset: 0,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            padding: "0 8px 0 10px",
-                            borderRadius: 13,
-                            border: "1px solid rgba(255,255,255,.18)",
-                            background: "rgba(255,255,255,.97)",
-                            color: "#141a2e",
-                            font: "inherit",
-                            fontSize: 15,
-                            fontWeight: 500,
-                            pointerEvents: "none",
-                          }}
-                        >
-                          <span>{selectedDialCode}</span>
-                          <svg
-                            width="10"
-                            height="10"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="#141a2e"
-                            strokeWidth={2.6}
-                            style={{ flex: "none", marginLeft: 4 }}
-                          >
-                            <path d="M6 9l6 6 6-6" />
-                          </svg>
-                        </div>
-                        <select
-                          name="countryCode"
-                          value={countryValue}
-                          onChange={(e) => setCountryValue(e.target.value)}
-                          aria-label="Country code"
-                          required
-                          style={{
-                            position: "relative",
-                            width: "100%",
-                            height: "100%",
-                            padding: "15px 8px",
-                            borderRadius: 13,
-                            border: "1px solid transparent",
-                            background: "transparent",
-                            color: "transparent",
-                            font: "inherit",
-                            fontSize: 15,
-                            fontWeight: 500,
-                            outline: "none",
-                            appearance: "none",
-                            WebkitAppearance: "none",
-                            MozAppearance: "none",
-                          }}
-                        >
-                          {COUNTRY_CODES.map((c) => (
-                            <option
-                              key={countryOptionValue(c)}
-                              value={countryOptionValue(c)}
-                              style={{ color: "#141a2e" }}
-                            >
-                              {`${c.name} (${c.code})`}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                      <input
-                        type="tel"
-                        name="phone"
-                        placeholder="Mobile number"
-                        autoComplete="tel"
-                        inputMode="numeric"
-                        pattern="[0-9]*"
-                        minLength={7}
-                        maxLength={15}
-                        onChange={(e) => {
-                          e.currentTarget.value = e.currentTarget.value.replace(
-                            /[^0-9]/g,
-                            ""
-                          );
-                          if (errors.phone) {
-                            setErrors((prev) => ({ ...prev, phone: false }));
-                          }
-                        }}
-                        style={{
-                          flex: 1,
-                          minWidth: 0,
-                          ...(errors.phone ? errorBorderStyle : {}),
-                        }}
-                        required
-                      />
-                    </div>
-                    {errors.phone && (
-                      <div style={errorTextStyle}>This field is required.</div>
-                    )}
-                  </div>
+                <div className="field">
+                  <label htmlFor="fname">First name</label>
                   <input
-                    type="email"
-                    name="email"
-                    placeholder="Email (optional)"
-                    autoComplete="email"
+                    id="fname"
+                    name="fname"
+                    type="text"
+                    autoComplete="given-name"
+                    required
                   />
                 </div>
-                <label className="toggle">
-                  <input type="checkbox" name="callnow" defaultChecked />
-                  <span>
-                    <span className="tl">Call me within 15 minutes</span>
-                    <span className="ts">A real person, during business hours</span>
-                  </span>
-                </label>
+                <div className="field">
+                  <label htmlFor="mobile">Mobile number</label>
+                  <input
+                    id="mobile"
+                    name="mobile"
+                    type="tel"
+                    autoComplete="tel"
+                    inputMode="tel"
+                    required
+                  />
+                </div>
                 <button className="btn" type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? "Sending..." : "Get Started Free"}
+                  {isSubmitting ? "Calling you shortly..." : "Call me in the next 15 minutes"}
                 </button>
-                <p className="note">
-                  Free to start. You pay when you hire, and you keep the list
-                  either way.
+                <p className="supply">
+                  We take six shops a month, because that is how many callers
+                  we can recruit and vet.
                 </p>
               </form>
             ) : (
-              <div className="lf-done" style={{ display: "block" }}>
-                <div className="ck">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3}>
-                    <path d="M20 6 9 17l-5-5" />
-                  </svg>
-                </div>
-                <div className="dt">You Are On The List</div>
-                <div className="lf-done-msg">{doneMsg}</div>
-              </div>
+              <p
+                style={{
+                  fontFamily: "'Courier Prime', monospace",
+                  fontSize: 15,
+                  lineHeight: 1.6,
+                  color: "#26326b",
+                }}
+              >
+                Got it. A real person will call you shortly, usually within
+                fifteen minutes.
+              </p>
             )}
-          </div>
-        </div>
+
+            <div className="sheet-foot">
+              <a href="#">Terms</a>
+              <a href="#">Privacy</a>
+            </div>
+          </section>
+        </main>
       </div>
     </>
   );
