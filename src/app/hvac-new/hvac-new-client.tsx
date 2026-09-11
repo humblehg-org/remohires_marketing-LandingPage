@@ -33,14 +33,6 @@ export default function HvacNewClient() {
     } catch {
       // Analytics must never break the page.
     }
-    try {
-      console.log("[Meta Pixel] Firing Lead Intent on CTA click");
-      if (typeof window.fbq === "function") {
-        window.fbq("trackCustom", "Lead Intent");
-      }
-    } catch {
-      // ignore
-    }
   }
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {

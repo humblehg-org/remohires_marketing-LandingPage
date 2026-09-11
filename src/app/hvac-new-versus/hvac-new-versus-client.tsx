@@ -33,14 +33,6 @@ export default function HvacNewVersusClient() {
     } catch {
       // Analytics must never break the page.
     }
-    try {
-      console.log("[Meta Pixel] Firing Lead Intent on CTA click");
-      if (typeof window.fbq === "function") {
-        window.fbq("trackCustom", "LeadIntent");
-      }
-    } catch {
-      // ignore
-    }
   }
 
   // The form sits near the end of the document, so a plain anchor jump can
