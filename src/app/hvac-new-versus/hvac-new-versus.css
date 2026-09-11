@@ -1,0 +1,543 @@
+/* Converted from remohires-hvac-versus.html. Every rule is scoped under
+   .hvac-versus (the page's root wrapper) so nothing leaks onto other
+   routes. Fonts (Fraunces, IBM Plex Mono, IBM Plex Sans) are loaded via
+   <link> tags in hvac-new-versus-client.tsx. */
+
+.hvac-versus {
+  --paper: #f4efe3;
+  --paper-bright: #fdfbf5;
+  --ink: #1b1712;
+  --ink-soft: #5a5348;
+  --hire-bg: #1c1712;
+  --hire-text: #f1e9d8;
+  --hire-muted: #9c9284;
+  --rule: #1b1712;
+  --red: #a92a1f;
+  --green: #2f5a3a;
+  --focus: #2f6f8f;
+
+  -webkit-text-size-adjust: 100%;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.hvac-versus * { box-sizing: border-box; }
+
+.hvac-versus img { max-width: 100%; }
+
+.hvac-versus a { color: inherit; }
+.hvac-versus a:focus-visible,
+.hvac-versus button:focus-visible,
+.hvac-versus input:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.hvac-versus .wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.hvac-versus .body-copy,
+.hvac-versus .proof-line,
+.hvac-versus .who-list,
+.hvac-versus .final-cta ul,
+.hvac-versus .source-note,
+.hvac-versus .cost-note,
+.hvac-versus .form-promise,
+.hvac-versus .section-heading,
+.hvac-versus .lead-in,
+.hvac-versus form.call-form {
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hvac-versus h1,
+.hvac-versus h2,
+.hvac-versus h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  color: var(--ink);
+  margin: 0;
+}
+
+.hvac-versus p { margin: 0; }
+
+.hvac-versus .mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+
+/* ---------- Hero ---------- */
+
+.hvac-versus .hero { padding: 28px 0 30px; }
+
+.hvac-versus .eyebrow {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: clamp(14px, 4vw, 17px);
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.hvac-versus .eyebrow::before {
+  content: "\2014";
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  color: var(--red);
+  flex: none;
+}
+
+.hvac-versus .headline {
+  font-size: clamp(30px, 8.6vw, 50px);
+  font-weight: 900;
+  font-optical-sizing: auto;
+  line-height: 1.03;
+  letter-spacing: -0.01em;
+}
+
+.hvac-versus .trial-line {
+  margin-top: 16px;
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(16px, 4.6vw, 20px);
+  color: var(--ink);
+  max-width: 40ch;
+}
+
+/* ---------- Comparison ---------- */
+
+.hvac-versus .comparison {
+  position: relative;
+  margin-top: 20px;
+  border: 2px solid var(--rule);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.hvac-versus .col { padding: 16px 14px 14px; }
+
+.hvac-versus .col-hire {
+  background: var(--hire-bg);
+  color: var(--hire-text);
+  border-right: 2px solid var(--rule);
+}
+
+.hvac-versus .col-rent {
+  background: var(--paper-bright);
+  color: var(--ink);
+}
+
+.hvac-versus .col-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  font-size: clamp(12px, 3.4vw, 14px);
+  letter-spacing: 0.02em;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid currentColor;
+}
+.hvac-versus .col-hire .col-label { color: var(--hire-muted); border-color: #453d33; }
+.hvac-versus .col-rent .col-label { color: var(--ink-soft); border-color: #d8cfb9; }
+
+.hvac-versus .row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 7px 0;
+  border-bottom: 1px solid #453d33;
+}
+.hvac-versus .col-rent .row { border-bottom-color: #e4dcc7; }
+
+.hvac-versus .row-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(10.5px, 3vw, 12.5px);
+  color: var(--hire-muted);
+}
+.hvac-versus .col-rent .row-label { color: var(--ink-soft); }
+
+.hvac-versus .row-value {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  font-size: clamp(13.5px, 3.8vw, 17px);
+  line-height: 1.25;
+}
+
+.hvac-versus .row-value.tight { font-size: clamp(11.5px, 3.2vw, 14px); }
+
+.hvac-versus .total {
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 2px solid currentColor;
+}
+.hvac-versus .col-hire .total { border-top-color: var(--hire-text); }
+.hvac-versus .col-rent .total { border-top-color: var(--ink); }
+
+.hvac-versus .total-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(11px, 3vw, 13px);
+  letter-spacing: 0.04em;
+}
+.hvac-versus .col-hire .total-label { color: var(--hire-muted); }
+.hvac-versus .col-rent .total-label { color: var(--ink-soft); }
+
+.hvac-versus .total-value {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: clamp(26px, 8vw, 38px);
+  line-height: 1.05;
+  margin-top: 2px;
+}
+.hvac-versus .col-rent .total-value { color: var(--red); }
+
+.hvac-versus .vs {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -50%);
+  width: clamp(34px, 8vw, 46px);
+  height: clamp(34px, 8vw, 46px);
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: clamp(11px, 2.6vw, 14px);
+  color: var(--ink);
+  z-index: 2;
+}
+
+/* ---------- CTA button ---------- */
+
+.hvac-versus .btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  appearance: none;
+  border: 2px solid var(--rule);
+  background: var(--ink);
+  color: var(--paper-bright);
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  font-size: clamp(14px, 3.8vw, 16px);
+  letter-spacing: 0.01em;
+  padding: 14px 18px;
+  border-radius: 3px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 3px 3px 0 var(--red);
+}
+.hvac-versus .btn:hover { background: #302820; }
+.hvac-versus a.btn { margin-top: 22px; }
+
+.hvac-versus .microcopy {
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.hvac-versus .supply-line {
+  margin-top: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  opacity: 0.85;
+}
+
+/* ---------- Body sections ---------- */
+
+.hvac-versus section {
+  padding: clamp(44px, 6vw, 68px) 0;
+  border-top: 1px solid #ddd3ba;
+}
+.hvac-versus section:nth-of-type(even) {
+  background: var(--paper-bright);
+  box-shadow: 0 0 0 100vmax var(--paper-bright);
+  clip-path: inset(0 -100vmax);
+  border-top-color: #e3d9c2;
+}
+
+.hvac-versus .section-heading {
+  font-size: clamp(21px, 6vw, 28px);
+  font-weight: 600;
+  line-height: 1.15;
+  margin-bottom: 22px;
+}
+
+.hvac-versus .body-copy p + p { margin-top: 20px; }
+.hvac-versus .body-copy {
+  font-size: 16px;
+  color: var(--ink);
+  max-width: 620px;
+}
+.hvac-versus .body-copy strong { font-weight: 600; }
+
+.hvac-versus .who-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.hvac-versus .who-list li {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  font-size: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd3ba;
+}
+.hvac-versus .tick {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--ink);
+  margin-top: 3px;
+}
+
+.hvac-versus .closing-line {
+  font-size: 15px;
+  color: var(--ink-soft);
+  font-style: italic;
+  max-width: 56ch;
+}
+
+.hvac-versus .refund-callout {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: clamp(30px, 9vw, 44px);
+  color: var(--red);
+  border: 2px solid var(--red);
+  padding: 6px 16px;
+  margin-bottom: 18px;
+}
+
+.hvac-versus .objection {
+  padding: 20px 0;
+  border-top: 1px solid #ddd3ba;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hvac-versus .objection:first-child { border-top: none; padding-top: 0; }
+.hvac-versus .objection p { font-size: 16px; }
+.hvac-versus .objection strong {
+  display: block;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 19px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.hvac-versus small.source-note,
+.hvac-versus .small-print {
+  display: block;
+  margin-top: 18px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.hvac-versus .cost-note {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px dashed #ccbfa0;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  max-width: 64ch;
+}
+
+/* ---------- Final CTA ---------- */
+
+.hvac-versus .final-cta {
+  background: #e9e0cc;
+  color: var(--ink);
+  border-top: 1px solid #d8ccb0;
+  /* The trailing space is what lets the form be scrolled to the middle
+     of the viewport instead of stranded at the bottom edge. */
+  padding: clamp(48px, 7vw, 76px) 0 44vh;
+}
+.hvac-versus .final-cta .section-heading { color: var(--ink); }
+.hvac-versus .final-cta .proof-line {
+  font-size: 15px;
+  color: #4a443c;
+  max-width: 620px;
+  margin-bottom: 22px;
+}
+.hvac-versus .final-cta .lead-in {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--ink);
+  text-transform: none;
+  margin: 22px 0 10px;
+}
+.hvac-versus .final-cta ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+.hvac-versus .final-cta ul li {
+  font-size: 14.5px;
+  color: #4a443c;
+  padding-left: 16px;
+  position: relative;
+}
+.hvac-versus .final-cta ul li::before {
+  content: "\2014";
+  position: absolute;
+  left: 0;
+  color: #9a9184;
+}
+
+.hvac-versus form.call-form {
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid var(--rule);
+  scroll-margin-top: 14vh;
+}
+.hvac-versus .field { margin-bottom: 12px; }
+@media (min-width: 620px) {
+  .hvac-versus form.call-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 18px;
+  }
+  .hvac-versus form.call-form .btn { grid-column: 1 / -1; margin-top: 6px; }
+}
+.hvac-versus .field label {
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: #4a443c;
+  margin-bottom: 6px;
+}
+.hvac-versus .field input {
+  width: 100%;
+  background: #fff;
+  color: var(--ink);
+  border: 2px solid #2b2620;
+  border-radius: 3px;
+  padding: 12px 12px;
+  font-size: 16px;
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+}
+.hvac-versus .field .phone-input {
+  --PhoneInput-color--focus: var(--ink);
+  width: 100%;
+  background: #fff;
+  border: 2px solid #2b2620;
+  border-radius: 3px;
+  padding: 12px 12px;
+  font-size: 16px;
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+}
+.hvac-versus .field .phone-input.phone-input-error {
+  border-color: var(--red);
+}
+.hvac-versus .field .phone-input .PhoneInputInput {
+  border: none;
+  background: transparent;
+  color: var(--ink);
+  padding: 0;
+  outline: none;
+  font-size: 16px;
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+}
+.hvac-versus .field-error {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: var(--red);
+  margin: 6px 0 0;
+}
+.hvac-versus .final-cta .btn,
+.hvac-versus .btn-mid { margin-top: 6px; }
+.hvac-versus .btn:hover,
+.hvac-versus .final-cta .btn:hover,
+.hvac-versus .btn-mid:hover { background: #000; }
+.hvac-versus .final-cta .supply-line { color: #6b6459; }
+
+.hvac-versus footer {
+  padding: 22px 0 40px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-soft);
+  background: var(--hire-bg);
+}
+.hvac-versus footer .wrap { display: flex; gap: 20px; }
+.hvac-versus footer a { text-decoration: underline; color: var(--hire-muted); }
+
+@media (max-width: 420px) {
+  .hvac-versus .col { padding: 13px 10px 12px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hvac-versus { scroll-behavior: smooth; }
+}
+
+@media (max-width: 640px) {
+  .hvac-versus .subhead {
+    white-space: normal;
+    font-size: clamp(15px, 4.4vw, 18px);
+    max-width: 22ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.hvac-versus .btn-mid {
+  display: block;
+  width: 100%;
+  margin-top: 30px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.hvac-versus .supply-lead {
+  color: #4a443c;
+  font-size: 13.5px;
+  opacity: 1;
+  margin-bottom: 14px;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.hvac-versus .form-promise {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(14.5px, 1.6vw, 16.5px);
+  line-height: 1.6;
+  color: #332e28;
+  margin-top: 28px;
+  margin-bottom: -6px;
+}
+
+.hvac-versus .who-list,
+.hvac-versus .final-cta .lead-in,
+.hvac-versus .final-cta ul,
+.hvac-versus .final-cta .supply-line {
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
