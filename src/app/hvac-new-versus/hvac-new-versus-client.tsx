@@ -17,6 +17,24 @@ declare global {
   }
 }
 
+// fbq is never loaded by this app's own code — it depends entirely on the
+// GTM Meta Pixel base tag (GTM-K736CCFP) outside this repo. The warn/error
+// logging here is our only visibility into whether that dependency is
+// actually working, so it must not be made silent.
+function fbqTrack(...args: unknown[]) {
+  try {
+    if (typeof window !== "undefined" && typeof window.fbq === "function") {
+      window.fbq(...args);
+    } else {
+      console.warn(
+        `[lead-tracking] window.fbq is not available; event was not sent: ${args[1]}`,
+      );
+    }
+  } catch (err) {
+    console.error("[lead-tracking] fbqTrack threw:", err);
+  }
+}
+
 export default function HvacNewVersusClient() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDone, setIsDone] = useState(false);
@@ -33,6 +51,10 @@ export default function HvacNewVersusClient() {
     } catch {
       // Analytics must never break the page.
     }
+    // Intentionally kept for now: LeadIntent is the only confirmed proof the
+    // pixel is alive. Remove once "Lead" is verified working in Events Manager.
+    console.log("[Meta Pixel] Firing Lead Intent on CTA click");
+    fbqTrack("trackCustom", "LeadIntent");
   }
 
   // The form sits near the end of the document, so a plain anchor jump can
@@ -90,14 +112,7 @@ export default function HvacNewVersusClient() {
           } catch {
             // Analytics must never break the signup flow.
           }
-          try {
-            console.log("[Meta Pixel] Firing Lead event on successful submission");
-            if (typeof window.fbq === "function") {
-              window.fbq("track", "Lead");
-            }
-          } catch {
-            // Meta Pixel must never break the signup flow.
-          }
+          fbqTrack("track", "Lead");
           setIsDone(true);
         } else {
           submittedRef.current = false;
@@ -106,7 +121,7 @@ export default function HvacNewVersusClient() {
         }
       })
       .catch((err) => {
-        console.error("Web3Forms submission failed:", err);
+        console.error("[lead-tracking] Web3Forms submission failed:", err);
         submittedRef.current = false;
         setIsSubmitting(false);
         window.alert("Something went wrong sending that. Please try again.");
