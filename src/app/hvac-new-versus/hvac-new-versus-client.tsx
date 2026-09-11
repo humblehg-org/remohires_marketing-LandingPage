@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, type FormEvent, type MouseEvent } from "react";
+import Link from "next/link";
 import posthog from "posthog-js";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
@@ -478,8 +479,8 @@ export default function HvacNewVersusClient() {
 
         <footer>
           <div className="wrap">
-            <a href="#">Terms</a>
-            <a href="#">Privacy</a>
+            <Link href="/termsofservice">Terms</Link>
+            <Link href="/privacypolicy">Privacy</Link>
           </div>
         </footer>
       </div>
