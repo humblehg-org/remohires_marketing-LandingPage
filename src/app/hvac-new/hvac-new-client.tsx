@@ -34,7 +34,10 @@ export default function HvacNewClient() {
       // Analytics must never break the page.
     }
     try {
-      window.fbq?.("trackCustom", "Lead Intent");
+      console.log("[Meta Pixel] Firing Lead Intent on CTA click");
+      if (typeof window.fbq === "function") {
+        window.fbq("trackCustom", "Lead Intent");
+      }
     } catch {
       // ignore
     }
@@ -61,6 +64,8 @@ export default function HvacNewClient() {
     const data = new FormData(form);
     data.append("page_url", window.location.href);
 
+    console.log("[Form Submit] Sending payload to Web3Forms...");
+
     fetch("https://api.web3forms.com/submit", {
       method: "POST",
       headers: { Accept: "application/json" },
@@ -68,6 +73,7 @@ export default function HvacNewClient() {
     })
       .then((res) => res.json())
       .then((result) => {
+        console.log("[Web3Forms Response]:", result);
         if (result && result.success) {
           try {
             posthog.capture("hvac_lead_submitted");
@@ -75,9 +81,12 @@ export default function HvacNewClient() {
             // Analytics must never break the signup flow.
           }
           try {
-            window.fbq?.("track", "Lead");
+            console.log("[Meta Pixel] Firing Lead event on successful submission");
+            if (typeof window.fbq === "function") {
+              window.fbq("track", "Lead");
+            }
           } catch {
-            // ignore
+            // Meta Pixel must never break the signup flow.
           }
           setIsDone(true);
         } else {
