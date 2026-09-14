@@ -48,6 +48,13 @@
 
 .hvac-est .sheet {position:relative;
     background:var(--paper);
+    /* Explicit longhand fallback: PostHog/rrweb session replay has trouble
+       reproducing a var()-based `background` shorthand once it's layered
+       with a separate background-image override below. This plain
+       background-color repaints identically in real browsers (it's the
+       same value the shorthand already resolves to) but gives replay
+       something unambiguous to snapshot. */
+    background-color:var(--paper);
     border-radius:2px;
     box-shadow:
       0 1px 0 rgba(255,255,255,.5) inset,
