@@ -465,9 +465,20 @@
 }
 .hvac-versus .field-error {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px;
-  color: var(--red);
-  margin: 6px 0 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--red);
+  margin: 8px 0 0;
+  padding: 8px 10px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.hvac-versus .field-error::before {
+  content: "⚠";
+  line-height: 1;
 }
 .hvac-versus .final-cta .btn,
 .hvac-versus .btn-mid { margin-top: 6px; }

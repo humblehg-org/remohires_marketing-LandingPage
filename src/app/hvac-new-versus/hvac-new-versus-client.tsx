@@ -84,6 +84,7 @@ export default function HvacNewVersusClient() {
     if (honeypot?.checked) return;
 
     if (!phone || !isValidPhoneNumber(phone)) {
+      console.warn("[lead-tracking] submit blocked: invalid phone number");
       setPhoneError("Enter a valid mobile number, including area code.");
       return;
     }

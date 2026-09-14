@@ -6,4 +6,5 @@ import posthog from "posthog-js";
 posthog.init("phc_mX4dMmEmHbV6VuiBQErnk9bTSuRx3TnNrqRjpeZ8F4Tk", {
   api_host: "https://us.i.posthog.com",
   defaults: "2025-05-24",
+  capture_pageview: true,
 });
