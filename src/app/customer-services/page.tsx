@@ -5,6 +5,8 @@ import { LeadModal } from "@/components/customer-services/lead-modal";
 import { MobileFab } from "@/components/customer-services/mobile-fab";
 import { ScrollReveal } from "@/components/customer-services/scroll-reveal";
 import { FaqAccordion } from "@/components/customer-services/faq-accordion";
+import { FontLoader } from "@/components/customer-services/font-loader";
+import { LazyImageLoader } from "@/components/customer-services/lazy-image-loader";
 
 export const metadata: Metadata = {
   title: "RemoHires | A Full-Time Remote Customer Service Representative For Your Business",
@@ -15,13 +17,25 @@ export const metadata: Metadata = {
 export default function CustomerServicesPage() {
   return (
     <>
-      <link rel="preconnect" href="https://api.fontshare.com" />
-      <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap" rel="stylesheet" />
+      <FontLoader />
+      <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="anonymous" />
+      <link rel="preload" as="image" href="/logo-remohires-color.svg" fetchPriority="high" />
+      <link rel="preload" as="style" href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap" />
+      <link
+        href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap"
+        rel="stylesheet"
+        media="print"
+        data-font-swap="satoshi"
+      />
+      <noscript>
+        <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap" rel="stylesheet" />
+      </noscript>
       <div className="rh">
         <ScrollReveal />
         <FaqAccordion />
         <MobileFab />
         <LeadModal />
+        <LazyImageLoader />
 
         <main>
           <section className="hero">
@@ -29,7 +43,7 @@ export default function CustomerServicesPage() {
             <div className="wrap">
               <nav className="nav">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/logo-remohires-color.svg" alt="RemoHires" />
+                <img src="/logo-remohires-color.svg" alt="RemoHires" width={174} height={44} decoding="async" fetchPriority="high" />
                 <div className="r">
                   <span className="navtag"><span className="nd"></span>Customer Service Reps, Full Time, Remote</span>
                   <BookCta ctaName="nav" className="btn">Book A Free Call</BookCta>
@@ -192,7 +206,15 @@ export default function CustomerServicesPage() {
                     <blockquote>&ldquo;RemoHires helped us find the right talent for our needs, keeping our projects on track and costs under control.&rdquo;</blockquote>
                     <div className="tattr">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img className="tlogo" src="/lhp-logo.png" alt="Louisiana Home Performance" />
+                      <img
+                        className="tlogo lazyimg"
+                        src="/lhp-logo.png"
+                        alt="Louisiana Home Performance"
+                        width={198}
+                        height={150}
+                        loading="lazy"
+                        decoding="async"
+                      />
                       <div className="tmeta"><b>Michael</b><span>Founder, Louisiana Home Performance</span></div>
                     </div>
                   </div>
@@ -243,7 +265,15 @@ export default function CustomerServicesPage() {
         <footer>
           <div className="wrap fbar">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo-remohires-color.svg" alt="RemoHires" />
+            <img
+              className="lazyimg"
+              src="/logo-remohires-color.svg"
+              alt="RemoHires"
+              width={174}
+              height={44}
+              loading="lazy"
+              decoding="async"
+            />
             <div className="links"><a href="https://remohires.com/terms">Terms</a><span>&middot;</span><a href="https://remohires.com/privacy">Privacy</a><span>&middot;</span>(504) 265-1063</div>
           </div>
         </footer>

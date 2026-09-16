@@ -87,6 +87,17 @@
   .rh .hero .trust strong{color:#cdd6f7}
   .rh .cite{font-size:.62em;font-weight:700;color:var(--turq-b);margin-left:2px;text-decoration:none;vertical-align:super;cursor:pointer}
   .rh .cite:hover{text-decoration:underline}
+
+  /* Skip rendering work for offscreen sections until they're about to be
+     scrolled into view. contain-intrinsic-size gives the browser a rough
+     placeholder height so scrollbar/scroll-position math stays stable
+     before each section has actually been rendered once. */
+  .rh section:not(.hero){content-visibility:auto;contain-intrinsic-size:1px 900px}
+
+  .rh img.lazyimg{background:linear-gradient(90deg,#eef1f8 25%,#e4e9f5 37%,#eef1f8 63%);background-size:400% 100%;animation:skeleton-loading 1.4s ease infinite}
+  .rh img.lazyimg.loaded{animation:none;background:none}
+  @keyframes skeleton-loading{0%{background-position:100% 50%}100%{background-position:0 50%}}
+
   .rh section{padding:112px 0;position:relative}
   .rh .band{background:linear-gradient(180deg,#fbfcfe,var(--soft));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
   .rh .shead{max-width:720px;margin:0 auto;text-align:center}
@@ -245,6 +256,7 @@
   .js .rh .stagger.in>*:nth-child(3){transition-delay:.22s}
   @media(prefers-reduced-motion:reduce){
     .rh *,.rh *::before,.rh *::after{animation:none!important;scroll-behavior:auto!important;transition:none!important}
+    .rh img.lazyimg{background:#eef1f8}
     .js .rh .hero .anim{opacity:1!important;transform:none!important;filter:none!important}
     .js .rh .shimmer{-webkit-text-fill-color:var(--turq-b);color:var(--turq-b)}
     .js .rh .rv,.js .rh .stagger>*{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}}

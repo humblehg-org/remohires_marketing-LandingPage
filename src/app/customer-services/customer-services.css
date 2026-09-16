@@ -594,6 +594,31 @@
       text-decoration: underline
     }
 
+    /* Skip rendering work for offscreen sections until they're about to be
+       scrolled into view. contain-intrinsic-size gives the browser a rough
+       placeholder height so scrollbar/scroll-position math stays stable
+       before each section has actually been rendered once. */
+    .rh section:not(.hero) {
+      content-visibility: auto;
+      contain-intrinsic-size: 1px 900px
+    }
+
+    .rh img.lazyimg {
+      background: linear-gradient(90deg, #eef1f8 25%, #e4e9f5 37%, #eef1f8 63%);
+      background-size: 400% 100%;
+      animation: skeleton-loading 1.4s ease infinite
+    }
+
+    .rh img.lazyimg.loaded {
+      animation: none;
+      background: none
+    }
+
+    @keyframes skeleton-loading {
+      0% { background-position: 100% 50% }
+      100% { background-position: 0 50% }
+    }
+
     .rh section {
       padding: 112px 0;
       position: relative
@@ -1558,6 +1583,10 @@
         animation: none !important;
         scroll-behavior: auto !important;
         transition: none !important
+      }
+
+      .rh img.lazyimg {
+        background: #eef1f8
       }
 
       .js .rh .hero .anim {
