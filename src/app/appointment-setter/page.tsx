@@ -239,7 +239,7 @@ export default function AppointmentSetterPage() {
           <div className="wrap fbar">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo-remohires-color.svg" alt="RemoHires" />
-            <div className="links">Terms<span>&middot;</span>Privacy<span>&middot;</span>PT Sentra Talenta Unggul<span>&middot;</span>(504) 265-1063</div>
+            <div className="links"><a href="https://remohires.com/terms">Terms</a><span>&middot;</span><a href="https://remohires.com/privacy">Privacy</a><span>&middot;</span>PT Sentra Talenta Unggul<span>&middot;</span>(504) 265-1063</div>
           </div>
           <div className="wrap"><p className="fnote" id="src-1">1. Source: Chili Piper, 2025 Benchmark Report on Demo Form Conversion Rates.</p></div>
         </footer>
