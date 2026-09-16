@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import posthog from "posthog-js";
 import { OPEN_CALLBACK_MODAL_EVENT } from "./callback-cta";
 import { trackLeadSubmit } from "@/lib/gtm";
 
@@ -67,6 +68,7 @@ export function CallbackModal() {
       setSuccess(null);
       setTimezone(detectTimezone());
       setOpen(true);
+      posthog.capture("appt_setter_form_opened");
     }
     window.addEventListener(OPEN_CALLBACK_MODAL_EVENT, onOpen);
     return () => window.removeEventListener(OPEN_CALLBACK_MODAL_EVENT, onOpen);
@@ -121,6 +123,7 @@ export function CallbackModal() {
       const data = await res.json();
       if (data && data.success) {
         trackLeadSubmit(ctaSource);
+        posthog.capture("appt_setter_lead_submitted");
         setSuccess(callbackType);
       } else {
         throw new Error((data && data.message) || "Submission failed");

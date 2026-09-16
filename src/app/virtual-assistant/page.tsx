@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import "./virtual-assistant.css";
 import { TopStrip } from "@/components/virtual-assistant/top-strip";
 import { SiteHeader } from "@/components/virtual-assistant/site-header";
@@ -280,12 +281,12 @@ export default function VirtualAssistantWholesalePage() {
                   </p>
                 </Reveal>
                 <Reveal className="visualcol" style={{ transitionDelay: "0.15s" }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src="https://ik.imagekit.io/qrnjdv9jd/RemoHires/va_workspace.png"
                     alt="Dedicated Virtual Assistant Workspace"
-                    loading="lazy"
-                    decoding="async"
+                    width={1024}
+                    height={1024}
+                    sizes="(min-width: 900px) 50vw, 100vw"
                     style={{
                       width: "100%",
                       height: "auto",

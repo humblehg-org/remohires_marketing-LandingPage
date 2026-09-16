@@ -247,13 +247,12 @@ export default function CustomRecruitmentPage() {
         <section className="bg-mist section">
           <div className="container split-grid">
             <Reveal variant="scale">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="/custom-recruitment-split.png"
                 alt="A recruiter reviewing a screened candidate profile during a video call"
-                width={1200}
-                height={1408}
-                loading="lazy"
+                width={928}
+                height={1152}
+                sizes="(min-width: 900px) 50vw, 100vw"
                 className="split-image"
               />
             </Reveal>

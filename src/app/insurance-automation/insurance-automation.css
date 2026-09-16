@@ -84,17 +84,7 @@ html { scroll-behavior: smooth }
 .ia .btn.ghost:hover { border-color: var(--blue); transform: translateY(-2px) }
 
 .ia .bookbtn { position: relative; overflow: hidden; transition: transform .22s ease, box-shadow .22s ease }
-.ia .bookbtn::after {
-  content: ""; position: absolute; top: 0; left: 0; width: 55%; height: 100%;
-  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .55), transparent);
-  transform: translateX(-254.55%) skewX(-18deg); animation: ia-bookbtnShimmer 3.2s ease-in-out infinite
-}
 .ia .bookbtn:hover { transform: scale(1.045); box-shadow: 0 16px 34px rgba(15, 33, 112, .32) }
-@keyframes ia-bookbtnShimmer {
-  0% { transform: translateX(-254.55%) skewX(-18deg) }
-  55% { transform: translateX(290.91%) skewX(-18deg) }
-  100% { transform: translateX(290.91%) skewX(-18deg) }
-}
 
 /* top strip */
 .ia .topstrip { background: var(--navy); color: #fff; font-size: 13px; font-weight: 600; text-align: center; padding: 8px 12px }
@@ -332,7 +322,6 @@ html { scroll-behavior: smooth }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto }
   .ia .reveal { opacity: 1; transform: none; transition: none }
-  .ia .bookbtn::after { animation: none }
   .ia .bookbtn:hover { transform: none }
   .ia .topstrip .rot span { animation: none }
   .ia .card:hover { transform: none }
