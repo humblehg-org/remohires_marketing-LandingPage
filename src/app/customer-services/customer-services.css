@@ -1294,6 +1294,34 @@
       box-shadow: 0 0 0 3px rgba(23, 217, 198, .28)
     }
 
+    .rh .modal .contact-method-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      margin: 10px 0 0;
+      padding: 9px 11px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid rgba(255, 255, 255, .1)
+    }
+
+    .rh .modal .contact-method-note .cmn-icon {
+      flex: none;
+      width: 15px;
+      height: 15px;
+      margin-top: 1px;
+      color: #9aa6d6
+    }
+
+    .rh .modal .contact-method-note .cmn-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: 12px;
+      color: #9aa6d6;
+      line-height: 1.4
+    }
+
     .rh .modal .toggle {
       display: flex;
       align-items: center;

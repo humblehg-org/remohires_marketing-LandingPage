@@ -204,6 +204,10 @@
     background:rgba(255,255,255,.97);color:#141a2e;font:inherit;font-size:16px;font-weight:500;outline:none;transition:box-shadow .15s,border-color .15s}
   .rh .modal input::placeholder{color:#8b93ad}
   .rh .modal input:focus{border-color:var(--turq-b);box-shadow:0 0 0 3px rgba(23,217,198,.28)}
+  .rh .modal .contact-method-note{display:flex;align-items:flex-start;gap:9px;margin:10px 0 0;padding:9px 11px;
+    border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
+  .rh .modal .contact-method-note .cmn-icon{flex:none;width:15px;height:15px;margin-top:1px;color:#9aa6d6}
+  .rh .modal .contact-method-note .cmn-text{display:flex;flex-direction:column;gap:2px;font-size:12px;color:#9aa6d6;line-height:1.4}
   .rh .modal .toggle{display:flex;align-items:center;gap:13px;margin:15px 0 6px;padding:14px 15px;border-radius:13px;
     background:rgba(23,217,198,.11);border:1px solid rgba(23,217,198,.4);cursor:pointer;transition:background .18s}
   .rh .modal .toggle:hover{background:rgba(23,217,198,.16)}

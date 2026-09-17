@@ -151,10 +151,21 @@ export function LeadModal() {
               <input type="tel" name="phone" placeholder="Mobile number" autoComplete="tel" required disabled={pending} />
               <input type="email" name="email" placeholder="Email (optional)" autoComplete="email" disabled={pending} />
             </div>
+            <div className="contact-method-note">
+              <svg className="cmn-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <circle cx="10" cy="10" r="8.5" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M10 9v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                <circle cx="10" cy="6.5" r="1" fill="currentColor" />
+              </svg>
+              <span className="cmn-text">
+                <span>US: phone call available</span>
+                <span>UK &amp; Australia: WhatsApp or Telegram</span>
+              </span>
+            </div>
             <label className="toggle">
               <input type="checkbox" checked={callNow} onChange={(e) => setCallNow(e.target.checked)} disabled={pending} />
               <span>
-                <span className="tl">Call me within 15 minutes</span>
+                <span className="tl">Contact me within 15 minutes</span>
                 <span className="ts">A real person, during business hours</span>
               </span>
             </label>
