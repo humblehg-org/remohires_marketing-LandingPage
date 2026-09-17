@@ -7,6 +7,14 @@ import { trackLeadSubmit } from "@/lib/gtm";
 const ACCESS_KEY = "8326652c-ecb6-4130-8f8b-5a477deaae3d";
 const PAGE_PATH = "/appointment-setter";
 
+const CONTACT_METHODS = [
+  { key: "phone", label: "Phone Call", sub: "US only", fieldLabel: "Phone Call (US only)", placeholder: "Mobile number", inputType: "tel" },
+  { key: "whatsapp", label: "WhatsApp", sub: null, fieldLabel: "WhatsApp", placeholder: "WhatsApp number", inputType: "tel" },
+  { key: "telegram", label: "Telegram", sub: null, fieldLabel: "Telegram", placeholder: "Telegram username / number", inputType: "text" },
+] as const;
+
+type ContactMethodKey = (typeof CONTACT_METHODS)[number]["key"];
+
 /**
  * Replaces the static HTML's #leadmodal + rhLead() handler, which only faked
  * a local success message and never actually sent the lead anywhere. Same
@@ -20,6 +28,7 @@ export function LeadModal() {
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [callNow, setCallNow] = useState(true);
+  const [contactMethod, setContactMethod] = useState<ContactMethodKey>("phone");
   const [ctaSource, setCtaSource] = useState("cta");
   const formRef = useRef<HTMLFormElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -31,6 +40,7 @@ export function LeadModal() {
       setError(null);
       setSuccessMessage(null);
       setCallNow(true);
+      setContactMethod("phone");
       setOpen(true);
     }
     window.addEventListener(OPEN_LEAD_MODAL_EVENT, onOpen);
@@ -65,18 +75,23 @@ export function LeadModal() {
     const form = e.currentTarget;
 
     // Mirrors the static HTML's rhLead() validation exactly: name required,
-    // phone must have at least 7 digits. Silently refocuses the offending
-    // field instead of showing an error, same as the source.
+    // phone/WhatsApp must have at least 7 digits. Telegram only needs a
+    // non-empty value since usernames aren't numeric. Silently refocuses the
+    // offending field instead of showing an error, same as the source.
     const nameField = form.elements.namedItem("fullname") as HTMLInputElement;
-    const phoneField = form.elements.namedItem("phone") as HTMLInputElement;
+    const contactValueField = form.elements.namedItem("contact_value") as HTMLInputElement;
     const name = nameField.value.trim();
-    const phone = phoneField.value.trim();
+    const contactValue = contactValueField.value.trim();
     if (!name) {
       nameField.focus();
       return;
     }
-    if (phone.replace(/[^0-9]/g, "").length < 7) {
-      phoneField.focus();
+    if (!contactValue) {
+      contactValueField.focus();
+      return;
+    }
+    if (contactMethod !== "telegram" && contactValue.replace(/[^0-9]/g, "").length < 7) {
+      contactValueField.focus();
       return;
     }
 
@@ -148,14 +163,46 @@ export function LeadModal() {
             </ul>
             <div className="fields">
               <input type="text" name="fullname" placeholder="Your name" autoComplete="name" required disabled={pending} />
-              <input type="tel" name="phone" placeholder="Mobile number" autoComplete="tel" required disabled={pending} />
+
+              <div className="contact-method-select" role="radiogroup" aria-label="Preferred contact method">
+                {CONTACT_METHODS.map((m) => (
+                  <label key={m.key} className={`cm-option${contactMethod === m.key ? " active" : ""}`}>
+                    <input
+                      type="radio"
+                      name="contact_method"
+                      value={m.fieldLabel}
+                      checked={contactMethod === m.key}
+                      onChange={() => setContactMethod(m.key)}
+                      disabled={pending}
+                    />
+                    <span className="cm-label">{m.label}</span>
+                    {m.sub && <span className="cm-sub">{m.sub}</span>}
+                  </label>
+                ))}
+              </div>
+
+              {(() => {
+                const activeMethod = CONTACT_METHODS.find((m) => m.key === contactMethod) ?? CONTACT_METHODS[0];
+                return (
+                  <input
+                    key={contactMethod}
+                    type={activeMethod.inputType}
+                    name="contact_value"
+                    placeholder={activeMethod.placeholder}
+                    autoComplete={activeMethod.inputType === "tel" ? "tel" : "off"}
+                    required
+                    disabled={pending}
+                  />
+                );
+              })()}
+
               <input type="email" name="email" placeholder="Email (optional)" autoComplete="email" disabled={pending} />
             </div>
             <div className="contact-method-note">
               <svg className="cmn-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                <circle cx="10" cy="10" r="8.5" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M10 9v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                <circle cx="10" cy="6.5" r="1" fill="currentColor" />
+                <path d="M10 2.5 18 17H2L10 2.5Z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
+                <path d="M10 8v4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+                <circle cx="10" cy="14.3" r="0.9" fill="currentColor" />
               </svg>
               <span className="cmn-text">
                 <span>US: phone call available</span>
