@@ -4,17 +4,19 @@ import { useEffect, useState } from "react";
 import { BookCta } from "./book-cta";
 
 /**
- * Mobile-only floating "Request a Call" button (hidden on desktop via CSS — see
- * .mobile-float-cta in custom-recruitment.css). Visible once the hero's own CTA
- * (#hero-cta) has scrolled out of view, hidden again once the final CTA section
- * (#shortlist) comes into view, so it never duplicates a CTA already on screen.
+ * Mobile-only floating "Book A Free Call" button (`.stick` in
+ * custom-recruitment.css — fixed position, faded out until `.on` is added).
+ * Visible once the hero's own CTA (#hero-cta) has scrolled out of view,
+ * hidden again once the final CTA section (#final-cta) comes into view, so
+ * it never duplicates a CTA already on screen. Same pattern as MobileFab on
+ * /appointment-setter.
  */
-export function MobileBookFab() {
+export function MobileFab() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const heroCta = document.getElementById("hero-cta");
-    const finalCta = document.getElementById("shortlist");
+    const finalCta = document.getElementById("final-cta");
     if (!heroCta || !finalCta || !("IntersectionObserver" in window)) return;
 
     let heroCtaVisible = true;
@@ -36,10 +38,8 @@ export function MobileBookFab() {
   }, []);
 
   return (
-    <div className={`mobile-float-cta${visible ? " show" : ""}`} id="mobile-float-cta">
-      <BookCta ctaName="mobile-float" className="btn btn-primary">
-        Find My Next Hire
-      </BookCta>
-    </div>
+    <BookCta ctaName="mobile-float" className={`btn stick${visible ? " on" : ""}`}>
+      Book A Free Call
+    </BookCta>
   );
 }
