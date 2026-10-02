@@ -2163,18 +2163,4 @@
       }
     }
   
-    /* Custom recruitment contact-method selector */
-    .rh .modal .contact-label{font-size:13px;font-weight:700;color:#eef2ff;margin:15px 0 8px}
-    .rh .modal .contact-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-    .rh .modal .method-card{position:relative;display:flex;flex-direction:column;gap:2px;padding:12px 11px;border-radius:13px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.07);color:#dce5ff;cursor:pointer;transition:border-color .18s,background .18s,transform .18s}
-    .rh .modal .method-card:hover{border-color:rgba(23,217,198,.55);background:rgba(23,217,198,.08)}
-    .rh .modal .method-card input{position:absolute;opacity:0;pointer-events:none}
-    .rh .modal .method-card.selected{border-color:var(--turq-b);background:rgba(23,217,198,.14);box-shadow:0 0 0 1px rgba(23,217,198,.18) inset}
-    .rh .modal .method-title{font-size:13px;font-weight:800;color:#fff}
-    .rh .modal .method-sub{font-size:11px;color:#9eabd5}
-    .rh .modal .region-note{display:flex;align-items:flex-start;gap:10px;margin-top:12px;padding:12px 13px;border-radius:13px;background:#fff3df;border:1px solid #f0b45c;color:#6f4300;font-size:12.5px;line-height:1.45}
-    .rh .modal .region-note .info-ic{flex:none;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#f2a93b;color:#fff;font-weight:900;font-size:12px;margin-top:1px}
-    .rh .modal .region-note b{color:#5c3500}
-    .rh .modal .method-card:has(input:focus-visible){outline:2px solid var(--turq-b);outline-offset:2px}
-    .rh .modal .method-card:has(input:disabled){cursor:not-allowed;opacity:.6}
-    @media(max-width:520px){.rh .modal .contact-methods{grid-template-columns:1fr}.rh .modal .method-card{padding:11px 12px}}
+    .rh .modal .field-hint{margin:-6px 2px 0;font-size:11.5px;color:#9aa6d6;line-height:1.4}

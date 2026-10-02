@@ -8,20 +8,12 @@ import { trackLeadSubmit } from "@/lib/gtm";
 const ACCESS_KEY = "8326652c-ecb6-4130-8f8b-5a477deaae3d";
 const PAGE_PATH = "/custom-recruitment";
 
-const CONTACT_METHODS = [
-  { key: "phone", label: "Phone Call", sub: "US only", value: "phone_call", channel: "phone", placeholder: "Mobile number", inputType: "tel" },
-  { key: "whatsapp", label: "WhatsApp", sub: "UK, AU & global", value: "whatsapp", channel: "WhatsApp", placeholder: "WhatsApp number", inputType: "tel" },
-  { key: "telegram", label: "Telegram", sub: "UK, AU & global", value: "telegram", channel: "Telegram", placeholder: "Telegram username / number", inputType: "text" },
-] as const;
-
-type ContactMethodKey = (typeof CONTACT_METHODS)[number]["key"];
-
 /**
  * Replaces the phone-callback CallbackModal on /custom-recruitment with the
- * contact-method lead form shared across the RemoHires landing pages (name,
- * email, Phone Call / WhatsApp / Telegram picker, one dynamic contact field).
- * Renders nothing until a BookCta dispatches OPEN_LEAD_MODAL_EVENT — mount
- * once near the page root, same pattern as LeadModal on /appointment-setter.
+ * simple name/phone/email lead form shared across the RemoHires landing
+ * pages. Renders nothing until a BookCta dispatches OPEN_LEAD_MODAL_EVENT —
+ * mount once near the page root, same pattern as LeadModal on
+ * /appointment-setter.
  *
  * PostHog event names (appt_setter_form_opened / appt_setter_lead_submitted)
  * are unchanged from the previous CallbackModal so existing dashboards keep
@@ -33,7 +25,6 @@ export function LeadModal() {
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [callNow, setCallNow] = useState(true);
-  const [contactMethod, setContactMethod] = useState<ContactMethodKey>("phone");
   const [ctaSource, setCtaSource] = useState("cta");
   const formRef = useRef<HTMLFormElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -45,7 +36,6 @@ export function LeadModal() {
       setError(null);
       setSuccessMessage(null);
       setCallNow(true);
-      setContactMethod("phone");
       setOpen(true);
       posthog.capture("appt_setter_form_opened");
     }
@@ -80,24 +70,19 @@ export function LeadModal() {
     if (pending) return;
     const form = e.currentTarget;
 
-    // Name required, contact value required; phone/WhatsApp must have at
-    // least 7 digits, Telegram only needs a non-empty value since usernames
-    // aren't numeric. Silently refocuses the offending field instead of
-    // showing an error, matching the other RemoHires lead forms.
+    // Name required, phone must have at least 7 digits. Silently refocuses
+    // the offending field instead of showing an error, matching the other
+    // RemoHires lead forms.
     const nameField = form.elements.namedItem("fullname") as HTMLInputElement;
-    const contactValueField = form.elements.namedItem("contact_value") as HTMLInputElement;
+    const phoneField = form.elements.namedItem("phone") as HTMLInputElement;
     const name = nameField.value.trim();
-    const contactValue = contactValueField.value.trim();
+    const phone = phoneField.value.trim();
     if (!name) {
       nameField.focus();
       return;
     }
-    if (!contactValue) {
-      contactValueField.focus();
-      return;
-    }
-    if (contactMethod !== "telegram" && contactValue.replace(/[^0-9]/g, "").length < 7) {
-      contactValueField.focus();
+    if (phone.replace(/[^0-9]/g, "").length < 7) {
+      phoneField.focus();
       return;
     }
 
@@ -116,11 +101,10 @@ export function LeadModal() {
         trackLeadSubmit(ctaSource);
         posthog.capture("appt_setter_lead_submitted");
         const first = name.split(" ")[0];
-        const activeMethod = CONTACT_METHODS.find((m) => m.key === contactMethod) ?? CONTACT_METHODS[0];
         setSuccessMessage(
-          `Thanks, ${first}. A RemoHires recruiter will contact you via ${activeMethod.channel}${
-            callNow ? " within 15 minutes during business hours." : "."
-          }`,
+          callNow
+            ? `Thanks, ${first}. A RemoHires recruiter will call you within 15 minutes during business hours.`
+            : `Thanks, ${first}. A RemoHires recruiter will call you shortly to continue the search.`,
         );
       } else {
         throw new Error((data && data.message) || "Submission failed");
@@ -133,8 +117,6 @@ export function LeadModal() {
   }
 
   if (!open) return null;
-
-  const activeMethod = CONTACT_METHODS.find((m) => m.key === contactMethod) ?? CONTACT_METHODS[0];
 
   return (
     <div className="modal open" role="presentation">
@@ -166,52 +148,15 @@ export function LeadModal() {
             <div className="lf-eyebrow">Free Consultation, No Obligation</div>
             <h4 id="lm-title">Start Your Free Candidate Search</h4>
             <p className="lf-sub">
-              Tell us how you want us to contact you. We will use that channel to discuss the role and hours you need
-              covered.
+              Leave your number and we will call you to discuss the role and hours you need covered.
             </p>
             <div className="fields">
               <input type="text" name="fullname" placeholder="Your name" autoComplete="name" required disabled={pending} />
-              <input type="email" name="email" placeholder="Email (optional)" autoComplete="email" disabled={pending} />
-            </div>
-
-            <div className="contact-label">How should we contact you?</div>
-            <div className="contact-methods" role="radiogroup" aria-label="Contact method">
-              {CONTACT_METHODS.map((m) => (
-                <label key={m.key} className={`method-card${contactMethod === m.key ? " selected" : ""}`}>
-                  <input
-                    type="radio"
-                    name="contact_method"
-                    value={m.value}
-                    checked={contactMethod === m.key}
-                    onChange={() => setContactMethod(m.key)}
-                    disabled={pending}
-                  />
-                  <span className="method-title">{m.label}</span>
-                  <span className="method-sub">{m.sub}</span>
-                </label>
-              ))}
-            </div>
-
-            <div className="fields" style={{ marginTop: 12 }}>
-              <input
-                key={contactMethod}
-                id="contact-value"
-                type={activeMethod.inputType}
-                name="contact_value"
-                placeholder={activeMethod.placeholder}
-                autoComplete={activeMethod.inputType === "tel" ? "tel" : "off"}
-                required
-                disabled={pending}
-              />
-            </div>
-
-            <div className="region-note">
-              <span className="info-ic">!</span>
               <div>
-                <b>US:</b> phone call available
-                <br />
-                <b>UK &amp; Australia:</b> WhatsApp or Telegram
+                <input type="tel" name="phone" placeholder="Mobile number" autoComplete="tel" required disabled={pending} />
+                <p className="field-hint">Currently available for US phone numbers only.</p>
               </div>
+              <input type="email" name="email" placeholder="Email (optional)" autoComplete="email" disabled={pending} />
             </div>
 
             <label className="toggle">

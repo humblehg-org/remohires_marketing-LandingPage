@@ -152,7 +152,10 @@ export function LeadModal() {
             </ul>
             <div className="fields">
               <input type="text" name="fullname" placeholder="Your name" autoComplete="name" required disabled={pending} />
-              <input type="tel" name="phone" placeholder="Mobile number" autoComplete="tel" required disabled={pending} />
+              <div>
+                <input type="tel" name="phone" placeholder="Mobile number" autoComplete="tel" required disabled={pending} />
+                <p className="field-hint">Currently available for US phone numbers only.</p>
+              </div>
               <input type="email" name="email" placeholder="Email (optional)" autoComplete="email" disabled={pending} />
             </div>
             <label className="toggle">

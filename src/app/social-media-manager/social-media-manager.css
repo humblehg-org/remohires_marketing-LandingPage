@@ -217,6 +217,7 @@
   .rh .modal .toggle .ts{display:block;margin-top:2px;font-size:12px;color:#a9b4dc}
   .rh .modal .btn{margin-top:16px;width:100%}
   .rh .modal .note{font-size:12px;color:#9aa6d6;margin-top:14px;text-align:center;line-height:1.5}
+  .rh .modal .field-hint{margin:-6px 2px 0;font-size:11.5px;color:#9aa6d6;line-height:1.4}
   .rh .modal .form-error{font-size:13px;color:#ff9b9b;margin-top:14px;text-align:center;line-height:1.5}
   .rh .modal input:disabled,.rh .modal .btn:disabled{opacity:.6;cursor:not-allowed}
   .rh .modal .btn:disabled:hover{transform:none}
