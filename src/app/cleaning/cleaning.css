@@ -210,6 +210,28 @@
 .cleaning .modal input{width:100%;font-family:var(--label);font-size:16px;padding:16px;border:1px solid #8C9090;border-radius:var(--r-lg);background:#fff;color:var(--on-surface);transition:border-color .2s}
 .cleaning .modal input:focus{outline:none;border-color:var(--on-surface-muted)}
 .cleaning .modal .btn{width:100%;margin-top:22px}
+/* phone field + country picker (country-phone-field.tsx). The outer .cphone
+   box takes the look of the other modal inputs; the inner number input and
+   the country button sit inside it without their own borders. */
+.cleaning .cphone-wrap{position:relative}
+.cleaning .cphone{display:flex;align-items:stretch;width:100%;border:1px solid #8C9090;border-radius:var(--r-lg);background:#fff;transition:border-color .2s}
+.cleaning .cphone:focus-within{border-color:var(--on-surface-muted)}
+.cleaning .cphone-btn{display:flex;align-items:center;gap:8px;flex-shrink:0;padding:0 12px 0 16px;background:transparent;border:none;border-right:1px solid #E5E5E5;border-radius:var(--r-lg) 0 0 var(--r-lg);font-family:var(--label);font-size:16px;color:var(--on-surface);cursor:pointer}
+.cleaning .cphone-btn:focus-visible{outline:2px solid var(--primary);outline-offset:-2px}
+.cleaning .cphone-chev{color:var(--on-surface-muted);transition:transform .2s}
+.cleaning .cphone-btn[aria-expanded="true"] .cphone-chev{transform:rotate(180deg)}
+.cleaning .cphone-flag{display:block;width:21px;height:14px;border-radius:2px;object-fit:cover;flex-shrink:0;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+.cleaning .modal .cphone-input{flex:1;min-width:0;width:auto;border:none;border-radius:0 var(--r-lg) var(--r-lg) 0;padding:16px 16px 16px 12px;background:transparent}
+.cleaning .cphone-panel{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:5;background:#fff;border:1px solid #E5E5E5;border-radius:var(--r-md);box-shadow:0 12px 32px rgba(21,21,21,.14);padding:8px}
+.cleaning .cphone-panel.up{top:auto;bottom:calc(100% + 6px)}
+.cleaning .modal .cphone-search{font-family:var(--body);font-size:15px;padding:10px 12px;border:1px solid #E5E5E5;border-radius:var(--r-sm)}
+.cleaning .cphone-list{list-style:none;margin-top:6px;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.cleaning .cphone-opt{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:var(--r-sm);font-family:var(--body);font-size:15px;color:var(--on-surface);cursor:pointer}
+.cleaning .cphone-opt.active{background:var(--surface-muted)}
+.cleaning .cphone-opt[aria-selected="true"]{font-weight:700}
+.cleaning .cphone-name{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cleaning .cphone-code{color:var(--on-surface-muted);font-size:14px;flex-shrink:0}
+.cleaning .cphone-empty{padding:12px 10px;font-family:var(--body);font-size:14px;color:var(--on-surface-muted)}
 .cleaning .modal .close{position:absolute;top:12px;right:12px;width:44px;height:44px;border-radius:50%;background:var(--surface-muted);border:none;cursor:pointer;font-size:18px;transition:background .2s}
 .cleaning .modal .close:hover{background:#e4e4e4}
 .cleaning .thanks{display:none;text-align:center;padding:12px 0}

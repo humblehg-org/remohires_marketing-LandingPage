@@ -13,6 +13,7 @@ import Link from "next/link";
 import posthog from "posthog-js";
 import { sendGTMEvent } from "@next/third-parties/google";
 import { trackLeadSubmit } from "@/lib/gtm";
+import { CountryPhoneField } from "./country-phone-field";
 import "./cleaning.css";
 
 /* Web3Forms. While testing, use the TEST key so the shared inbox stays clean.
@@ -80,7 +81,9 @@ export default function CleaningClient() {
 
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") {
+      // defaultPrevented: an inner control (the country picker) already used
+      // this Escape to close itself, so leave the modal open.
+      if (e.key === "Escape" && !e.defaultPrevented) {
         setModalOpen(false);
         lastFocusRef.current?.focus();
       }
@@ -515,7 +518,7 @@ export default function CleaningClient() {
                 <label htmlFor="em">Email address</label>
                 <input id="em" name="email" type="email" autoComplete="email" placeholder="you@company.com" required />
                 <label htmlFor="ph">Phone number</label>
-                <input id="ph" name="phone" type="tel" autoComplete="tel" placeholder="Phone number" required />
+                <CountryPhoneField id="ph" />
                 <button className="btn btn-primary" type="submit" id="submitBtn" disabled={sending}>{sending ? "Sending..." : "Book My Call"}</button>
                 <p className={formError ? "form-error show" : "form-error"} id="formError" role="alert">Something went wrong. Please try again, or email info@remohires.com.</p>
                 <p className="form-consent">By submitting, you agree that RemoHires may contact you by phone, text, or email about your inquiry.</p>
