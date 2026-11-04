@@ -41,7 +41,7 @@
 .cleaning :where(button,input){font:revert;letter-spacing:revert}
 .cleaning :where(input)::placeholder{color:revert;opacity:revert}
 .cleaning h1,.cleaning h2,.cleaning h3{font-family:var(--head);font-weight:600;letter-spacing:-0.03em;line-height:1.12}
-.cleaning h1{font-size:clamp(36px,5vw,62px)}
+.cleaning h1{font-size:clamp(32px,3.8vw,48px);line-height:1.18}
 .cleaning h2{font-size:clamp(28px,3.8vw,52px);font-weight:500}
 .cleaning h3{font-weight:500}
 .cleaning p{line-height:1.5}
@@ -77,19 +77,36 @@
 @media(max-width:960px){.cleaning .nav-links{display:none}}
 @media(max-width:520px){.cleaning .nav .btn{padding:11px 16px;font-size:14px}.cleaning .nav .logo img{height:26px}}
 .cleaning .hero{padding-top:clamp(40px,6vw,64px);padding-bottom:clamp(64px,8vw,96px);text-align:center;display:flex;flex-direction:column;align-items:center}
-.cleaning .hero h1{margin:0 auto 22px}
-.cleaning .hero .sub{max-width:640px;margin:0 auto 30px;font-size:clamp(16px,1.9vw,19px);color:var(--on-surface-muted)}
-.cleaning .proof{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:0 auto 24px;max-width:720px}
-.cleaning .chip{font-family:var(--body);font-size:15px;background:var(--surface-muted);color:var(--on-surface);border-radius:var(--r-full);padding:10px 20px}
-.cleaning .vsl{width:min(820px,94vw);max-height:56vh;aspect-ratio:16/9;background:var(--surface-muted);border-radius:var(--r-lg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;position:relative;overflow:hidden;cursor:pointer;margin:30px auto 34px}
+/* 48px cap keeps both H1 lines (line 2 is ~980px) within the 1040px video
+   width. Hero rhythm: pills 24 / H1 20 / sub 32 / CTA row 48 / video. */
+.cleaning .hero h1{margin:0 auto 20px}
+.cleaning .hero h1 .h1-muted{color:var(--on-surface-muted)}
+.cleaning .hero .sub{max-width:640px;margin:0 auto 32px;font-size:clamp(16px,1.9vw,19px);color:var(--on-surface-muted)}
+.cleaning .hero .sub strong{font-weight:700;color:var(--on-surface)}
+/* pill row: every pill is a plain .eyebrow, so they share its exact look */
+.cleaning .hero-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:24px}
+.cleaning .hero-pills .eyebrow{margin-bottom:0;background:var(--surface-muted);color:var(--on-surface);font-size:14px;padding:7px 14px}
+.cleaning .hero-cta{display:flex;align-items:center;justify-content:center;gap:28px}
+.cleaning .hero-link{font-family:var(--body);font-size:16px;font-weight:500;color:var(--on-surface);background:none;display:inline-flex;align-items:center;gap:8px}
+.cleaning .hero-link svg{transition:transform .25s ease}
+.cleaning .hero-link:hover svg{transform:translateY(3px)}
+@media(max-width:520px){.cleaning .hero-cta{flex-direction:column;gap:18px}}
+.cleaning .vsl{width:min(1040px,94vw);aspect-ratio:16/9;background:var(--surface-muted);border:1px solid #E5E5E5;border-radius:var(--r-lg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;position:relative;overflow:hidden;cursor:pointer;margin:48px auto 34px}
 .cleaning .vplay{width:74px;height:74px;border-radius:50%;background:var(--primary);border:none;display:flex;align-items:center;justify-content:center;transition:transform .25s ease,box-shadow .25s ease}
 .cleaning .vsl:hover .vplay{transform:scale(1.08);box-shadow:var(--shadow-blue)}
 .cleaning .vplay .tri{border-left:22px solid #fff;border-top:14px solid transparent;border-bottom:14px solid transparent;margin-left:6px}
-.cleaning .vcap{font-family:var(--label);font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--on-surface-muted)}
-.cleaning .vsl iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.cleaning .vsl .vposter{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.cleaning .vsl .vplay,.cleaning .vsl .vcap{position:relative;z-index:1}
+.cleaning .vsl video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.cleaning .vsl .vplay{position:relative;z-index:1}
+/* "Tap for sound" pill shown over the muted autoplay. The border and shadow
+   keep a white pill visible over the video's near-white frames. */
+.cleaning .vsound{position:absolute;left:16px;top:16px;z-index:2;display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--on-surface);border:1px solid #E5E5E5;border-radius:var(--r-full);padding:8px 14px;font-family:var(--body);font-size:14px;font-weight:500;line-height:1;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.cleaning .vsound:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+@media(max-width:520px){.cleaning .vsound{left:10px;top:10px;padding:7px 12px;font-size:13px}}
 .cleaning .vsl:focus-visible{outline:3px solid var(--primary);outline-offset:4px}
+/* No ring after a mouse click; keyboard focus still gets one. The video's
+   ring is inset because .vsl's overflow:hidden clips anything outside it. */
+.cleaning .vsl:focus:not(:focus-visible),.cleaning .vsl video:focus:not(:focus-visible){outline:none}
+.cleaning .vsl video:focus-visible{outline:3px solid var(--primary);outline-offset:-3px}
 .cleaning .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 @media(max-width:860px){.cleaning .grid-3{grid-template-columns:1fr;gap:16px}}
 .cleaning .card{background:var(--dark-panel);color:#fff;border-radius:var(--r-lg);padding:clamp(28px,3vw,36px);transition:transform .3s ease,background .3s ease,box-shadow .3s ease}
@@ -210,6 +227,6 @@
    reduced motion. */
 @media(prefers-reduced-motion:reduce){
   .cleaning .reveal{opacity:1;transform:none;transition:none}
-  .cleaning .btn:hover,.cleaning .vsl:hover .vplay,.cleaning .chip:hover,.cleaning .card:hover,.cleaning .sel-item:hover{transform:none}
+  .cleaning .btn:hover,.cleaning .vsl:hover .vplay,.cleaning .hero-link:hover svg,.cleaning .card:hover,.cleaning .sel-item:hover{transform:none}
   .cleaning .tl-step{opacity:1}.cleaning .tl-prog{transition:none}.cleaning .sd-fade{animation:none}
 }
