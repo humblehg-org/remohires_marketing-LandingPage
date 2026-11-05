@@ -324,8 +324,8 @@ export default function CleaningClient() {
         <section className="hero wrap">
           <div className="hero-pills">
             <div className="eyebrow">For Cleaning Companies</div>
-            <div className="eyebrow">Shortlist in 5 to 10 days</div>
-            <div className="eyebrow">No shortlist cost to start</div>
+            <div className="eyebrow pill-desktop">Shortlist in 5 to 10 days</div>
+            <div className="eyebrow pill-desktop">No shortlist cost to start</div>
           </div>
           <h1>Turn More Leads Into Booked Cleaning Jobs<br /><span className="h1-muted">Every Lead Gets A Call Back Before It Goes Cold</span></h1>
           <p className="sub">We find, screen, and employ full-time remote staff for <strong>cleaning companies</strong>: the people who keep your <strong>phones answered and your schedule full</strong>.</p>
@@ -521,7 +521,7 @@ export default function CleaningClient() {
                 <CountryPhoneField id="ph" />
                 <button className="btn btn-primary" type="submit" id="submitBtn" disabled={sending}>{sending ? "Sending..." : "Book My Call"}</button>
                 <p className={formError ? "form-error show" : "form-error"} id="formError" role="alert">Something went wrong. Please try again, or email info@remohires.com.</p>
-                <p className="form-consent">By submitting, you agree that RemoHires may contact you by phone, text, or email about your inquiry.</p>
+                <p className="form-consent">By submitting this form, you agree to our <a href="/termsofservice" target="_blank" rel="noopener">Terms of Service</a> and <a href="/privacypolicy" target="_blank" rel="noopener">Privacy Policy</a>.</p>
               </form>
             </div>
             <div className={showThanks ? "thanks show" : "thanks"} id="thanks">

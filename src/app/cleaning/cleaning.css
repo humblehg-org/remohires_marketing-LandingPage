@@ -90,8 +90,13 @@
 .cleaning .hero-link{font-family:var(--body);font-size:16px;font-weight:500;color:var(--on-surface);background:none;display:inline-flex;align-items:center;gap:8px}
 .cleaning .hero-link svg{transition:transform .25s ease}
 .cleaning .hero-link:hover svg{transform:translateY(3px)}
+@media(max-width:640px){.cleaning .hero-pills .pill-desktop{display:none}}
 @media(max-width:520px){.cleaning .hero-cta{flex-direction:column;gap:18px}}
-.cleaning .vsl{width:min(1040px,94vw);aspect-ratio:16/9;background:var(--surface-muted);border:1px solid #E5E5E5;border-radius:var(--r-lg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;position:relative;overflow:hidden;cursor:pointer;margin:48px auto 34px}
+/* width is capped at 100% of the hero's content box, not 94vw: on phones
+   94vw (366px at 390px) is wider than the padded content box (350px), and a
+   flex item's auto margins collapse to 0 when it overflows, so the video
+   started at the left padding edge and stuck out on the right. */
+.cleaning .vsl{width:min(1040px,100%);aspect-ratio:16/9;background:var(--surface-muted);border:1px solid #E5E5E5;border-radius:var(--r-lg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;position:relative;overflow:hidden;cursor:pointer;margin:48px auto 34px}
 .cleaning .vplay{width:74px;height:74px;border-radius:50%;background:var(--primary);border:none;display:flex;align-items:center;justify-content:center;transition:transform .25s ease,box-shadow .25s ease}
 .cleaning .vsl:hover .vplay{transform:scale(1.08);box-shadow:var(--shadow-blue)}
 .cleaning .vplay .tri{border-left:22px solid #fff;border-top:14px solid transparent;border-bottom:14px solid transparent;margin-left:6px}
@@ -236,6 +241,7 @@
 .cleaning .modal .close:hover{background:#e4e4e4}
 .cleaning .thanks{display:none;text-align:center;padding:12px 0}
 .cleaning .form-consent{font-size:12px;line-height:1.5;color:var(--on-surface-muted);margin-top:14px}
+.cleaning .form-consent a{color:inherit;text-decoration:underline;text-underline-offset:2px}
 .cleaning .form-error{display:none;font-size:14px;color:#B42318;margin-top:12px}
 .cleaning .form-error.show{display:block}
 .cleaning .modal .btn[disabled]{opacity:.6;cursor:wait;transform:none}
