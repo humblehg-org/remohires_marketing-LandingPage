@@ -182,7 +182,10 @@ export default function CleaningClient() {
           video.pause();
         }
       },
-      { threshold: 0.5 },
+      // threshold 0: start as soon as any part is on screen (on page load the
+      // hero video is often less than half visible on laptops), and pause
+      // only once it is completely out of view.
+      { threshold: 0 },
     );
     io.observe(box);
     return () => io.disconnect();
