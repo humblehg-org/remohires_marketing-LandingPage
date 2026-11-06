@@ -490,8 +490,8 @@ export default function CleaningClient() {
             <div className="fbottom">
               <div className="fcopy">&copy; 2026 RemoHires.com LLC. All rights reserved.</div>
               <div className="flegal">
-                <Link href="/privacypolicy">Privacy Policy</Link>
-                <Link href="/termsofservice">Terms of Service</Link>
+                <Link href="/cleaning/privacy">Privacy Policy</Link>
+                <Link href="/cleaning/terms">Terms of Service</Link>
               </div>
             </div>
           </div>
@@ -524,7 +524,7 @@ export default function CleaningClient() {
                 <CountryPhoneField id="ph" />
                 <button className="btn btn-primary" type="submit" id="submitBtn" disabled={sending}>{sending ? "Sending..." : "Book My Call"}</button>
                 <p className={formError ? "form-error show" : "form-error"} id="formError" role="alert">Something went wrong. Please try again, or email info@remohires.com.</p>
-                <p className="form-consent">By submitting this form, you agree to our <a href="/termsofservice" target="_blank" rel="noopener">Terms of Service</a> and <a href="/privacypolicy" target="_blank" rel="noopener">Privacy Policy</a>.</p>
+                <p className="form-consent">By submitting this form, you agree to our <a href="/cleaning/terms" target="_blank" rel="noopener">Terms of Service</a> and <a href="/cleaning/privacy" target="_blank" rel="noopener">Privacy Policy</a>.</p>
               </form>
             </div>
             <div className={showThanks ? "thanks show" : "thanks"} id="thanks">
