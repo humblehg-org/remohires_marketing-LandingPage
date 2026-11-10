@@ -352,8 +352,8 @@ export default function CleaningClient() {
           >
             <video
               ref={videoRef}
-              src="/cleaning/cleaning-explainer.mp4"
-              poster="/cleaning/cleaning-explainer-poster.jpg"
+              src="/cleaning/cleaning-explainer-v2.mp4"
+              poster="/cleaning/cleaning-explainer-v2-poster.jpg"
               preload="metadata"
               playsInline
               controls={videoMode === "playing"}
