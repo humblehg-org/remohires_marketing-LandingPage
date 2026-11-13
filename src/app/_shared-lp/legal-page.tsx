@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { LegalToc } from "./legal-toc";
-import "./cleaning.css";
+import "./lp.css";
 import "./legal.css";
 
 export type LegalSection = {
@@ -11,6 +11,10 @@ export type LegalSection = {
 };
 
 type LegalPageProps = {
+  /** Landing page this legal page belongs to, e.g. "/cleaning". Sets the
+      logo link, the logo files (public<home>/logo-*.png) and the footer
+      legal links. */
+  home: string;
   eyebrow: string;
   title: string;
   intro: string;
@@ -18,11 +22,12 @@ type LegalPageProps = {
   sections: LegalSection[];
 };
 
-/* Shared shell for /cleaning/terms and /cleaning/privacy: the /cleaning
-   navbar and footer, a header block, and the numbered sections with an
+/* Shared shell for the landing pages' terms and privacy pages (e.g.
+   /cleaning/terms, /property-management/privacy): the landing page navbar
+   and footer, a header block, and the numbered sections with an
    "In this page" list (sticky sidebar on desktop, above the content on
    mobile). */
-export function LegalPage({ eyebrow, title, intro, meta, sections }: LegalPageProps) {
+export function LegalPage({ home, eyebrow, title, intro, meta, sections }: LegalPageProps) {
   return (
     <>
       <link rel="preconnect" href="https://api.fontshare.com" />
@@ -31,11 +36,11 @@ export function LegalPage({ eyebrow, title, intro, meta, sections }: LegalPagePr
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Headline&display=swap" rel="stylesheet" />
 
-      <div className="cleaning">
+      <div className="rh-lp">
         <header>
           <nav className="nav">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <Link className="logo" href="/cleaning"><img src="/cleaning/logo-header.png" alt="RemoHires" /></Link>
+            <Link className="logo" href={home}><img src={`${home}/logo-header.png`} alt="RemoHires" /></Link>
           </nav>
         </header>
 
@@ -77,14 +82,14 @@ export function LegalPage({ eyebrow, title, intro, meta, sections }: LegalPagePr
           <div className="wrap">
             <div>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <div className="logo"><img src="/cleaning/logo-footer.png" alt="RemoHires" /></div>
+              <div className="logo"><img src={`${home}/logo-footer.png`} alt="RemoHires" /></div>
               <p className="fmeta">RemoHires finds, screens, and employs full-time remote staff for small businesses, and handles the hiring and payroll for you. Results and timelines vary by role and candidate availability.</p>
             </div>
             <div className="fbottom">
               <div className="fcopy">&copy; 2026 RemoHires.com LLC. All rights reserved.</div>
               <div className="flegal">
-                <Link href="/cleaning/privacy">Privacy Policy</Link>
-                <Link href="/cleaning/terms">Terms of Service</Link>
+                <Link href={`${home}/privacy`}>Privacy Policy</Link>
+                <Link href={`${home}/terms`}>Terms of Service</Link>
               </div>
             </div>
           </div>

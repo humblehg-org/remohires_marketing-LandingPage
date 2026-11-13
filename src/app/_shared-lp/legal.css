@@ -1,0 +1,50 @@
+/* Legal pages (/cleaning/* and /property-management/*). Builds on lp.css (tokens,
+   navbar, footer, .wrap, .eyebrow); every rule is scoped under .rh-lp. */
+
+.rh-lp .legal-hero{background:linear-gradient(90deg,var(--surface) 0%,#EEF3FF 100%);border-bottom:1px solid var(--outline);padding:clamp(40px,6vw,72px) 0 clamp(32px,5vw,56px)}
+.rh-lp .legal-hero h1{font-size:clamp(34px,4.4vw,52px);margin-bottom:14px}
+.rh-lp .legal-intro{color:var(--on-surface-muted);font-size:18px;line-height:1.6;max-width:640px}
+.rh-lp .legal-meta{display:flex;flex-wrap:wrap;gap:12px 40px;margin-top:28px}
+.rh-lp .legal-meta dt{font-size:13px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--on-surface-muted);margin-bottom:4px}
+.rh-lp .legal-meta dd{font-size:16px;font-weight:500;color:var(--on-surface)}
+
+.rh-lp .legal-layout{display:grid;grid-template-columns:260px minmax(0,720px);gap:clamp(40px,6vw,88px);padding-top:clamp(40px,5vw,64px);padding-bottom:clamp(64px,8vw,104px)}
+
+/* "In this page" list */
+.rh-lp .legal-toc{position:sticky;top:96px;align-self:start;max-height:calc(100vh - 120px);overflow-y:auto}
+.rh-lp .legal-toc-label{font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--on-surface-muted);margin-bottom:12px}
+.rh-lp .legal-toc ol{list-style:none;display:flex;flex-direction:column;gap:2px}
+.rh-lp .legal-toc a{display:flex;align-items:flex-start;gap:10px;padding:7px 10px;border-radius:var(--r-sm);font-size:15px;line-height:1.4;color:var(--on-surface-muted);transition:background .2s,color .2s}
+.rh-lp .legal-toc a:hover{background:var(--surface-muted);color:var(--on-surface)}
+.rh-lp .legal-toc a.is-active{background:#EEF3FF;color:var(--primary)}
+.rh-lp .legal-toc a.is-active .legal-num{background:var(--primary);color:var(--on-primary)}
+.rh-lp .legal-toc .legal-num{width:22px;height:22px;font-size:12px}
+
+/* number badge shared by the list and the section headings */
+.rh-lp .legal-num{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:var(--r-full);background:var(--tag-blue-bg);color:var(--tag-blue-text);font-family:var(--body);font-weight:500;font-size:14px;letter-spacing:0;line-height:1}
+
+/* sections */
+.rh-lp .legal-section{scroll-margin-top:88px}
+.rh-lp .legal-section + .legal-section{margin-top:44px;padding-top:44px;border-top:1px solid var(--outline)}
+.rh-lp .legal-section h2{display:flex;align-items:center;gap:12px;font-size:clamp(21px,2.2vw,24px);font-weight:500;letter-spacing:-0.02em;line-height:1.3;margin-bottom:16px}
+.rh-lp .legal-text{font-size:17px;line-height:1.7;color:#3A3D3D}
+.rh-lp .legal-text p{line-height:1.7}
+.rh-lp .legal-text > * + *{margin-top:14px}
+.rh-lp .legal-text ul,.rh-lp .legal-text ol{padding-left:22px;display:flex;flex-direction:column;gap:8px}
+.rh-lp .legal-text ul{list-style:disc}
+.rh-lp .legal-text ol{list-style:decimal}
+.rh-lp .legal-text li{padding-left:4px}
+.rh-lp .legal-text li::marker{color:var(--primary)}
+.rh-lp .legal-text b{font-weight:700;color:var(--on-surface)}
+.rh-lp .legal-text a,.rh-lp .legal-meta a{color:var(--primary);text-decoration:underline;text-underline-offset:3px}
+
+@media(max-width:960px){
+  .rh-lp .legal-layout{grid-template-columns:minmax(0,1fr);gap:36px}
+  .rh-lp .legal-toc{position:static;max-height:none;overflow:visible;background:var(--surface-muted);border-radius:var(--r-lg);padding:20px 16px}
+  .rh-lp .legal-toc-label{padding:0 10px}
+}
+@media(max-width:520px){
+  .rh-lp .legal-text{font-size:16px}
+  .rh-lp .legal-intro{font-size:17px}
+  .rh-lp .legal-section + .legal-section{margin-top:36px;padding-top:36px}
+}

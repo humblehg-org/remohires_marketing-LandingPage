@@ -1,0 +1,6 @@
+/* /property-management only. The hero subheadline copy is longer than
+   /cleaning's, so at the shared 640px cap it wrapped to 3 lines with
+   "moving." alone. A slightly wider cap keeps it to 2 lines on desktop;
+   text-wrap avoids a lone last word where it wraps more (mobile). Same
+   font size as lp.css. */
+.rh-lp .hero .sub.sub-pm{max-width:720px;text-wrap:pretty}

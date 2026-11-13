@@ -12,7 +12,7 @@ const easeInOutCubic = (t: number) =>
   t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
 function navHeight() {
-  return document.querySelector(".cleaning > header")?.getBoundingClientRect().height ?? 0;
+  return document.querySelector(".rh-lp > header")?.getBoundingClientRect().height ?? 0;
 }
 
 /* Page Y that puts the section's heading GAP_BELOW_NAV px below the sticky navbar. */

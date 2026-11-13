@@ -12,8 +12,8 @@ import {
 import { getCountries, getCountryCallingCode } from "react-phone-number-input/min";
 import en from "react-phone-number-input/locale/en";
 
-/* Phone field with a searchable country-code picker for the /cleaning lead
-   form. Country names and dial codes come from react-phone-number-input (the
+/* Phone field with a searchable country-code picker for the landing page
+   lead forms (/cleaning, /property-management). Country names and dial codes come from react-phone-number-input (the
    library /hvac-new already uses), and flags from the same URL that library
    loads them from by default.
 
