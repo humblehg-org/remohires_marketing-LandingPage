@@ -244,12 +244,9 @@ export default function PropertyManagementClient() {
               <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M8 3v10M3.5 8.5 8 13l4.5-4.5" /></svg>
             </a>
           </div>
-          {/* No video yet. To add it: put the mp4 in public/property-management/
-              and set src (e.g. "/property-management/property-management-explainer.mp4"),
-              and optionally swap the poster for a frame of the video. */}
           <VslVideo
-            src=""
-            poster="/property-management/video-poster.svg"
+            src="/property-management/property-management-explainer.mp4"
+            poster="/property-management/property-management-explainer-poster.jpg"
             title="RemoHires for property management companies"
           />
         </section>
