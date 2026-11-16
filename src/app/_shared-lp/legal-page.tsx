@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { LegalToc } from "./legal-toc";
+import { FooterContact } from "./footer-contact";
 import "./lp.css";
 import "./legal.css";
 
@@ -84,6 +85,7 @@ export function LegalPage({ home, eyebrow, title, intro, meta, sections }: Legal
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <div className="logo"><img src={`${home}/logo-footer.png`} alt="RemoHires" /></div>
               <p className="fmeta">RemoHires finds, screens, and employs full-time remote staff for small businesses, and handles the hiring and payroll for you. Results and timelines vary by role and candidate availability.</p>
+              <FooterContact />
             </div>
             <div className="fbottom">
               <div className="fcopy">&copy; 2026 RemoHires.com LLC. All rights reserved.</div>

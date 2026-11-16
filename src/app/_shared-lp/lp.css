@@ -201,6 +201,10 @@
 .rh-lp footer{background:var(--secondary);color:var(--on-secondary-muted);padding:48px 0 36px;border-top:1px solid rgba(255,255,255,.08)}
 .rh-lp footer .logo img{height:28px;width:auto;display:block;margin-bottom:12px}
 .rh-lp .fmeta{font-size:13px;color:var(--on-secondary-muted);max-width:520px;line-height:1.6}
+.rh-lp .fcontact{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px 28px}
+.rh-lp .fcontact li{display:flex;align-items:center;gap:8px;font-size:13px;line-height:1.6;color:var(--on-secondary-muted);cursor:auto;user-select:text;-webkit-user-select:text}
+.rh-lp .fcontact svg{flex:none;opacity:.85}
+@media(max-width:520px){.rh-lp .fcontact{flex-direction:column}}
 .rh-lp .fbottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center;margin-top:32px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08)}
 .rh-lp .fcopy{font-size:13px;color:var(--on-secondary-muted)}
 .rh-lp .flegal{display:flex;gap:24px}

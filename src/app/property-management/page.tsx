@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Hire Vetted Remote Staff for Property Management | RemoHires",
   description:
     "RemoHires finds, screens, and employs full-time remote staff for property management companies: bookkeeping, document processing, leasing coordination, and tenant support. Shortlist in 5 to 10 days, no shortlist cost.",
+  formatDetection: { telephone: false, email: false },
 };
 
 export default function PropertyManagementPage() {

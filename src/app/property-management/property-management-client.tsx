@@ -14,6 +14,7 @@ import { sendGTMEvent } from "@next/third-parties/google";
 import { trackLeadSubmit } from "@/lib/gtm";
 import { CountryPhoneField } from "@/app/_shared-lp/country-phone-field";
 import { VslVideo } from "@/app/_shared-lp/vsl-video";
+import { FooterContact } from "@/app/_shared-lp/footer-contact";
 import "@/app/_shared-lp/lp.css";
 import "./property-management.css";
 
@@ -235,7 +236,7 @@ export default function PropertyManagementClient() {
             <div className="eyebrow pill-desktop">Shortlist in 5 to 10 days</div>
             <div className="eyebrow pill-desktop">No shortlist cost to start</div>
           </div>
-          <h1>Keep Tenants Answered And Deals Moving<br /><span className="h1-muted">Vetted Remote Staff Run Your Back Office</span></h1>
+          <h1>Vetted Remote Accountants And Leasing Support<br /><span className="h1-muted">For Up To 70% Less Than A US Hire</span></h1>
           <p className="sub sub-pm">We find, screen, and employ full-time remote staff for <strong>property management companies</strong>, so your <strong>tenants stay answered and deals keep moving</strong>.</p>
           <div className="hero-cta">
             <button className="btn btn-primary" data-open="" onClick={(e) => openModal(e, "property_management_hero")}>Book a Discovery Call</button>
@@ -293,7 +294,7 @@ export default function PropertyManagementClient() {
               <p className="sd-desc" id="sdDesc">{role.desc}</p>
               <div className="cp">
                 <div className="cp-us"><div><span className="cp-lbl">Typical US hire</span><span className="cp-note">salary plus benefits</span></div><span className="cp-amt" id="sdUs">{money(role.usLow) + " to " + money(role.usHigh) + " / month"}</span></div>
-                <div className="cp-remo"><div className="cp-top"><span className="cp-lbl">With RemoHires</span><span className="cp-save">Save up to 75%</span></div><span className="cp-amt" id="sdPrice">{money(mo) + " / month"}</span><span className="cp-note" id="sdMo">{"from " + money(role.w) + " / week, all-in"}</span></div>
+                <div className="cp-remo"><div className="cp-top"><span className="cp-lbl">With RemoHires</span><span className="cp-save">Save up to 70%</span></div><span className="cp-amt" id="sdPrice">{money(mo) + " / month"}</span><span className="cp-note" id="sdMo">{"from " + money(role.w) + " / week, all-in"}</span></div>
               </div>
               <button className="btn btn-primary" data-open="" data-role-cta="" onClick={(e) => openModal(e, "property_management_roles")}>Tell Us the Roles You Need</button>
             </div>
@@ -362,6 +363,7 @@ export default function PropertyManagementClient() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <div className="logo"><img src="/property-management/logo-footer.png" alt="RemoHires" /></div>
               <p className="fmeta">RemoHires finds, screens, and employs full-time remote staff for small businesses, and handles the hiring and payroll for you. Results and timelines vary by role and candidate availability.</p>
+              <FooterContact />
             </div>
             <div className="fbottom">
               <div className="fcopy">&copy; 2026 RemoHires.com LLC. All rights reserved.</div>

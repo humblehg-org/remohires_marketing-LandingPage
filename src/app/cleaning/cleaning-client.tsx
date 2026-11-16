@@ -14,6 +14,7 @@ import { sendGTMEvent } from "@next/third-parties/google";
 import { trackLeadSubmit } from "@/lib/gtm";
 import { CountryPhoneField } from "@/app/_shared-lp/country-phone-field";
 import { VslVideo } from "@/app/_shared-lp/vsl-video";
+import { FooterContact } from "@/app/_shared-lp/footer-contact";
 import "@/app/_shared-lp/lp.css";
 
 /* Web3Forms. While testing, use the TEST key so the shared inbox stays clean.
@@ -363,6 +364,7 @@ export default function CleaningClient() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <div className="logo"><img src="/cleaning/logo-footer.png" alt="RemoHires" /></div>
               <p className="fmeta">RemoHires finds, screens, and employs full-time remote staff for small businesses, and handles the hiring and payroll for you. Results and timelines vary by role and candidate availability.</p>
+              <FooterContact />
             </div>
             <div className="fbottom">
               <div className="fcopy">&copy; 2026 RemoHires.com LLC. All rights reserved.</div>
