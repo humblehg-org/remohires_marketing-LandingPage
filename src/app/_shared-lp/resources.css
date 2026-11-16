@@ -1,0 +1,137 @@
+/* Styles for the cleaning lead-magnet pages under /resources. Converted from
+   docs/resources/*.html onto the /cleaning design (lp.css). Every rule is
+   scoped under .rh-lp and uses res- class names, so nothing here can touch
+   /cleaning or /property-management. Headlines use the shared .rh-lp h1 size
+   (same as the /cleaning hero) with no max-width, so they keep their own
+   two-line break on desktop. */
+
+/* shared */
+.rh-lp .res-pill{background:var(--surface-muted);color:var(--on-surface);padding:7px 14px;margin-bottom:24px}
+.rh-lp .res-h1{margin-bottom:20px}
+.rh-lp .res-h1 .g{color:var(--on-surface-muted)}
+.rh-lp .res-sub{color:var(--on-surface-muted);font-size:clamp(16px,1.9vw,19px);max-width:640px;margin:0 auto}
+/* one-screen stage under the 69px sticky navbar */
+.rh-lp .res-stage{min-height:calc(100vh - 69px);display:flex;flex-direction:column;justify-content:center;padding-top:clamp(40px,6vw,64px);padding-bottom:clamp(48px,6vw,72px)}
+.rh-lp .res-center{text-align:center}
+.rh-lp .wrap.res-narrow{max-width:760px}
+.rh-lp .res-inp{width:100%;min-width:0;font-family:var(--label);font-size:16px;padding:16px;border:1px solid #8C9090;border-radius:var(--r-lg);background:#fff;color:var(--on-surface);transition:border-color .2s}
+.rh-lp .res-inp:focus{outline:none;border-color:var(--on-surface-muted)}
+/* mobile headlines (390/375px): 34px, the black part balanced over at most 2
+   lines, the grey part on its own single line */
+@media(max-width:640px){
+  .rh-lp .res-h1{font-size:34px;text-wrap:balance}
+  .rh-lp .res-h1 br{display:none}
+  .rh-lp .res-h1 .g{display:block;white-space:nowrap}
+  /* The quiz's grey line ("To Hand Off The Front Desk?") needs 367px even at
+     30px, wider than a 390/375px phone allows, so this page uses the 30px floor
+     and lets only its grey part wrap, balanced over 2 lines. */
+  .rh-lp .res-h1.res-h1--long{font-size:30px}
+  .rh-lp .res-h1.res-h1--long .g{white-space:normal;text-wrap:balance}
+}
+/* line break shown on mobile only */
+.rh-lp .res-br-m{display:none}
+@media(max-width:640px){.rh-lp .res-br-m{display:inline}}
+
+/* lead form (lead-magnet-form.tsx): same fields and look as the /cleaning
+   modal form. lp.css styles the phone picker's inner inputs only inside
+   .modal, so the same rules are repeated here for .res-leadform. */
+.rh-lp .res-leadform{text-align:left}
+.rh-lp .res-leadform label{font-family:var(--body);font-size:14px;font-weight:500;display:block;margin:14px 0 6px}
+.rh-lp .res-leadform label:first-child{margin-top:0}
+.rh-lp .res-leadform--dark label{color:#fff}
+.rh-lp .res-leadform .btn{width:100%;margin-top:22px}
+.rh-lp .res-leadform .btn[disabled]{opacity:.6;cursor:wait;transform:none}
+.rh-lp .res-leadform .cphone-input{flex:1;min-width:0;width:auto;font-family:var(--label);font-size:16px;color:var(--on-surface);border:none;border-radius:0 var(--r-lg) var(--r-lg) 0;padding:16px 16px 16px 12px;background:transparent}
+.rh-lp .res-leadform .cphone-input:focus{outline:none}
+.rh-lp .res-leadform .cphone-search{width:100%;font-family:var(--body);font-size:15px;color:var(--on-surface);padding:10px 12px;border:1px solid #E5E5E5;border-radius:var(--r-sm);background:#fff}
+.rh-lp .res-leadform .cphone-search:focus{outline:none;border-color:var(--on-surface-muted)}
+.rh-lp .res-leadform .cphone-panel{text-align:left}
+/* lighter red on dark panels (#FF8A80 on #141416 is about 8:1 contrast) */
+.rh-lp .res-leadform--dark .form-error{color:#FF8A80}
+.rh-lp .res-leadform--dark .form-consent{color:var(--on-secondary-muted)}
+@keyframes rhResFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes rhResPop{from{opacity:.3;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* front-office kit */
+.rh-lp .res-kitgrid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(28px,5vw,72px);align-items:center;width:100%}
+/* let the columns shrink below the phone field's intrinsic width on narrow phones */
+.rh-lp .res-kitgrid>*{min-width:0}
+@media(max-width:880px){.rh-lp .res-kitgrid{grid-template-columns:1fr;gap:32px}.rh-lp .res-stage.res-kit{min-height:0}}
+.rh-lp .res-kit .res-sub{margin:0 0 28px;max-width:48ch;text-wrap:balance}
+.rh-lp .res-inside{list-style:none;display:flex;flex-direction:column;gap:14px}
+.rh-lp .res-inside li{display:flex;gap:14px;align-items:flex-start;font-size:17px;line-height:1.55}
+/* 24px grey circle, centred on the first text line (17px x 1.55 = 26.35px) */
+.rh-lp .res-inside .ic{flex:none;width:24px;height:24px;border-radius:50%;background:var(--surface-muted);color:var(--on-surface);display:flex;align-items:center;justify-content:center;margin-top:1px}
+.rh-lp .res-inside .ic svg{display:block}
+.rh-lp .res-inside .txt{text-wrap:pretty}
+.rh-lp .res-kitcard{background:var(--dark-panel);color:#fff;border-radius:var(--r-lg);padding:clamp(28px,3vw,40px)}
+.rh-lp .res-klabel{font-family:var(--label);text-transform:uppercase;letter-spacing:.08em;font-size:12px;color:var(--on-secondary-muted);margin-bottom:10px}
+.rh-lp .res-kitcard h2{font-size:clamp(24px,2.6vw,30px);font-weight:600;margin-bottom:8px}
+.rh-lp .res-kitcard .res-cardp{color:var(--on-secondary-muted);font-size:16px;margin-bottom:20px}
+.rh-lp .res-alt{text-align:center;font-size:14px;color:var(--on-secondary-muted);margin-top:18px}
+.rh-lp .res-alt a{color:#9BB8FF}
+.rh-lp .res-trust{font-size:13px;color:var(--on-secondary-muted);margin-top:12px;text-align:center}
+
+/* missed-call calculator */
+.rh-lp .res-hero{margin-bottom:clamp(28px,3.5vw,40px)}
+.rh-lp .res-tool{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.4vw,26px);align-items:stretch;text-align:left}
+@media(max-width:860px){.rh-lp .res-tool{grid-template-columns:1fr}.rh-lp .res-stage.res-calc{min-height:0}}
+.rh-lp .res-panel{background:var(--surface-muted);border-radius:var(--r-lg);padding:clamp(24px,3vw,36px);align-self:start}
+.rh-lp .res-tool>*{min-width:0}
+.rh-lp .res-panel h2{font-size:22px;font-weight:600;letter-spacing:-0.02em;margin-bottom:4px}
+.rh-lp .res-panel .res-psub{color:var(--on-surface-muted);font-size:15px;margin-bottom:20px}
+.rh-lp .res-field{margin-bottom:16px}
+.rh-lp .res-field:last-child{margin-bottom:0}
+.rh-lp .res-field label{display:block;font-family:var(--label);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--on-surface-muted);margin-bottom:8px}
+.rh-lp .res-row{display:flex;align-items:center;gap:12px}
+.rh-lp .res-row input[type=range]{flex:1;min-width:0;accent-color:var(--primary);height:4px}
+.rh-lp .res-val{font-family:var(--head);font-weight:600;font-size:19px;min-width:76px;text-align:right}
+.rh-lp .res-result{background:var(--dark-panel);color:#fff;border-radius:var(--r-lg);padding:clamp(24px,3vw,36px);display:flex;flex-direction:column}
+.rh-lp .res-bignum{font-family:var(--head);font-weight:600;font-size:clamp(40px,6vw,62px);letter-spacing:-0.04em;color:#fff;line-height:1}
+.rh-lp .res-bignum.flash{animation:rhResPop .4s ease}
+.rh-lp .res-cap{color:var(--on-secondary-muted);font-size:14px;margin-top:10px}
+.rh-lp .res-brk{margin:18px 0;border-top:1px solid rgba(255,255,255,.12);padding-top:16px;display:flex;flex-direction:column;gap:10px}
+.rh-lp .res-line{display:flex;justify-content:space-between;gap:16px;font-size:15px;color:var(--on-secondary-muted)}
+.rh-lp .res-line b{color:#fff;font-weight:700}
+.rh-lp .res-recover{background:rgba(31,102,255,.16);color:#9BB8FF;border-radius:var(--r-md);padding:12px 14px;font-size:15px}
+.rh-lp .res-recover b{color:#fff}
+.rh-lp .res-ctas{margin-top:auto;padding-top:20px;display:flex;flex-direction:column;gap:10px}
+.rh-lp .res-note{color:var(--on-surface-muted);font-size:13px;text-align:center;max-width:900px;margin:24px auto 0;line-height:1.6;text-wrap:balance}
+
+/* front-desk readiness quiz */
+.rh-lp .res-qhero{padding-top:clamp(40px,6vw,64px)}
+.rh-lp .res-quiz{padding-bottom:clamp(64px,10vw,120px)}
+.rh-lp .res-progress{height:5px;background:var(--surface-muted);border-radius:var(--r-full);overflow:hidden;margin:clamp(24px,4vw,40px) 0 26px}
+.rh-lp .res-progress span{display:block;height:100%;width:0;background:var(--primary);border-radius:var(--r-full);transition:width .35s ease}
+.rh-lp .res-q{animation:rhResFade .35s ease}
+.rh-lp .res-qnum{font-family:var(--label);text-transform:uppercase;letter-spacing:.08em;font-size:12px;color:var(--on-surface-muted);margin-bottom:10px}
+.rh-lp .res-q h2{font-size:clamp(22px,2.8vw,28px);font-weight:600;letter-spacing:-0.02em;margin-bottom:22px}
+.rh-lp .res-opts{display:flex;flex-direction:column;gap:12px}
+.rh-lp .res-opt{font-family:var(--body);text-align:left;background:var(--surface-muted);color:var(--on-surface);border:2px solid transparent;border-radius:var(--r-lg);padding:18px 22px;font-size:17px;cursor:pointer;transition:border-color .2s,background .2s,transform .15s}
+.rh-lp .res-opt:hover{transform:translateX(4px);background:#eaecf1}
+.rh-lp .res-opt.sel{border-color:var(--primary);background:#fff}
+.rh-lp .res-opt:focus-visible{outline:3px solid var(--primary);outline-offset:3px}
+.rh-lp .res-navrow{display:flex;justify-content:space-between;align-items:center;margin-top:24px}
+.rh-lp .res-back{background:none;border:none;color:var(--on-surface-muted);font-family:var(--body);font-size:15px;cursor:pointer}
+.rh-lp .res-qresult{text-align:center;padding-top:clamp(40px,5vw,56px);animation:rhResFade .4s ease}
+.rh-lp .res-qresult h2{font-size:clamp(26px,3.6vw,38px);font-weight:600;letter-spacing:-0.02em;margin-bottom:14px}
+.rh-lp .res-say{color:var(--on-surface-muted);font-size:18px;max-width:50ch;margin:0 auto 24px}
+.rh-lp .res-plan{background:var(--dark-panel);color:#fff;border-radius:var(--r-lg);padding:clamp(24px,3vw,34px);text-align:left;max-width:560px;margin:0 auto 24px}
+.rh-lp .res-plan h3{font-size:20px;font-weight:600;letter-spacing:-0.02em;margin-bottom:14px}
+.rh-lp .res-plan ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.rh-lp .res-plan li{display:flex;gap:12px;color:var(--on-secondary-muted);font-size:16px}
+.rh-lp .res-plan li::before{content:"";flex:none;width:10px;height:10px;border-radius:3px;background:var(--primary);margin-top:7px}
+.rh-lp .res-qctas{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.rh-lp .res-again{background:none;border:none;color:var(--primary);font-family:var(--body);font-size:15px;cursor:pointer;margin-top:20px}
+
+/* thank-you */
+.rh-lp .res-ty .res-inner{max-width:720px;margin:0 auto}
+.rh-lp .res-tick{width:72px;height:72px;border-radius:50%;background:var(--tag-blue-bg);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:700;margin:0 auto 24px}
+.rh-lp .res-ty .res-sub{max-width:720px;margin:0 auto 32px}
+.rh-lp .res-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+@media(prefers-reduced-motion:reduce){
+  .rh-lp .res-q,.rh-lp .res-qresult,.rh-lp .res-bignum.flash{animation:none}
+  .rh-lp .res-opt:hover{transform:none}
+  .rh-lp .res-progress span{transition:none}
+}
