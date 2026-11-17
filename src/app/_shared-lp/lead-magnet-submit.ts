@@ -11,9 +11,8 @@ import { trackLeadSubmit } from "@/lib/gtm";
    While a Form ID below is empty, that lead magnet skips Kit.com and only
    sends to Web3Forms. */
 export const KIT_FORM_ID_FRONT_OFFICE_KIT = "10198030";
-// Fill these in once the Kit.com forms exist.
-export const KIT_FORM_ID_READINESS_QUIZ = "";
-export const KIT_FORM_ID_MISSED_CALL_CALCULATOR = "";
+export const KIT_FORM_ID_READINESS_QUIZ = "10201462";
+export const KIT_FORM_ID_MISSED_CALL_CALCULATOR = "10201454";
 
 /* Web3Forms production key, same as /cleaning. */
 const WEB3FORMS_ACCESS_KEY = "8326652c-ecb6-4130-8f8b-5a477deaae3d";

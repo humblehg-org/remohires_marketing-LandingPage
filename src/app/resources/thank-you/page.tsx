@@ -19,28 +19,22 @@ function copyFor(lm: string | undefined): Copy {
   if (lm === "kit") {
     return {
       headline: <>Your Kit Is Ready.<br /><span className="g">Grab It Below.</span></>,
-      // Restore once the Kit.com incentive email is confirmed
-      // Removed sentence: "We also sent a copy to your inbox, so you always have it. " (goes before the sentence below)
-      // The <br> only shows on mobile (2 lines there, 1 line on desktop).
-      sub: <>Download the Front-Office Kit now<br className="res-br-m" /> and put the scripts to work today.</>,
+      // The <br> only shows on mobile, so no single word ends up alone on a line there.
+      sub: <>We also sent a copy to your inbox, so you always have it. Download the Front-Office Kit now<br className="res-br-m" /> and put the scripts to work today.</>,
       download: true,
     };
   }
   if (lm === "calculator") {
     return {
       headline: <>Your Number Is On Its Way.<br /><span className="g">Check Your Inbox.</span></>,
-      // Restore once Kit.com sends this email automatically
-      // Original: "Your missed-call report is landing in your inbox now, with the full breakdown and the simple way to win those calls back. If it is not there in a minute, check spam or promotions."
-      sub: "We will send your missed-call report with the full breakdown to your inbox shortly.",
+      sub: "Check your inbox. We are sending you the simple way to win those missed calls back. If it is not there in a minute, check spam or promotions.",
       download: false,
     };
   }
   if (lm === "quiz") {
     return {
       headline: <>Your Score Is On Its Way.<br /><span className="g">Check Your Inbox.</span></>,
-      // Restore once Kit.com sends this email automatically
-      // Original: "Your readiness score and your next 3 moves are landing in your inbox now. If it is not there in a minute, check spam or promotions."
-      sub: "We will send your readiness score and your next 3 moves to your inbox shortly.",
+      sub: "Check your inbox. Your next 3 moves are on their way. If it is not there in a minute, check spam or promotions.",
       download: false,
     };
   }

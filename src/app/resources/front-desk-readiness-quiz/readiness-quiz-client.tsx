@@ -83,12 +83,13 @@ export default function ReadinessQuizClient() {
     go(0);
   }
 
-  /* Score, result, and every question with the chosen answer, as readable
-     fields for the team email. */
+  /* Score, result, the 3 moves for that result, and every question with the
+     chosen answer, as readable fields for the team email. */
   function quizFields(): Record<string, string> {
     const fields: Record<string, string> = {
       "Score": `${total} / 13`,
       "Result": result ? `${result.badge}: ${result.band}` : "",
+      "Next 3 moves": result ? result.plan.map((p, i) => `${i + 1}. ${p}`).join("\n") : "",
     };
     QS.forEach((item, i) => {
       const j = picked[i];
@@ -143,9 +144,11 @@ export default function ReadinessQuizClient() {
             <div className="eyebrow res-pill">{result.badge}</div>
             <h2>{result.band}</h2>
             <p className="res-say">{result.say}</p>
+            {/* The 3 moves themselves are emailed (Kit.com) and sent to the team
+                (Web3Forms), not shown here. */}
             <div className="res-plan">
-              <h3>Your Next 3 Moves</h3>
-              <ul>{result.plan.map((p) => <li key={p}>{p}</li>)}</ul>
+              <h3>Your Next 3 Moves Are Ready</h3>
+              <p>Tell us where to send them and we will email you 3 practical steps to get every call answered and every quote followed up.</p>
             </div>
             <div className="res-qctas">
               <LeadMagnetForm
