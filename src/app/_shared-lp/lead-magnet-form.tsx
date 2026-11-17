@@ -8,7 +8,8 @@ import { submitLeadMagnet, trackLeadMagnetSubmit } from "@/app/_shared-lp/lead-m
 /* Lead form for the /resources lead magnets: the same fields, input style,
    phone picker, error text, and consent line as the /cleaning lead form.
    On success it fires the lead events and redirects to
-   /resources/thank-you?lm=<thankYouLm>. */
+   /resources/thank-you?lm=<thankYouLm>, plus any getThankYouParams
+   (e.g. &band=B or &tier=2). */
 export function LeadMagnetForm({
   idPrefix,
   buttonText,
@@ -19,6 +20,7 @@ export function LeadMagnetForm({
   eventBase,
   thankYouLm,
   getExtra,
+  getThankYouParams,
 }: {
   /** Unique per page, used for the input ids. */
   idPrefix: string;
@@ -33,6 +35,8 @@ export function LeadMagnetForm({
   thankYouLm: "kit" | "calculator" | "quiz";
   /** Readable extra fields for the team email, read at submit time. */
   getExtra?: () => Record<string, string>;
+  /** Extra query params for the thank-you URL, read at submit time. */
+  getThankYouParams?: () => Record<string, string>;
 }) {
   const router = useRouter();
   const [sending, setSending] = useState(false);
@@ -60,7 +64,8 @@ export function LeadMagnetForm({
     });
     if (ok) {
       trackLeadMagnetSubmit(eventBase);
-      router.push(`/resources/thank-you?lm=${thankYouLm}`);
+      const params = new URLSearchParams({ lm: thankYouLm, ...getThankYouParams?.() });
+      router.push(`/resources/thank-you?${params.toString()}`);
       return;
     }
     setFormError(true);

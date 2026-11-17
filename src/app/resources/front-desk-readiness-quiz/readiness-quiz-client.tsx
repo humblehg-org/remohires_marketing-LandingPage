@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { LeadMagnetForm } from "@/app/_shared-lp/lead-magnet-form";
 import { KIT_FORM_ID_READINESS_QUIZ } from "@/app/_shared-lp/lead-magnet-submit";
+import { QUIZ_BAND_PAGE, QUIZ_MAX_SCORE, quizBand } from "@/app/_shared-lp/lead-magnet-categories";
 
 /* Questions and points, unchanged from the draft. */
 const QS: { q: string; a: [string, number][] }[] = [
@@ -54,6 +55,8 @@ export default function ReadinessQuizClient() {
 
   const total = picked.reduce<number>((s, j, i) => s + (j === undefined ? 0 : QS[i].a[j][1]), 0);
   const result = done ? scoreResult(total) : null;
+  const band = quizBand(total);
+  const bandPage = QUIZ_BAND_PAGE[band];
 
   function go(n: number) {
     setCur(n);
@@ -87,7 +90,8 @@ export default function ReadinessQuizClient() {
      chosen answer, as readable fields for the team email. */
   function quizFields(): Record<string, string> {
     const fields: Record<string, string> = {
-      "Score": `${total} / 13`,
+      "Score": `${total} / ${QUIZ_MAX_SCORE}`,
+      "Band": band,
       "Result": result ? `${result.badge}: ${result.band}` : "",
       "Next 3 moves": result ? result.plan.map((p, i) => `${i + 1}. ${p}`).join("\n") : "",
     };
@@ -142,13 +146,14 @@ export default function ReadinessQuizClient() {
         {result && (
           <div className="res-qresult">
             <div className="eyebrow res-pill">{result.badge}</div>
+            <div className="res-bandtag">Band {band} · Score {total} of {QUIZ_MAX_SCORE}</div>
             <h2>{result.band}</h2>
             <p className="res-say">{result.say}</p>
             {/* The 3 moves themselves are emailed (Kit.com) and sent to the team
                 (Web3Forms), not shown here. */}
             <div className="res-plan">
               <h3>Your Next 3 Moves Are Ready</h3>
-              <p>Tell us where to send them and we will email you 3 practical steps to get every call answered and every quote followed up.</p>
+              <p>Your score puts you in Band {band}. We will email you the Readiness Guide, and your 3 moves are on page {bandPage}.</p>
             </div>
             <div className="res-qctas">
               <LeadMagnetForm
@@ -161,6 +166,7 @@ export default function ReadinessQuizClient() {
                 eventBase="cleaning_readiness_quiz"
                 thankYouLm="quiz"
                 getExtra={quizFields}
+                getThankYouParams={() => ({ band })}
               />
             </div>
             <button type="button" className="res-again" onClick={restart}>Start Over</button>

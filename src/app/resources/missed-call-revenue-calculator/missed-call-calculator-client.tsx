@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { LeadMagnetForm } from "@/app/_shared-lp/lead-magnet-form";
 import { KIT_FORM_ID_MISSED_CALL_CALCULATOR } from "@/app/_shared-lp/lead-magnet-submit";
+import { CALC_TIER_PAGE, calcTier } from "@/app/_shared-lp/lead-magnet-categories";
 
 function money(n: number) {
   return "$" + Math.round(n).toLocaleString("en-US");
@@ -22,6 +23,9 @@ export default function MissedCallCalculatorClient() {
   const lostClients = missedYear * CLOSE;
   const clientYear = (+job || 0) * freq * 12;
   const atRisk = lostClients * clientYear;
+  // Tier comes from the same yearly number shown as the main result.
+  const tier = calcTier(atRisk);
+  const tierPage = CALC_TIER_PAGE[tier];
 
   // Replay the number's pop animation on every change, as the draft did.
   useEffect(() => {
@@ -40,6 +44,7 @@ export default function MissedCallCalculatorClient() {
       "Average job value (USD)": money(+job || 0),
       "Visits per month for a regular": String(freq),
       "Revenue at risk per year": money(atRisk),
+      "Tier": tier,
       "Missed calls per year": Math.round(missedYear).toLocaleString("en-US"),
       "New regulars lost per year": Math.round(lostClients).toLocaleString("en-US"),
       "Value of 1 regular per year": money(clientYear),
@@ -88,6 +93,7 @@ export default function MissedCallCalculatorClient() {
               <div className="res-line"><span>Value of 1 regular per year</span><b>{money(clientYear)}</b></div>
             </div>
             <div className="res-recover">Answer even half and that is <b>{money(atRisk / 2)}</b> a year back on the calendar. A remote front-office hire does exactly that.</div>
+            <p className="res-tierline">Your number puts you in Tier {tier}. We will email you the Missed-Call Playbook, and your 3 moves are on page {tierPage}.</p>
             <div className="res-ctas">
               <LeadMagnetForm
                 idPrefix="calc"
@@ -99,6 +105,7 @@ export default function MissedCallCalculatorClient() {
                 eventBase="cleaning_missed_call_calculator"
                 thankYouLm="calculator"
                 getExtra={reportFields}
+                getThankYouParams={() => ({ tier })}
               />
             </div>
           </div>
