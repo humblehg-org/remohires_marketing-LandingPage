@@ -15,6 +15,7 @@ export function LeadMagnetForm({
   buttonText,
   tone,
   kitFormId,
+  web3formsAccessKey,
   subject,
   source,
   eventBase,
@@ -28,6 +29,8 @@ export function LeadMagnetForm({
   /** "dark" when the form sits on a dark panel. */
   tone: "dark" | "light";
   kitFormId: string;
+  /** Web3Forms access key for this lead magnet (its own Auto Responder). */
+  web3formsAccessKey: string;
   subject: string;
   source: string;
   /** Tracking name, e.g. "cleaning_front_office_kit". */
@@ -54,6 +57,7 @@ export function LeadMagnetForm({
     const data = new FormData(form);
     const ok = await submitLeadMagnet({
       kitFormId,
+      web3formsAccessKey,
       subject,
       source,
       fullName: String(data.get("fullname") ?? "").trim(),

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { LeadMagnetForm } from "@/app/_shared-lp/lead-magnet-form";
-import { KIT_FORM_ID_FRONT_OFFICE_KIT } from "@/app/_shared-lp/lead-magnet-submit";
+import { KIT_FORM_ID_FRONT_OFFICE_KIT, WEB3FORMS_KEY_FRONT_OFFICE_KIT } from "@/app/_shared-lp/lead-magnet-submit";
 
 /* The last two words of each item are joined with a non-breaking space so a
    single word or number never ends up alone on the second line. */
@@ -44,6 +44,7 @@ export default function FrontOfficeKitClient() {
               buttonText="Send Me The Kit"
               tone="dark"
               kitFormId={KIT_FORM_ID_FRONT_OFFICE_KIT}
+              web3formsAccessKey={WEB3FORMS_KEY_FRONT_OFFICE_KIT}
               subject="New lead: Cleaning Front-Office Kit"
               source="cleaning-front-office-kit"
               eventBase="cleaning_front_office_kit"

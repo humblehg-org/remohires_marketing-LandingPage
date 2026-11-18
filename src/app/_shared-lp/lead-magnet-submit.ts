@@ -14,8 +14,14 @@ export const KIT_FORM_ID_FRONT_OFFICE_KIT = "10198030";
 export const KIT_FORM_ID_READINESS_QUIZ = "10201462";
 export const KIT_FORM_ID_MISSED_CALL_CALCULATOR = "10201454";
 
-/* Web3Forms production key, same as /cleaning. */
-const WEB3FORMS_ACCESS_KEY = "8326652c-ecb6-4130-8f8b-5a477deaae3d";
+/* Web3Forms access keys, one per lead magnet. Each key is its own Web3Forms
+   form with its own Auto Responder. Web3Forms sends the Auto Responder to the
+   field named "email" and fills {name} from the field named "name".
+   The booking forms on /cleaning and /property-management keep their own key
+   and are not affected by these. */
+export const WEB3FORMS_KEY_FRONT_OFFICE_KIT = "bc7b91dd-93fb-473f-b84f-2f1de8010798";
+export const WEB3FORMS_KEY_MISSED_CALL_CALCULATOR = "aed57513-ee87-4f54-8a6f-582a73baa7fe";
+export const WEB3FORMS_KEY_READINESS_QUIZ = "3a679c61-31bb-4583-8fc8-6e3ebff151f9";
 const WEB3FORMS_URL = "https://api.web3forms.com/submit";
 
 function kitFormUrl(formId: string) {
@@ -25,6 +31,8 @@ function kitFormUrl(formId: string) {
 export type LeadMagnetSubmission = {
   /** Public Kit.com Form ID, e.g. KIT_FORM_ID_FRONT_OFFICE_KIT. Empty = skip Kit.com. */
   kitFormId: string;
+  /** Web3Forms access key for this lead magnet, e.g. WEB3FORMS_KEY_FRONT_OFFICE_KIT. */
+  web3formsAccessKey: string;
   /** Subject line of the Web3Forms team email. */
   subject: string;
   /** Hidden "source" field in the Web3Forms email, e.g. "cleaning-front-office-kit". */
@@ -55,10 +63,13 @@ async function sendToKit(s: LeadMagnetSubmission) {
 
 async function sendToWeb3Forms(s: LeadMagnetSubmission) {
   const body = new FormData();
-  body.append("access_key", WEB3FORMS_ACCESS_KEY);
+  body.append("access_key", s.web3formsAccessKey);
   body.append("subject", s.subject);
   body.append("from_name", "RemoHires Cleaning Resources");
   body.append("source", s.source);
+  // "name" fills {name} in the Web3Forms Auto Responder; "fullname" is kept
+  // so the team email looks the same as before.
+  body.append("name", s.fullName);
   body.append("fullname", s.fullName);
   body.append("email", s.email);
   body.append("phone", s.phone);

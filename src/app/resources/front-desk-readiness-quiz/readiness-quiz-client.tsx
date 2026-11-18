@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { LeadMagnetForm } from "@/app/_shared-lp/lead-magnet-form";
-import { KIT_FORM_ID_READINESS_QUIZ } from "@/app/_shared-lp/lead-magnet-submit";
+import { KIT_FORM_ID_READINESS_QUIZ, WEB3FORMS_KEY_READINESS_QUIZ } from "@/app/_shared-lp/lead-magnet-submit";
 import { QUIZ_BAND_PAGE, QUIZ_MAX_SCORE, quizBand } from "@/app/_shared-lp/lead-magnet-categories";
 
 /* Questions and points, unchanged from the draft. */
@@ -161,6 +161,7 @@ export default function ReadinessQuizClient() {
                 buttonText="Send Me The Action Plan"
                 tone="light"
                 kitFormId={KIT_FORM_ID_READINESS_QUIZ}
+                web3formsAccessKey={WEB3FORMS_KEY_READINESS_QUIZ}
                 subject="New lead: Cleaning Readiness Quiz"
                 source="cleaning-readiness-quiz"
                 eventBase="cleaning_readiness_quiz"
